@@ -1457,7 +1457,7 @@ window.decks.de_verbs = [
   { id: 166, word: "planen", uk: "планувати", ru: "планировать" },
   { id: 167, word: "probieren", uk: "пробувати", ru: "пробовать" },
   { id: 168, word: "rechnen", uk: "рахувати", ru: "считать" },
-  { id: 169, word: "regnen", uk: "дощити", ru: "идти" },
+  { id: 169, word: "regnen", uk: "дощити", ru: "дождить" },
   { id: 170, word: "riechen", uk: "пахнути", ru: "пахнуть" },
   { id: 171, word: "rufen", uk: "кликати", ru: "звать" },
   { id: 172, word: "sammeln", uk: "збирати", ru: "собирать" },
