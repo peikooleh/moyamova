@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <!-- ==========================================================
   Project: MOYAMOVA
   File: index.html
@@ -10,321 +9,328 @@
 <html lang="uk">
 <head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DZL66KME4H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-DZL66KME4H', { 'send_page_view': false });
-  window.trackPageView = function(path) {
-    try {
-      gtag('event', 'page_view', { page_path: path || (location.pathname + location.hash), page_title: document.title });
-    } catch(e) { }
-  };
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZL66KME4H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-DZL66KME4H', { 'send_page_view': false });
+    window.trackPageView = function(path) {
+      try {
+        gtag('event', 'page_view', { page_path: path || (location.pathname + location.hash), page_title: document.title });
+      } catch(e) { }
+    };
+  </script>
 
-<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
-<meta content="no-cache" http-equiv="Pragma"/>
-<meta content="0" http-equiv="Expires"/>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" name="viewport"/>
-<title>MOYAMOVA</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <title>MOYAMOVA</title>
 
-<meta property="og:url"
-<meta property="og:image"
-<meta name="twitter:image" content="https://moyamova.online/og-cover.png" content="https://moyamova.online/og-cover.png" content="https://moyamova.online/">
-<link href="./apple-touch-icon-180x180.png?v=1.0" rel="apple-touch-icon" sizes="180x180"/> 
-<link href="./apple-touch-icon-152x152.png?v=1.0" rel="apple-touch-icon" sizes="152x152"/>
-<link href="./apple-touch-icon-120x120.png?v=1.0" rel="apple-touch-icon" sizes="120x120"/>
-<link href="./apple-touch-icon-76x76.png?v=1.0" rel="apple-touch-icon" sizes="76x76"/>
-<link href="./favicon-192x192.png?v=1.0" rel="icon" sizes="192x192" type="image/png"/>
-<link href="./favicon-512x512.png?v=1.0" rel="icon" sizes="512x512" type="image/png"/>
-<link href="./favicon-256x256.png?v=1.0" rel="icon" sizes="256x256" type="image/png"/>
-<link href="./favicon-128x128.png?v=1.0" rel="icon" sizes="128x128" type="image/png"/>
-<link href="./favicon-48x48.png?v=1.0" rel="icon" sizes="48x48" type="image/png"/>
-<link href="./favicon-16x16.png?v=1.0" rel="icon" sizes="16x16" type="image/png"/>
-<link href="./favicon-32x32.png?v=1.0" rel="icon" sizes="32x32" type="image/png"/>
-<link href="./favicon.ico?v=1.0" rel="icon" type="image/x-icon"/>
-<link href="./site.webmanifest?v=1.0" rel="manifest"/>
-<meta content="yes" name="mobile-web-app-capable"/>
-<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
-<meta content="MOYAMOVA" name="apple-mobile-web-app-title"/>
-<link href="tokens.css" rel="stylesheet"/>
-<link href="base.css" rel="stylesheet"/>
-<link href="components.css" rel="stylesheet"/>
-<link href="modals.css" rel="stylesheet"/>
-<link href="states.css" rel="stylesheet"/>
-<link href="overrides.css" rel="stylesheet"/>
-<!-- split injected -->
-<!-- ============================ SOCIAL PREVIEW ============================ -->
-<meta content="website" property="og:type"/>
-<meta content="MOYAMOVA · учите слова легко" property="og:title"/>
-<meta content="Карточки, быстрые сессии, Избранное и статистика прогресса. Учите новые слова каждый день без рекламы и подписки." property="og:description"/><meta content="image/png" property="og:image:type"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="MOYAMOVA · учите слова легко" name="twitter:title"/>
-<meta content="Карточки, быстрые сессии, Избранное и статистика прогресса. Учите новые слова каждый день без рекламы и подписки." name="twitter:description"/><style id="modal-inline-fix-1.6.3-1758932002">
-/* Critical inline for iOS cache issues — v1.6.5-1758932002 */
-.modal .modalHeader{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:14px 14px!important;border-bottom:none!important;font-size:20px!important;font-weight:700!important;line-height:1.2!important}
-.modal .iconBtn.small{width:32px!important;height:32px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:18px!important;border-radius:8px!important;background:transparent!important;border:1px solid rgba(255,255,255,.08)!important;opacity:.9!important}
-#modal .modalBody{padding-bottom:0px!important}
-#modal .dictList{padding-bottom:14px!important}
-#modal .dictList > *:last-child{margin-bottom:8px!important}
-.cta{padding:.5rem 1rem;border-radius:.5rem;border:1px solid currentColor;text-decoration:none;display:inline-block}
-.cta:hover{transform:translateY(-1px)}
-</style>
-<style id="dicts-modal-fix">#modal .modalHeader{border-bottom:none!important}</style>
-<link href="./tokens.css?v=1.0" rel="stylesheet"/>
-<link href="./base.css?v=1.0" rel="stylesheet"/>
-<link href="./components.css?v=1.0" rel="stylesheet"/>
-<link href="./modals.css?v=1.0" rel="stylesheet"/>
-<link href="./states.css?v=1.0" rel="stylesheet"/>
-<link href="./overrides.css?v=1.0" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet"/><style>
-/* overrides: brand font and larger header logo */
-.header .logo img, header .logo img, .navbar .logo img, .site-header .logo img { height: 36px !important; width: auto !important; }
-.navbar-brand, .site-title, .brand, header .title, .app-name {
-  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.2px;
-}
-header .tagline, .site-header .tagline, .subtitle, .slogan { display: none !important; }
-</style>  <link rel="canonical" href="https://moyamova.online/">
-  <meta name="description" content="MOYAMOVA — тренажёр слов и диалога. Оффлайн, без регистрации, RU/UK/EN/DE.">
-  <link rel="stylesheet" href="./donate.css?v=1">
+  <!-- ============================ SOCIAL PREVIEW ============================ -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="MOYAMOVA · учите слова легко"/>
+  <meta property="og:description" content="Карточки, быстрые сессии, Избранное и статистика прогресса. Учите новые слова каждый день без рекламы и подписки."/>
+  <meta property="og:image" content="https://moyamova.online/og-cover.png"/>
+  <meta property="og:url" content="https://moyamova.online/"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="MOYAMOVA · учите слова легко"/>
+  <meta name="twitter:description" content="Карточки, быстрые сессии, Избранное и статистика прогресса. Учите новые слова каждый день без рекламы и подписки."/>
+  <meta name="twitter:image" content="https://moyamova.online/og-cover.png"/>
 
-<meta name="theme-color" content="#ffffff">
+  <!-- ============================ ICONS & MANIFEST ============================ -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-180x180.png?v=1.0"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="./apple-touch-icon-152x152.png?v=1.0"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="./apple-touch-icon-120x120.png?v=1.0"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="./apple-touch-icon-76x76.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="./favicon-512x512.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="256x256" href="./favicon-256x256.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="128x128" href="./favicon-128x128.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="./favicon-48x48.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png?v=1.0"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=1.0"/>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico?v=1.0"/>
+  <link rel="manifest" href="./site.webmanifest?v=1.0"/>
 
-<link rel="alternate" href="https://moyamova.online/" hreflang="x-default">
-<link rel="alternate" href="https://moyamova.online/" hreflang="ru">
-<link rel="alternate" href="https://moyamova.online/uk/" hreflang="uk">
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="MOYAMOVA"/>
+  <meta name="theme-color" content="#ffffff"/>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "MOYAMOVA",
-  "url": "https://moyamova.online/",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Web",
-  "inLanguage": ["ru","uk"],
-  "description": "MOYAMOVA — тренажёр для запоминания слов и фраз. Локализация RU/UK, офлайн (PWA), поддержка Monobank и PayPal.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "brand": { "@type": "Brand", "name": "MOYAMOVA" },
-  "publisher": { "@type": "Organization", "name": "MOYAMOVA", "email": "peiko.oleh@gmail.com" }
-}
-</script>
+  <!-- ============================ STYLES ============================ -->
+  <link rel="stylesheet" href="./tokens.css?v=1.0"/>
+  <link rel="stylesheet" href="./base.css?v=1.0"/>
+  <link rel="stylesheet" href="./components.css?v=1.0"/>
+  <link rel="stylesheet" href="./modals.css?v=1.0"/>
+  <link rel="stylesheet" href="./states.css?v=1.0"/>
+  <link rel="stylesheet" href="./overrides.css?v=1.0"/>
+  <link rel="stylesheet" href="./donate.css?v=1.0"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap"/>
 
-</head>
-  <script src="orientation.js" defer></script>
-<body>
+  <link rel="canonical" href="https://moyamova.online/"/>
+  <meta name="description" content="MOYAMOVA — тренажёр слов и диалога. Оффлайн, без регистрации, RU/UK/EN/DE."/>
 
+  <link rel="alternate" href="https://moyamova.online/" hreflang="x-default"/>
+  <link rel="alternate" href="https://moyamova.online/" hreflang="ru"/>
+  <link rel="alternate" href="https://moyamova.online/uk/" hreflang="uk"/>
 
-<header>
-<div class="brand">
-<img alt="MOYAMOVA" class="logo-mark" decoding="async" height="28" loading="eager" src="./favicon-32x32.png?v=1.0" srcset="./logo_64.png?v=1.0 2x, ./favicon-128x128.png?v=1.0 4x, ./logo_256.png?v=1.0 8x" width="28"/>
-<div class="title-wrap">
-<h1 id="title">MOYAMOVA</h1>
-</div>
-</div>
-<div class="sectionDivider settingsDividerBelowToggle"></div>
-<div class="controls">
-<button aria-label="Тема" class="iconBtn" data-title-key="tt_ui_theme" id="themeToggleBtn">🌞</button>
-<button aria-label="Язык интерфейса" class="iconBtn" data-title-key="tt_ui_lang" id="langToggleBtn">🇺🇦</button>
-<button aria-label="Словари" class="iconBtn gear" data-title-key="tt_dicts" id="dictsBtn">📚</button>
-</div></header>
-<details class="dictSpoiler" id="dictSpoiler">
-<summary><span class="flag" id="dictFlag">📚</span><span class="name" id="dictTitleInSpoiler">—</span></summary>
-<div id="setControls">
-<div aria-label="Sets" class="setsBar" id="setsBar"></div>
-<div aria-live="polite" class="setStats statsBar" id="setStats"></div>
-</div>
-</details>
-<main>
-<section class="card">
-<div class="topRow">
-<div class="stars" id="stars"></div>
-<button aria-label="Добавить в избранное" class="heart" data-title-key="tt_favorites" id="favBtn">♡</button>
-</div>
-<div class="word" id="wordText">—</div>
-<div class="hint" id="hintText">—</div>
-<div class="options" id="optionsRow"></div>
-<div class="statsBar" id="statsBar">
-        Всего слов: 0 / Изученно: 0 / Ошибок: 0
-      </div>
-</section>
-<div aria-label="Extra actions" class="extraActions">
-<button aria-label="Инструкция" class="iconBtn" data-title-key="tt_help" id="btnInfo">ℹ️</button>
-<button aria-label="Поддержка" class="iconBtn" data-title-key="tt_support" id="btnDonate">💰</button>
-<button aria-label="Настройки" class="iconBtn" data-title-key="tt_settings" id="btnSettings">⚙️</button>
-</div>
-<!-- Info modal with footer OK in same style as Dicts modal -->
-<!-- Settings modal (same structure as Info) -->
-<div aria-labelledby="settingsTitle" aria-modal="true" class="modal hidden" id="settingsModal" role="dialog">
-<div class="modalFrame">
-<div class="modalHeader">
-<div class="modalTitle" data-i18n="settingsTitle" id="settingsTitle">Настройки</div>
-<button aria-label="Close" class="iconBtn small" id="settingsClose">✖️</button>
-</div>
-<div class="modalBody">
-<div class="infoContent" id="settingsContent">
-<!-- Mode toggle -->
-<h3 class="backupTitle" data-i18n="modeSelection" style="text-align:left">Выбор режима</h3>
-<div id="modeToggleWrap">
-<label class="switchLabel">
-<span data-i18n="modeNormal">Обычный режим</span>
-<label class="switch">
-<input id="modeToggle" type="checkbox"/>
-<span class="slider"></span>
-</label>
-<span data-i18n="modeHard">Сложный режим</span>
-</label>
-</div>
-<div class="sectionDivider"></div>
-<div id="backupSection">
-<h3 class="settingsSubtitle" data-i18n="backupTitle" style="text-align:left">Резервное копирование</h3>
-<div class="btnRow">
-<button class="btn" data-i18n="backupExport" id="btnBackupExport">Экспортировать</button>
-<button class="btn" data-i18n="backupImport" id="btnBackupImport">Импортировать</button>
-</div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  try {
-    var e = document.getElementById('btnBackupExport');
-    var i = document.getElementById('btnBackupImport');
-    if (e && window.App && App.Backup) e.addEventListener('click', function(){ App.Backup.export(); });
-    if (i && window.App && App.Backup) i.addEventListener('click', function(){ App.Backup.import(); });
-  } catch(_) {}
-});
-</script>
-</div>
-</div>
-<div class="modalActions center">
-<button class="btn primary" data-i18n="ok" id="settingsOk">OK</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Donate modal (same structure as Settings) -->
-<div aria-labelledby="donateTitle" aria-modal="true" class="modal hidden" id="donateModal" role="dialog">
-<div class="modalFrame">
-<div class="modalHeader">
-<div class="modalTitle" data-i18n="donateTitle" id="donateTitle">Поддержать проект</div>
-<button aria-label="Close" class="iconBtn small" id="donateClose">✖️</button>
-</div>
-<div class="modalBody">
-<div class="infoContent center" id="donateContent">
-<!-- Monobank -->
-<div class="donateBlock">
-  <div class="donateTitle" data-i18n="donateMonoTitle">Підтримати через Monobank</div>
-<a class="donatePrimary" href="#" id="monoDonateLink" rel="noopener" target="_blank" data-i18n="donateMonoOpen">
-    Відкрити Monobank
-  </a>
-</div>
-<!-- PayPal -->
-<div class="donateBlock">
-  <div class="donateTitle" data-i18n="donatePaypalTitle">Підтримати через PayPal</div>
-  <div class="mt-20" id="donate-button-container">
-    <a class="donatePrimary" href="#" id="paypalDonateLink" rel="noopener" target="_blank" data-i18n="donatePaypalOpen">
-      Відкрити PayPal
-    </a>
-<script>
-(function(){
-  // PayPal hosted button link (keeps your hosted_button_id)
-  const PAYPAL_BUTTON_ID = 'KFBR8BW5ZZTQ4'; // TODO: замените при необходимости
-  function paypalUrl(amount){
-    const base = `https://www.paypal.com/donate/?hosted_button_id=${PAYPAL_BUTTON_ID}`;
-    if (!amount || Number(amount) <= 0) return base;
-    return base + `&amount=${encodeURIComponent(String(amount))}`; // optional preset
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MOYAMOVA",
+    "url": "https://moyamova.online/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "inLanguage": ["ru","uk"],
+    "description": "MOYAMOVA — тренажёр для запоминания слов и фраз. Локализация RU/UK, офлайн (PWA), поддержка Monobank и PayPal.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "brand": { "@type": "Brand", "name": "MOYAMOVA" },
+    "publisher": { "@type": "Organization", "name": "MOYAMOVA", "email": "peiko.oleh@gmail.com" }
   }
-  const link = document.getElementById('paypalDonateLink');
-  if (link) link.addEventListener('click', function(e){
-    e.preventDefault();
-    const w = window.open(paypalUrl(0), '_blank', 'noopener');
-    if (w && w.opener) w.opener = null;
-  });
-})();
-</script>
-</div>
-</div
-<!-- Legal donate notice (plain, under PayPal block) -->
-<div class="donateLegalNote" role="note" style="margin:14px auto 0;max-width:600px;font-size:0.85rem;line-height:1.5;opacity:0.9;display:flex;gap:10px;align-items:flex-start;justify-content:center;text-align:left;">
-  <span class="icon" aria-hidden="true" style="font-size:18px;margin-top:2px;">⚖️</span>
-  <span data-i18n="donateLegalNote">Донат є добровільним пожертвуванням і не є оплатою товарів чи послуг.</span>
-</div>
-<script>
-(function(){
-  // Monobank donate
-  const MONO_JAR_ID = '56HNLifwyr';
-  const base = `https://send.monobank.ua/jar/${MONO_JAR_ID}`;
-  function monoUrl(a){ return (!a||Number(a)<=0) ? base : `${base}?amount=${Math.round(Number(a))}`; }
-  function openMono(a){ const w = window.open(monoUrl(a),'_blank','noopener'); if(w&&w.opener) w.opener=null; }
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('[data-mono-amount]'); if(!btn) return; e.preventDefault();
-    const val = Number(btn.getAttribute('data-mono-amount'));
-    if(val>0) openMono(val);
-    else {
-      const t=(window.T?T('donateMonoPrompt','Введіть суму у ₴'):'Введіть суму у ₴');
-      const userVal=prompt(t,'100'); if(userVal&&!isNaN(Number(userVal))&&Number(userVal)>0) openMono(userVal);
-    }
-  });
-  const link=document.getElementById('monoDonateLink');
-  if (link) link.addEventListener('click', function(e){ e.preventDefault(); openMono(0); });
-})();
-</script>
+  </script>
 
-</div>
-</div>
-<div class="modalActions center">
-  <button class="btn primary" data-i18n="ok" id="donateOk">OK</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div aria-labelledby="infoTitle" aria-modal="true" class="modal hidden" id="infoModal" role="dialog">
-<div class="modalFrame">
-<div class="modalHeader">
-<div class="modalTitle" id="infoTitle">Info</div>
-<button aria-label="Close" class="iconBtn small" id="infoClose">✖️</button>
-</div>
-<div class="modalBody">
-<div class="infoContent" id="infoContent"></div>
-</div>
-<div class="modalActions center">
-<button class="primary" id="infoOk">OK</button>
-</div>
-</div>
-</div>
+  <!-- Critical inline fixes (оставлены как в твоей версии) -->
+  <style id="modal-inline-fix-1.6.3-1758932002">
+  /* Critical inline for iOS cache issues — v1.6.5-1758932002 */
+  .modal .modalHeader{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:14px 14px!important;border-bottom:none!important;font-size:20px!important;font-weight:700!important;line-height:1.2!important}
+  .modal .iconBtn.small{width:32px!important;height:32px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:18px!important;border-radius:8px!important;background:transparent!important;border:1px solid rgba(255,255,255,.08)!important;opacity:.9!important}
+  #modal .modalBody{padding-bottom:0px!important}
+  #modal .dictList{padding-bottom:14px!important}
+  #modal .dictList > *:last-child{margin-bottom:8px!important}
+  .cta{padding:.5rem 1rem;border-radius:.5rem;border:1px solid currentColor;text-decoration:none;display:inline-block}
+  .cta:hover{transform:translateY(-1px)}
+  </style>
+  <style id="dicts-modal-fix">#modal .modalHeader{border-bottom:none!important}</style>
+
+  <!-- Фирменные шрифты/логотип размер -->
+  <style>
+  .header .logo img, header .logo img, .navbar .logo img, .site-header .logo img { height: 36px !important; width: auto !important; }
+  .navbar-brand, .site-title, .brand, header .title, .app-name {
+    font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px;
+  }
+  header .tagline, .site-header .tagline, .subtitle, .slogan { display: none !important; }
+  </style>
+
+  <!-- Ориентация (оставлено как было, defer -->
+  <script src="orientation.js" defer></script>
+</head>
+
+<body>
+<header>
+  <div class="brand">
+    <img alt="MOYAMOVA" class="logo-mark" decoding="async" height="28" loading="eager" src="./favicon-32x32.png?v=1.0" srcset="./logo_64.png?v=1.0 2x, ./favicon-128x128.png?v=1.0 4x, ./logo_256.png?v=1.0 8x" width="28"/>
+    <div class="title-wrap">
+      <h1 id="title">MOYAMOVA</h1>
+    </div>
+  </div>
+  <div class="sectionDivider settingsDividerBelowToggle"></div>
+  <div class="controls">
+    <button aria-label="Тема" class="iconBtn" data-title-key="tt_ui_theme" id="themeToggleBtn">🌞</button>
+    <button aria-label="Язык интерфейса" class="iconBtn" data-title-key="tt_ui_lang" id="langToggleBtn">🇺🇦</button>
+    <button aria-label="Словари" class="iconBtn gear" data-title-key="tt_dicts" id="dictsBtn">📚</button>
+  </div>
+</header>
+
+<details class="dictSpoiler" id="dictSpoiler">
+  <summary><span class="flag" id="dictFlag">📚</span><span class="name" id="dictTitleInSpoiler">—</span></summary>
+  <div id="setControls">
+    <div aria-label="Sets" class="setsBar" id="setsBar"></div>
+    <div aria-live="polite" class="setStats statsBar" id="setStats"></div>
+  </div>
+</details>
+
+<main>
+  <section class="card">
+    <div class="topRow">
+      <div class="stars" id="stars"></div>
+      <button aria-label="Добавить в избранное" class="heart" data-title-key="tt_favorites" id="favBtn">♡</button>
+    </div>
+    <div class="word" id="wordText">—</div>
+    <div class="hint" id="hintText">—</div>
+    <div class="options" id="optionsRow"></div>
+    <div class="statsBar" id="statsBar">Всего слов: 0 / Изученно: 0 / Ошибок: 0</div>
+  </section>
+
+  <div aria-label="Extra actions" class="extraActions">
+    <button aria-label="Инструкция" class="iconBtn" data-title-key="tt_help" id="btnInfo">ℹ️</button>
+    <button aria-label="Поддержка" class="iconBtn" data-title-key="tt_support" id="btnDonate">💰</button>
+    <button aria-label="Настройки" class="iconBtn" data-title-key="tt_settings" id="btnSettings">⚙️</button>
+  </div>
+
+  <!-- Settings modal -->
+  <div class="modal hidden" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modalFrame">
+      <div class="modalHeader">
+        <div class="modalTitle" id="settingsTitle" data-i18n="settingsTitle">Настройки</div>
+        <button class="iconBtn small" id="settingsClose" aria-label="Close">✖️</button>
+      </div>
+      <div class="modalBody">
+        <div class="infoContent" id="settingsContent">
+          <!-- Mode toggle -->
+          <h3 class="backupTitle" data-i18n="modeSelection" style="text-align:left">Выбор режима</h3>
+          <div id="modeToggleWrap">
+            <label class="switchLabel">
+              <span data-i18n="modeNormal">Обычный режим</span>
+              <label class="switch">
+                <input id="modeToggle" type="checkbox"/>
+                <span class="slider"></span>
+              </label>
+              <span data-i18n="modeHard">Сложный режим</span>
+            </label>
+          </div>
+
+          <div class="sectionDivider"></div>
+
+          <div id="backupSection">
+            <h3 class="settingsSubtitle" data-i18n="backupTitle" style="text-align:left">Резервное копирование</h3>
+            <div class="btnRow">
+              <button class="btn" id="btnBackupExport" data-i18n="backupExport">Экспортировать</button>
+              <button class="btn" id="btnBackupImport" data-i18n="backupImport">Импортировать</button>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function(){
+              try {
+                var e = document.getElementById('btnBackupExport');
+                var i = document.getElementById('btnBackupImport');
+                if (e && window.App && App.Backup) e.addEventListener('click', function(){ App.Backup.export(); });
+                if (i && window.App && App.Backup) i.addEventListener('click', function(){ App.Backup.import(); });
+              } catch(_) {}
+            });
+          </script>
+        </div>
+      </div>
+      <div class="modalActions center">
+        <button class="btn primary" id="settingsOk" data-i18n="ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donate modal -->
+  <div class="modal hidden" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
+    <div class="modalFrame">
+      <div class="modalHeader">
+        <div class="modalTitle" id="donateTitle" data-i18n="donateTitle">Поддержать проект</div>
+        <button class="iconBtn small" id="donateClose" aria-label="Close">✖️</button>
+      </div>
+      <div class="modalBody">
+        <div class="infoContent center" id="donateContent">
+
+          <!-- Monobank -->
+          <div class="donateBlock">
+            <div class="donateTitle" data-i18n="donateMonoTitle">Підтримати через Monobank</div>
+            <a class="donatePrimary" id="monoDonateLink" href="#" target="_blank" rel="noopener" data-i18n="donateMonoOpen">Відкрити Monobank</a>
+          </div>
+
+          <!-- PayPal -->
+          <div class="donateBlock">
+            <div class="donateTitle" data-i18n="donatePaypalTitle">Підтримати через PayPal</div>
+            <div class="mt-20" id="donate-button-container">
+              <a class="donatePrimary" id="paypalDonateLink" href="#" target="_blank" rel="noopener" data-i18n="donatePaypalOpen">Відкрити PayPal</a>
+              <script>
+                (function(){
+                  const PAYPAL_BUTTON_ID = 'KFBR8BW5ZZTQ4'; // TODO: замените при необходимости
+                  function paypalUrl(amount){
+                    const base = `https://www.paypal.com/donate/?hosted_button_id=${PAYPAL_BUTTON_ID}`;
+                    if (!amount || Number(amount) <= 0) return base;
+                    return base + `&amount=${encodeURIComponent(String(amount))}`;
+                  }
+                  const link = document.getElementById('paypalDonateLink');
+                  if (link) link.addEventListener('click', function(e){
+                    e.preventDefault();
+                    const w = window.open(paypalUrl(0), '_blank', 'noopener');
+                    if (w && w.opener) w.opener = null;
+                  });
+                })();
+              </script>
+            </div>
+          </div>
+
+          <!-- Legal donate notice -->
+          <div class="donateLegalNote" role="note" style="margin:14px auto 0;max-width:600px;font-size:0.85rem;line-height:1.5;opacity:0.9;display:flex;gap:10px;align-items:flex-start;justify-content:center;text-align:left;">
+            <span class="icon" aria-hidden="true" style="font-size:18px;margin-top:2px;">⚖️</span>
+            <span data-i18n="donateLegalNote">Донат є добровільним пожертвуванням і не є оплатою товарів чи послуг.</span>
+          </div>
+
+          <script>
+            (function(){
+              // Monobank donate
+              const MONO_JAR_ID = '56HNLifwyr';
+              const base = `https://send.monobank.ua/jar/${MONO_JAR_ID}`;
+              function monoUrl(a){ return (!a||Number(a)<=0) ? base : `${base}?amount=${Math.round(Number(a))}`; }
+              function openMono(a){ const w = window.open(monoUrl(a),'_blank','noopener'); if(w&&w.opener) w.opener=null; }
+              document.addEventListener('click', function(e){
+                const btn = e.target.closest('[data-mono-amount]'); if(!btn) return; e.preventDefault();
+                const val = Number(btn.getAttribute('data-mono-amount'));
+                if(val>0) openMono(val);
+                else {
+                  const t=(window.T?T('donateMonoPrompt','Введіть суму у ₴'):'Введіть суму у ₴');
+                  const userVal=prompt(t,'100'); if(userVal&&!isNaN(Number(userVal))&&Number(userVal)>0) openMono(userVal);
+                }
+              });
+              const link=document.getElementById('monoDonateLink');
+              if (link) link.addEventListener('click', function(e){ e.preventDefault(); openMono(0); });
+            })();
+          </script>
+
+        </div>
+      </div>
+      <div class="modalActions center">
+        <button class="btn primary" id="donateOk" data-i18n="ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info modal -->
+  <div class="modal hidden" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="modalFrame">
+      <div class="modalHeader">
+        <div class="modalTitle" id="infoTitle">Info</div>
+        <button class="iconBtn small" id="infoClose" aria-label="Close">✖️</button>
+      </div>
+      <div class="modalBody">
+        <div class="infoContent" id="infoContent"></div>
+      </div>
+      <div class="modalActions center">
+        <button class="primary" id="infoOk">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dicts modal -->
+  <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="dialog">
+      <div class="modalHeader">
+        <h2 class="modalTitle" id="modalTitle">Словари</h2>
+        <button class="iconBtn small" id="modalClose" aria-label="Close">✖️</button>
+      </div>
+      <div class="modalBody">
+        <div class="flagsRow flex-center gap-10 m-10" id="langFlags"></div>
+        <div class="sectionDivider"></div>
+        <div class="field">
+          <div class="dictList" id="dictList"></div>
+        </div>
+      </div>
+      <div class="modalActions center">
+        <button class="primary" id="okBtn">OK</button>
+      </div>
+    </div>
+  </div>
+
 </main>
-<!-- Dicts modal -->
-<div aria-labelledby="modalTitle" aria-modal="true" class="modal hidden" id="modal" role="dialog">
-<div class="backdrop" id="backdrop"></div>
-<div class="dialog">
-<!-- Шапка -->
-<div class="modalHeader">
-<h2 class="modalTitle" id="modalTitle">Словари</h2>
-<button aria-label="Close" class="iconBtn small" id="modalClose">✖️</button>
-</div>
-<!-- Тело -->
-<div class="modalBody">
-<div class="flagsRow flex-center gap-10 m-10" id="langFlags"></div>
-<div class="sectionDivider"></div>
-<div class="field">
-<div class="dictList" id="dictList"></div>
-</div>
-</div>
-<!-- Футер -->
-<div class="modalActions center">
-<button class="primary" id="okBtn">OK</button>
-</div>
-</div>
-</div>
+
 <script src="i18n.js?v=1.0"></script>
 <script src="dicts.js?v=1.0"></script>
 <script src="deck.de.js?v=1.0"></script>
@@ -347,7 +353,8 @@ document.addEventListener('DOMContentLoaded', function(){
 <script src="ui.lifecycle.js?v=1.0"></script>
 <script src="ui.sets.done.js?v=1.0"></script>
 <script src="ui.fix.js?v=1.0"></script>
-<!-- --------------------------  К О Н Е Ц  --------------------------- -->
+
+<!-- I18N runtime hydration -->
 <script>
 (function(){
   function hydrateI18N(){
@@ -373,66 +380,8 @@ document.addEventListener('DOMContentLoaded', function(){
   document.addEventListener('i18n:lang-changed', hydrateI18N);
 })();
 </script>
-<!-- Unified Confirm Modal -->
-<div aria-describedby="confirmText" aria-labelledby="confirmTitle" aria-modal="true" class="modal confirmModal hidden" id="confirmModal" role="dialog">
-<div class="modalFrame">
-<div class="modalHeader">
-<div class="modalTitle" id="confirmTitle">Подтверждение</div>
-<button aria-label="Close" class="iconBtn small" id="confirmClose">✖️</button>
-</div>
-<div class="modalBody">
-<div class="infoContent" id="confirmText">Вы уверены?</div>
-</div>
-<div class="modalActions center">
-<button class="btn primary" id="confirmOk">OK</button>
-<button class="btn" id="confirmCancel">Отмена</button>
-</div>
-</div>
-</div>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./sw.js?v=1.0').catch(function(e){ console.warn('SW registration failed', e); });
-    });
-  }
-  </script>
-<script src="app.spoiler.bootstrap.js?v=1.0"></script>
-<script>
-(function(){
-  function detectLang(){
-    try{
-      var u = localStorage.getItem('lang') || localStorage.getItem('language') || localStorage.getItem('appLang');
-      if(!u){
-        if (navigator.languages && navigator.languages.length) u = navigator.languages[0];
-        else u = navigator.language || (document.documentElement.getAttribute('lang')||'');
-      }
-      u = (u||'en').toLowerCase();
-      if(u.startsWith('ru')) return 'ru';
-      if(u.startsWith('uk') || u.startsWith('ua')) return 'uk';
-      return 'en';
-    }catch(e){ return 'en'; }
-  }
 
-  var lang = detectLang();
-  var hrefMap = {
-    privacy: './privacy.'+lang+'.html',
-    terms: './terms.'+lang+'.html',
-    impressum: './impressum.'+lang+'.html'
-  };
-  var labelMap = {
-    en: { privacy:'Privacy Policy', terms:'Terms of Use', impressum:'Legal Notice' },
-    ru: { privacy:'Политика конфиденциальности', terms:'Условия использования', impressum:'Юридическая информация' },
-    uk: { privacy:'Політика конфіденційності', terms:'Умови використання', impressum:'Юридична інформація' }
-  };
-  document.querySelectorAll('.footer-links a[data-legal]').forEach(function(a){
-    var key = a.getAttribute('data-legal');
-    if(hrefMap[key]) a.setAttribute('href', hrefMap[key]);
-    if(labelMap[lang] && labelMap[lang][key]) a.textContent = labelMap[lang][key];
-  });
-})();
-</script>
-<div id="footer-placeholder"></div>
-
+<!-- Footer injection & legal links localization -->
 <script>
 (function(){
   function normalizeLang(v){
@@ -484,8 +433,11 @@ document.addEventListener('DOMContentLoaded', function(){
   window.addEventListener('lexi:lang-changed', function(){ applyFooterI18n(); });
 })();
 </script>
+
+<div id="footer-placeholder"></div>
+
+<!-- Simple UI language API -->
 <script>
-// Live i18n runtime: call setUiLang('en'|'ru'|'uk') to switch instantly
 (function(){
   function normalizeLang(v){
     v = String(v||'').toLowerCase();
@@ -500,9 +452,7 @@ document.addEventListener('DOMContentLoaded', function(){
       try {
         var lang = normalizeLang(ev.newValue);
         if (window.App && App.settings) {
-          try {
-            App.settings.lang = lang; // if patched setter exists it will dispatch
-          } catch (_) {}
+          try { App.settings.lang = lang; } catch (_) {}
         }
         window.dispatchEvent(new CustomEvent('lexi:lang-changed', {detail:{lang: lang}}));
       } catch(e){ console.error(e); }
@@ -513,18 +463,15 @@ document.addEventListener('DOMContentLoaded', function(){
   window.setUiLang = function(lang){
     try {
       lang = normalizeLang(lang);
-      // persist
       try { localStorage.setItem('lexitron.uiLang', lang); } catch(_){}
-      // update App.settings.lang if available
       if (window.App && App.settings) {
         try { App.settings.lang = lang; } catch(_){}
       }
-      // notify listeners (footer, headers, etc.)
       window.dispatchEvent(new CustomEvent('lexi:lang-changed', {detail:{lang: lang}}));
     } catch(e){ console.error(e); }
   };
 
-  // Optional: patch App.settings.lang to auto-dispatch when changed by other code
+  // Patch App.settings.lang if needed
   try {
     if (window.App && App.settings && !Object.getOwnPropertyDescriptor(App.settings,'lang').set) {
       var _lang = (App.settings.lang || localStorage.getItem('lexitron.uiLang') || navigator.language || 'en');
@@ -542,6 +489,7 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
+<!-- GA4 SPA & donate tracking -->
 <script>
 (function(){
   if (typeof window.trackPageView === 'function') {
@@ -579,6 +527,17 @@ document.addEventListener('DOMContentLoaded', function(){
   onClick('a[href*="paypal.com"]','donation_paypal_click');
 })();
 </script>
+
+<!-- PWA Service Worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js?v=1.0').catch(function(e){ console.warn('SW registration failed', e); });
+    });
+  }
+</script>
+
+<script src="app.spoiler.bootstrap.js?v=1.0"></script>
 
 </body>
 </html>
