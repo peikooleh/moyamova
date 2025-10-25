@@ -5,5 +5,4 @@ Disallow: /internal/
 Disallow: /temp/
 Disallow: /private/
 Allow: /
-
-Sitemap: ./sitemap.xml
+Sitemap: https://moyamova.online/sitemap.xml
