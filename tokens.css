@@ -1,0 +1,44 @@
+/* ==========================================================
+   Project: MOYAMOVA
+   File: tokens.css
+   Purpose: Дизайн-токены (цвета, размеры, переменные)
+   Version: 1.0
+   Last modified: 2025-10-19
+*/
+
+:root{
+  --radius-base: 16px;
+  --border-width: 1px;
+}:root{
+  --bg: #f6f7fb;
+  --card: #fff;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --green: #16a34a;
+  --red: #dc2626;
+  --border: #e5e7eb;
+  --shadow: 0 10px 30px rgba(16,24,40,.08);
+  --mint: #34d399;
+  --mint-strong: #10b981;
+  --mint-weak: #d1fae5;
+  --overlay: rgba(15,23,42,.6);
+  --tool-bg: #f5f7fb;
+  --tool-border: #e2e8f0;
+  --tool-fg: #0f172a;
+  --idk-fg: #0f172a;
+  --idk-border: #cbd5e1;
+  --idk-bg: transparent;
+  --focus-ring: #22c55e40;
+}:root{
+  --mode-normal: var(--mint);
+  --mode-hard: #ef4444;
+}:root.light{
+  --panel-bg: #fff;
+  --border-color: #e3e3e3;
+}:root{
+  --spoiler-radius: 16px;
+}
+
+/* ====================== End of file =======================
+   File: tokens.css • Version: 1.0 • 2025-10-19
+*/

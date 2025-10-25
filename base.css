@@ -1,0 +1,35 @@
+html, body { font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
+/* ==========================================================
+   Project: MOYAMOVA
+   File: base.css
+   Purpose: Базовые стили, типографика, reset
+   Version: 1.0
+   Last modified: 2025-10-19
+*/
+
+body{
+  margin: 0;
+  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}main{
+  flex: 1;
+  display: grid;
+  place-items: center;
+}.heart svg *{
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}.heart.is-fav svg *{
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* ====================== End of file =======================
+   File: base.css • Version: 1.0 • 2025-10-19
+*/
+
+button, input, select, textarea { font-family: inherit; }

@@ -1,0 +1,732 @@
+/* ==========================================================
+   Project: MOYAMOVA
+   File: modals.css
+   Purpose: Стили модальных окон
+   Version: 1.0
+   Last modified: 2025-10-19
+*/
+
+.modal{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  background: var(--overlay);
+}.backdrop{
+  position: absolute;
+  inset: 0;
+}.dialog{
+  position: relative;
+  z-index: 10;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  width: min(860px,94vw);
+  max-height: 90vh;
+  overflow: auto;
+}.dialog h2{
+  text-align: center;
+  margin: 0 0 8px;
+  font-size: 26px;
+}.modalActions{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}.modalActions .primary{
+  padding: 9px 20px;
+  font-size: 15px;
+  border-radius: 12px;
+  background: var(--mint);
+  border: none;
+  color: #073b3a;
+}.modalActions .primary:hover{
+  background: var(--mint-strong);
+  color: #fff;
+}#infoModal.modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}#infoModal.hidden{
+  display: none;
+}#infoModal .modalFrame{
+  width: min( 640px, 94vw);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  border: 1px solid var(--border);
+}#infoModal .modalBody{
+  padding: 14px;
+  font-size: 14px;
+  line-      min-height: 240px;
+}#infoModal .iconBtn.small{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}#modal #langFlags, #modal .flagsRow{
+  margin: 8px 0;
+  padding: 0 14px 14px;
+  border-bottom: 0px solid var(--border);
+}#modal .dictList{
+  margin-top: 8px;
+  padding-top: 4px;
+  padding-bottom: 14px;
+  max-height: 230px;
+  overflow-y: auto;
+}#modal .modalActions{
+  display: flex;
+  justify-content: center;
+  padding: 14px 16px 20px;
+  border-top: 1px solid var(--border);
+}#infoModal .modalFrame{
+  overflow: visible;
+}#infoModal .modalHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+  border-bottom: none;
+  position: relative;
+  padding-left: 14px;
+  padding-right: 14px;
+}#infoModal .modalActions{
+  display: flex;
+  justify-content: center;
+  padding: 14px 14px 14px;
+  border-top: none;
+  position: relative;
+  padding-left: 14px;
+  padding-right: 14px;
+}#infoModal .modalActions::before{ content:""; position:absolute; left: 14px; right: 14px; top: 0; height:1px; background: var(--border);
+  top: 0;
+  height: 1px;
+  background: var(--border);
+}#infoModal .modalHeader{
+  position: relative;
+  border-bottom: none !important;
+}#infoModal .modalHeader::after{
+  content: "";
+  position: absolute;
+  left: 14px !important;
+  right: 14px !important;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}#modal .dialog{
+  padding: 14px 14px 0 !important;
+}#modal .modalActions{
+  padding: 14px 14px 14px !important;
+}#setupModal .sectionTitle,
+#setupModal h3,
+.firstRunDialog .sectionTitle,
+.firstRunDialog h3,
+.setupDialog .sectionTitle,
+.setupDialog h3{
+  text-align: center;
+  margin-top: 14px;
+  margin-bottom: 8px;
+}#setupModal .trainFlags,
+#setupModal .langFlags.train,
+#setupModal .train .langFlags,
+.firstRunDialog .trainFlags,
+.firstRunDialog .langFlags.train,
+.setupDialog .trainFlags,
+.setupDialog .langFlags.train{
+  margin: 8px 0;
+  padding: 0 14px 14px;
+  position: relative;
+  border-bottom: none !important;
+}
+#setupModal .trainFlags::after,
+#setupModal .langFlags.train::after,
+#setupModal .train .langFlags::after,
+.firstRunDialog .trainFlags::after,
+.firstRunDialog .langFlags.train::after,
+.setupDialog .trainFlags::after,
+.setupDialog .langFlags.train::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+#setupModal .modalFrame,
+.firstRunDialog .modalFrame,
+.setupDialog .modalFrame{
+  overflow: hidden;
+}#setupModal .field .label{
+  text-align: center;
+  margin-top: 14px;
+  margin-bottom: 8px;
+}#setupModal #langFlags{
+  position: relative;
+  margin: 8px 0;
+  padding: 0 14px 14px;
+}#setupModal #langFlags::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}#setupModal .dialog{
+  overflow: hidden;
+}#setupModal .modalHeader{
+  position: relative;
+  border-bottom: none !important;
+  padding-left: 14px;
+  padding-right: 14px;
+}#setupModal .modalHeader::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}#setupModal .modalHeader::before{
+  display: none !important;
+}#setupModal hr{
+  display: none !important;
+}#setupModal .dialog > .sectionTitle:first-child,
+#setupModal .modalFrame > .sectionTitle:first-child,
+#setupModal .dialog > h2:first-child,
+#setupModal .modalFrame > h2:first-child{
+  position: relative;
+  padding-left: 14px;
+  padding-right: 14px;
+}#setupModal .dialog > .sectionTitle:first-child::after,
+#setupModal .modalFrame > .sectionTitle:first-child::after,
+#setupModal .dialog > h2:first-child::after,
+#setupModal .modalFrame > h2:first-child::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -8px;
+  height: 1px;
+  background: var(--border);
+}#setupModal .sectionTitle,
+.firstRunDialog .sectionTitle,
+.setupDialog .sectionTitle{
+  position: relative;
+}#setupModal .sectionTitle::after,
+.firstRunDialog .sectionTitle::after,
+.setupDialog .sectionTitle::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -8px;
+  height: 1px;
+  background: var(--border);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}#modal .modalHeader{
+  position: relative;
+  padding-left: 14px;
+  padding-right: 14px;
+  border-bottom: none;
+}#modal .modalHeader .modalTitle{
+  margin: 0;
+}#modal .modalHeader::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 0px;
+  background: var(--border);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}#modal .modalHeader{
+  border-bottom: none !important;
+}We do NOT change existing selectors; we only add #settingsModal twins.
+   ===================================================================== */
+#settingsModal.modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}#settingsModal.modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}#settingsModal.hidden{
+  display: none !important;
+}#settingsModal .modalFrame{
+  width: min(680px, 92vw);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}#settingsModal .modalHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+  position: relative;
+  border-bottom: none !important;
+}#settingsModal .modalHeader::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}#settingsModal .modalBody{
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}#settingsModal .modalActions{
+  display: flex;
+  justify-content: center;
+  padding: 14px 14px 14px;
+  border-top: none !important;
+  position: relative;
+}#settingsModal .modalActions::before{ content:""; position:absolute; left: 14px; right: 14px; top: 0; height:1px; background: var(--border);
+  top: 0;
+  height: 1px;
+  background: var(--border);
+}#settingsModal .iconBtn.small{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}#infoModal .modalActions{
+  border-top: none !important;
+}#donateModal.modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}#donateModal.hidden{
+  display: none;
+}#donateModal .modalFrame{
+  width: min(680px, 92vw);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}#donateModal .modalHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+  position: relative;
+  border-bottom: none !important;
+}#donateModal .modalHeader::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}#donateModal .modalBody{
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}#donateModal .modalActions{
+  display: flex;
+  justify-content: center;
+  padding: 14px 14px 14px;
+  position: relative;
+}#donateModal .modalActions::before{ content:""; position:absolute; left: 14px; right: 14px; top: 0; height:1px; background: var(--border);
+  top: 0;
+  height: 1px;
+  background: var(--border);
+}#donateModal .iconBtn.small{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}.confirmModal .modalFrame{
+  max-width: 520px;
+}.modal.confirmModal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+}.modal.confirmModal:not(.hidden){
+  display: flex;
+}.modal.confirmModal .modalFrame{
+  background: var(--modal-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  width: min(92vw, 520px);
+  max-width: 520px;
+}.confirmModal .modalHeader{
+  padding: 12px 14px !important;
+}.confirmModal .modalTitle{
+  margin: 0;
+  font-weight: 700;
+}.confirmModal .modalBody{
+  padding: 16px !important;
+}.confirmModal #confirmText{
+  margin: 6px 0 2px 0;
+  line-height: 1.35;
+}.confirmModal .btn.primary{
+  min-width: 120px;
+}.confirmModal .btn{
+  padding: 10px 16px;
+}.confirmModal .modalFrame{
+  color: var(--modal-fg, inherit);
+  background: var(--modal-bg, #fff);
+}.confirmModal .modalHeader,
+.confirmModal .modalActions{
+  border-color: var(--modal-divider, rgba(0,0,0,0.10)) !important;
+}html[data-theme="dark"] .confirmModal .modalFrame,
+:root.theme-dark .confirmModal .modalFrame{
+  background: var(--modal-bg-dark, #22262e);
+  color: var(--modal-fg-dark, #e8eaee);
+}html[data-theme="dark"] .confirmModal .modalHeader,
+html[data-theme="dark"] .confirmModal .modalActions,
+:root.theme-dark .confirmModal .modalHeader,
+:root.theme-dark .confirmModal .modalActions{
+  border-color: var(--modal-divider-dark, rgba(255,255,255,0.10)) !important;
+}html[data-theme="dark"] .confirmModal #confirmText,
+:root.theme-dark .confirmModal #confirmText{
+  color: var(--modal-fg-dark, #e8eaee);
+  opacity: 0.95;
+}.confirmModal .modalFrame{
+  border-top: 1px solid transparent;
+}.confirmModal .modalFrame{
+  background: var(--card) !important;
+  color: var(--text) !important;
+}.confirmModal .modalHeader{
+  position: relative;
+}.confirmModal .modalActions{
+  position: relative !important;
+}.confirmModal .modalHeader{
+  position: relative !important;
+  border-bottom: none !important;
+}.confirmModal .modalHeader::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}.confirmModal .modalActions{
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 12px 14px !important;
+  position: relative !important;
+}.confirmModal .modalActions::before{ content:""; position:absolute; left: 14px; right: 14px; top: 0; height:1px; background: var(--border);
+  top: 0;
+  height: 1px;
+  background: var(--border);
+}html[data-theme="dark"] .confirmModal .modalHeader{
+  border-bottom: none !important;
+}:root.theme-dark .confirmModal .modalHeader{
+  border-bottom: none !important;
+}.card, .dictSpoiler, .btn, .options .optionBtn, .modal, .modal .actions .btn{
+  border-radius: var(--radius-base);
+}:where(.card, .dictSpoiler, .btn, .iconBtn, .options .optionBtn, .modal, .langFlags .flagBtn, .statsBar, #setsBar .setTile){
+  border-width: var(--border-width);
+}#infoModal .aboutSep{
+  margin: 8px 0 12px;
+  height: 1px;
+  background: var(--border);
+}#infoModal #panel-about:not(.hidden){
+  text-align: left;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: visible;
+}#infoModal .aboutGrid{
+  justify-items: start;
+}#infoModal .aboutRow{
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 8px;
+}#infoModal .aboutLabel{
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+}#infoModal .actionsRow{
+  margin: 10px 0 8px;
+  display: flex;
+  justify-content: center;
+}#infoModal .regBlock{
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}#infoModal .regRow{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}#infoModal .regRow input[type="text"]{
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 10px;
+  border: 1px solid var(--tool-border);
+  border-radius: 6px;
+  background: var(--tool-bg);
+  color: var(--tool-fg);
+  caret-color: var(--text);
+}#infoModal .tabs .tab,
+
+#infoModal .tabs .tab.active{
+  background: transparent !important;
+  border: 2px solid #10b981 !important;
+  color: var(--text);
+}#infoModal .tabs .tab{
+  -webkit-appearance: none;
+  appearance: none;
+  color: var(--text);
+  background: var(--tool-bg);
+  border: none;
+  border-radius: 12px;
+  padding: 6px 18px;
+}:root[data-theme="dark"] #infoModal .aboutRow,
+.theme-dark #infoModal .aboutRow,
+:root[data-skin="alt"] #infoModal .aboutRow,
+.skin-alt #infoModal .aboutRow{
+  grid-template-columns: auto auto !important;
+  justify-items: start;
+}:root[data-theme="dark"] #infoModal .aboutRow .aboutValue,
+.theme-dark #infoModal .aboutRow .aboutValue,
+:root[data-skin="alt"] #infoModal .aboutRow .aboutValue,
+.skin-alt #infoModal .aboutRow .aboutValue{
+  margin-top: 0;
+}#infoModal .regRow input[type="text"]::placeholder{
+  color: var(--muted);
+}#infoModal .btnPill:disabled{
+  opacity: .6;
+  background: var(--btn-disabled-bg, rgba(0,0,0,.12));
+  color: var(--muted);
+  border: none;
+  cursor: default;
+}#infoModal .btnPill{
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: none;
+  padding: 8px 16px;
+}#infoModal .btnPill:hover{
+  background: rgba(0,0,0,0.05);
+}#infoModal .btnPill:disabled{
+  opacity: .6;
+  background: var(--card);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  cursor: default;
+}#infoModal #regKeyLabel{
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+}#infoModal .modalActions{
+  padding: 12px 14px 16px !important;
+}#infoModal .tabs{
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}#infoModal .tabs .tab{
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: var(--tool-bg) !important;
+  color: var(--text) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 6px 18px !important;
+}#infoModal .tabs .tab.active{
+  background: transparent !important;
+  border: 2px solid #10b981 !important;
+  color: var(--text) !important;
+}#infoModal .modalFrame{
+  width: min(640px, 94vw) !important;
+}#infoModal #panel-about .aboutGrid{
+  row-gap: 6px !important;
+}#infoModal #panel-about .aboutRow{
+  gap: 6px !important;
+}#infoModal #panel-about:not(.hidden){
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: visible;
+}#infoModal #panel-about .aboutGrid{
+  flex: 0 0 auto !important;
+  row-gap: 6px !important;
+}#infoModal #panel-about .actionsRow{
+  flex: 0 0 auto !important;
+  margin: 12px 0 12px !important;
+}#infoModal #panel-about .aboutSep{
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+  margin: 10px 0 !important;
+}#infoModal #panel-about .regBlock{
+  flex: 0 0 auto !important;
+  margin: 10px 0 12px !important;
+}#infoModal .modalBody{
+  min-height: 240px;
+}#infoModal #panel-about .actionsRow{
+  margin: 12px 0 12px !important;
+}#infoModal #panel-about .aboutSep{
+  margin-top: auto !important;
+  margin: 10px 0 !important;
+}#infoModal #panel-about .regBlock{
+  margin: 10px 0 12px !important;
+}#infoModal #panel-about .regRow{
+  margin-top: 6px !important;
+}#infoModal .actionsRow{
+  margin: 4px 0 2px !important;
+  display: flex !important;
+  justify-content: center !important;
+}#infoModal .aboutSep{
+  margin: 2px 0 4px !important;
+  height: 1px !important;
+  background: var(--border) !important;
+}#infoModal .regBlock{
+  margin-top: 2px !important;
+}.modalBody h3.backupTitle{
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  text-align: left;
+}.modalBody #modeToggleWrap + .sectionDivider{ position: relative; height: 0; margin: 12px 0;
+}.modalBody #backupSection .btnRow{
+  display: flex;
+  justify-content: center;
+  gap: var(--gap, 12px);
+  margin-top: 8px;
+}.modalBody .settingsSubtitle{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  text-align: left;
+}.modalBody .settingsDividerBelowToggle{ margin: 12px 0;
+}.modalBody #backupSection .btnRow{
+  display: flex;
+  justify-content: center;
+  gap: var(--gap,12px);
+  margin-top: 8px;
+}.modalBody .backupTitle{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  text-align: left;
+}.modalBody #modeToggleWrap::after{
+  content: none;
+}.modalBody #modeToggleWrap + .sectionDivider::after{ content:""; position:absolute; left:0; right:0; height:1px; background:var(--border); transform:translateZ(0); -webkit-transform:translateZ(0);}.modalBody #modeToggleWrap + .sectionDivider + #backupSection .settingsSubtitle{
+  margin-top: 8px;
+}#settingsModal #backupSection .btnRow{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap, 12px);
+  flex-wrap: wrap;
+}#settingsModal .modalBody #modeToggleWrap + .sectionDivider{ position: relative; height: 0; margin: 12px 0;
+}#settingsModal .modalBody #modeToggleWrap + .sectionDivider::after{ content:""; position:absolute; left:0; right:0; height:1px; background:var(--border); transform:translateZ(0); -webkit-transform:translateZ(0);}#settingsModal .modalBody .settingsSubtitle,
+#settingsModal .modalBody .backupTitle,
+#settingsModal .modalBody h3.backupTitle{
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.25;
+}#settingsModal #backupSection .btn{
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  box-shadow: none !important;
+  height: auto !important;
+  margin-top: 6px !important;
+  transition: background .2s ease, filter .2s ease, transform .06s ease;
+}#settingsModal #backupSection .btn:hover{
+  background: rgba(0,0,0,0.05) !important;
+}[data-theme="dark"] #settingsModal #backupSection .btn{
+  background: var(--tool-bg) !important;
+  border: 1px solid var(--tool-border) !important;
+  color: var(--text) !important;
+}
+
+/* === modal-core safety === */
+.modal.hidden{ display:none !important; }
+.modal .backdrop{ position:absolute; inset:0; z-index:1; }
+
+
+/* === Equal visual spacing around section dividers and titles (settings modal) === */
+#settingsModal .settingsSubtitle{ margin:0; } /* убираем произвольные внешние отступы у заголовков секций */
+
+#settingsModal .settingsSubtitle + .sectionDivider{
+  /* Фиксируем расстояние ОТ заголовка ДО разделителя сверху — строго 12px */
+  margin-top: 0;
+  padding-top: 12px;   /* вместо margin-top, чтобы не схлопывалось */
+}
+
+#settingsModal .sectionDivider{
+  /* Управляем расстоянием ПОД разделителем — тоже 12px */
+  margin: 0;           /* убираем margin, чтобы не было схлопывания */
+  padding-bottom: 12px;
+}
+
+#settingsModal .sectionDivider::after{ left:0; right:0; }
+
+/* Если разделитель идёт ПЕРЕД заголовком следующей секции — тоже 12px до заголовка */
+#settingsModal .sectionDivider + .settingsSubtitle{ margin-top: 12px; }
+
+/* ====================== End of file =======================
+   File: modals.css • Version: 1.0 • 2025-10-19
+*/
+
+/* Setup modal section divider — same style as other modals */
+#setupModal .sectionDivider{
+  position: relative;
+  height: 0;
+  margin: 12px 0;
+  padding: 0;
+}
+#setupModal .sectionDivider::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: var(--border);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+
+/* Dicts modal section divider */
+#modal .sectionDivider{
+  position: relative;
+  height: 0;
+  margin: 8px 0;
+}
+#modal .sectionDivider::after{ content:""; position:absolute; left: 0px; right: 0px;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}

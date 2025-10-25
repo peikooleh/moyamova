@@ -1,0 +1,110 @@
+
+/* donate.css — styles for donate sections (Monobank + PayPal) */
+.donateBlock{
+  padding:12px;
+  border:1px solid var(--border); /* мягче контур блока */
+  border-radius:10px;
+  margin-bottom:14px;
+  text-align:center;
+  background: rgba(255,255,255,0.04); /* тёмная тема по умолчанию перекроется ниже */
+}
+.donateBlock:last-of-type{ margin-bottom:0; }
+
+/* Светлая тема: более светлый фон блока */
+html[data-theme="light"] .donateBlock,
+body[data-theme="light"] .donateBlock{
+  background: rgba(0,0,0,0.02);
+}
+
+.donateTitle{
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.donatePresets{
+  display:flex;
+  justify-content:center;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin-bottom:.75rem;
+}
+
+/* Amount buttons */
+.donateBtn{
+  padding:.5rem .8rem;
+  border-radius:.5rem;
+  background:transparent;
+  cursor:pointer;
+  border:1px solid #888;   /* light default */
+  color:#000;              /* light default */
+}
+/* Тёмная тема для сумм */
+html[data-theme="dark"] .donateBtn,
+body[data-theme="dark"] .donateBtn{
+  color:#fff;
+  border-color:#999;
+}
+/* hover/focus/active */
+.donateBtn:hover, .donateBtn:focus{
+  outline:none;
+  filter:brightness(1.05);
+}
+.donateBtn:active{
+  transform: scale(0.97);
+  opacity: 0.92;
+}
+
+/* Primary action links */
+.donatePrimary{
+  display:inline-block;
+  padding:.55rem .9rem;
+  border-radius:.5rem;
+  text-decoration:none;
+  font-weight:600;
+  margin-top:.25rem;
+  background:transparent;
+}
+
+/* Specific brand accents (light theme defaults) */
+#monoDonateLink.donatePrimary{
+  color:#000;
+  border:1px solid #FFC800;   /* yellow немного мягче */
+}
+#paypalDonateLink.donatePrimary{
+  color:#000;
+  border:1px solid #0067C0;   /* blue немного мягче */
+}
+
+/* Dark theme overrides for brand buttons */
+html[data-theme="dark"] #monoDonateLink.donatePrimary,
+body[data-theme="dark"] #monoDonateLink.donatePrimary{
+  color:#fff;
+  border-color:#FFC800;
+}
+html[data-theme="dark"] #paypalDonateLink.donatePrimary,
+body[data-theme="dark"] #paypalDonateLink.donatePrimary{
+  color:#fff;
+  border-color:#0067C0;
+}
+
+/* PayPal container alignment (оставляем на случай старой разметки) */
+#donate-button-container{ display:block; margin-top:8px; }
+
+/* Divider line for modal footer (используется донат-модалкой) */
+.modal .sectionDivider{
+  position: relative;
+  height: 0;
+  margin: 10px 0 12px;
+}
+.modal .sectionDivider::after{
+  content:"";
+  position:absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Адаптив: чуть компактнее расстояние между суммами на узких экранах */
+@media (max-width: 380px){
+  .donatePresets{ gap: .35rem; }
+}

@@ -1,0 +1,356 @@
+/* ==========================================================
+   Project: MOYAMOVA
+   File: overrides.css
+   Purpose: Чистые переопределения и хотфиксы (без дублей)
+   Version: 1.3.6
+   Last modified: 2025-10-20
+========================================================== */
+
+/* 0) Box-model + компактный main (как в идеальной сборке) */
+*, *::before, *::after { box-sizing: border-box; }
+main{ flex:1; display:grid; place-items:center; padding:12px; }
+
+/* 1) Глобальные переменные размеров */
+:root{
+  --modal-w-portrait: 640px; /* паритет с Info */
+  --modal-w-land:     820px; /* шире в landscape */
+  --modal-vw-limit:   94vw;
+  --modal-radius:     16px;
+}
+
+/* 2) Уважать скрытие всегда */
+.modal.hidden{ display:none !important; }
+
+/* 3) Контейнеры мастера/словарей — как у остальных модалок: GRID-центрирование */
+#modal.modal:not(.hidden),
+#setupModal.modal:not(.hidden){
+  display:grid !important;
+  place-items:center !important;
+  align-content:center !important;
+  justify-items:center !important;
+  height: 100vh;
+  transition: none !important;
+  will-change: contents;
+}
+@supports (height: 100dvh){
+  #modal.modal:not(.hidden),
+  #setupModal.modal:not(.hidden){
+    height: 100dvh; /* корректно на iOS с динамическими тулбарами */
+  }
+}
+
+/* 4) Нейтрализация общего .dialog: паддинги только на секциях,
+      никаких анимаций ширины/высоты при ротации */
+.modal .dialog{
+  padding: 0 !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--modal-radius);
+  transition: none !important;
+  will-change: width, height;
+  transform: translateZ(0); /* стабильность на iOS */
+}
+
+/* 5) СЛОВАРИ: жёстко перебиваем ширины .dialog (двойной селектор на всякий случай) */
+#modal.modal:not(.hidden) > .dialog,
+#modal.modal:not(.hidden) .dialog{
+  width: min(var(--modal-w-portrait), var(--modal-vw-limit)) !important;
+  max-width: var(--modal-w-portrait) !important;
+  min-width: 0 !important;           /* не даём растягивать гридом */
+  box-sizing: border-box !important;
+
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,.15));
+}
+
+/* Внутренние секции — одинаково с Info */
+#modal .modalHeader{ padding:12px 16px !important; border-bottom:1px solid var(--border) !important; }
+#modal .modalBody  { padding:14px !important; overflow:auto; -webkit-overflow-scrolling: touch; }
+#modal .modalActions{padding:12px 16px !important; border-top:1px solid var(--border) !important; }
+
+/* 6) МАСТЕР: ширины/ограничения — как в рабочей версии */
+#setupModal.modal:not(.hidden) > .dialog,
+#setupModal.modal:not(.hidden) .dialog{
+  width: min(var(--modal-w-portrait), var(--modal-vw-limit)) !important;
+  max-width: var(--modal-w-portrait) !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,.15));
+}
+
+/* ——— МАСТЕР: РАЗДЕЛИТЕЛИ ровно как в Info/Donate/Settings ——— */
+
+/* 6.1 Хедер/футер — стандартные линии (как в инфо) */
+#setupModal .modalHeader{
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+#setupModal .modalActions{
+  padding: 12px 16px !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+/* 6.2 Снимаем «лишние» разделители внутри тела мастера */
+#setupModal .modalBody hr,
+#setupModal .modalBody .divider,
+#setupModal #langFlags::before,
+#setupModal #langFlags::after{
+  display: none !important;
+}
+#setupModal #langFlags,
+#setupModal .trainFlags,
+#setupModal .langFlags,
+#setupModal .section{
+  border: 0 !important;
+  box-shadow: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* 6.3 Делаем одну аккуратную линию между логическими блоками
+       внутри .modalBody (точно как в инфо-модалке) */
+#setupModal .modalBody{
+  padding: 14px !important; /* паритет с инфо */
+}
+#setupModal .modalBody > *{
+  margin: 0 !important;
+}
+#setupModal .modalBody > * + *{
+  border-top: 1px solid var(--border) !important;
+  margin-top: 16px !important;
+  padding-top: 16px !important;
+}
+
+/* 7) Высота окна и контента (vh + dvh) — чтобы не «прыгало» */
+#modal.modal:not(.hidden) > .dialog,
+#setupModal.modal:not(.hidden) > .dialog{
+  max-height: 92vh;
+}
+@supports (height: 100dvh){
+  #modal.modal:not(.hidden) > .dialog,
+  #setupModal.modal:not(.hidden) > .dialog{
+    max-height: 92dvh;
+  }
+}
+
+/* 8) Альбомная ориентация — шире, но не в край */
+@media (orientation: landscape), (min-aspect-ratio: 11/10){
+  #modal.modal:not(.hidden) > .dialog,
+  #modal.modal:not(.hidden) .dialog,
+  #setupModal.modal:not(.hidden) > .dialog,
+  #setupModal.modal:not(.hidden) .dialog{
+    width: min(var(--modal-w-land), var(--modal-vw-limit)) !important;
+    max-width: var(--modal-w-land) !important;
+  }
+}
+
+/* 9) Settings привести к размерам Info (единый эталон) */
+#settingsModal .modalFrame{ width: min(640px, 94vw) !important; }
+
+/* ===== Сохранённые хотфиксы интерфейса (как раньше) ===== */
+a#donate,
+.donate, .donate a, .donate-btn, .donate-btn a,
+.footer a, .bottom, .bottom a,
+.footer .btn, .footer .btn a,
+.bottom .btn, .bottom .btn a{ text-decoration: none !important; -webkit-text-decoration: none !important; }
+
+.setsSpoilerBody .dictActiveTitle,
+.setsSpoilerBody .dictHeader,
+.setsSpoilerBody .dictBadge,
+.setsSpoilerBody .dictName,
+.setsSpoilerBody .dictTitle,
+.setsSpoilerBody [data-role="dict-title"]{ display: none !important; }
+
+.setsSpoilerBody > :not(button):not(.setTile):not(.tiles):not(.grid):not(.btn):not(.btns){ display: none !important; }
+
+#setsBar .setTile{
+  min-width:0 !important; height:auto !important; padding:0 !important;
+  border-radius:12px; border:1px solid var(--border); background:var(--card);
+  color:var(--muted); font-weight:600; font-size:13px;
+  user-select:none; cursor:pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
+  flex:0 0 calc((100% - (var(--tiles-per-row) - 1) * var(--tile-gap)) / var(--tiles-per-row));
+  aspect-ratio:1 / 1; display:flex; align-items:center; justify-content:center;
+}
+
+:root.light .dictSpoiler summary::before,
+:root.light .dictSpoiler summary::after{ color: rgba(0,0,0,0.55) !important; }
+
+.card .topRow .heart, .heart{ color: var(--icon-muted, #cbd5e1) !important; transition: color .25s ease, transform .2s ease; }
+.card .topRow .heart.is-fav, .heart.is-fav{ color: var(--icon-active, #fbbf24) !important; }
+@media (hover:hover){ .card .topRow .heart:hover, .heart:hover{ color: var(--icon-hover, #facc15) !important; } }
+:root[data-theme="dark"] .heart{ color: var(--icon-muted, #9aa3af) !important; }
+:root[data-theme="dark"] .heart.is-fav{ color: var(--icon-active, #facc15) !important; }
+
+.tabs{ border-bottom: none !important; }
+
+/* ===== iOS PWA safe areas (фикс "уезжания" шапки) ===== */
+:root{
+  /* переменные для вырезов — в обычном браузере будут равны 0 */
+  --safe-top: env(safe-area-inset-top);
+  --safe-right: env(safe-area-inset-right);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+}
+
+/* шапка не должна прилипать под статус-бар */
+header{
+  padding-top: calc(var(--safe-top) + 10px) !important;
+  padding-left: calc(var(--safe-left) + 14px) !important;
+  padding-right: calc(var(--safe-right) + 14px) !important;
+}
+
+/* основной контент — небольшой «воздух» над home-indicator */
+main{
+  padding-bottom: calc(var(--safe-bottom) + 12px) !important;
+}
+
+/* модалки: учитываем safe-area + dvh, чтобы не прыгало */
+#modal .dialog,
+#setupModal .dialog{
+  margin-top: var(--safe-top) !important;
+  margin-bottom: var(--safe-bottom) !important;
+}
+/* ===== Minimal sticky footer (safe, no layout drift) ===== */
+/* Делает футер прижатым к низу страницы, не трогая верстку контента.
+   Работает даже при коротких страницах. */
+@supports (display: grid) {
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* header | main | footer */
+  }
+}
+
+/* ===== Sticky footer — safe flex version ===== */
+html, body { height: 100%; }
+
+body{
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;   /* никаких grid-рядов */
+}
+
+/* Футер прижат к низу, с учетом safe-area (iOS) */
+.site-footer{
+  margin-top: auto;         /* пушим футер вниз */
+  padding: 12px 14px calc(env(safe-area-inset-bottom, 0px) + 0px);
+  text-align: center;
+  opacity: .9;
+}
+.site-footer .footer-links{
+  display: inline-flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* ===== Детали/спойлер: избавляемся от «волоска» в закрытом состоянии ===== */
+
+/* У закрытого спойлера рамка — у summary, контейнер без рамки */
+.dictSpoiler:not([open]){
+  border: 0 !important;
+}
+.dictSpoiler:not([open]) > summary{
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;         /* как и было по дизайну */
+  background: var(--card) !important;      /* чтобы «забить» любые просветы */
+  min-height: 44px;                         /* на всякий случай против схлопывания */
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* У открытого спойлера рамка — у контейнера, а у summary только нижняя кромка */
+.dictSpoiler[open]{
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+}
+.dictSpoiler[open] > summary{
+  border: 0 !important;                    /* убираем внешнюю рамку */
+  border-bottom: 1px solid var(--border) !important; /* разделитель header/body */
+  border-top-left-radius: 16px !important;
+  border-top-right-radius: 16px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background: var(--card) !important;
+}
+
+/* Чуть воздуха под шапкой — подстрой по вкусу */
+#dictSpoiler{ margin-top: 24px; }
+
+/* === INFO MODAL — tabs & content unify with donate === */
+
+/* Таб-бар как сегмент-контрол */
+#infoModal [role="tablist"]{
+  display:inline-flex;
+  gap:8px;
+  padding:6px;
+  border-radius:12px;
+  background:transparent;
+}
+
+/* Кнопки табов (пилюли) */
+#infoModal [role="tab"]{
+  appearance:none;
+  cursor:pointer;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.5rem .9rem;
+  font-weight:600;
+  background: rgba(0,0,0,0.02);     /* светлая */
+  color:inherit;
+  transition: transform .06s ease, filter .15s ease, background .15s ease;
+}
+html[data-theme="dark"] #infoModal [role="tab"],
+body[data-theme="dark"] #infoModal [role="tab"]{
+  background: rgba(255,255,255,0.04); /* тёмная */
+}
+
+#infoModal [role="tab"]:hover{ filter:brightness(1.05); }
+#infoModal [role="tab"]:active{ transform:scale(.98); }
+
+/* Активный таб */
+#infoModal [role="tab"][aria-selected="true"]{
+  border-color: var(--accent, #10b981);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent, #10b981) 18%, transparent);
+}
+
+/* Контентные секции внутри — как “карточки” (аналог donateBlock) */
+#infoModal .infoContent > .section,
+#infoModal .infoContent > .group,
+#infoModal .infoContent > .panel,
+#infoModal .infoContent > ul{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background: rgba(0,0,0,0.02);      /* светлая */
+}
+html[data-theme="dark"] #infoModal .infoContent > .section,
+html[data-theme="dark"] #infoModal .infoContent > .group,
+html[data-theme="dark"] #infoModal .infoContent > .panel,
+html[data-theme="dark"] #infoModal .infoContent > ul{
+  background: rgba(255,255,255,0.04); /* тёмная */
+}
+
+/* Типографика списков в инфо */
+#infoModal .infoContent ul{ padding-left:1.2rem; }
+#infoModal .infoContent li{ margin:.35rem 0; line-height:1.35; }
+
+/* Кнопка “Проверить обновления” и подобные — в общем стиле */
+#infoModal .infoContent .btn,
+#infoModal .infoContent .primary,
+#infoModal .infoContent .action{
+  font-weight:600;
+  border-radius:.5rem;
+  text-decoration:none;
+}

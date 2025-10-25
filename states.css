@@ -1,0 +1,36 @@
+/* ==========================================================
+   Project: MOYAMOVA
+   File: states.css
+   Purpose: Состояния/хелперы (visible, disabled и т.п.)
+   Version: 1.0
+   Last modified: 2025-10-19
+*/
+
+body.modal-open{
+  overflow: hidden;
+}body:has(#setupModal:not(.hidden)) #dictActiveTitle,
+body:has(#setupModal:not(.hidden)) #setsBar,
+body:has(#setupModal:not(.hidden)) #setStats{
+  opacity: 0;
+  visibility: hidden;
+}html:has(#setupModal:not(.hidden)) #dictSpoiler,
+html:has(#setupModal:not(.hidden)) main .card{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}#setsBar:has(.setTile:nth-child(10):last-child),
+#setsBar:has(.setTile:nth-child(9):last-child),
+#setsBar:has(.setTile:nth-child(8):last-child),
+#setsBar:has(.setTile:nth-child(7):last-child),
+#setsBar:has(.setTile:nth-child(6):last-child),
+#setsBar:has(.setTile:nth-child(5):last-child),
+#setsBar:has(.setTile:nth-child(4):last-child),
+#setsBar:has(.setTile:nth-child(3):last-child),
+#setsBar:has(.setTile:nth-child(2):last-child),
+#setsBar:has(.setTile:nth-child(1):last-child){
+  justify-content: center;
+}
+
+/* ====================== End of file =======================
+   File: states.css • Version: 1.0 • 2025-10-19
+*/

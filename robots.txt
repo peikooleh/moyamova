@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /dicts/
+Disallow: /tests/
+Disallow: /internal/
+Disallow: /temp/
+Disallow: /private/
+Allow: /
+
+Sitemap: ./sitemap.xml
