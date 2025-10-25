@@ -9,6 +9,21 @@
 -->
 <html lang="uk">
 <head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DZL66KME4H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-DZL66KME4H', { 'send_page_view': false });
+  window.trackPageView = function(path) {
+    try {
+      gtag('event', 'page_view', { page_path: path || (location.pathname + location.hash), page_title: document.title });
+    } catch(e) { }
+  };
+</script>
+
 <meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
 <meta content="no-cache" http-equiv="Pragma"/>
 <meta content="0" http-equiv="Expires"/>
@@ -497,6 +512,45 @@ document.addEventListener('DOMContentLoaded', function(){
   } catch(e){ /* ignore */ }
 })();
 </script>
+
+<script>
+(function(){
+  if (typeof window.trackPageView === 'function') {
+    window.trackPageView(location.pathname + location.hash);
+  }
+  window.addEventListener('hashchange', function(){ window.trackPageView(location.pathname + location.hash); }, {passive:true});
+  window.addEventListener('popstate', function(){ window.trackPageView(location.pathname + location.hash); }, {passive:true});
+  document.addEventListener('i18n:lang-changed', function(){ window.trackPageView(location.pathname + '#lang'); }, false);
+  window.addEventListener('lexi:lang-changed', function(){ window.trackPageView(location.pathname + '#lang'); }, false);
+
+  function trackDonateOpen(){ try { gtag('event','donation_modal_open'); } catch(e){} }
+  ['#donateBtn','#donateButton','[data-action="donate"]','.toolbar .coin','button.donate'].forEach(function(sel){
+    var el = document.querySelector(sel); if (el) el.addEventListener('click', trackDonateOpen, {passive:true});
+  });
+
+  var dm = document.querySelector('#donateModal');
+  if (dm) {
+    var obs = new MutationObserver(function(muts){
+      muts.forEach(function(m){
+        if (m.type === 'attributes' && m.attributeName === 'class') {
+          if (!dm.classList.contains('hidden')) trackDonateOpen();
+        }
+      });
+    });
+    obs.observe(dm, { attributes:true, attributeFilter:['class'] });
+  }
+
+  function onClick(sel, eventName){
+    var el = document.querySelector(sel);
+    if (el) el.addEventListener('click', function(){ try{ gtag('event', eventName); }catch(e){} }, {passive:true});
+  }
+  onClick('#monobankDonateLink','donation_monobank_click');
+  onClick('a[href*="send.monobank.ua"]','donation_monobank_click');
+  onClick('#paypalDonateLink','donation_paypal_click');
+  onClick('a[href*="paypal.com"]','donation_paypal_click');
+})();
+</script>
+
 </body>
 </html>
 <!-- ====================== End of file =======================
