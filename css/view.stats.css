@@ -144,14 +144,19 @@
 @media (prefers-color-scheme: light) {
   .stats-ring-layer__ring {
     background:
+      /* мягкий блик сверху */
       radial-gradient(circle at 30% 20%, rgba(53, 182, 255, 0.18), transparent 60%),
-      radial-gradient(circle at 70% 80%, rgba(53, 182, 255, 0.05), transparent 55%),
+      /* вместо тёмной тени снизу — лёгкий подсвет брендом */
+      radial-gradient(circle at 70% 80%, rgba(53, 182, 255, 0.04), transparent 55%),
+      /* прогресс: бренд → очень светлый бренд */
       conic-gradient(
         var(--ring-color, #0ea5e9) var(--ring-angle, 0deg),
         rgba(53, 182, 255, 0.06) var(--ring-angle, 0deg)
       );
+
+    /* контур тоже не чёрный, а мягко-голубой */
     box-shadow:
-      0 0 0 1px rgba(53, 182, 255, 0.25) inset,  /* вместо почти чёрного */
+      0 0 0 1px rgba(53, 182, 255, 0.22) inset,
       0 0 0 1px rgba(255, 255, 255, 0.8);
   }
 }
