@@ -28,6 +28,22 @@
       activityNoData: uk
         ? 'Ще немає даних про активність — продовжуйте тренуватися, і тут з’являться кола за днями.'
         : 'Пока нет данных об активности — продолжайте тренироваться, и здесь появятся кружки по дням.',
+            activityLegendCaption: uk
+        ? 'Останні 35 днів'
+        : 'Последние 35 дней',
+      activityLegendLow: uk
+        ? 'Легкий день'
+        : 'Лёгкий день',
+      activityLegendMid: uk
+        ? 'Стабільно'
+        : 'Стабильно',
+      activityLegendHigh: uk
+        ? 'Дуже активно'
+        : 'Очень активно',
+      weekdayShort: uk
+        ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд']
+        : ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+      placeholderTitle: uk ? 'Активність і якість' : 'Активность и качество',
       placeholderTitle: uk ? 'Активність і якість' : 'Активность и качество',
       placeholderText: uk
         ? 'Тут пізніше з’явиться статистика за часом у застосунку, регулярністю та якістю запам’ятовування.'
@@ -128,7 +144,6 @@
 
   function isWordLearned(word, deckKey) {
     const trainer = A.Trainer;
-    // 1) Основной путь — через state.stars + App.starKey (как в app.decks.js)
     try {
       if (
         A.state &&
@@ -144,18 +159,14 @@
         const sc = Math.max(0, Math.min(sMax, raw));
         return sc >= sMax;
       }
-    } catch (e) {
-      // пойдём в запасной путь
-    }
+    } catch (e) {}
 
-    // 2) Безопасный фоллбэк — доверяем Trainer.isLearned, если он есть
     try {
       if (trainer && typeof trainer.isLearned === 'function') {
         return !!trainer.isLearned(word, deckKey);
       }
     } catch (e) {}
 
-    // 3) Если ничего нет — считаем слово невыученным (иначе будет "всё выучено")
     return false;
   }
 
@@ -164,7 +175,7 @@
   function computeStats() {
     const decksApi = A.Decks;
     const rawDecks = window.decks || {};
-    const byLang = {};
+       const byLang = {};
     const langOrder = [];
 
     if (!decksApi) {
@@ -368,24 +379,19 @@
 
   /* ---------------------- АКТИВНОСТЬ (круглые точки) ----------- */
 
-  // Ожидаемый формат, если когда-нибудь реализуем:
-  // App.Stats.getDailyActivity(lang) -> [
-  //   { date: '2025-11-10', learned: 12, reviewed: 40, seconds: 600 },
-  //   ...
-  // ]
-  function getDailyActivitySeries(lang) {
+  function getDailyActivitySeries(langCode) {
     try {
       if (A.Stats && typeof A.Stats.getDailyActivity === 'function') {
-        var arr = A.Stats.getDailyActivity(lang) || [];
+        var arr = A.Stats.getDailyActivity(langCode) || [];
         if (Array.isArray(arr)) return arr;
       }
     } catch (_) {}
     return [];
   }
 
-  function renderActivitySection(langCode, texts) {
-    var series = getDailyActivitySeries(langCode);
-    if (!series.length) {
+        function renderActivitySection(langCode, texts) {
+    var raw = getDailyActivitySeries(langCode);
+    if (!raw.length) {
       return (
         '<section class="stats-section stats-section--activity">' +
           '<h2 class="stats-subtitle">' + texts.activityTitle + '</h2>' +
@@ -396,49 +402,146 @@
       );
     }
 
-    // Превращаем метрики в «интенсивность» точки
-    var scores = series.map(function (d) {
+    // 1) Собираем баллы по датам (ключ: YYYY-MM-DD)
+    var byDate = Object.create(null);
+    var maxScore = 0;
+
+    raw.forEach(function (d) {
       var learned  = Number(d.learned  || 0);
       var reviewed = Number(d.reviewed || 0);
       var seconds  = Number(d.seconds  || 0);
-      // простая эвристика: учёт, повторения и время
-      return learned * 4 + reviewed * 1 + seconds / 60;
+      var score = learned * 4 + reviewed * 1 + seconds / 60;
+
+      var key = (d.date || '').slice(0, 10); // предположительно YYYY-MM-DD
+      if (!key) return;
+
+      byDate[key] = {
+        data: d,
+        score: score
+      };
+
+      if (score > maxScore) maxScore = score;
     });
 
-    var max = scores.reduce(function (m, v) { return v > m ? v : m; }, 0);
-    if (max <= 0) {
-      // есть записи, но всё нули — считаем как «есть, но слабая активность»
-      max = 1;
+    if (maxScore <= 0) {
+      maxScore = 1;
     }
 
-    var dotsHtml = series
-      .map(function (d, idx) {
-        var s = scores[idx];
-        var ratio = s / max;
+    // 2) Строим "календарь" на 5 недель: строки = недели, колонки = Пн–Вс
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // перевести getDay() (0=Вс..6=Сб) в индекс (0=Пн..6=Вс)
+    function toMondayIndex(day) {
+      return (day + 6) % 7;
+    }
+
+    var weekdayLabels = texts.weekdayShort || ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+
+    // понедельник текущей недели
+    var mondayThisWeek = new Date(today.getTime());
+    var todayMondayIdx = toMondayIndex(today.getDay());
+    mondayThisWeek.setDate(mondayThisWeek.getDate() - todayMondayIdx);
+
+    // стартовая точка — понедельник 4 недели назад (итого 5 недель)
+    var startMonday = new Date(mondayThisWeek.getTime());
+    startMonday.setDate(startMonday.getDate() - 7 * 4);
+
+    function formatDateYMD(d) {
+      var year = d.getFullYear();
+      var month = d.getMonth() + 1;
+      var day = d.getDate();
+      return (
+        year +
+        '-' +
+        (month < 10 ? '0' + month : month) +
+        '-' +
+        (day < 10 ? '0' + day : day)
+      );
+    }
+
+    var cellsHtml = '';
+
+    for (var week = 0; week < 5; week++) {
+      for (var dow = 0; dow < 7; dow++) {
+        var dayDate = new Date(startMonday.getTime());
+        dayDate.setDate(startMonday.getDate() + week * 7 + dow);
+
+        var key = formatDateYMD(dayDate);
+        var entry = byDate[key];
         var lvl = 0;
-        if      (ratio >= 0.75) lvl = 3;
-        else if (ratio >= 0.5)  lvl = 2;
-        else if (ratio >= 0.25) lvl = 1;
-        else lvl = 0;
+        var title = '';
 
-        var title =
-          (d.date || '') +
-          (d.learned || d.reviewed || d.seconds
-            ? (' — +' + (d.learned || 0) + ' / ' + (d.reviewed || 0) + ' / ' + Math.round((d.seconds || 0) / 60) + ' мин')
-            : '');
+        if (entry) {
+          var ratio = entry.score / maxScore;
+          if (ratio >= 0.75) lvl = 3;
+          else if (ratio >= 0.5) lvl = 2;
+          else if (ratio >= 0.25) lvl = 1;
+          else lvl = 0;
 
-        return (
-          '<div class="stats-activity-dot stats-activity-dot--lvl' + lvl + '"' +
-            (title ? ' title="' + title.replace(/"/g, '&quot;') + '"' : '') +
-          '></div>'
-        );
-      })
-      .join('');
+          var d = entry.data;
+          title =
+            key +
+            ' — +' +
+            (d.learned || 0) +
+            ' / ' +
+            (d.reviewed || 0) +
+            ' / ' +
+            Math.round((d.seconds || 0) / 60) +
+            ' мин';
+        } else {
+          var isFuture = dayDate.getTime() > today.getTime();
+          title = isFuture ? key : (key + ' — без активности');
+          lvl = 0;
+        }
+
+        var isToday = dayDate.getTime() === today.getTime();
+        var todayClass = isToday ? ' stats-activity-dot--today' : '';
+
+        cellsHtml +=
+          '<div class="stats-activity-cell">' +
+            '<div class="stats-activity-dot stats-activity-dot--lvl' + lvl + todayClass + '"' +
+              (title ? ' title="' + title.replace(/"/g, '&quot;') + '"' : '') +
+            '></div>' +
+          '</div>';
+      }
+    }
+
+    // заголовок с днями недели
+    var weekdaysHtml =
+      '<div class="stats-activity-weekdays">' +
+        weekdayLabels
+          .map(function (label) {
+            return '<span class="stats-activity-weekday">' + label + '</span>';
+          })
+          .join('') +
+      '</div>';
+
+    var legendHtml =
+      '<div class="stats-activity-legend">' +
+        '<span class="stats-activity-legend__caption">' + texts.activityLegendCaption + '</span>' +
+        '<div class="stats-activity-legend__scale">' +
+          '<span class="stats-activity-legend__item">' +
+            '<span class="stats-activity-dot stats-activity-dot--lvl1"></span>' +
+            '<span>' + texts.activityLegendLow + '</span>' +
+          '</span>' +
+          '<span class="stats-activity-legend__item">' +
+            '<span class="stats-activity-dot stats-activity-dot--lvl2"></span>' +
+            '<span>' + texts.activityLegendMid + '</span>' +
+          '</span>' +
+          '<span class="stats-activity-legend__item">' +
+            '<span class="stats-activity-dot stats-activity-dot--lvl3"></span>' +
+            '<span>' + texts.activityLegendHigh + '</span>' +
+          '</span>' +
+        '</div>' +
+      '</div>';
 
     return (
       '<section class="stats-section stats-section--activity">' +
         '<h2 class="stats-subtitle">' + texts.activityTitle + '</h2>' +
-        '<div class="stats-activity-grid">' + dotsHtml + '</div>' +
+        weekdaysHtml +
+        '<div class="stats-activity-grid">' + cellsHtml + '</div>' +
+        legendHtml +
       '</section>'
     );
   }
@@ -641,9 +744,6 @@
     return statsByLang[0].lang;
   }
 
-  /* ---------------------- mount() ---------------------- */
-
-  
   /* ---------------------- Пейджер по трём экранам ---------------------- */
 
   function setupStatsPager(root) {
@@ -685,7 +785,7 @@
     });
   }
 
-function mount() {
+  function mount() {
     const app = document.getElementById('app');
     if (!app) return;
 
