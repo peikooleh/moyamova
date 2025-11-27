@@ -53,6 +53,41 @@
     try { window.dispatchEvent(ev); } catch(_){}
   }
 
+
+  // Текущий язык интерфейса для аналитики
+  function getCurrentUiLang() {
+    try {
+      return getUiLang();
+    } catch (_){
+      return 'ru';
+    }
+  }
+
+  // Текущий язык обучения (de/en/...) для аналитики
+  function getCurrentLearnLang() {
+    try {
+      if (A.Decks && typeof A.Decks.langOfKey === 'function') {
+        let dk = null;
+
+        if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
+          dk = A.Trainer.getDeckKey();
+        } else if (A.settings && A.settings.lastDeckKey) {
+          dk = A.settings.lastDeckKey;
+        }
+
+        if (!dk && typeof firstAvailableBaseDeckKey === 'function') {
+          dk = firstAvailableBaseDeckKey();
+        }
+
+        if (dk) {
+          return A.Decks.langOfKey(dk) || null;
+        }
+      }
+    } catch (_){}
+
+    return null;
+  }
+
   function tUI() {
     const uk = getUiLang() === 'uk';
     return uk
@@ -639,9 +674,19 @@ function activeDeckKey() {
   const Router = {
     current: 'home',
     routeTo(action) {
+      const prev = this.current || 'home';
       this.current = action;
       const app = document.getElementById('app');
       if (!app) return;
+
+      // аналитика: если уходим с главного экрана — завершаем тренировку
+      if (prev === 'home' && action !== 'home') {
+        try {
+          if (A.Analytics && typeof A.Analytics.trainingEnd === 'function') {
+            A.Analytics.trainingEnd({ reason: 'route_change:' + action });
+          }
+        } catch(_) {}
+      }
 
       if (action === 'home') {
         mountMarkup();
@@ -649,6 +694,30 @@ function activeDeckKey() {
         renderTrainer();
         const hb = document.getElementById('hintsBody');
         if (hb) hb.textContent = ' ';
+
+        // аналитика: старт тренировки
+        try {
+          if (A.Analytics && typeof A.Analytics.trainingStart === 'function') {
+            const learnLang = getCurrentLearnLang();
+            const uiLang = getCurrentUiLang();
+
+            let deckKey = null;
+            try {
+              if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
+                deckKey = A.Trainer.getDeckKey();
+              } else if (A.settings && A.settings.lastDeckKey) {
+                deckKey = A.settings.lastDeckKey;
+              }
+            } catch (_){}
+
+            A.Analytics.trainingStart({
+              learnLang: learnLang,
+              uiLang: uiLang,
+              deckKey: deckKey
+            });
+          }
+        } catch(_){}
+
         return;
       }
       if (action === 'dicts') { A.ViewDicts && A.ViewDicts.mount && A.ViewDicts.mount(); return; }
@@ -800,6 +869,25 @@ function activeDeckKey() {
 
     // ждём словари, потом грузим главную (важно для корректного дефолтного ключа и слайса)
     await waitForDecksReady();
+
+    // базовые user properties для GA4
+    try {
+      if (A.Analytics && typeof A.Analytics.setUserProps === 'function') {
+        const learnLang = getCurrentLearnLang();
+        const uiLang = getCurrentUiLang();
+        const appMode =
+          (A.Analytics && typeof A.Analytics.detectAppMode === 'function')
+            ? A.Analytics.detectAppMode()
+            : 'web';
+
+        A.Analytics.setUserProps({
+          learn_lang: learnLang,
+          ui_lang: uiLang,
+          app_mode: appMode
+        });
+      }
+    } catch (_){}
+
     Router.routeTo('home');
   }
 
