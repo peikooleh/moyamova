@@ -116,14 +116,44 @@
   width: 100%;
   height: 100%;
   border-radius: 999px;
+
   background:
+    /* мягкий "блик" брендового цвета сверху */
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(53, 182, 255, 0.25),   /* бренд с прозрачностью */
+      transparent 60%
+    ),
+    /* лёгкая тень темнее бренда снизу */
+    radial-gradient(
+      circle at 70% 80%,
+      rgba(15, 76, 120, 0.18),
+      transparent 55%
+    ),
+    /* сам прогресс — как был, но фон не серый, а приглушённый бренд */
     conic-gradient(
       var(--ring-color, #0ea5e9) var(--ring-angle, 0deg),
-      rgba(255,255,255,0.06) var(--ring-angle, 0deg)
+      rgba(53, 182, 255, 0.20) var(--ring-angle, 0deg)
     );
+
   box-shadow:
-    0 0 0 1px rgba(0,0,0,0.7) inset,
-    0 0 0 1px rgba(255,255,255,0.04);
+    0 0 0 1px rgba(15, 23, 42, 0.55) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: light) {
+  .stats-ring-layer__ring {
+    background:
+      radial-gradient(circle at 30% 20%, rgba(53, 182, 255, 0.22), transparent 60%),
+      radial-gradient(circle at 70% 80%, rgba(15, 76, 120, 0.10), transparent 55%),
+      conic-gradient(
+        var(--ring-color, #0ea5e9) var(--ring-angle, 0deg),
+        rgba(53, 182, 255, 0.10) var(--ring-angle, 0deg)
+      );
+    box-shadow:
+      0 0 0 1px rgba(15, 23, 42, 0.16) inset,   /* границы значительно мягче */
+      0 0 0 1px rgba(255, 255, 255, 0.6);
+  }
 }
 
 /* Легенда под кругом (по умолчанию — 2 колонки) */
