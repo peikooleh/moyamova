@@ -326,6 +326,53 @@
   }
 }
 
+/* История по месяцам под календарём активности */
+.stats-activity-history {
+  margin-top: 18px;
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148,163,184,0.35); /* как легенда */
+}
+
+.stats-activity-history__title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.stats-activity-history__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats-activity-history__item {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.stats-activity-history__item:last-child {
+  border-bottom: none;
+}
+
+.stats-activity-history__item:first-child {
+  border-top: none;
+}
+
+.stats-activity-history__month {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.stats-activity-history__line {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
 /* ==========================================================
  * Дополнение: экранная разбивка статистики + индикатор страниц
  * Без изменений размеров кругов
