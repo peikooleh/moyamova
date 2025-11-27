@@ -8,7 +8,7 @@
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.2';
+  App.APP_VER = '1.2.1';
 
   const LS_SETTINGS = 'k_settings_v1_3_1';
   const LS_STATE    = 'k_state_v1_3_1';
