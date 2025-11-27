@@ -389,7 +389,7 @@
     return [];
   }
 
-        function renderActivitySection(langCode, texts) {
+          function renderActivitySection(langCode, texts) {
     var raw = getDailyActivitySeries(langCode);
     if (!raw.length) {
       return (
@@ -412,7 +412,7 @@
       var seconds  = Number(d.seconds  || 0);
       var score = learned * 4 + reviewed * 1 + seconds / 60;
 
-      var key = (d.date || '').slice(0, 10); // предположительно YYYY-MM-DD
+      var key = (d.date || '').slice(0, 10); // предполагаем YYYY-MM-DD
       if (!key) return;
 
       byDate[key] = {
@@ -431,8 +431,8 @@
     var today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // перевести getDay() (0=Вс..6=Сб) в индекс (0=Пн..6=Вс)
     function toMondayIndex(day) {
+      // getDay(): 0=Вс..6=Сб → 0=Пн..6=Вс
       return (day + 6) % 7;
     }
 
@@ -517,6 +517,116 @@
           .join('') +
       '</div>';
 
+    // 3) История по месяцам (по всем данным, не только 35 дней)
+    var uk = getUiLang() === 'uk';
+    var monthNamesRu = [
+      'Январь','Февраль','Март','Апрель','Май','Июнь',
+      'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'
+    ];
+    var monthNamesUk = [
+      'Січень','Лютий','Березень','Квітень','Травень','Червень',
+      'Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'
+    ];
+    var monthNames = uk ? monthNamesUk : monthNamesRu;
+
+    // собираем по месяцам
+    var monthBuckets = Object.create(null);
+
+    Object.keys(byDate).forEach(function (key) {
+      var entry = byDate[key];
+      var dt = new Date(key);
+      if (isNaN(dt.getTime())) return;
+
+      var year = dt.getFullYear();
+      var monthIdx = dt.getMonth(); // 0..11
+      var mKey = year + '-' + monthIdx;
+
+      var bucket = monthBuckets[mKey];
+      if (!bucket) {
+        bucket = monthBuckets[mKey] = {
+          year: year,
+          monthIdx: monthIdx,
+          activeDays: 0,
+          learnedSum: 0,
+          secondsSum: 0
+        };
+      }
+
+      if (entry.score > 0) {
+        bucket.activeDays += 1;
+      }
+      bucket.learnedSum += Number(entry.data.learned || 0);
+      bucket.secondsSum += Number(entry.data.seconds || 0);
+    });
+
+    var monthItems = Object.keys(monthBuckets)
+      .map(function (mKey) {
+        return monthBuckets[mKey];
+      })
+      .sort(function (a, b) {
+        if (a.year !== b.year) return b.year - a.year;
+        return b.monthIdx - a.monthIdx;
+      });
+
+    // ограничим, например, последними 12 месяцами
+    monthItems = monthItems.slice(0, 12);
+
+    var historyHtml = '';
+    if (monthItems.length) {
+      var titleText = uk ? 'Історія за місяцями' : 'История по месяцам';
+      var labelActive = uk ? 'Активні дні' : 'Активные дни';
+      var labelLearned = uk ? 'Вивчено слів' : 'Выучено слов';
+      var labelTime = uk ? 'Час у тренуваннях' : 'Время в тренировках';
+      var hLabel = uk ? 'год' : 'ч';
+      var mLabel = uk ? 'хв' : 'мин';
+
+      var itemsHtml = monthItems
+        .map(function (b) {
+          var monthLabel = monthNames[b.monthIdx] + ' ' + b.year;
+
+          var totalMinutes = Math.round(b.secondsSum / 60);
+          var hours = Math.floor(totalMinutes / 60);
+          var mins = totalMinutes % 60;
+          var timeStr = '';
+          if (hours > 0) {
+            timeStr += hours + ' ' + hLabel;
+          }
+          if (mins > 0) {
+            if (timeStr) timeStr += ' ';
+            timeStr += mins + ' ' + mLabel;
+          }
+          if (!timeStr) {
+            timeStr = '0 ' + mLabel;
+          }
+
+          return (
+            '<div class="stats-activity-history__item">' +
+              '<div class="stats-activity-history__month">' +
+                monthLabel +
+              '</div>' +
+              '<div class="stats-activity-history__line">' +
+                labelActive + ': ' + b.activeDays +
+              '</div>' +
+              '<div class="stats-activity-history__line">' +
+                labelLearned + ': ' + b.learnedSum +
+              '</div>' +
+              '<div class="stats-activity-history__line">' +
+                labelTime + ': ' + timeStr +
+              '</div>' +
+            '</div>'
+          );
+        })
+        .join('');
+
+      historyHtml =
+        '<div class="stats-activity-history">' +
+          '<div class="stats-activity-history__title">' + titleText + '</div>' +
+          '<div class="stats-activity-history__list">' +
+            itemsHtml +
+          '</div>' +
+        '</div>';
+    }
+
     var legendHtml =
       '<div class="stats-activity-legend">' +
         '<span class="stats-activity-legend__caption">' + texts.activityLegendCaption + '</span>' +
@@ -542,6 +652,7 @@
         weekdaysHtml +
         '<div class="stats-activity-grid">' + cellsHtml + '</div>' +
         legendHtml +
+        historyHtml +
       '</section>'
     );
   }
