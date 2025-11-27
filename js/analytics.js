@@ -184,15 +184,20 @@
       app_mode: trainingState.appMode
     });
 
-    safeTrack('training_start', {
+        safeTrack('training_start', {
       learn_lang: trainingState.learnLang || null,
       ui_lang: trainingState.uiLang || null,
       deck_key: trainingState.deckKey || null,
       app_mode: trainingState.appMode || null
     });
 
+    // сразу отправим первый heartbeat, чтобы было видно онлайн мгновенно
+    try {
+      trainingPing({ reason: 'start' });
+    } catch (_) {}
+
     startHeartbeatLoop();
-  }
+
 
   /**
    * Завершение сессии тренировки.
