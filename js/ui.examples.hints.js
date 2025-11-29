@@ -213,54 +213,56 @@
   }
 
   function renderSynonymsTab(word, body) {
-    const syn = getSynonyms(word);
-    const de  = (syn.de || []).filter(Boolean);
-    const l1  = (syn.l1 || []).filter(Boolean);
+  const syn = getSynonyms(word);
+  const de  = (syn.de || []).filter(Boolean);
+  const l1  = (syn.l1 || []).filter(Boolean);
 
-    if (!de.length && !l1.length) {
-      body.innerHTML =
-        '<div class="hint-example">' +
-          '<p class="hint-tr is-visible">' +
-            escapeHtml(getNoDataText('synonyms')) +
-          '</p>' +
-        '</div>';
-      return;
-    }
-
-    const top = de.join(', ');
-    const bottom = l1.join(', ');
-
+  // ВРЕМЕННО: если нет немецких синонимов — считаем, что синонимов нет вообще
+  if (!de.length) {
     body.innerHTML =
       '<div class="hint-example">' +
-        (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
-        (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+        '<p class="hint-tr is-visible">' +
+          escapeHtml(getNoDataText('synonyms')) +
+        '</p>' +
       '</div>';
+    return;
   }
+
+  const top = de.join(', ');
+  const bottom = l1.join(', ');
+
+  body.innerHTML =
+    '<div class="hint-example">' +
+      (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
+      (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+    '</div>';
+}
 
   function renderAntonymsTab(word, body) {
-    const ant = getAntonyms(word);
-    const de  = (ant.de || []).filter(Boolean);
-    const l1  = (ant.l1 || []).filter(Boolean);
+  const ant = getAntonyms(word);
+  const de  = (ant.de || []).filter(Boolean);
+  const l1  = (ant.l1 || []).filter(Boolean);
 
-    if (!de.length && !l1.length) {
-      body.innerHTML =
-        '<div class="hint-example">' +
-          '<p class="hint-tr is-visible">' +
-            escapeHtml(getNoDataText('antonyms')) +
-          '</p>' +
-        '</div>';
-      return;
-    }
-
-    const top = de.join(', ');
-    const bottom = l1.join(', ');
-
+  // ВРЕМЕННО: если нет немецких антонимов — считаем, что антонимов нет вообще
+  if (!de.length) {
     body.innerHTML =
       '<div class="hint-example">' +
-        (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
-        (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+        '<p class="hint-tr is-visible">' +
+          escapeHtml(getNoDataText('antonyms')) +
+        '</p>' +
       '</div>';
+    return;
   }
+
+  const top = de.join(', ');
+  const bottom = l1.join(', ');
+
+  body.innerHTML =
+    '<div class="hint-example">' +
+      (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
+      (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+    '</div>';
+}
 
   function renderExampleHint() {
     const section = document.querySelector('.home-hints');
