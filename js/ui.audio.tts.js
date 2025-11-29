@@ -26,7 +26,7 @@
   function loadAudioEnabled() {
     try {
       var v = window.localStorage.getItem(LS_KEY);
-      if (v === '0') return false;
+      if (v === '1') return false;
       return true;
     } catch (e) {
       return true;
