@@ -3,8 +3,9 @@
  * Файл: ui.examples.hints.js
  * Назначение: Пример использования текущего слова
  *            в зоне .home-hints под сетами
- * Версия: 2.1 (2 неверные попытки → авто-перевод)
- * Обновлено: 2025-11-22
+ *            (Пример / Синонимы / Антонимы)
+ * Версия: 3.0 (вкладки + общая логика показа перевода)
+ * Обновлено: 2025-11-29
  * ========================================================== */
 
 (function () {
@@ -12,8 +13,9 @@
 
   const A = (window.App = window.App || {});
 
-  let wordObserver = null;   // наблюдатель за .trainer-word
-  let wrongAttempts = 0;     // счётчик неверных ответов для текущего слова
+  let wordObserver = null;    // наблюдатель за .trainer-word
+  let wrongAttempts = 0;      // счётчик неверных ответов для текущего слова
+  let currentTab = 'examples'; // 'examples' | 'synonyms' | 'antonyms' (на сессию)
 
   /* ----------------------------- Вспомогательные функции ----------------------------- */
 
@@ -25,26 +27,25 @@
     return (v === 'uk') ? 'uk' : 'ru';
   }
 
-  // Экранируем HTML
   function escapeHtml(str) {
-    if (str == null) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+    return String(str || '').replace(/[&<>"']/g, function (m) {
+      return ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[m] || m;
+    });
   }
 
-  // Экранируем для RegExp
   function escapeRegExp(str) {
-    return String(str).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
-  // Подсветка: ищем только точное совпадение леммы (без угадывания форм)
-  function highlightSentence(sentence, wordObj) {
-    if (!sentence) return '';
-    const raw = String(sentence);
+  // Подсветка тренируемого слова внутри предложения
+  function highlightSentence(raw, wordObj) {
+    if (!raw || !wordObj) return escapeHtml(raw);
 
     const w = wordObj && wordObj.word ? String(wordObj.word) : '';
     const lemma = w.trim().split(/\s+/).pop(); // отбрасываем артикль у существительных
@@ -59,6 +60,7 @@
 
     const idx = m.index;
     const match = m[0];
+
     const before = raw.slice(0, idx);
     const after  = raw.slice(idx + match.length);
 
@@ -69,40 +71,126 @@
     );
   }
 
-  // Заголовок "Пример использования / Приклад вживання"
+  // Названия вкладок
+  function getTabLabels() {
+    const lang = getUiLang();
+    if (lang === 'uk') {
+      return {
+        examples: 'Приклад',
+        synonyms: 'Синоніми',
+        antonyms: 'Антоніми'
+      };
+    }
+    return {
+      examples: 'Пример',
+      synonyms: 'Синонимы',
+      antonyms: 'Антонимы'
+    };
+  }
+
+  // Тексты "нет данных"
+  function getNoDataText(kind) {
+    const lang = getUiLang();
+    if (lang === 'uk') {
+      if (kind === 'examples') return 'Для цього слова немає прикладів.';
+      if (kind === 'synonyms') return 'Для цього слова немає синонімів.';
+      if (kind === 'antonyms') return 'Для цього слова немає антонімів.';
+      return '';
+    }
+    // ru
+    if (kind === 'examples') return 'Для этого слова нет примеров.';
+    if (kind === 'synonyms') return 'Для этого слова нет синонимов.';
+    if (kind === 'antonyms') return 'Для этого слова нет антонимов.';
+    return '';
+  }
+
+  // Синонимы по L2 и L1 (ru/uk)
+  function getSynonyms(word) {
+    if (!word) return { de: [], l1: [] };
+
+    const uiLang = getUiLang();
+    const de = Array.isArray(word.deSynonyms) ? word.deSynonyms : [];
+    const ru = Array.isArray(word.ruSynonyms) ? word.ruSynonyms : [];
+    const uk = Array.isArray(word.ukSynonyms) ? word.ukSynonyms : [];
+
+    const l1 = (uiLang === 'uk') ? uk : ru;
+    return { de: de, l1: l1 };
+  }
+
+  // Антонимы по L2 и L1 (ru/uk)
+  function getAntonyms(word) {
+    if (!word) return { de: [], l1: [] };
+
+    const uiLang = getUiLang();
+    const de = Array.isArray(word.deAntonyms) ? word.deAntonyms : [];
+    const ru = Array.isArray(word.ruAntonyms) ? word.ruAntonyms : [];
+    const uk = Array.isArray(word.ukAntonyms) ? word.ukAntonyms : [];
+
+    const l1 = (uiLang === 'uk') ? uk : ru;
+    return { de: de, l1: l1 };
+  }
+
+  /* ----------------------------- Заголовок и вкладки ----------------------------- */
+
+  // Создаём/обновляем заголовок с вкладками
   function ensureTitle(section) {
     const bodyEl = section.querySelector('#hintsBody');
     if (!bodyEl) return;
 
-    let titleEl = section.querySelector('.hints-title');
-    if (!titleEl) {
-      titleEl = document.createElement('div');
+    let header = section.querySelector('.hints-header');
+    if (!header) {
+      header = document.createElement('div');
+      header.className = 'hints-header';
+
+      const titleEl = document.createElement('div');
       titleEl.className = 'hints-title';
-      section.insertBefore(titleEl, bodyEl);
+      titleEl.id = 'hintsTabLabel';
+
+      const pager = document.createElement('div');
+      pager.className = 'hints-pager';
+
+      header.appendChild(titleEl);
+      header.appendChild(pager);
+
+      section.insertBefore(header, bodyEl);
     }
 
-    const lang = getUiLang();
-    titleEl.textContent = (lang === 'uk')
-      ? 'Приклад'
-      : 'Пример';
+    const labels = getTabLabels();
+    const titleEl = header.querySelector('#hintsTabLabel');
+    const pager   = header.querySelector('.hints-pager');
+    if (!titleEl || !pager) return;
+
+    titleEl.textContent = labels[currentTab] || labels.examples;
+
+    // индикаторы вкладок
+    pager.innerHTML = '';
+    ['examples', 'synonyms', 'antonyms'].forEach(function (tab) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'hints-dot' + (tab === currentTab ? ' is-active' : '');
+      btn.dataset.tab = tab;
+
+      btn.addEventListener('click', function () {
+        if (currentTab === tab) return;
+        currentTab = tab;      // запоминаем выбор на сессию
+        renderExampleHint();   // перерисовываем содержимое
+      });
+
+      pager.appendChild(btn);
+    });
   }
 
   /* ----------------------------- Основной рендер ----------------------------- */
 
-  function renderExampleHint() {
-    const section = document.querySelector('.home-hints');
-    const body = document.getElementById('hintsBody');
-    if (!section || !body) return;
-
-    ensureTitle(section);
-
-    const word = A.__currentWord;
-    if (!word || !Array.isArray(word.examples) || !word.examples.length) {
+  function renderExamplesTab(word, body) {
+    const examples = Array.isArray(word.examples) ? word.examples : [];
+    if (!examples.length) {
+      // если нет примеров — просто очищаем (как было раньше)
       body.innerHTML = '';
       return;
     }
 
-    const ex = word.examples[0] || {};
+    const ex = examples[0] || {};
     const de = ex.L2 || ex.de || ex.deu || '';
     if (!de) {
       body.innerHTML = '';
@@ -122,6 +210,79 @@
         '<p class="hint-de">' + deHtml + '</p>' +
         (trHtml ? '<p class="hint-tr">' + trHtml + '</p>' : '') +
       '</div>';
+  }
+
+  function renderSynonymsTab(word, body) {
+    const syn = getSynonyms(word);
+    const de  = (syn.de || []).filter(Boolean);
+    const l1  = (syn.l1 || []).filter(Boolean);
+
+    if (!de.length && !l1.length) {
+      body.innerHTML =
+        '<div class="hint-example">' +
+          '<p class="hint-tr is-visible">' +
+            escapeHtml(getNoDataText('synonyms')) +
+          '</p>' +
+        '</div>';
+      return;
+    }
+
+    const top = de.join(', ');
+    const bottom = l1.join(', ');
+
+    body.innerHTML =
+      '<div class="hint-example">' +
+        (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
+        (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+      '</div>';
+  }
+
+  function renderAntonymsTab(word, body) {
+    const ant = getAntonyms(word);
+    const de  = (ant.de || []).filter(Boolean);
+    const l1  = (ant.l1 || []).filter(Boolean);
+
+    if (!de.length && !l1.length) {
+      body.innerHTML =
+        '<div class="hint-example">' +
+          '<p class="hint-tr is-visible">' +
+            escapeHtml(getNoDataText('antonyms')) +
+          '</p>' +
+        '</div>';
+      return;
+    }
+
+    const top = de.join(', ');
+    const bottom = l1.join(', ');
+
+    body.innerHTML =
+      '<div class="hint-example">' +
+        (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
+        (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+      '</div>';
+  }
+
+  function renderExampleHint() {
+    const section = document.querySelector('.home-hints');
+    const body = document.getElementById('hintsBody');
+    if (!section || !body) return;
+
+    ensureTitle(section);
+
+    const word = A.__currentWord;
+    if (!word) {
+      body.innerHTML = '';
+      return;
+    }
+
+    if (currentTab === 'synonyms') {
+      renderSynonymsTab(word, body);
+    } else if (currentTab === 'antonyms') {
+      renderAntonymsTab(word, body);
+    } else {
+      // 'examples' или любые другие значения по умолчанию → примеры
+      renderExamplesTab(word, body);
+    }
   }
 
   /* ----------------------------- Автопоказ + прокрутка перевода ----------------------------- */
@@ -144,7 +305,7 @@
     body.scrollTop += delta + 14; // небольшой запас
   }
 
-  // Автопоказ перевода (по клику на ответ/«Не знаю»)
+  // Показ перевода (для активной вкладки)
   function showTranslation() {
     const body = document.getElementById('hintsBody');
     if (!body) return;
@@ -159,22 +320,20 @@
 
   /* ----------------------------- Наблюдение за тренером ----------------------------- */
 
-  // локальный observer за .trainer-word — как в 1.2
   function setupWordObserver() {
     const wordEl = document.querySelector('.trainer-word');
 
-    // если нет тренера — отключаем старый observer и выходим
+    // если нет тренера — отключаем observer и хотя бы один раз рендерим
     if (!wordEl || typeof MutationObserver === 'undefined') {
       if (wordObserver) {
         wordObserver.disconnect();
         wordObserver = null;
       }
-      // хотя бы один раз попробуем что-то отрисовать
       renderExampleHint();
       return;
     }
 
-    // если уже есть observer — отключаем, чтобы не плодить
+    // отключаем старый observer, чтобы не плодить
     if (wordObserver) {
       wordObserver.disconnect();
       wordObserver = null;
@@ -190,7 +349,6 @@
       // новое слово → сбрасываем счётчик неверных попыток
       wrongAttempts = 0;
 
-      // и возвращаем скролл подсказок в начало
       const body = document.getElementById('hintsBody');
       if (body) body.scrollTop = 0;
 
@@ -281,35 +439,38 @@
       }
 
       // 2) Клик по вариантам ответов / "Не знаю"
+      const answersGrid = document.querySelector('.home-trainer .answers-grid');
+      const idkBtn      = document.querySelector('.home-trainer .idk-btn');
+
+      if (!answersGrid && !idkBtn) return;
+
       const answerBtn = target.closest('.answers-grid button');
-      const idkBtn    = target.closest('.idk-btn');
+      const isIdk     = idkBtn && target.closest('.idk-btn');
 
       // 2.1) Клик по варианту ответа
-      if (answerBtn) {
-        // Даём тренеру сначала обработать клик (поставить is-correct / is-wrong)
-        setTimeout(function () {
-          // Правильный ответ → всегда сразу показываем перевод
-          if (answerBtn.classList.contains('is-correct')) {
-            showTranslation();
-            return;
-          }
+      if (answerBtn && answersGrid && answersGrid.contains(answerBtn)) {
+        const isCorrect = answerBtn.classList.contains('is-correct');
+        const isWrong   = answerBtn.classList.contains('is-wrong');
 
-          // Неверный ответ → считаем попытки
-          if (answerBtn.classList.contains('is-wrong')) {
-            wrongAttempts += 1;
+        // корректный ответ → сразу показываем перевод
+        if (isCorrect) {
+          setTimeout(showTranslation, 0);
+          return;
+        }
 
-            // Показ перевода только, когда уже было 2 неверных попытки
-            if (wrongAttempts >= 2) {
-              showTranslation();
-            }
+        // неправильный ответ → считаем попытки, на 2-й показываем перевод
+        if (isWrong) {
+          wrongAttempts += 1;
+          if (wrongAttempts >= 2) {
+            setTimeout(showTranslation, 0);
           }
-        }, 0);
+        }
 
         return;
       }
 
       // 2.2) Клик по "Не знаю" → как раньше, сразу показываем перевод
-      if (idkBtn) {
+      if (isIdk) {
         setTimeout(showTranslation, 0);
         return;
       }
