@@ -1,7 +1,7 @@
 /* MOYAMOVA Service Worker — v6 (Safari-friendly) */
 
 const ROOT = new URL('./', self.location).pathname.replace(/\/$/, '');
-const CACHE_NAME = 'moyamova-cache-v1.1';
+const CACHE_NAME = 'moyamova-cache-v1.2';
 
 // Минимальный app shell
 const APP_SHELL = [
