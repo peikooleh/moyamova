@@ -104,6 +104,21 @@
     return '';
   }
 
+
+  // Тексты заглушки для PRO (синонимы/антонимы)
+  function getProLockText(kind) {
+    const lang = getUiLang();
+    if (lang === 'uk') {
+      if (kind === 'synonyms') return 'Синоніми доступні у версії PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.';
+      if (kind === 'antonyms') return 'Антоніми доступні у версії PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.';
+      return 'Функція доступна у версії PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.';
+    }
+    // ru
+    if (kind === 'synonyms') return 'Синонимы доступны в версии PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
+    if (kind === 'antonyms') return 'Антонимы доступны в версии PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
+    return 'Функция доступна в версии PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
+  }
+
   // Синонимы по L2 и L1 (ru/uk)
   function getSynonyms(word) {
     if (!word) return { de: [], l1: [] };
@@ -213,6 +228,15 @@
   }
 
   function renderSynonymsTab(word, body) {
+  if (!A.isPro || !A.isPro()) {
+    body.innerHTML =
+      '<div class="hint-example">' +
+        '<p class="hint-tr is-visible">' +
+          escapeHtml(getProLockText('synonyms')) +
+        '</p>' +
+      '</div>';
+    return;
+  }
   const syn = getSynonyms(word);
   const de  = (syn.de || []).filter(Boolean);
   const l1  = (syn.l1 || []).filter(Boolean);
@@ -239,6 +263,15 @@
 }
 
   function renderAntonymsTab(word, body) {
+  if (!A.isPro || !A.isPro()) {
+    body.innerHTML =
+      '<div class="hint-example">' +
+        '<p class="hint-tr is-visible">' +
+          escapeHtml(getProLockText('antonyms')) +
+        '</p>' +
+      '</div>';
+    return;
+  }
   const ant = getAntonyms(word);
   const de  = (ant.de || []).filter(Boolean);
   const l1  = (ant.l1 || []).filter(Boolean);

@@ -18,6 +18,7 @@
         '<a class="brand-link" href="./" aria-label="Главная" data-i18n-aria="ariaHome">' +
           '<img src="./img/logo_64.png" alt="MOYAMOVA">' +
           '<h1 class="brand-title">MOYAMOVA</h1>' +
+          '<span class="header-pro-badge" data-pro="1">PRO</span>' +
         '</a>' +
       '</div>' +
       '<button id="btnMenu" class="burger" aria-label="Меню" data-i18n-aria="ariaMenu">☰</button>' +
@@ -94,7 +95,7 @@
 
         '<div class="actions-row-bottom" role="group" aria-label="Быстрые действия">' +
           '<button class="action-btn" data-action="guide"   aria-label="Инструкция" data-i18n-aria="ariaGuide">📘</button>' +
-          '<button class="action-btn" data-action="donate"  aria-label="Поддержите проект">💰</button>' +
+          '<button class="action-btn" data-action="pro"     aria-label="Купить PRO">💎</button>' +
           '<button class="action-btn" data-action="contact" aria-label="Связаться">✉️</button>' +
           '<button class="action-btn" data-action="share"   aria-label="Поделиться">🔗</button>' +
           '<button class="action-btn" data-action="legal"   aria-label="Юридическая информация">⚖️</button>' +

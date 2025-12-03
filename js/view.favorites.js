@@ -67,6 +67,28 @@
     if (!app) return;
     const T = t();
 
+    // Free-версия: избранное доступно только в PRO
+    if (!A.isPro || !A.isPro()) {
+      const lang = getUiLang();
+      const title = T.title;
+      const body = (lang === 'uk')
+        ? 'Список обраних слів доступний у версії MOYAMOVA PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.'
+        : 'Список избранных слов доступен в версии MOYAMOVA PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
+
+      app.innerHTML =
+        `<div class="home">
+          <section class="card dicts-card favorites-card">
+            <div class="dicts-header">
+              <h3>${title}</h3>
+            </div>
+            <div class="dicts-body" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">
+              <p style="margin-bottom:10px;">${body}</p>
+            </div>
+          </section>
+        </div>`;
+      return;
+    }
+
     const all = gatherFavoriteDecks();
     if (!all.length){
       app.innerHTML = `<div class="home"><section class="card"><h3 style="margin:0 0 6px;">${T.title}</h3><p style="opacity:.7;margin:0;">${T.empty}</p></section></div>`;

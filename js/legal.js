@@ -207,16 +207,96 @@ const Legal = (() => {
     }
   }
 
-  async function load(section){
+    async function load(section){
     const url = legalUrl(section);
     const res = await fetch(url, { credentials: 'same-origin' });
     const text = await res.text();
+
+    // основной контент + табы
     content.innerHTML = extractMain(text) + 
   `<div class="legal-tabs" style="margin:24px 0 0; border-top:1px solid #eee; padding-top:16px; justify-content:center;">
      <button class="legal-tab" data-section="terms" data-i18n="legalTerms">Условия</button>
      <button class="legal-tab" data-section="privacy" data-i18n="legalPrivacy">Конфиденциальность</button>
      <button class="legal-tab" data-section="impressum" data-i18n="legalImpressum">Юридическая информация</button>
    </div>`;
+
+    // ------------------ Блок согласия под Условиями ------------------
+    if (section === 'terms') {
+      try {
+        const lang = currentLang();
+        const accepted = (window.localStorage.getItem('mm.tosAccepted') === '1');
+
+        const labelText = (lang === 'uk')
+          ? 'Я приймаю умови використання застосунку'
+          : 'Я принимаю условия использования приложения';
+
+        const noteText = (lang === 'uk')
+          ? 'Зняття позначки видалить ваші дані і прогрес та поверне застосунок до початкового налаштування.'
+          : 'Снятие галочки удалит ваши данные и прогресс и вернёт приложение к первичной настройке.';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'legal-consent';
+        wrapper.innerHTML = [
+          '<label class="legal-consent__label">',
+            '<input type="checkbox" data-legal-tos>',
+            '<span class="legal-consent__box"></span>',
+            '<span class="legal-consent__text">', labelText, '</span>',
+          '</label>',
+          '<p class="legal-consent__note">', noteText, '</p>'
+        ].join('');
+
+        content.appendChild(wrapper);
+
+        const cb = wrapper.querySelector('[data-legal-tos]');
+        if (!cb) return;
+
+        // начальное состояние чекбокса
+        cb.checked = accepted;
+
+        cb.addEventListener('change', async function () {
+          // Пользователь ставит галочку → просто считаем условия принятыми
+          if (cb.checked) {
+            try { window.localStorage.setItem('mm.tosAccepted', '1'); } catch(_){}
+            return;
+          }
+
+                    // Пользователь снимает галочку → подтверждаем сброс через модалку
+          let ok = false;
+
+          if (window.App && App.Msg && typeof App.Msg.openConfirmModal === 'function') {
+            try {
+              const title = App.Msg.text('legal.reset_confirm');
+              const text  = App.Msg.text('legal.reset_warning');
+              ok = await App.Msg.openConfirmModal({ title: title, text: text, icon: '⚠️' });
+            } catch(_) {}
+          } else {
+            const fallbackMsg = (lang === 'uk')
+                          ? 'Якщо ви відхилите умови, усі дані (прогрес, налаштування, обране) будуть видалені, а застосунок повернеться до початкового налаштування. Продовжити?'
+                          : 'Если вы откажетесь от условий, все данные (прогресс, настройки, избранное) будут удалены, а приложение вернётся к первичной настройке. Продолжить?';
+                        ok = window.confirm(fallbackMsg);
+          }
+
+          if (!ok) {
+            // отмена → возвращаем чекбокс обратно
+            cb.checked = true;
+            return;
+          }
+
+// подтверждённый отказ:
+          // централизованный "factory reset" + перезапуск
+          try {
+            if (window.App && typeof window.App.factoryReset === 'function') {
+              window.App.factoryReset();
+            } else {
+              // запасной вариант — если по какой-то причине reset не объявлен
+              try { window.localStorage.clear(); } catch(_) {}
+            }
+          } catch(_) {}
+
+          try { window.location.reload(); } catch(_){}
+        });
+      } catch(_){}
+    }
   }
 
   function open(section='impressum'){

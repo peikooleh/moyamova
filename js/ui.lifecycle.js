@@ -68,13 +68,14 @@
 
   /* ===================== Startup Manager ===================== */
 
-  (function () {
+   (function () {
     var LS = {
       uiLang:        'lexitron.uiLang',
       studyLang:     'lexitron.studyLang',
       deckKey:       'lexitron.deckKey',
       setupDone:     'lexitron.setupDone',
-      legacyActiveKey: 'lexitron.activeKey'
+      legacyActiveKey: 'lexitron.activeKey',
+      tosAccepted:   'mm.tosAccepted'      // <- новый ключ согласия с условиями
     };
 
     function lsGet(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (_) { return d; } }
@@ -133,29 +134,39 @@
       return null;
     }
 
-    function readSettings() {
+        function readSettings() {
       // Единый дефолт для UI-языка
-      var uiLang   = lsGet(LS.uiLang) || (window.App && App.settings && App.settings.lang) || 'ru';
-      var studyLang = lsGet(LS.studyLang) || null;
-      var deckKey   = lsGet(LS.deckKey) || lsGet(LS.legacyActiveKey) || null;
-      var setupDone = lsGet(LS.setupDone) === 'true';
+      var uiLang     = lsGet(LS.uiLang) || (window.App && App.settings && App.settings.lang) || 'ru';
+      var studyLang  = lsGet(LS.studyLang) || null;
+      var deckKey    = lsGet(LS.deckKey) || lsGet(LS.legacyActiveKey) || null;
+      var setupDone  = lsGet(LS.setupDone) === 'true';
+      var tosAccepted = (lsGet(LS.tosAccepted, '') === '1');
+
       return {
         uiLang: (uiLang || 'ru').toLowerCase(),
         studyLang: studyLang,
         deckKey: deckKey,
-        setupDone: setupDone
+        setupDone: setupDone,
+        tosAccepted: tosAccepted
       };
     }
 
-    function shouldShowSetup(initial) {
+        function shouldShowSetup(initial) {
       // query-переключатель
       try { if (/(?:\?|&)setup=1(?:&|$)/.test(location.search)) return true; } catch (_) {}
-      if (!initial.setupDone) return true;
+
+      // Мастер обязателен, если:
+      //  - он ещё не проходился
+      //  - или пользователь ещё не принял условия (mm.tosAccepted !== '1')
+      if (!initial.setupDone || !initial.tosAccepted) return true;
+
       try {
         var k = initial.deckKey;
         if (k === 'fav' || k === 'favorites' || k === 'mistakes') return false;
       } catch (_) {}
+
       if (!deckExists(initial.deckKey)) return true;
+
       return false;
     }
 

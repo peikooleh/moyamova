@@ -8,11 +8,33 @@
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.2.1';
+  App.APP_VER = '1.2.8';
 
   const LS_SETTINGS = 'k_settings_v1_3_1';
   const LS_STATE    = 'k_state_v1_3_1';
   const LS_DICTS    = 'k_dicts_v1_3_1';
+  const LS_PRO      = 'mm.proUnlocked';
+
+  App.isPro = function(){
+    try {
+      return window.localStorage.getItem(LS_PRO) === '1';
+    } catch (e) {
+      return false;
+    }
+  };
+
+  App.unlockPro = function(){
+    try {
+      window.localStorage.setItem(LS_PRO, '1');
+    } catch (e) {}
+  };
+
+  App.lockPro = function(){
+    try {
+      window.localStorage.removeItem(LS_PRO);
+    } catch (e) {}
+  };
+
 
   const I18N_FALLBACK = window.I18N;
 
@@ -42,7 +64,66 @@ App.starKey = function(wid, dk){
     if (!App.dictRegistry.lastByLang || typeof App.dictRegistry.lastByLang !== 'object') App.dictRegistry.lastByLang = {};
   }catch(_){}
 
-  (function migrateSets(){
+  
+  // Полный сброс данных приложения (используется при отзыве согласия)
+  App.factoryReset = function(){
+  // 1) Пытаемся просто снести ВСЁ, что есть в localStorage
+  try {
+    window.localStorage.clear();
+  } catch(_){}
+
+  // 2) На всякий случай точечно чистим известные ключи
+  //    (на тех платформах, где clear() может быть ограничен)
+  var keys = [
+    // ядро
+    LS_SETTINGS,            // k_settings_v1_3_1
+    LS_STATE,               // k_state_v1_3_1
+    'k_state_v1_3_0',       // старый стейт, если вдруг всплывёт
+    LS_DICTS,               // k_dicts_v1_3_1
+
+    // прогресс тренировки
+    'progress.v2',          // ui.progress.scope.js
+    'favorites.progress.v1',
+    'sets.done.v1',
+    'sets.progress.v1',
+
+    // мастер и выбор словаря/языка
+    'lexitron.uiLang',
+    'lexitron.studyLang',
+    'lexitron.deckKey',
+    'lexitron.activeKey',
+    'lexitron.setupDone',
+
+    // согласия и звук
+    'mm.tosAccepted',
+    'mm.gaChoice',
+    'ga_consent',
+    'mm.audioEnabled',
+
+    // тема и прочее
+    'ui-theme',
+    'mm.proUnlocked',
+    'moya_upgrading'
+  ];
+
+  try {
+    keys.forEach(function(k){
+      try { window.localStorage.removeItem(k); } catch(_){}
+    });
+  } catch(_){}
+
+  // 3) Немного подчистим оперативное состояние (на всякий случай),
+  //    но после location.reload() это всё равно заново инициализируется
+  try {
+    if (App.Sets && App.Sets.state) {
+      App.Sets.state = { activeByDeck: {}, completedByDeck: {} };
+    }
+    if (App.state) App.state = {};
+    if (App.settings) App.settings = {};
+  } catch(_){}
+};
+
+(function migrateSets(){
     let ss = 50;
     try { ss = Number(App.state.setSize); } catch(e){}
     if (!Number.isFinite(ss) || ss < 2) ss = 50;

@@ -378,6 +378,7 @@ function activeDeckKey() {
           <p class="trainer-subtitle">${T.choose}</p>
           <div class="answers-grid"></div>
           <button class="btn-ghost idk-btn">${T.idk}</button>
+          <span class="trainer-mode-indicator" id="trainerModeIndicator" aria-hidden="true"></span>
           <p class="dict-stats" id="dictStats"></p>
         </section>
       </div>`;
@@ -511,6 +512,7 @@ function activeDeckKey() {
     const favBtn  = document.getElementById('favBtn');
     const idkBtn  = document.querySelector('.idk-btn');
     const stats   = document.getElementById('dictStats');
+    const modeEl  = document.getElementById('trainerModeIndicator');
 
     if (favBtn) {
       const favNow = isFav(key, word.id);
@@ -678,6 +680,9 @@ function activeDeckKey() {
       const uk = getUiLang() === 'uk';
       stats.textContent = uk ? `Всього слів: ${full.length} / Вивчено: ${learned}`
                              : `Всего слов: ${full.length} / Выучено: ${learned}`;
+    }
+    if (modeEl && A.Trainer && typeof A.Trainer.updateModeIndicator === 'function') {
+      A.Trainer.updateModeIndicator();
     }
   }
 
@@ -879,6 +884,7 @@ function activeDeckKey() {
         repaintStarsOnly();
         renderSets();
         A.Stats && A.Stats.recomputeAndRender && A.Stats.recomputeAndRender();
+        if (A.Trainer && typeof A.Trainer.updateModeIndicator === 'function') { A.Trainer.updateModeIndicator(); }
       } catch(_){}
     });
   }

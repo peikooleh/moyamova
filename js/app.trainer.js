@@ -6,7 +6,7 @@
  * Обновлено: 2025-11-17
  * ========================================================== */
 
-const TRAINER_DEFAULT_LEARNED_REPEAT = 'rare';
+const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
 
 (function () {
   const App = window.App || (window.App = {});
@@ -32,6 +32,16 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'rare';
       return 'normal';
     }
   }
+  // Индикатор режима сложности (🐣 / 🦅) в тренере
+  function updateModeIndicator() {
+    try {
+      const el = document.getElementById('trainerModeIndicator');
+      if (!el) return;
+      const lvl = difficulty(); // 'hard' или 'normal'
+      el.textContent = lvl === 'hard' ? '🦅' : '🐣';
+    } catch (_) {}
+  }
+
 
   function deltaOnAnswer(ok) {
     const hard = difficulty() === 'hard';
@@ -429,7 +439,8 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'rare';
         document.dispatchEvent(
           new CustomEvent('lexitron:set-complete', { detail: { key } })
         );
-        advanceSetCircular(key);
+    advanceSetCircular,
+    updateModeIndicator
       }
     } catch (_) {}
   }
@@ -458,7 +469,8 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'rare';
     _recentShown,
     isCurrentSetComplete,
     isWholeDeckComplete,
-    advanceSetCircular
+    advanceSetCircular,
+    updateModeIndicator
   });
 })();
 

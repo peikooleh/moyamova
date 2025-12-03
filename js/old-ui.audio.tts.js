@@ -14,10 +14,10 @@
 
   var A = (window.App = window.App || {});
 
-  var LS_KEY = 'mm.audioEnabled.v2';
+  var LS_KEY = 'mm.audioEnabled';
   var wordObserver = null;
 
-  // включён ли звук (по умолчанию: НЕТ, чтобы не пугать)
+  // включён ли звук (по умолчанию: да)
   var audioEnabled = loadAudioEnabled();
 
   // запоминаем, какое слово было озвучено автоматически, чтобы не дублировать
@@ -26,11 +26,10 @@
   function loadAudioEnabled() {
     try {
       var v = window.localStorage.getItem(LS_KEY);
-      if (v === '1') return true;   // 1 = звук ВКЛ
-      if (v === '0') return false;  // 0 = звук ВЫКЛ
-      return false;                 // по умолчанию: выключен
+      if (v === '1') return false;
+      return true;
     } catch (e) {
-      return false;
+      return true;
     }
   }
 
@@ -55,26 +54,15 @@
         return 'uk-UA';
       case 'ru':
         return 'ru-RU';
-      case 'fr':
-        return 'fr-FR';
-      case 'sr':
-        return 'sr-RS';
+      case 'de':
       default:
         return 'de-DE';
     }
   }
 
-  function getCurrentWord() {
-    var w = A.__currentWord || null;
-    if (!w) return '';
-    var raw = w.wordBasic || w.word || '';
-    if (!raw && w.forms && w.forms.base) raw = w.forms.base;
-    return String(raw || '').trim();
-  }
-
   function speakText(text) {
     if (!A.isPro || !A.isPro()) return; // озвучка только в PRO
-    if (!audioEnabled) return;          // звук выключен пользователем
+    if (!audioEnabled) return;      // звук выключен пользователем
     if (!hasTTS()) return;
     if (!text) return;
 
@@ -90,22 +78,43 @@
     }
   }
 
-  function speakCurrentWord() {
-    var w = getCurrentWord();
-    if (w) speakText(w);
+  // Берём слово только из словаря, а не из DOM
+  function getCurrentWord() {
+    var w = A.__currentWord || null;
+    if (!w) return '';
+    var raw = w.wordBasic || w.word || '';
+    if (!raw && w.forms && w.forms.base) raw = w.forms.base;
+    return String(raw || '').trim();
   }
 
-  /* ========================================================== */
+  function speakCurrentWord() {
+    var word = getCurrentWord();
+    if (!word) return;
+    speakText(word);
+  }
+
+  /* ==========================================================
+   * === AUDIO BUTTON POSITION BLOCK ===
+   * Кнопка 🔊/🔇 вставляется ВНУТРЬ .trainer-word,
+   * сразу после текстового содержимого.
+   * Если захочешь поменять позицию — правь только эту функцию.
+   * ========================================================== */
 
   function updateButtonIcon(btn) {
     if (!btn) return;
 
-    if (!hasTTS() || !A.isPro || !A.isPro()) {
-      btn.textContent = '🔇';
-      btn.setAttribute('aria-label', 'Озвучка недоступна');
-      btn.disabled = true;
+    // если PRO не активен — кнопка "задизейблена"
+    if (!A.isPro || !A.isPro()) {
+      btn.textContent = '🔊';
+      btn.setAttribute('aria-label', 'Доступно в версии PRO');
+      btn.style.opacity = '0.4';
+      btn.style.pointerEvents = 'none';
       return;
     }
+
+    // PRO активен — обычное поведение
+    btn.style.opacity = '';
+    btn.style.pointerEvents = '';
 
     if (audioEnabled) {
       btn.textContent = '🔊';

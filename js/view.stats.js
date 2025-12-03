@@ -900,6 +900,31 @@
     const app = document.getElementById('app');
     if (!app) return;
 
+    // Если PRO не активен — показываем заглушку в стиле "Избранное"
+    if (!A.isPro || !A.isPro()) {
+      const texts = t();
+      const lang = getUiLang();
+      const body = (lang === 'uk')
+        ? 'Статистика доступна у версії MOYAMOVA PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.'
+        : 'Статистика доступна в версии MOYAMOVA PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
+
+      app.innerHTML =
+        '<div class="home">' +
+          '<section class="card dicts-card stats-card">' +
+            '<div class="dicts-header">' +
+              '<h3>' + texts.title + '</h3>' +
+            '</div>' +
+            '<div class="dicts-body" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">' +
+              '<p style="margin-bottom:10px;">' + body + '</p>' +
+            '</div>' +
+          '</section>' +
+        '</div>';
+      return;
+    }
+
+
+    if (!app) return;
+
     const texts = t();
     const stats = computeStats();
     const activeLang = detectActiveTrainLang(stats.byLang);

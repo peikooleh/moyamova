@@ -160,13 +160,55 @@
     });
   }
 
-  // Версия приложения (app.core.js → App.APP_VER)
+  
+  // Кнопка PRO/донат внизу меню
+  function applyProButtonState(){
+    try {
+      var hasApp = !!window.App && typeof App.isPro === 'function';
+      var isPro = hasApp && App.isPro && App.isPro() ? true : false;
+
+      // нижняя кнопка ПРО/донат
+      var btn = document.querySelector(
+        '.actions-row-bottom .action-btn[data-action="pro"], ' +
+        '.actions-row-bottom .action-btn[data-action="donate"]'
+      );
+      if (btn && hasApp) {
+        if (isPro) {
+          // PRO уже куплена → показываем донат
+          btn.dataset.action = 'donate';
+          btn.textContent = '💰';
+          btn.setAttribute('aria-label', 'Поддержать проект');
+        } else {
+          // Free-версия → предлагаем купить PRO
+          btn.dataset.action = 'pro';
+          btn.textContent = '💎';
+          btn.setAttribute('aria-label', 'Купить PRO');
+        }
+      }
+
+      // бейдж PRO в шапке
+      var badge = document.querySelector('.header-pro-badge');
+      if (badge) {
+        if (isPro) {
+          badge.classList.add('is-visible');
+        } else {
+          badge.classList.remove('is-visible');
+        }
+      }
+    } catch(_) {}
+  }
+
+
+// Версия приложения (app.core.js → App.APP_VER)
   (function(){
     function renderVersion(){
       var el = document.getElementById('appVersion');
-      if (!el) return;
-      var v = (window.App && App.APP_VER) || null;
-      if (v) el.textContent = v;
+      if (el) {
+        var v = (window.App && App.APP_VER) || null;
+        if (v) el.textContent = v;
+      }
+      // после загрузки App обновляем состояние кнопки PRO/донат
+      applyProButtonState();
     }
     if (!(window.App && App.APP_VER)) {
       var s = document.createElement('script');
@@ -179,7 +221,9 @@
     }
   })();
 
-    // Actions внизу меню (кнопки в бургер-меню)
+  // Попробуем применить состояние кнопки сразу (если App уже инициализирован)
+  applyProButtonState();
+
   const actionsMap = {
     guide() {
       // Экран "Инструкция" реализован в js/view.guide.js (объект Guide)
@@ -198,7 +242,25 @@
       try { closeMenu(); } catch (_) {}
     },
 
-    donate() {
+    
+    pro() {
+      if (!window.ProUpgrade) {
+        const s = document.createElement('script');
+        s.src = './js/pro.js';
+        s.onload = () => {
+          if (window.ProUpgrade && typeof window.ProUpgrade.open === 'function') {
+            window.ProUpgrade.open();
+          }
+        };
+        document.head.appendChild(s);
+      } else {
+        if (typeof window.ProUpgrade.open === 'function') {
+          window.ProUpgrade.open();
+        }
+      }
+    },
+
+donate() {
       if (!window.Donate) {
         const s = document.createElement('script');
         s.src = './js/donate.js';
