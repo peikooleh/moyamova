@@ -474,118 +474,25 @@ function activeDeckKey() {
   function buildOptions(word) {
     const key = activeDeckKey();
 
-    // Требование UX: НИКОГДА не показывать одинаковые подписи на кнопках.
-    // Причина дублей: разные слова (id) могут иметь одинаковый перевод (ru/uk).
-    // Решение: собираем 4 опции по id, затем гарантируем уникальность отображаемых текстов
-    // (при коллизии добавляем уточнение по исходному термину).
-    const SIZE = 4;
+    if (A.UI && typeof A.UI.safeOptions === 'function') {
+      return A.UI.safeOptions(word, { key, size: 4, t: tWord });
+    }
 
     const deck = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function')
       ? (A.Decks.resolveDeckByKey(key) || [])
       : [];
 
-    // Пул отвлекающих: сначала ошибки (если есть), затем вся колода
     let pool = [];
-    try {
-      if (A.Mistakes && typeof A.Mistakes.getDistractors === 'function') {
-        pool = A.Mistakes.getDistractors(key, word.id) || [];
-      }
-    } catch (_){}
-    if (pool.length < (SIZE - 1)) {
-      pool = pool.concat(deck);
-    }
-
-    function norm(s){
-      return String(s || '').trim().replace(/\s+/g,' ').toLowerCase();
-    }
-
-    function baseLabel(w){
-      return String(tWord(w) || '').trim();
-    }
-
-    function termOf(w){
-      return String(w && (w.word || w.term || w.de || w.src || '')) .trim();
-    }
-
-    // Собираем кандидатов без текущего слова и без дублей по id
-    const candidates = shuffle(uniqueById(pool))
-      .filter(w => w && String(w.id) !== String(word.id));
-
-    // Базовый набор: правильный + 3 отвлекающих (по id)
-    const picked = [word];
-    for (let i=0; i<candidates.length && picked.length < SIZE; i++){
-      const c = candidates[i];
-      if (!picked.some(p => String(p.id) === String(c.id))) picked.push(c);
-    }
-    // Добор из колоды, если вдруг не хватает
-    while (picked.length < SIZE && deck.length) {
+    try { if (A.Mistakes && typeof A.Mistakes.getDistractors === 'function') pool = A.Mistakes.getDistractors(key, word.id) || []; } catch (_){}
+    if (pool.length < 3) pool = pool.concat(deck.filter(w => String(w.id) !== String(word.id)));
+    const wrongs = shuffle(pool).filter(w => String(w.id) !== String(word.id)).slice(0, 3);
+    const opts = shuffle(uniqueById([word, ...wrongs])).slice(0, 4);
+    while (opts.length < 4 && deck.length) {
       const r = deck[Math.floor(Math.random() * deck.length)];
-      if (r && String(r.id) !== String(word.id) && !picked.some(p => String(p.id) === String(r.id))) picked.push(r);
+      if (String(r.id) !== String(word.id) && !opts.some(o => String(o.id) === String(r.id))) opts.push(r);
     }
-
-    // Теперь делаем копии объектов и гарантируем уникальность отображаемых подписей
-    const used = new Set();
-    const out = [];
-
-    for (let i=0; i<picked.length; i++){
-      const w = picked[i];
-      const copy = Object.assign({}, w);
-
-      const base = baseLabel(copy);
-      let label = base;
-
-      // Если текст пустой — не добавляем (попробуем заменить позже)
-      if (!label) continue;
-
-      // Коллизия: добавляем уточнение по исходному термину (DE/term),
-      // чтобы подписи гарантированно отличались.
-      if (used.has(norm(label))) {
-        const t = termOf(copy);
-        if (t) label = `${base} (${t})`;
-      }
-      // Если всё ещё коллизия — добавляем безопасный суффикс
-      let n = 2;
-      while (used.has(norm(label))) {
-        label = `${base} (#${n++})`;
-      }
-
-      copy._optLabel = label;
-      used.add(norm(label));
-      out.push(copy);
-    }
-
-    // Если из-за пустых переводов/редких коллизий не набрали 4 —
-    // добираем из колоды, применяя те же правила уникальности.
-    if (out.length < SIZE && deck.length) {
-      const extra = shuffle(deck.slice());
-      for (let j=0; j<extra.length && out.length < SIZE; j++){
-        const w = extra[j];
-        if (!w) continue;
-        if (String(w.id) === String(word.id)) continue;
-        if (out.some(o => String(o.id) === String(w.id))) continue;
-
-        const copy = Object.assign({}, w);
-        const base = baseLabel(copy);
-        if (!base) continue;
-
-        let label = base;
-        if (used.has(norm(label))) {
-          const t = termOf(copy);
-          if (t) label = `${base} (${t})`;
-        }
-        let n = 2;
-        while (used.has(norm(label))) label = `${base} (#${n++})`;
-
-        copy._optLabel = label;
-        used.add(norm(label));
-        out.push(copy);
-      }
-    }
-
-    // Финальный shuffle, чтобы правильный ответ не был всегда первым
-    return shuffle(out).slice(0, SIZE);
+    return shuffle(opts);
   }
-
 
   /* ------------------------------- Тренер ------------------------------- */
   function renderTrainer() {
@@ -689,7 +596,7 @@ function activeDeckKey() {
     opts.forEach(opt => {
       const b = document.createElement('button');
       b.className = 'answer-btn';
-      b.textContent = (opt && opt._optLabel) ? opt._optLabel : tWord(opt);
+      b.textContent = tWord(opt);
       b.setAttribute('data-id', String(opt.id));
       b.onclick = () => {
         if (solved) return;

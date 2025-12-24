@@ -46,7 +46,7 @@
       payWithPaypal: 'Оплатити через PayPal-акаунт',
       otherDesc: 'Ми працюємо над підтримкою популярних способів оплати в різних країнах.',
 
-      haveCode: 'У мене є код',
+      haveCode: 'Ввести код',
       enterCode: 'Введіть код активації',
       codeInvalid: 'Невірний код активації'
     } : {
@@ -69,7 +69,7 @@
       payWithPaypal: 'Оплатить через PayPal-аккаунт',
       otherDesc: 'Мы работаем над поддержкой популярных способов оплаты в разных странах.',
 
-      haveCode: 'У меня есть код',
+      haveCode: 'Ввести код',
       enterCode: 'Введите код активации',
       codeInvalid: 'Неверный код активации'
     };
@@ -125,10 +125,7 @@
       + '.pro-payments__text{font-size:13px;opacity:.85;margin-bottom:10px;text-align:center;}'
       + '.pro-payments__soon{font-size:13px;opacity:.7;text-align:center;}'
       + '.pro-payments__soon strong{font-weight:600;}'
-      + '.pro-sheet__paypal{margin-top:8px;}'
-      + '.pro-payments__code{margin:10px auto 0 auto;display:block;font-size:12px;border:0;'
-      + 'background:transparent;color:inherit;opacity:.8;text-decoration:underline;cursor:pointer;}'
-      + '.pro-payments__code:hover{opacity:1;}';
+      + '.pro-sheet__paypal{margin-top:8px;}';
 
     var style = document.createElement('style');
     style.id = 'pro-sheet-style';
@@ -340,7 +337,7 @@
   }
 
   /* ========================================================
-   * Обработчики кнопок
+   * Обработчики
    * ====================================================== */
 
   function onBuyClick(){
@@ -389,6 +386,7 @@
       + '  <div class="pro-sheet__actions">'
       + '    <button type="button" class="pro-sheet__btn pro-sheet__btn--ghost" data-pro-close="1">' + texts.close + '</button>'
       + '    <button type="button" class="pro-sheet__btn pro-sheet__btn--primary" data-pro-buy="1">' + texts.buy + '</button>'
+      + '    <button type="button" class="pro-sheet__btn pro-sheet__btn--ghost" data-pro-code="1">' + texts.haveCode + '</button>'
       + '  </div>'
 
       // блок выбора способа оплаты
@@ -415,7 +413,6 @@
       + '      </section>'
 
       + '    </div>'
-      + '    <button type="button" class="pro-payments__code" data-pro-code="1">' + texts.haveCode + '</button>'
       + '  </div>'
 
       + '</section>';

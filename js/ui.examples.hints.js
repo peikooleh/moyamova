@@ -43,18 +43,57 @@
     return String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  // Определяем язык по ключу деки (de_verbs, en_nouns, ...)
+  function detectLangFromDeckKey(deckKey) {
+    if (!deckKey) return null;
+    var k = String(deckKey).toLowerCase();
+    var parts = k.split(/[_\.]/);
+    return parts[0] || null;
+  }
+
+
   // Подсветка тренируемого слова внутри предложения
-  function highlightSentence(raw, wordObj) {
+  // Базовый слой: пытаемся найти точное совпадение леммы.
+  // Если не находим — пробуем языкоспецифичный обработчик в App.ExampleHighlight[lang].
+  function highlightSentence(raw, wordObj, deckKey) {
     if (!raw || !wordObj) return escapeHtml(raw);
 
     const w = wordObj && wordObj.word ? String(wordObj.word) : '';
     const lemma = w.trim().split(/\s+/).pop(); // отбрасываем артикль у существительных
     if (!lemma) return escapeHtml(raw);
 
-    const re = new RegExp('\\b' + escapeRegExp(lemma) + '\\b', 'i');
-    const m = raw.match(re);
+    // 1) Пробуем точное совпадение по лемме
+    let re = new RegExp('\\b' + escapeRegExp(lemma) + '\\b', 'i');
+    let m = raw.match(re);
+
     if (!m) {
-      // нет точного совпадения — просто текст без подсветки
+      // 2) Если не нашли — подключаем языкоспецифичный обработчик
+      const lang = detectLangFromDeckKey(deckKey);
+      const mod = A.ExampleHighlight && lang && A.ExampleHighlight[lang];
+
+      if (typeof mod === 'function') {
+        try {
+          const adv = mod(raw, wordObj, deckKey, lemma);
+          if (adv && typeof adv.index === 'number' && adv.index >= 0 &&
+              typeof adv.length === 'number' && adv.length > 0) {
+
+            const idxAdv = adv.index;
+            const beforeAdv = raw.slice(0, idxAdv);
+            const hitAdv    = raw.slice(idxAdv, idxAdv + adv.length);
+            const afterAdv  = raw.slice(idxAdv + adv.length);
+
+            return (
+              escapeHtml(beforeAdv) +
+              '<span class="hint-word">' + escapeHtml(hitAdv) + '</span>' +
+              escapeHtml(afterAdv)
+            );
+          }
+        } catch (e) {
+          console.error('[examples.hints] lang-specific highlight error:', e);
+        }
+      }
+
+      // 3) Ни точного, ни расширенного совпадения — просто текст
       return escapeHtml(raw);
     }
 
@@ -217,7 +256,14 @@
       ? (ex.uk || ex.ru || '')
       : (ex.ru || ex.uk || '');
 
-    const deHtml = highlightSentence(de, word);
+    let deckKey = null;
+    try {
+      if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
+        deckKey = A.Trainer.getDeckKey();
+      }
+    } catch (_) {}
+
+    const deHtml = highlightSentence(de, word, deckKey);
     const trHtml = escapeHtml(tr);
 
     body.innerHTML =

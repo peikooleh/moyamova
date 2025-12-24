@@ -2,13 +2,36 @@
  * Проект: MOYAMOVA
  * Файл: app.core.js
  * Назначение: Ядро приложения и общие настройки
- * Версия: 1.0
+ * Версия: 1.5.9
  * Обновлено: 2025-11-17
  * ========================================================== */
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.2.8';
+  App.APP_VER = '1.5.9';
+
+    // Детектируем запуск как PWA (standalone) и помечаем root
+  (function detectRunmodePwa(){
+    try {
+      var isPwa = false;
+
+      // Современный способ
+      if (window.matchMedia) {
+        isPwa = window.matchMedia('(display-mode: standalone)').matches;
+      }
+
+      // iOS-специфика (старые версии)
+      if (!isPwa && typeof window.navigator !== 'undefined' && window.navigator.standalone === true) {
+        isPwa = true;
+      }
+
+      if (isPwa) {
+        document.documentElement.setAttribute('data-runmode', 'pwa');
+      }
+    } catch (e) {
+      // молча игнорируем
+    }
+  })();
 
   const LS_SETTINGS = 'k_settings_v1_3_1';
   const LS_STATE    = 'k_state_v1_3_1';

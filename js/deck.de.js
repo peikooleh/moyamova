@@ -5,6 +5,7 @@
  * Version: 1.0
  * Last modified: 2025-10-19
 */
+window.decks = window.decks || {};
 window.decks.de_nouns = [
 {
   id: 1,
@@ -7212,7 +7213,7 @@ window.decks.de_nouns = [
 {
   id: 345,
   word: "die Bestellung",
-  ru: "замовлення",
+  ru: "заказ",
   uk: "замовлення",
   level: "A2",
   topics: ["shopping", "business"],
@@ -27477,6 +27478,383 @@ window.decks.de_nouns = [
       uk: "Скористайся нагодою й запитай."
     }
   ]
+},
+{
+  id: 1280,
+  word: "der Zugriff",
+  ru: "доступ",
+  uk: "доступ",
+  level: "B1",
+  topics: ["technology"],
+  deSynonyms: ["der Zugang"],
+  ruSynonyms: ["подход", "возможность доступа"],
+  ukSynonyms: ["доступ", "можливість доступу"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Du hast keinen Zugriff auf diese Daten.", ru: "У тебя нет доступа к этим данным.", uk: "Ти не маєш доступу до цих даних." }
+  ]
+},
+{
+  id: 1281,
+  word: "die Aufwertung",
+  ru: "повышение стоимости",
+  uk: "підвищення вартості",
+  level: "B2",
+  topics: ["economics"],
+  deSynonyms: ["die Steigerung"],
+  ruSynonyms: ["рост", "повышение"],
+  ukSynonyms: ["зростання"],
+  deAntonyms: ["die Abwertung"],
+  ruAntonyms: ["удешевление"],
+  ukAntonyms: ["здешевлення"],
+  examples: [
+    { L2: "Die Aufwertung der Währung beeinflusst die Exporte.", ru: "Повышение стоимости валюты влияет на экспорт.", uk: "Підвищення вартості валюти впливає на експорт." }
+  ]
+},
+{
+  id: 1282,
+  word: "der Entwurf",
+  ru: "черновик, эскиз",
+  uk: "чернетка, ескіз",
+  level: "B1",
+  topics: ["design", "work"],
+  deSynonyms: ["die Skizze"],
+  ruSynonyms: ["набросок", "эскиз"],
+  ukSynonyms: ["ескіз", "нарис"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Der Entwurf des Gebäudes wurde überarbeitet.", ru: "Эскиз здания был переработан.", uk: "Ескіз будівлі був перероблений." }
+  ]
+},
+{
+  id: 1283,
+  word: "die Verankerung",
+  ru: "укрепление, закрепление",
+  uk: "закріплення",
+  level: "B2",
+  topics: ["abstract"],
+  deSynonyms: ["die Festigung"],
+  ruSynonyms: ["укрепление"],
+  ukSynonyms: ["зміцнення"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Die Verankerung der Werte ist wichtig für die Gesellschaft.", ru: "Закрепление ценностей важно для общества.", uk: "Закріплення цінностей важливе для суспільства." }
+  ]
+},
+{
+  id: 1284,
+  word: "der Umschwung",
+  ru: "перелом, поворот",
+  uk: "злам, поворот",
+  level: "B2",
+  topics: ["abstract"],
+  deSynonyms: ["die Wende"],
+  ruSynonyms: ["поворот", "изменение"],
+  ukSynonyms: ["поворот", "зміна"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Ein plötzlicher Umschwung veränderte die Lage.", ru: "Внезапный поворот изменил ситуацию.", uk: "Раптовий поворот змінив ситуацію." }
+  ]
+},
+{
+  id: 1285,
+  word: "die Überfrachtung",
+  ru: "перегруженность",
+  uk: "перевантаженість",
+  level: "C1",
+  topics: ["abstract"],
+  deSynonyms: [],
+  ruSynonyms: [],
+  ukSynonyms: [],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Der Text leidet unter einer Überfrachtung an Fachbegriffen.", ru: "Текст страдает от перегруженности терминами.", uk: "Текст страждає від перенасиченості термінами." }
+  ]
+},
+{
+  id: 1286,
+  word: "der Auftraggeber",
+  ru: "заказчик",
+  uk: "замовник",
+  level: "B1",
+  topics: ["business"],
+  deSynonyms: ["der Kunde"],
+  ruSynonyms: ["клиент"],
+  ukSynonyms: ["клієнт"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Der Auftraggeber hat neue Bedingungen gestellt.", ru: "Заказчик выдвинул новые условия.", uk: "Замовник висунув нові умови." }
+  ]
+},
+{
+  id: 1287,
+  word: "die Begierde",
+  ru: "страсть, влечение",
+  uk: "пристрасть, бажання",
+  level: "C1",
+  topics: ["psychology"],
+  deSynonyms: ["das Verlangen"],
+  ruSynonyms: ["желание", "страсть"],
+  ukSynonyms: ["бажання", "пристрасть"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Seine Begierde nach Wissen war unstillbar.", ru: "Его страсть к знаниям была неутолимой.", uk: "Його жага до знань була невгамовною." }
+  ]
+},
+{
+  id: 1288,
+  word: "die Fehlannahme",
+  ru: "ошибочное предположение",
+  uk: "помилкове припущення",
+  level: "C1",
+  topics: ["logic"],
+  deSynonyms: ["der Irrtum"],
+  ruSynonyms: ["заблуждение"],
+  ukSynonyms: ["омана"],
+  deAntonyms: ["die Erkenntnis"],
+  ruAntonyms: ["понимание"],
+  ukAntonyms: ["розуміння"],
+  examples: [
+    { L2: "Die Theorie basierte auf einer Fehlannahme.", ru: "Теория основывалась на ошибочном предположении.", uk: "Теорія ґрунтувалася на помилковому припущенні." }
+  ]
+},
+{
+  id: 1289,
+  word: "der Vorstoß",
+  ru: "инициатива, попытка продвижения",
+  uk: "ініціатива, спроба просування",
+  level: "B2",
+  topics: ["politics"],
+  deSynonyms: ["die Initiative"],
+  ruSynonyms: ["инициатива"],
+  ukSynonyms: ["ініціатива"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Der politische Vorstoß wurde kontrovers diskutiert.", ru: "Политическая инициатива вызвала споры.", uk: "Політичну ініціативу обговорювали суперечливо." }
+  ]
+},
+{
+  id: 1290,
+  word: "die Abhilfe",
+  ru: "устранение проблемы",
+  uk: "усунення проблеми",
+  level: "B2",
+  topics: ["work"],
+  deSynonyms: ["die Lösung"],
+  ruSynonyms: ["решение"],
+  ukSynonyms: ["вирішення"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Schnelle Abhilfe ist dringend nötig.", ru: "Срочно нужно устранить проблему.", uk: "Терміново потрібно усунути проблему." }
+  ]
+},
+
+// --- продолжаю список ---
+
+{
+  id: 1291,
+  word: "die Umgestaltung",
+  ru: "преобразование, перестройка",
+  uk: "перетворення, перебудова",
+  level: "B2",
+  topics: ["work"],
+  deSynonyms: ["die Reform"],
+  ruSynonyms: ["реформация", "изменение"],
+  ukSynonyms: ["реформа", "зміна"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Die Umgestaltung des Parks dauert mehrere Monate.", ru: "Преобразование парка длится несколько месяцев.", uk: "Перетворення парку триває кілька місяців." }
+  ]
+},
+{
+  id: 1292,
+  word: "die Belegschaft",
+  ru: "персонал, коллектив",
+  uk: "персонал, колектив",
+  level: "B1",
+  topics: ["work"],
+  deSynonyms: ["das Personal"],
+  ruSynonyms: ["сотрудники"],
+  ukSynonyms: ["працівники"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Die Belegschaft fordert bessere Arbeitsbedingungen.", ru: "Персонал требует лучших условий труда.", uk: "Персонал вимагає кращих умов праці." }
+  ]
+},
+{
+  id: 1293,
+  word: "die Einkehr",
+  ru: "размышление, уединение",
+  uk: "усамітнення, роздуми",
+  level: "C1",
+  topics: ["psychology"],
+  deSynonyms: ["die Besinnung"],
+  ruSynonyms: ["размышление"],
+  ukSynonyms: ["роздуми"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Der Urlaub bot ihm die nötige Einkehr.", ru: "Отпуск дал ему возможность уединения и размышлений.", uk: "Відпустка дала йому можливість усамітнення та роздумів." }
+  ]
+},
+{
+  id: 1294,
+  word: "der Vorbehalt",
+  ru: "оговорка, сомнение",
+  uk: "застереження, сумнів",
+  level: "B2",
+  topics: ["communication"],
+  deSynonyms: ["die Einschränkung"],
+  ruSynonyms: ["замечание", "сомнение"],
+  ukSynonyms: ["зауваження"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Er äußerte einen Vorbehalt gegen den Vorschlag.", ru: "Он выразил сомнение по поводу предложения.", uk: "Він висловив застереження щодо пропозиції." }
+  ]
+},
+{
+  id: 1295,
+  word: "der Vorfall",
+  ru: "инцидент",
+  uk: "інцидент",
+  level: "B1",
+  topics: ["crime"],
+  deSynonyms: ["das Ereignis"],
+  ruSynonyms: ["случай", "происшествие"],
+  ukSynonyms: ["випадок"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Der Vorfall wurde der Polizei gemeldet.", ru: "Инцидент был сообщён полиции.", uk: "Про інцидент повідомили поліцію." }
+  ]
+},
+{
+  id: 1296,
+  word: "die Verschollenheit",
+  ru: "безвестность, исчезновение",
+  uk: "загубленість, зникнення",
+  level: "C1",
+  topics: ["crime"],
+  deSynonyms: ["das Verschwinden"],
+  ruSynonyms: ["пропажа"],
+  ukSynonyms: ["зникнення"],
+  deAntonyms: ["das Auftauchen"],
+  ruAntonyms: ["появление"],
+  ukAntonyms: ["з’явлення"],
+  examples: [
+    { L2: "Die Verschollenheit des Schiffes bleibt ein Rätsel.", ru: "Исчезновение корабля остаётся загадкой.", uk: "Зникнення корабля залишається загадкою." }
+  ]
+},
+{
+  id: 1297,
+  word: "die Ausschüttung",
+  ru: "выплата, распределение средств",
+  uk: "виплата, розподіл коштів",
+  level: "B2",
+  topics: ["economics"],
+  deSynonyms: ["die Auszahlung"],
+  ruSynonyms: ["выдача средств"],
+  ukSynonyms: ["виплата"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Die Ausschüttung der Dividenden erfolgt jährlich.", ru: "Выплата дивидендов происходит ежегодно.", uk: "Виплата дивідендів відбувається щороку." }
+  ]
+},
+{
+  id: 1298,
+  word: "die Gefälligkeit",
+  ru: "услуга, любезность",
+  uk: "послуга, люб’язність",
+  level: "B2",
+  topics: ["communication"],
+  deSynonyms: ["der Gefallen"],
+  ruSynonyms: ["одолжение"],
+  ukSynonyms: ["послуга"],
+  deAntonyms: ["die Unfreundlichkeit"],
+  ruAntonyms: ["недоброжелательность"],
+  ukAntonyms: ["недоброзичливість"],
+  examples: [
+    { L2: "Er bat ihn um eine kleine Gefälligkeit.", ru: "Он попросил его об маленькой услуге.", uk: "Він попросив у нього невелику послугу." }
+  ]
+},
+{
+  id: 1299,
+  word: "die Fehlleistung",
+  ru: "ошибка, промах",
+  uk: "помилка, промах",
+  level: "B2",
+  topics: ["psychology"],
+  deSynonyms: ["der Fehler"],
+  ruSynonyms: ["ошибка"],
+  ukSynonyms: ["помилка"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Die Fehlleistung war auf Stress zurückzuführen.", ru: "Ошибка была вызвана стрессом.", uk: "Помилка була спричинена стресом." }
+  ]
+},
+{
+  id: 1300,
+  word: "die Bewandtnis",
+  ru: "суть дела, суть вопроса",
+  uk: "сутність справи",
+  level: "C1",
+  topics: ["communication"],
+  deSynonyms: ["der Hintergrund"],
+  ruSynonyms: ["суть", "сущность"],
+  ukSynonyms: ["сутність"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Er erklärte mir die Bewandtnis des Problems.", ru: "Он объяснил мне суть проблемы.", uk: "Він пояснив мені сутність проблеми." }
+  ]
+},
+{
+  id: 1301,
+  word: "die Fügung",
+  ru: "стечение обстоятельств",
+  uk: "збіг обставин",
+  level: "B2",
+  topics: ["philosophy", "abstract"],
+  deSynonyms: ["das Schicksal"],
+  ruSynonyms: ["судьба"],
+  ukSynonyms: ["доля"],
+  deAntonyms: [],
+  ruAntonyms: [],
+  ukAntonyms: [],
+  examples: [
+    { L2: "Eine glückliche Fügung brachte sie zusammen.", ru: "Счастливый случай свёл их вместе.", uk: "Щасливий збіг обставин звів їх разом." }
+  ]
 }
 ];
 window.decks.de_verbs = [
@@ -27740,7 +28118,7 @@ window.decks.de_verbs = [
     ],
     examples: [
       {
-        L2: "Что ты делаешь сегодня вечером?",
+        L2: "Was machst du heute Abend?",
         ru: "Что ты делаешь сегодня вечером?",
         uk: "Що ти робиш сьогодні ввечері?"
       }
@@ -28889,7 +29267,7 @@ window.decks.de_verbs = [
   {
     id: 38,
     word: "gelten",
-    ru: "считаться",
+    ru: "действовать",
     uk: "діяти",
     level: "B1",
     topics: ["abstract"],
@@ -56397,5248 +56775,5264 @@ window.decks.de_verbs = [
 }
 ];
 window.decks.de_adjectives = [
-  {
-    "id": 1,
-    "word": "abwesend",
-    "ru": "отсутствующий",
-    "uk": "відсутній",
-    "level": "B1",
-    "topics": [
-      "description",
-      "work"
-    ],
-    "deSynonyms": [
-      "nicht anwesend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "anwesend"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er wirkt heute sehr abwesend.",
-        "ru": "Он сегодня выглядит очень отсутствующим.",
-        "uk": "Він сьогодні виглядає дуже відсутнім."
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "word": "aktiv",
-    "ru": "активный",
-    "uk": "активний",
-    "level": "A2",
-    "topics": [
-      "health",
-      "free_time"
-    ],
-    "deSynonyms": [
-      "engagiert",
-      "tatkräftig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "passiv"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie führt einen sehr aktiven Lebensstil.",
-        "ru": "Она ведёт очень активный образ жизни.",
-        "uk": "Вона веде дуже активний спосіб життя."
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "word": "alt",
-    "ru": "старый",
-    "uk": "старий",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "betagt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "jung",
-      "neu"
-    ],
-    "ruAntonyms": [
-      "молодой"
-    ],
-    "ukAntonyms": [
-      "молодий"
-    ],
-    "examples": [
-      {
-        "L2": "Mein Auto ist schon sehr alt.",
-        "ru": "Моя машина уже очень старая.",
-        "uk": "Моя машина вже дуже стара."
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "word": "altmodisch",
-    "ru": "старомодный",
-    "uk": "застарілий",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "traditionell",
-      "konservativ"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "modern"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Kleid finde ich etwas altmodisch.",
-        "ru": "Это платье, по-моему, немного старомодное.",
-        "uk": "Ця сукня, як на мене, трохи застаріла."
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "word": "angenehm",
-    "ru": "приятный",
-    "uk": "приємний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "nett",
-      "freundlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unangenehm"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir hatten einen sehr angenehmen Abend.",
-        "ru": "У нас был очень приятный вечер.",
-        "uk": "У нас був дуже приємний вечір."
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "word": "anwesend",
-    "ru": "присутствующий",
-    "uk": "присутній",
-    "level": "B1",
-    "topics": [
-      "work",
-      "education"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "abwesend"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Alle Mitarbeiter waren bei der Besprechung anwesend.",
-        "ru": "Все сотрудники присутствовали на совещании.",
-        "uk": "Усі працівники були присутні на нараді."
-      }
-    ]
-  },
-  {
-    "id": 7,
-    "word": "arm",
-    "ru": "бедный",
-    "uk": "бідний",
-    "level": "A2",
-    "topics": [
-      "money",
-      "description"
-    ],
-    "deSynonyms": [
-      "bedürftig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "reich"
-    ],
-    "ruAntonyms": [
-      "богатый"
-    ],
-    "ukAntonyms": [
-      "багатий"
-    ],
-    "examples": [
-      {
-        "L2": "Die Familie war früher sehr arm.",
-        "ru": "Раньше семья была очень бедной.",
-        "uk": "Раніше ця родина була дуже бідною."
-      }
-    ]
-  },
-  {
-    "id": 8,
-    "word": "ausgezeichnet",
-    "ru": "отличный",
-    "uk": "відмінний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "hervorragend",
-      "sehr gut"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schlecht"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das war ein ausgezeichnetes Essen.",
-        "ru": "Это была отличная еда.",
-        "uk": "Це була відмінна їжа."
-      }
-    ]
-  },
-  {
-    "id": 9,
-    "word": "bekannt",
-    "ru": "известный",
-    "uk": "відомий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "berühmt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unbekannt"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist als Musiker sehr bekannt.",
-        "ru": "Он очень известен как музыкант.",
-        "uk": "Він дуже відомий як музикант."
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "word": "beliebt",
-    "ru": "популярный",
-    "uk": "популярний",
-    "level": "B1",
-    "topics": [
-      "relationships",
-      "description"
-    ],
-    "deSynonyms": [
-      "populär",
-      "geschätzt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unbeliebt"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie ist bei ihren Kollegen sehr beliebt.",
-        "ru": "Она очень популярна среди коллег.",
-        "uk": "Вона дуже популярна серед колег."
-      }
-    ]
-  },
-  {
-    "id": 11,
-    "word": "bequem",
-    "ru": "удобный",
-    "uk": "зручний",
-    "level": "A2",
-    "topics": [
-      "home",
-      "description"
-    ],
-    "deSynonyms": [
-      "komfortabel"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unbequem"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Sessel ist sehr bequem.",
-        "ru": "Кресло очень удобное.",
-        "uk": "Крісло дуже зручне."
-      }
-    ]
-  },
-  {
-    "id": 12,
-    "word": "bereit",
-    "ru": "готовый",
-    "uk": "готовий",
-    "level": "A2",
-    "topics": [
-      "work",
-      "education"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin bereit, jetzt zu starten.",
-        "ru": "Я готов сейчас начать.",
-        "uk": "Я готовий зараз почати."
-      }
-    ]
-  },
-  {
-    "id": 13,
-    "word": "berühmt",
-    "ru": "знаменитый",
-    "uk": "відомий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Berlin ist für seine Museen berühmt.",
-        "ru": "Берлин знаменит своими музеями.",
-        "uk": "Берлін відомий своїми музеями."
-      }
-    ]
-  },
-  {
-    "id": 14,
-    "word": "beschäftigt",
-    "ru": "занятый",
-    "uk": "зайнятий",
-    "level": "A2",
-    "topics": [
-      "work"
-    ],
-    "deSynonyms": [
-      "ausgelastet"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin heute den ganzen Tag beschäftigt.",
-        "ru": "Я сегодня весь день занят.",
-        "uk": "Я сьогодні зайнятий весь день."
-      }
-    ]
-  },
-  {
-    "id": 15,
-    "word": "besetzt",
-    "ru": "занятый",
-    "uk": "зайнятий",
-    "level": "A2",
-    "topics": [
-      "work",
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Platz ist schon besetzt.",
-        "ru": "Это место уже занято.",
-        "uk": "Це місце вже зайняте."
-      }
-    ]
-  },
-  {
-    "id": 16,
-    "word": "billig",
-    "ru": "дешёвый",
-    "uk": "дешевий",
-    "level": "A2",
-    "topics": [
-      "money",
-      "description"
-    ],
-    "deSynonyms": [
-      "preiswert",
-      "günstig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "teuer"
-    ],
-    "ruAntonyms": [
-      "дорогой"
-    ],
-    "ukAntonyms": [
-      "дорогий"
-    ],
-    "examples": [
-      {
-        "L2": "Das Handy war sehr billig.",
-        "ru": "Телефон был очень дешёвый.",
-        "uk": "Телефон був дуже дешевий."
-      }
-    ]
-  },
-  {
-    "id": 17,
-    "word": "bitter",
-    "ru": "горький",
-    "uk": "гіркий",
-    "level": "A2",
-    "topics": [
-      "food",
-      "description"
-    ],
-    "deSynonyms": [
-      "herb"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "süß"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Kaffee schmeckt heute bitter.",
-        "ru": "Кофе сегодня горький на вкус.",
-        "uk": "Кава сьогодні гірка на смак."
-      }
-    ]
-  },
-  {
-    "id": 18,
-    "word": "blöd",
-    "ru": "тупой",
-    "uk": "дурнуватий",
-    "level": "B1",
-    "topics": [
-      "communication",
-      "description"
-    ],
-    "deSynonyms": [
-      "dumm"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das war eine blöde Idee.",
-        "ru": "Это была тупая идея.",
-        "uk": "Це була дурнувата ідея."
-      }
-    ]
-  },
-  {
-    "id": 19,
-    "word": "breit",
-    "ru": "широкий",
-    "uk": "широкий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "weit"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Straße ist hier sehr breit.",
-        "ru": "Дорога здесь очень широкая.",
-        "uk": "Дорога тут дуже широка."
-      }
-    ]
-  },
-  {
-    "id": 20,
-    "word": "böse",
-    "ru": "злой",
-    "uk": "злий",
-    "level": "A2",
-    "topics": [
-      "relationships",
-      "description"
-    ],
-    "deSynonyms": [
-      "verärgert"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "freundlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie ist böse auf mich.",
-        "ru": "Она злится на меня.",
-        "uk": "Вона злиться на мене."
-      }
-    ]
-  },
-  {
-    "id": 21,
-    "word": "chaotisch",
-    "ru": "хаотичный",
-    "uk": "хаотичний",
-    "level": "B1",
-    "topics": [
-      "description",
-      "home"
-    ],
-    "deSynonyms": [
-      "unordentlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ordentlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Mein Schreibtisch ist total chaotisch.",
-        "ru": "Мой письменный стол полностью в хаосе.",
-        "uk": "Мій письмовий стіл у повному хаосі."
-      }
-    ]
-  },
-  {
-    "id": 22,
-    "word": "deutlich",
-    "ru": "чёткий",
-    "uk": "чіткий",
-    "level": "B1",
-    "topics": [
-      "education",
-      "communication"
-    ],
-    "deSynonyms": [
-      "klar"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "undeutlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er spricht sehr deutlich.",
-        "ru": "Он говорит очень чётко.",
-        "uk": "Він говорить дуже чітко."
-      }
-    ]
-  },
-  {
-    "id": 23,
-    "word": "dick",
-    "ru": "толстый",
-    "uk": "товстий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "kräftig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "dünn"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Buch ist ziemlich dick.",
-        "ru": "Книга довольно толстая.",
-        "uk": "Книга досить товста."
-      }
-    ]
-  },
-  {
-    "id": 24,
-    "word": "dringend",
-    "ru": "срочный",
-    "uk": "терміновий",
-    "level": "B1",
-    "topics": [
-      "work"
-    ],
-    "deSynonyms": [
-      "eilig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich habe eine dringende Anfrage.",
-        "ru": "У меня срочный запрос.",
-        "uk": "У мене терміновий запит."
-      }
-    ]
-  },
-  {
-    "id": 25,
-    "word": "dumm",
-    "ru": "глупый",
-    "uk": "дурний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "blöd"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "klug"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das war eine dumme Frage.",
-        "ru": "Это был глупый вопрос.",
-        "uk": "Це було дурне запитання."
-      }
-    ]
-  },
-  {
-    "id": 26,
-    "word": "dunkel",
-    "ru": "тёмный",
-    "uk": "темний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "schattig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "hell"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist schon dunkel draußen.",
-        "ru": "На улице уже темно.",
-        "uk": "На вулиці вже темно."
-      }
-    ]
-  },
-  {
-    "id": 27,
-    "word": "durchschnittlich",
-    "ru": "средний",
-    "uk": "середній",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "mittel",
-      "normal"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Preise sind hier nur durchschnittlich.",
-        "ru": "Цены здесь всего лишь средние.",
-        "uk": "Ціни тут лише середні."
-      }
-    ]
-  },
-  {
-    "id": 28,
-    "word": "durstig",
-    "ru": "жаждущий",
-    "uk": "спраглий",
-    "level": "A2",
-    "topics": [
-      "health",
-      "food"
-    ],
-    "deSynonyms": [
-      "sehr hungrig nach Trinken"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "satt"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Nach dem Lauf bin ich sehr durstig.",
-        "ru": "После пробежки я очень хочу пить.",
-        "uk": "Після пробіжки я дуже хочу пити."
-      }
-    ]
-  },
-  {
-    "id": 29,
-    "word": "dünn",
-    "ru": "тонкий",
-    "uk": "тонкий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "schmal"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "dick"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Papier ist zu dünn.",
-        "ru": "Эта бумага слишком тонкая.",
-        "uk": "Цей папір занадто тонкий."
-      }
-    ]
-  },
-  {
-    "id": 30,
-    "word": "eifersüchtig",
-    "ru": "ревнивый",
-    "uk": "ревнивий",
-    "level": "B1",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "neidisch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "vertrauend"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist schnell eifersüchtig.",
-        "ru": "Он быстро становится ревнивым.",
-        "uk": "Він швидко стає ревнивим."
-      }
-    ]
-  },
-  {
-    "id": 31,
-    "word": "einfach",
-    "ru": "простой",
-    "uk": "простий",
-    "level": "A1",
-    "topics": [
-      "education",
-      "description"
-    ],
-    "deSynonyms": [
-      "leicht"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "kompliziert",
-      "schwierig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Aufgabe ist ganz einfach.",
-        "ru": "Задание совсем простое.",
-        "uk": "Завдання зовсім просте."
-      }
-    ]
-  },
-  {
-    "id": 32,
-    "word": "empfindlich",
-    "ru": "чувствительный",
-    "uk": "чутливий",
-    "level": "B1",
-    "topics": [
-      "health",
-      "description"
-    ],
-    "deSynonyms": [
-      "sensibel"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Meine Haut ist sehr empfindlich.",
-        "ru": "Моя кожа очень чувствительная.",
-        "uk": "Моя шкіра дуже чутлива."
-      }
-    ]
-  },
-  {
-    "id": 33,
-    "word": "eng",
-    "ru": "узкий",
-    "uk": "вузький",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "schmal"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "weit"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Hose ist mir zu eng.",
-        "ru": "Штаны мне слишком узкие.",
-        "uk": "Штани мені надто вузькі."
-      }
-    ]
-  },
-  {
-    "id": 34,
-    "word": "ernst",
-    "ru": "серьёзный",
-    "uk": "серйозний",
-    "level": "A2",
-    "topics": [
-      "health",
-      "description"
-    ],
-    "deSynonyms": [
-      "seriös"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "lustig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist ein ernstes Problem.",
-        "ru": "Это серьёзная проблема.",
-        "uk": "Це серйозна проблема."
-      }
-    ]
-  },
-  {
-    "id": 35,
-    "word": "falsch",
-    "ru": "неправильный",
-    "uk": "неправильний",
-    "level": "A2",
-    "topics": [
-      "education",
-      "abstract"
-    ],
-    "deSynonyms": [
-      "inkorrekt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "richtig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Antwort ist leider falsch.",
-        "ru": "К сожалению, ответ неверный.",
-        "uk": "На жаль, відповідь неправильна."
-      }
-    ]
-  },
-  {
-    "id": 36,
-    "word": "faul",
-    "ru": "ленивый",
-    "uk": "ледачий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "träge"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "fleißig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Heute bin ich einfach zu faul zum Aufräumen.",
-        "ru": "Сегодня я слишком ленив, чтобы убираться.",
-        "uk": "Сьогодні я занадто ледачий, щоб прибиратися."
-      }
-    ]
-  },
-  {
-    "id": 37,
-    "word": "fein",
-    "ru": "изящный",
-    "uk": "витончений",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "edel"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie trägt einen sehr feinen Schmuck.",
-        "ru": "У неё очень изящные украшения.",
-        "uk": "Вона носить дуже витончені прикраси."
-      }
-    ]
-  },
-  {
-    "id": 38,
-    "word": "fern",
-    "ru": "далёкий",
-    "uk": "далекий",
-    "level": "A2",
-    "topics": [
-      "place"
-    ],
-    "deSynonyms": [
-      "weit entfernt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "nah"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie träumt von einem fernen Land.",
-        "ru": "Она мечтает о далёкой стране.",
-        "uk": "Вона мріє про далеку країну."
-      }
-    ]
-  },
-  {
-    "id": 39,
-    "word": "feucht",
-    "ru": "влажный",
-    "uk": "вологий",
-    "level": "A2",
-    "topics": [
-      "description",
-      "weather"
-    ],
-    "deSynonyms": [
-      "nass"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "trocken"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist heute sehr feucht in der Luft.",
-        "ru": "Сегодня в воздухе очень влажно.",
-        "uk": "Сьогодні в повітрі дуже волого."
-      }
-    ]
-  },
-  {
-    "id": 40,
-    "word": "fit",
-    "ru": "в форме",
-    "uk": "у гарній формі",
-    "level": "A2",
-    "topics": [
-      "health"
-    ],
-    "deSynonyms": [
-      "gesund",
-      "in Form"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ungesund"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist körperlich sehr fit.",
-        "ru": "Он в очень хорошей физической форме.",
-        "uk": "Він у дуже гарній фізичній формі."
-      }
-    ]
-  },
-  {
-    "id": 41,
-    "word": "flach",
-    "ru": "плоский",
-    "uk": "плаский",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "eben"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "steil"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Land ist hier ganz flach.",
-        "ru": "Местность здесь совсем плоская.",
-        "uk": "Місцевість тут зовсім плоска."
-      }
-    ]
-  },
-  {
-    "id": 42,
-    "word": "fleißig",
-    "ru": "прилежный",
-    "uk": "працьовитий",
-    "level": "A2",
-    "topics": [
-      "education",
-      "work"
-    ],
-    "deSynonyms": [
-      "arbeitsam"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "faul"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie ist eine sehr fleißige Studentin.",
-        "ru": "Она очень прилежная студентка.",
-        "uk": "Вона дуже працьовита студентка."
-      }
-    ]
-  },
-  {
-    "id": 43,
-    "word": "frei",
-    "ru": "свободный",
-    "uk": "вільний",
-    "level": "A2",
-    "topics": [
-      "free_time",
-      "work"
-    ],
-    "deSynonyms": [
-      "verfügbar"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "besetzt"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Hast du heute Abend frei?",
-        "ru": "Ты сегодня вечером свободен?",
-        "uk": "Ти сьогодні ввечері вільний?"
-      }
-    ]
-  },
-  {
-    "id": 44,
-    "word": "freiwillig",
-    "ru": "добровольный",
-    "uk": "добровільний",
-    "level": "B1",
-    "topics": [
-      "work",
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Teilnahme ist freiwillig.",
-        "ru": "Участие добровольное.",
-        "uk": "Участь є добровільною."
-      }
-    ]
-  },
-  {
-    "id": 45,
-    "word": "fremd",
-    "ru": "чужой",
-    "uk": "чужий",
-    "level": "A2",
-    "topics": [
-      "description",
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich fühle mich in der Stadt noch fremd.",
-        "ru": "Я всё ещё чувствую себя чужим в этом городе.",
-        "uk": "Я досі почуваюся чужим у цьому місті."
-      }
-    ]
-  },
-  {
-    "id": 46,
-    "word": "freundlich",
-    "ru": "дружелюбный",
-    "uk": "дружній",
-    "level": "A2",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "nett",
-      "hilfsbereit"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unfreundlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Verkäuferin war sehr freundlich.",
-        "ru": "Продавщица была очень дружелюбной.",
-        "uk": "Продавчиня була дуже дружньою."
-      }
-    ]
-  },
-  {
-    "id": 47,
-    "word": "frisch",
-    "ru": "свежий",
-    "uk": "свіжий",
-    "level": "A2",
-    "topics": [
-      "food"
-    ],
-    "deSynonyms": [
-      "neu",
-      "nicht alt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Brot ist noch ganz frisch.",
-        "ru": "Хлеб ещё совсем свежий.",
-        "uk": "Хліб ще зовсім свіжий."
-      }
-    ]
-  },
-  {
-    "id": 48,
-    "word": "früh",
-    "ru": "ранний",
-    "uk": "ранній",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich stehe jeden Tag früh auf.",
-        "ru": "Я каждый день рано встаю.",
-        "uk": "Я щодня рано встаю."
-      }
-    ]
-  },
-  {
-    "id": 49,
-    "word": "fähig",
-    "ru": "способный",
-    "uk": "здатний",
-    "level": "B1",
-    "topics": [
-      "work",
-      "education"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unfähig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist zu großen Leistungen fähig.",
-        "ru": "Он способен на большие достижения.",
-        "uk": "Він здатний на великі досягнення."
-      }
-    ]
-  },
-  {
-    "id": 50,
-    "word": "gefährlich",
-    "ru": "опасный",
-    "uk": "небезпечний",
-    "level": "A2",
-    "topics": [
-      "health",
-      "transport"
-    ],
-    "deSynonyms": [
-      "riskant"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "harmlos",
-      "sicher"
-    ],
-    "ruAntonyms": [
-      "безопасный"
-    ],
-    "ukAntonyms": [
-      "безпечний"
-    ],
-    "examples": [
-      {
-        "L2": "Zu schnell zu fahren ist gefährlich.",
-        "ru": "Ездить слишком быстро — опасно.",
-        "uk": "Їздити надто швидко — небезпечно."
-      }
-    ]
-  },
-  {
-    "id": 51,
-    "word": "gemeinsam",
-    "ru": "общий",
-    "uk": "спільний",
-    "level": "A2",
-    "topics": [
-      "relationships",
-      "work"
-    ],
-    "deSynonyms": [
-      "zusammen"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir haben viele gemeinsame Interessen.",
-        "ru": "У нас много общих интересов.",
-        "uk": "У нас багато спільних інтересів."
-      }
-    ]
-  },
-  {
-    "id": 52,
-    "word": "genau",
-    "ru": "точный",
-    "uk": "точний",
-    "level": "A2",
-    "topics": [
-      "education",
-      "work"
-    ],
-    "deSynonyms": [
-      "präzise",
-      "exakt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Bitte seien Sie morgen um neun Uhr genau hier.",
-        "ru": "Пожалуйста, будьте завтра ровно в девять здесь.",
-        "uk": "Будь ласка, будьте завтра рівно о дев’ятій тут."
-      }
-    ]
-  },
-  {
-    "id": 53,
-    "word": "geschlossen",
-    "ru": "закрытый",
-    "uk": "закритий",
-    "level": "A2",
-    "topics": [
-      "place"
-    ],
-    "deSynonyms": [
-      "zu"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "offen"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Geschäft ist sonntags geschlossen.",
-        "ru": "Магазин по воскресеньям закрыт.",
-        "uk": "Магазин у неділю зачинений."
-      }
-    ]
-  },
-  {
-    "id": 54,
-    "word": "gesund",
-    "ru": "здоровый",
-    "uk": "здоровий",
-    "level": "A1",
-    "topics": [
-      "health"
-    ],
-    "deSynonyms": [
-      "fit"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "krank"
-    ],
-    "ruAntonyms": [
-      "больной"
-    ],
-    "ukAntonyms": [
-      "хворий"
-    ],
-    "examples": [
-      {
-        "L2": "Gemüse ist sehr gesund.",
-        "ru": "Овощи очень полезны для здоровья.",
-        "uk": "Овочі дуже корисні для здоров’я."
-      }
-    ]
-  },
-  {
-    "id": 55,
-    "word": "gewöhnlich",
-    "ru": "обычный",
-    "uk": "звичайний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ungewöhnlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich stehe gewöhnlich um sieben Uhr auf.",
-        "ru": "Обычно я встаю в семь.",
-        "uk": "Зазвичай я встаю о сьомій."
-      }
-    ]
-  },
-  {
-    "id": 56,
-    "word": "glatt",
-    "ru": "гладкий",
-    "uk": "гладкий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "eben"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Oberfläche ist ganz glatt.",
-        "ru": "Поверхность совсем гладкая.",
-        "uk": "Поверхня зовсім гладка."
-      }
-    ]
-  },
-  {
-    "id": 57,
-    "word": "gleich",
-    "ru": "одинаковый",
-    "uk": "однаковий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "identisch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unterschiedlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir haben die gleichen Interessen.",
-        "ru": "У нас одинаковые интересы.",
-        "uk": "У нас однакові інтереси."
-      }
-    ]
-  },
-  {
-    "id": 58,
-    "word": "glücklich",
-    "ru": "счастливый",
-    "uk": "щасливий",
-    "level": "A2",
-    "topics": [
-      "relationships",
-      "health"
-    ],
-    "deSynonyms": [
-      "zufrieden",
-      "froh"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unglücklich",
-      "traurig"
-    ],
-    "ruAntonyms": [
-      "несчастный"
-    ],
-    "ukAntonyms": [
-      "нещасний"
-    ],
-    "examples": [
-      {
-        "L2": "Sie sind seit Jahren glücklich verheiratet.",
-        "ru": "Они уже много лет счастливо женаты.",
-        "uk": "Вони вже багато років щасливо одружені."
-      }
-    ]
-  },
-  {
-    "id": 59,
-    "word": "grob",
-    "ru": "грубый",
-    "uk": "грубий",
-    "level": "B1",
-    "topics": [
-      "relationships",
-      "communication"
-    ],
-    "deSynonyms": [
-      "ruppig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er war sehr grob zu ihr.",
-        "ru": "Он был с ней очень груб.",
-        "uk": "Він був із нею дуже грубий."
-      }
-    ]
-  },
-  {
-    "id": 60,
-    "word": "groß",
-    "ru": "большой",
-    "uk": "великий",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "riesig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "klein"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie wohnt in einer großen Stadt.",
-        "ru": "Она живёт в большом городе.",
-        "uk": "Вона живе у великому місті."
-      }
-    ]
-  },
-  {
-    "id": 61,
-    "word": "gut",
-    "ru": "хороший",
-    "uk": "добрий",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "toll"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schlecht"
-    ],
-    "ruAntonyms": [
-      "плохой"
-    ],
-    "ukAntonyms": [
-      "поганий"
-    ],
-    "examples": [
-      {
-        "L2": "Das ist eine gute Idee.",
-        "ru": "Это хорошая идея.",
-        "uk": "Це гарна ідея."
-      }
-    ]
-  },
-  {
-    "id": 62,
-    "word": "harmlos",
-    "ru": "безвредный",
-    "uk": "нешкідливий",
-    "level": "B1",
-    "topics": [
-      "health"
-    ],
-    "deSynonyms": [
-      "ungefährlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "gefährlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Ausschlag ist harmlos.",
-        "ru": "Эта сыпь безвредна.",
-        "uk": "Цей висип нешкідливий."
-      }
-    ]
-  },
-  {
-    "id": 63,
-    "word": "hart",
-    "ru": "твёрдый",
-    "uk": "твердий",
-    "level": "A2",
-    "topics": [
-      "description",
-      "food"
-    ],
-    "deSynonyms": [
-      "fest"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "weich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Brot ist schon hart geworden.",
-        "ru": "Хлеб уже стал твёрдым.",
-        "uk": "Хліб уже став твердим."
-      }
-    ]
-  },
-  {
-    "id": 64,
-    "word": "heiß",
-    "ru": "горячий",
-    "uk": "гарячий",
-    "level": "A1",
-    "topics": [
-      "food",
-      "weather"
-    ],
-    "deSynonyms": [
-      "sehr warm"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "kalt"
-    ],
-    "ruAntonyms": [
-      "холодный"
-    ],
-    "ukAntonyms": [
-      "холодний"
-    ],
-    "examples": [
-      {
-        "L2": "Der Tee ist noch sehr heiß.",
-        "ru": "Чай ещё очень горячий.",
-        "uk": "Чай ще дуже гарячий."
-      }
-    ]
-  },
-  {
-    "id": 65,
-    "word": "hektisch",
-    "ru": "суетливый",
-    "uk": "метушливий",
-    "level": "B1",
-    "topics": [
-      "work",
-      "city"
-    ],
-    "deSynonyms": [
-      "stressig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Tag im Büro war heute sehr hektisch.",
-        "ru": "День в офисе сегодня был очень суетливым.",
-        "uk": "День в офісі сьогодні був дуже метушливим."
-      }
-    ]
-  },
-  {
-    "id": 66,
-    "word": "hell",
-    "ru": "светлый",
-    "uk": "світлий",
-    "level": "A1",
-    "topics": [
-      "home",
-      "description"
-    ],
-    "deSynonyms": [
-      "licht"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "dunkel"
-    ],
-    "ruAntonyms": [
-      "тёмный"
-    ],
-    "ukAntonyms": [
-      "темний"
-    ],
-    "examples": [
-      {
-        "L2": "Das Zimmer ist groß und hell.",
-        "ru": "Комната большая и светлая.",
-        "uk": "Кімната велика й світла."
-      }
-    ]
-  },
-  {
-    "id": 67,
-    "word": "hoch",
-    "ru": "высокий",
-    "uk": "високий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "erhaben"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "niedrig",
-      "tief"
-    ],
-    "ruAntonyms": [
-      "низкий"
-    ],
-    "ukAntonyms": [
-      "низький"
-    ],
-    "examples": [
-      {
-        "L2": "Das Haus ist sehr hoch.",
-        "ru": "Дом очень высокий.",
-        "uk": "Будинок дуже високий."
-      }
-    ]
-  },
-  {
-    "id": 68,
-    "word": "hungrig",
-    "ru": "голодный",
-    "uk": "голодний",
-    "level": "A1",
-    "topics": [
-      "food",
-      "health"
-    ],
-    "deSynonyms": [
-      "sehr appetitlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "satt"
-    ],
-    "ruAntonyms": [
-      "сытый"
-    ],
-    "ukAntonyms": [
-      "ситий"
-    ],
-    "examples": [
-      {
-        "L2": "Ich bin schon wieder hungrig.",
-        "ru": "Я снова голоден.",
-        "uk": "Я знову голодний."
-      }
-    ]
-  },
-  {
-    "id": 69,
-    "word": "hässlich",
-    "ru": "уродливый",
-    "uk": "потворний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "unschön"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schön"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Gebäude sieht ziemlich hässlich aus.",
-        "ru": "Здание выглядит довольно уродливо.",
-        "uk": "Будівля виглядає доволі потворно."
-      }
-    ]
-  },
-  {
-    "id": 70,
-    "word": "häufig",
-    "ru": "частый",
-    "uk": "частий",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "oft"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "selten"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Zugverspätungen sind hier häufig.",
-        "ru": "Задержки поездов здесь частое явление.",
-        "uk": "Запізнення поїздів тут трапляються часто."
-      }
-    ]
-  },
-  {
-    "id": 71,
-    "word": "höflich",
-    "ru": "вежливый",
-    "uk": "ввічливий",
-    "level": "A2",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "freundlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unhöflich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist wichtig, höflich zu bleiben.",
-        "ru": "Важно оставаться вежливым.",
-        "uk": "Важливо залишатися ввічливим."
-      }
-    ]
-  },
-  {
-    "id": 72,
-    "word": "illegal",
-    "ru": "незаконный",
-    "uk": "незаконний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "unerlaubt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "legal"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist in diesem Land illegal.",
-        "ru": "Это незаконно в этой стране.",
-        "uk": "Це незаконно в цій країні."
-      }
-    ]
-  },
-  {
-    "id": 73,
-    "word": "inner",
-    "ru": "внутренний",
-    "uk": "внутрішній",
-    "level": "B1",
-    "topics": [
-      "description",
-      "abstract"
-    ],
-    "deSynonyms": [
-      "intern"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "äußerlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie hat einen starken inneren Frieden gefunden.",
-        "ru": "Она нашла сильное внутреннее спокойствие.",
-        "uk": "Вона знайшла сильний внутрішній спокій."
-      }
-    ]
-  },
-  {
-    "id": 74,
-    "word": "inoffiziell",
-    "ru": "неофициальный",
-    "uk": "неофіційний",
-    "level": "B2",
-    "topics": [
-      "work",
-      "communication"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist nur eine inoffizielle Information.",
-        "ru": "Это всего лишь неофициальная информация.",
-        "uk": "Це лише неофіційна інформація."
-      }
-    ]
-  },
-  {
-    "id": 75,
-    "word": "intelligent",
-    "ru": "умный",
-    "uk": "розумний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "klug"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "dumm"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist sehr intelligent und lernt schnell.",
-        "ru": "Он очень умный и быстро учится.",
-        "uk": "Він дуже розумний і швидко навчається."
-      }
-    ]
-  },
-  {
-    "id": 76,
-    "word": "interessant",
-    "ru": "интересный",
-    "uk": "цікавий",
-    "level": "A1",
-    "topics": [
-      "education",
-      "free_time"
-    ],
-    "deSynonyms": [
-      "spannend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "langweilig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Buch ist wirklich interessant.",
-        "ru": "Книга действительно интересная.",
-        "uk": "Книга справді цікава."
-      }
-    ]
-  },
-  {
-    "id": 77,
-    "word": "international",
-    "ru": "международный",
-    "uk": "міжнародний",
-    "level": "A2",
-    "topics": [
-      "work",
-      "education"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er arbeitet in einem internationalen Team.",
-        "ru": "Он работает в международной команде.",
-        "uk": "Він працює в міжнародній команді."
-      }
-    ]
-  },
-  {
-    "id": 78,
-    "word": "jung",
-    "ru": "молодой",
-    "uk": "молодий",
-    "level": "A1",
-    "topics": [
-      "family",
-      "description"
-    ],
-    "deSynonyms": [
-      "nicht alt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "alt"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie ist noch sehr jung.",
-        "ru": "Она ещё очень молода.",
-        "uk": "Вона ще дуже молода."
-      }
-    ]
-  },
-  {
-    "id": 79,
-    "word": "kalt",
-    "ru": "холодный",
-    "uk": "холодний",
-    "level": "A1",
-    "topics": [
-      "weather",
-      "food"
-    ],
-    "deSynonyms": [
-      "frisch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "warm",
-      "heiß"
-    ],
-    "ruAntonyms": [
-      "тёплый"
-    ],
-    "ukAntonyms": [
-      "теплий"
-    ],
-    "examples": [
-      {
-        "L2": "Im Winter ist es hier sehr kalt.",
-        "ru": "Зимой здесь очень холодно.",
-        "uk": "Взимку тут дуже холодно."
-      }
-    ]
-  },
-  {
-    "id": 80,
-    "word": "klar",
-    "ru": "ясный",
-    "uk": "ясний",
-    "level": "A2",
-    "topics": [
-      "communication",
-      "description"
-    ],
-    "deSynonyms": [
-      "eindeutig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Regeln sind jetzt ganz klar.",
-        "ru": "Правила теперь совершенно ясны.",
-        "uk": "Правила тепер цілком ясні."
-      }
-    ]
-  },
-  {
-    "id": 81,
-    "word": "klein",
-    "ru": "маленький",
-    "uk": "малий",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "winzig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "groß"
-    ],
-    "ruAntonyms": [
-      "большой"
-    ],
-    "ukAntonyms": [
-      "великий"
-    ],
-    "examples": [
-      {
-        "L2": "Er wohnt in einer kleinen Wohnung.",
-        "ru": "Он живёт в небольшой квартире.",
-        "uk": "Він живе в маленькій квартирі."
-      }
-    ]
-  },
-  {
-    "id": 82,
-    "word": "klug",
-    "ru": "умный",
-    "uk": "кмітливий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "intelligent"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das war eine kluge Entscheidung.",
-        "ru": "Это было умное решение.",
-        "uk": "Це було кмітливе рішення."
-      }
-    ]
-  },
-  {
-    "id": 83,
-    "word": "komisch",
-    "ru": "смешной",
-    "uk": "дивний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "merkwürdig",
-      "lustig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Film war ein bisschen komisch.",
-        "ru": "Фильм был немного странный",
-        "uk": "Фільм був трохи дивний"
-      }
-    ]
-  },
-  {
-    "id": 84,
-    "word": "kompliziert",
-    "ru": "сложный",
-    "uk": "складний",
-    "level": "B1",
-    "topics": [
-      "education",
-      "work"
-    ],
-    "deSynonyms": [
-      "schwierig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Situation ist ziemlich kompliziert.",
-        "ru": "Ситуация довольно сложная.",
-        "uk": "Ситуація досить складна."
-      }
-    ]
-  },
-  {
-    "id": 85,
-    "word": "krank",
-    "ru": "больной",
-    "uk": "хворий",
-    "level": "A1",
-    "topics": [
-      "health"
-    ],
-    "deSynonyms": [
-      "nicht gesund"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "gesund"
-    ],
-    "ruAntonyms": [
-      "здоровый"
-    ],
-    "ukAntonyms": [
-      "здоровий"
-    ],
-    "examples": [
-      {
-        "L2": "Ich war letzte Woche krank.",
-        "ru": "Я был болен на прошлой неделе.",
-        "uk": "Я минулого тижня хворів."
-      }
-    ]
-  },
-  {
-    "id": 86,
-    "word": "kreativ",
-    "ru": "креативный",
-    "uk": "креативний",
-    "level": "B1",
-    "topics": [
-      "work",
-      "education"
-    ],
-    "deSynonyms": [
-      "einfallsreich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie hat viele kreative Ideen.",
-        "ru": "У неё много креативных идей.",
-        "uk": "У неї багато креативних ідей."
-      }
-    ]
-  },
-  {
-    "id": 87,
-    "word": "kühl",
-    "ru": "прохладный",
-    "uk": "прохолодний",
-    "level": "A2",
-    "topics": [
-      "weather",
-      "description"
-    ],
-    "deSynonyms": [
-      "frisch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "heiß",
-      "warm"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Heute ist es draußen kühl.",
-        "ru": "Сегодня на улице прохладно.",
-        "uk": "Сьогодні надворі прохолодно."
-      }
-    ]
-  },
-  {
-    "id": 88,
-    "word": "langsam",
-    "ru": "медленный",
-    "uk": "повільний",
-    "level": "A1",
-    "topics": [
-      "movement"
-    ],
-    "deSynonyms": [
-      "träge"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schnell"
-    ],
-    "ruAntonyms": [
-      "быстрый"
-    ],
-    "ukAntonyms": [
-      "швидкий"
-    ],
-    "examples": [
-      {
-        "L2": "Bitte fahr langsamer.",
-        "ru": "Пожалуйста, езжай медленнее.",
-        "uk": "Будь ласка, їдь повільніше."
-      }
-    ]
-  },
-  {
-    "id": 89,
-    "word": "langweilig",
-    "ru": "скучный",
-    "uk": "нудний",
-    "level": "A2",
-    "topics": [
-      "education",
-      "free_time"
-    ],
-    "deSynonyms": [
-      "eintönig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "interessant",
-      "spannend"
-    ],
-    "ruAntonyms": [
-      "интересный"
-    ],
-    "ukAntonyms": [
-      "цікавий"
-    ],
-    "examples": [
-      {
-        "L2": "Der Unterricht war heute langweilig.",
-        "ru": "Урок сегодня был скучный.",
-        "uk": "Урок сьогодні був нудний."
-      }
-    ]
-  },
-  {
-    "id": 90,
-    "word": "laut",
-    "ru": "громкий",
-    "uk": "гучний",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "lärmend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "leise"
-    ],
-    "ruAntonyms": [
-      "тихий"
-    ],
-    "ukAntonyms": [
-      "тихий"
-    ],
-    "examples": [
-      {
-        "L2": "Die Musik ist zu laut.",
-        "ru": "Музыка слишком громкая.",
-        "uk": "Музика надто гучна."
-      }
-    ]
-  },
-  {
-    "id": 91,
-    "word": "leer",
-    "ru": "пустой",
-    "uk": "порожній",
-    "level": "A1",
-    "topics": [
-      "home",
-      "place"
-    ],
-    "deSynonyms": [
-      "unbesetzt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "voll"
-    ],
-    "ruAntonyms": [
-      "полный"
-    ],
-    "ukAntonyms": [
-      "повний"
-    ],
-    "examples": [
-      {
-        "L2": "Der Kühlschrank ist fast leer.",
-        "ru": "Холодильник почти пуст.",
-        "uk": "Холодильник майже порожній."
-      }
-    ]
-  },
-  {
-    "id": 92,
-    "word": "legal",
-    "ru": "законный",
-    "uk": "законний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ist das hier überhaupt legal?",
-        "ru": "Это здесь вообще законно?",
-        "uk": "Це тут взагалі законно?"
-      }
-    ]
-  },
-  {
-    "id": 93,
-    "word": "leicht",
-    "ru": "лёгкий",
-    "uk": "легкий",
-    "level": "A1",
-    "topics": [
-      "description",
-      "education"
-    ],
-    "deSynonyms": [
-      "einfach"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schwer"
-    ],
-    "ruAntonyms": [
-      "тяжёлый"
-    ],
-    "ukAntonyms": [
-      "важкий"
-    ],
-    "examples": [
-      {
-        "L2": "Die Übung ist ziemlich leicht.",
-        "ru": "Упражнение довольно лёгкое.",
-        "uk": "Вправа досить легка."
-      }
-    ]
-  },
-  {
-    "id": 94,
-    "word": "lokal",
-    "ru": "местный",
-    "uk": "місцевий",
-    "level": "B1",
-    "topics": [
-      "city",
-      "work"
-    ],
-    "deSynonyms": [
-      "örtlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir kaufen gern bei lokalen Händlern.",
-        "ru": "Мы любим покупать у местных продавцов.",
-        "uk": "Ми любимо купувати в місцевих продавців."
-      }
-    ]
-  },
-  {
-    "id": 95,
-    "word": "lustig",
-    "ru": "весёлый",
-    "uk": "смішний",
-    "level": "A2",
-    "topics": [
-      "free_time",
-      "relationships"
-    ],
-    "deSynonyms": [
-      "witzig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "traurig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Film war sehr lustig.",
-        "ru": "Фильм был очень весёлый",
-        "uk": "Фільм був дуже смішний."
-      }
-    ]
-  },
-  {
-    "id": 96,
-    "word": "maximal",
-    "ru": "максимальный",
-    "uk": "максимальний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die maximale Anzahl ist zehn Personen.",
-        "ru": "Максимальное количество — десять человек.",
-        "uk": "Максимальна кількість — десять осіб."
-      }
-    ]
-  },
-  {
-    "id": 97,
-    "word": "minimal",
-    "ru": "минимальный",
-    "uk": "мінімальний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Kosten sollen minimal bleiben.",
-        "ru": "Затраты должны оставаться минимальными.",
-        "uk": "Витрати мають залишатися мінімальними."
-      }
-    ]
-  },
-  {
-    "id": 98,
-    "word": "modern",
-    "ru": "современный",
-    "uk": "сучасний",
-    "level": "A2",
-    "topics": [
-      "home",
-      "city"
-    ],
-    "deSynonyms": [
-      "zeitgemäß"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "altmodisch"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie wohnen in einem modernen Haus.",
-        "ru": "Они живут в современном доме.",
-        "uk": "Вони живуть у сучасному будинку."
-      }
-    ]
-  },
-  {
-    "id": 99,
-    "word": "mutig",
-    "ru": "смелый",
-    "uk": "сміливий",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "tapfer"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ängstlich",
-      "feige"
-    ],
-    "ruAntonyms": [
-      "трусливый"
-    ],
-    "ukAntonyms": [
-      "боязкий"
-    ],
-    "examples": [
-      {
-        "L2": "Es war sehr mutig von dir, das zu sagen.",
-        "ru": "С твоей стороны было очень смело это сказать.",
-        "uk": "З твого боку було дуже сміливо це сказати."
-      }
-    ]
-  },
-  {
-    "id": 100,
-    "word": "möglich",
-    "ru": "возможный",
-    "uk": "можливий",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "denkbar"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unmöglich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Alles ist möglich, wenn du übst.",
-        "ru": "Всё возможно, если ты тренируешься.",
-        "uk": "Все можливо, якщо ти тренуєшся."
-      }
-    ]
-  },
-  {
-    "id": 101,
-    "word": "müde",
-    "ru": "уставший",
-    "uk": "втомлений",
-    "level": "A1",
-    "topics": [
-      "health"
-    ],
-    "deSynonyms": [
-      "erschöpft"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "wach"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin nach der Arbeit sehr müde.",
-        "ru": "Я после работы очень устал.",
-        "uk": "Я після роботи дуже втомлений."
-      }
-    ]
-  },
-  {
-    "id": 102,
-    "word": "nah",
-    "ru": "близкий",
-    "uk": "близький",
-    "level": "A2",
-    "topics": [
-      "place",
-      "relationships"
-    ],
-    "deSynonyms": [
-      "in der Nähe"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "fern"
-    ],
-    "ruAntonyms": [
-      "далёкий"
-    ],
-    "ukAntonyms": [
-      "далекий"
-    ],
-    "examples": [
-      {
-        "L2": "Wir wohnen ganz nah am Bahnhof.",
-        "ru": "Мы живём совсем близко от вокзала.",
-        "uk": "Ми живемо зовсім близько від вокзалу."
-      }
-    ]
-  },
-  {
-    "id": 103,
-    "word": "national",
-    "ru": "национальный",
-    "uk": "національний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist ein wichtiges nationales Projekt.",
-        "ru": "Это важный национальный проект.",
-        "uk": "Це важливий національний проєкт."
-      }
-    ]
-  },
-  {
-    "id": 104,
-    "word": "nervös",
-    "ru": "нервный",
-    "uk": "нервовий",
-    "level": "A2",
-    "topics": [
-      "health",
-      "description"
-    ],
-    "deSynonyms": [
-      "aufgeregt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ruhig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Vor Prüfungen bin ich immer nervös.",
-        "ru": "Перед экзаменами я всегда нервничаю.",
-        "uk": "Перед іспитами я завжди нервую."
-      }
-    ]
-  },
-  {
-    "id": 105,
-    "word": "nett",
-    "ru": "милый",
-    "uk": "приємний",
-    "level": "A1",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "freundlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Nachbarn sind sehr nett.",
-        "ru": "Соседи очень милые.",
-        "uk": "Сусіди дуже приємні."
-      }
-    ]
-  },
-  {
-    "id": 106,
-    "word": "neu",
-    "ru": "новый",
-    "uk": "новий",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "frisch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "alt"
-    ],
-    "ruAntonyms": [
-      "старый"
-    ],
-    "ukAntonyms": [
-      "старий"
-    ],
-    "examples": [
-      {
-        "L2": "Ich habe ein neues Handy gekauft.",
-        "ru": "Я купил новый телефон.",
-        "uk": "Я купив новий телефон."
-      }
-    ]
-  },
-  {
-    "id": 107,
-    "word": "neugierig",
-    "ru": "любопытный",
-    "uk": "допитливий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "interessiert"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Kinder sind meistens sehr neugierig.",
-        "ru": "Дети обычно очень любопытны.",
-        "uk": "Діти зазвичай дуже допитливі."
-      }
-    ]
-  },
-  {
-    "id": 108,
-    "word": "niedrig",
-    "ru": "низкий",
-    "uk": "низький",
-    "level": "A2",
-    "topics": [
-      "description",
-      "money"
-    ],
-    "deSynonyms": [
-      "gering"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "hoch"
-    ],
-    "ruAntonyms": [
-      "высокий"
-    ],
-    "ukAntonyms": [
-      "високий"
-    ],
-    "examples": [
-      {
-        "L2": "Die Preise sind hier relativ niedrig.",
-        "ru": "Цены здесь относительно низкие.",
-        "uk": "Ціни тут відносно низькі."
-      }
-    ]
-  },
-  {
-    "id": 109,
-    "word": "normal",
-    "ru": "нормальный",
-    "uk": "нормальний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "gewöhnlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ungewöhnlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist völlig normal.",
-        "ru": "Это совершенно нормально.",
-        "uk": "Це цілком нормально."
-      }
-    ]
-  },
-  {
-    "id": 110,
-    "word": "notwendig",
-    "ru": "необходимый",
-    "uk": "необхідний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "erforderlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unnötig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ist das wirklich notwendig?",
-        "ru": "Это действительно необходимо?",
-        "uk": "Це справді необхідно?"
-      }
-    ]
-  },
-  {
-    "id": 111,
-    "word": "nutzlos",
-    "ru": "бесполезный",
-    "uk": "марний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "sinnlos"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "nützlich"
-    ],
-    "ruAntonyms": [
-      "полезный"
-    ],
-    "ukAntonyms": [
-      "корисний"
-    ],
-    "examples": [
-      {
-        "L2": "Ohne Daten ist diese Statistik nutzlos.",
-        "ru": "Без данных эта статистика бесполезна.",
-        "uk": "Без даних ця статистика марна."
-      }
-    ]
-  },
-  {
-    "id": 112,
-    "word": "nützlich",
-    "ru": "полезный",
-    "uk": "корисний",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "hilfreich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "nutzlos"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sprachenlernen ist immer nützlich.",
-        "ru": "Изучать языки всегда полезно.",
-        "uk": "Вивчати мови завжди корисно."
-      }
-    ]
-  },
-  {
-    "id": 113,
-    "word": "offen",
-    "ru": "открытый",
-    "uk": "відкритий",
-    "level": "A2",
-    "topics": [
-      "description",
-      "place"
-    ],
-    "deSynonyms": [
-      "auf"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "geschlossen"
-    ],
-    "ruAntonyms": [
-      "закрытый"
-    ],
-    "ukAntonyms": [
-      "закритий"
-    ],
-    "examples": [
-      {
-        "L2": "Das Fenster ist noch offen.",
-        "ru": "Окно всё ещё открыто.",
-        "uk": "Вікно досі відкрите."
-      }
-    ]
-  },
-  {
-    "id": 114,
-    "word": "offiziell",
-    "ru": "официальный",
-    "uk": "офіційний",
-    "level": "B1",
-    "topics": [
-      "work",
-      "abstract"
-    ],
-    "deSynonyms": [
-      "formell"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "inoffiziell"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist die offizielle Version.",
-        "ru": "Это официальная версия.",
-        "uk": "Це офіційна версія."
-      }
-    ]
-  },
-  {
-    "id": 115,
-    "word": "ordentlich",
-    "ru": "аккуратный",
-    "uk": "охайний",
-    "level": "A2",
-    "topics": [
-      "description",
-      "home"
-    ],
-    "deSynonyms": [
-      "aufgeräumt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "chaotisch"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ihr Zimmer ist immer sehr ordentlich.",
-        "ru": "Её комната всегда очень аккуратная.",
-        "uk": "Її кімната завжди дуже охайна."
-      }
-    ]
-  },
-  {
-    "id": 116,
-    "word": "passiv",
-    "ru": "пассивный",
-    "uk": "пасивний",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "zurückhaltend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "aktiv"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er bleibt in Diskussionen oft passiv.",
-        "ru": "В дискуссиях он часто остаётся пассивным.",
-        "uk": "У дискусіях він часто залишається пасивним."
-      }
-    ]
-  },
-  {
-    "id": 117,
-    "word": "persönlich",
-    "ru": "личный",
-    "uk": "особистий",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "privat"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist meine persönliche Meinung.",
-        "ru": "Это моё личное мнение.",
-        "uk": "Це моя особиста думка."
-      }
-    ]
-  },
-  {
-    "id": 118,
-    "word": "praktisch",
-    "ru": "практичный",
-    "uk": "практичний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "handlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Tasche ist klein, aber sehr praktisch.",
-        "ru": "Сумка маленькая, но очень практичная.",
-        "uk": "Сумка маленька, але дуже практична."
-      }
-    ]
-  },
-  {
-    "id": 119,
-    "word": "preiswert",
-    "ru": "доступный по цене",
-    "uk": "недорогий",
-    "level": "A2",
-    "topics": [
-      "money"
-    ],
-    "deSynonyms": [
-      "günstig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "teuer"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Hotel war sehr preiswert.",
-        "ru": "Отель был по очень доступной цене.",
-        "uk": "Готель був дуже недорогий."
-      }
-    ]
-  },
-  {
-    "id": 120,
-    "word": "privat",
-    "ru": "частный",
-    "uk": "приватний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "persönlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "öffentlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist eine private Veranstaltung.",
-        "ru": "Это частное мероприятие.",
-        "uk": "Це приватний захід."
-      }
-    ]
-  },
-  {
-    "id": 121,
-    "word": "präzise",
-    "ru": "прецизионный",
-    "uk": "прецизійний",
-    "level": "B2",
-    "topics": [
-      "work",
-      "education"
-    ],
-    "deSynonyms": [
-      "genau",
-      "exakt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir brauchen eine präzise Beschreibung.",
-        "ru": "Нам нужно точное описание.",
-        "uk": "Нам потрібен прецизійний опис."
-      }
-    ]
-  },
-  {
-    "id": 122,
-    "word": "pünktlich",
-    "ru": "пунктуальный",
-    "uk": "пунктуальний",
-    "level": "A2",
-    "topics": [
-      "work",
-      "time"
-    ],
-    "deSynonyms": [
-      "rechtzeitig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unpünktlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Zug ist heute pünktlich.",
-        "ru": "Поезд сегодня пришёл вовремя.",
-        "uk": "Потяг сьогодні прибув вчасно."
-      }
-    ]
-  },
-  {
-    "id": 123,
-    "word": "rau",
-    "ru": "шероховатый",
-    "uk": "шорсткий",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "nicht glatt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Wand fühlt sich rau an.",
-        "ru": "Стена на ощупь шероховатая.",
-        "uk": "Стіна на дотик шорстка."
-      }
-    ]
-  },
-  {
-    "id": 124,
-    "word": "reich",
-    "ru": "богатый",
-    "uk": "багатий",
-    "level": "A2",
-    "topics": [
-      "money"
-    ],
-    "deSynonyms": [
-      "wohlhabend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "arm"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist sehr reich geworden.",
-        "ru": "Он стал очень богатым.",
-        "uk": "Він став дуже багатим."
-      }
-    ]
-  },
-  {
-    "id": 125,
-    "word": "richtig",
-    "ru": "правильный",
-    "uk": "правильний",
-    "level": "A1",
-    "topics": [
-      "education"
-    ],
-    "deSynonyms": [
-      "korrekt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Antwort ist richtig.",
-        "ru": "Ответ правильный.",
-        "uk": "Відповідь правильна."
-      }
-    ]
-  },
-  {
-    "id": 126,
-    "word": "robust",
-    "ru": "прочный",
-    "uk": "міцний",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "stabil"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Tisch ist sehr robust.",
-        "ru": "Стол очень прочный.",
-        "uk": "Стіл дуже міцний."
-      }
-    ]
-  },
-  {
-    "id": 127,
-    "word": "ruhig",
-    "ru": "спокойный",
-    "uk": "спокійний",
-    "level": "A2",
-    "topics": [
-      "description",
-      "place"
-    ],
-    "deSynonyms": [
-      "still"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "hektisch",
-      "laut"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Gegend ist sehr ruhig.",
-        "ru": "Район очень спокойный.",
-        "uk": "Район дуже спокійний."
-      }
-    ]
-  },
-  {
-    "id": 128,
-    "word": "salzig",
-    "ru": "солёный",
-    "uk": "солоний",
-    "level": "A2",
-    "topics": [
-      "food"
-    ],
-    "deSynonyms": [
-      "würzig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Suppe ist zu salzig.",
-        "ru": "Суп слишком солёный.",
-        "uk": "Суп занадто солоний."
-      }
-    ]
-  },
-  {
-    "id": 129,
-    "word": "satt",
-    "ru": "сытый",
-    "uk": "ситий",
-    "level": "A1",
-    "topics": [
-      "food"
-    ],
-    "deSynonyms": [
-      "vollgegessen"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Danke, ich bin schon satt.",
-        "ru": "Спасибо, я уже сыт.",
-        "uk": "Дякую, я вже ситий."
-      }
-    ]
-  },
-  {
-    "id": 130,
-    "word": "sauber",
-    "ru": "чистый",
-    "uk": "чистий",
-    "level": "A1",
-    "topics": [
-      "home",
-      "description"
-    ],
-    "deSynonyms": [
-      "rein"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schmutzig"
-    ],
-    "ruAntonyms": [
-      "грязный"
-    ],
-    "ukAntonyms": [
-      "брудний"
-    ],
-    "examples": [
-      {
-        "L2": "Die Küche ist jetzt sauber.",
-        "ru": "Кухня теперь чистая.",
-        "uk": "Кухня тепер чиста."
-      }
-    ]
-  },
-  {
-    "id": 131,
-    "word": "scharf",
-    "ru": "острый",
-    "uk": "гострий",
-    "level": "A2",
-    "topics": [
-      "food",
-      "description"
-    ],
-    "deSynonyms": [
-      "würzig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "mild"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Essen ist sehr scharf.",
-        "ru": "Еда очень острая.",
-        "uk": "Їжа дуже гостра."
-      }
-    ]
-  },
-  {
-    "id": 132,
-    "word": "schlecht",
-    "ru": "плохой",
-    "uk": "поганий",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "mies"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "gut"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Wetter ist heute schlecht.",
-        "ru": "Погода сегодня плохая.",
-        "uk": "Погода сьогодні погана."
-      }
-    ]
-  },
-  {
-    "id": 133,
-    "word": "schmutzig",
-    "ru": "грязный",
-    "uk": "брудний",
-    "level": "A1",
-    "topics": [
-      "home",
-      "description"
-    ],
-    "deSynonyms": [
-      "dreckig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "sauber"
-    ],
-    "ruAntonyms": [
-      "чистый"
-    ],
-    "ukAntonyms": [
-      "чистий"
-    ],
-    "examples": [
-      {
-        "L2": "Die Schuhe sind sehr schmutzig.",
-        "ru": "Обувь очень грязная.",
-        "uk": "Взуття дуже брудне."
-      }
-    ]
-  },
-  {
-    "id": 134,
-    "word": "schnell",
-    "ru": "быстрый",
-    "uk": "швидкий",
-    "level": "A1",
-    "topics": [
-      "movement"
-    ],
-    "deSynonyms": [
-      "rasch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "langsam"
-    ],
-    "ruAntonyms": [
-      "медленный"
-    ],
-    "ukAntonyms": [
-      "повільний"
-    ],
-    "examples": [
-      {
-        "L2": "Er fährt viel zu schnell.",
-        "ru": "Он ездит слишком быстро.",
-        "uk": "Він їздить занадто швидко."
-      }
-    ]
-  },
-  {
-    "id": 135,
-    "word": "schuldig",
-    "ru": "виновный",
-    "uk": "винний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "verantwortlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unschuldig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er fühlte sich schuldig.",
-        "ru": "Он чувствовал себя виноватым.",
-        "uk": "Він почувався винним."
-      }
-    ]
-  },
-  {
-    "id": 136,
-    "word": "schuldlos",
-    "ru": "невиновный",
-    "uk": "невинний",
-    "level": "B2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie ist in dieser Sache schuldlos.",
-        "ru": "В этом деле она невиновна.",
-        "uk": "У цій справі вона невинна."
-      }
-    ]
-  },
-  {
-    "id": 137,
-    "word": "schwach",
-    "ru": "слабый",
-    "uk": "слабкий",
-    "level": "A2",
-    "topics": [
-      "health",
-      "description"
-    ],
-    "deSynonyms": [
-      "kraftlos"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "stark"
-    ],
-    "ruAntonyms": [
-      "сильный"
-    ],
-    "ukAntonyms": [
-      "сильний"
-    ],
-    "examples": [
-      {
-        "L2": "Ich fühle mich heute etwas schwach.",
-        "ru": "Я сегодня чувствую себя немного слабым.",
-        "uk": "Я сьогодні почуваюся трохи слабким."
-      }
-    ]
-  },
-  {
-    "id": 138,
-    "word": "schwer",
-    "ru": "тяжёлый",
-    "uk": "важкий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "anstrengend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "leicht"
-    ],
-    "ruAntonyms": [
-      "лёгкий"
-    ],
-    "ukAntonyms": [
-      "легкий"
-    ],
-    "examples": [
-      {
-        "L2": "Der Koffer ist sehr schwer.",
-        "ru": "Чемодан очень тяжёлый.",
-        "uk": "Валіза дуже важка."
-      }
-    ]
-  },
-  {
-    "id": 139,
-    "word": "schwierig",
-    "ru": "сложный",
-    "uk": "складний",
-    "level": "A2",
-    "topics": [
-      "education",
-      "work"
-    ],
-    "deSynonyms": [
-      "kompliziert"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "einfach"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Aufgabe ist ziemlich schwierig.",
-        "ru": "Задание довольно сложное.",
-        "uk": "Завдання досить складне."
-      }
-    ]
-  },
-  {
-    "id": 140,
-    "word": "schön",
-    "ru": "красивый",
-    "uk": "гарний",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "hübsch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "hässlich"
-    ],
-    "ruAntonyms": [
-      "уродливый"
-    ],
-    "ukAntonyms": [
-      "потворний"
-    ],
-    "examples": [
-      {
-        "L2": "Das ist ein sehr schönes Bild.",
-        "ru": "Это очень красивая картина.",
-        "uk": "Це дуже гарна картина."
-      }
-    ]
-  },
-  {
-    "id": 141,
-    "word": "schüchtern",
-    "ru": "застенчивый",
-    "uk": "сором’язливий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "zurückhaltend"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist ein eher schüchterner Mensch.",
-        "ru": "Он скорее застенчивый человек.",
-        "uk": "Він радше сором’язлива людина."
-      }
-    ]
-  },
-  {
-    "id": 142,
-    "word": "selten",
-    "ru": "редкий",
-    "uk": "рідкісний",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "nicht oft"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "häufig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Solche Chancen sind selten.",
-        "ru": "Такие шансы бывают редко.",
-        "uk": "Такі шанси трапляються рідко."
-      }
-    ]
-  },
-  {
-    "id": 143,
-    "word": "seltsam",
-    "ru": "странный",
-    "uk": "дивний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "merkwürdig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist eine seltsame Geschichte.",
-        "ru": "Это странная история.",
-        "uk": "Це дивна історія."
-      }
-    ]
-  },
-  {
-    "id": 144,
-    "word": "separat",
-    "ru": "отдельный",
-    "uk": "окремий",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "getrennt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir zahlen die Rechnungen separat.",
-        "ru": "Мы оплатим счета отдельно.",
-        "uk": "Ми оплатимо рахунки окремо."
-      }
-    ]
-  },
-  {
-    "id": 145,
-    "word": "sicher",
-    "ru": "надёжный",
-    "uk": "безпечний",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "geschützt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unsicher",
-      "gefährlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Dieses Passwort ist nicht sehr sicher.",
-        "ru": "Этот пароль не очень надёжный.",
-        "uk": "Цей пароль не дуже безпечний."
-      }
-    ]
-  },
-  {
-    "id": 146,
-    "word": "spannend",
-    "ru": "увлекательный",
-    "uk": "захоплюючий",
-    "level": "A2",
-    "topics": [
-      "free_time"
-    ],
-    "deSynonyms": [
-      "interessant"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Film war wirklich spannend.",
-        "ru": "Фильм был действительно захватывающим.",
-        "uk": "Фільм був справді захопливим."
-      }
-    ]
-  },
-  {
-    "id": 147,
-    "word": "spät",
-    "ru": "поздний",
-    "uk": "пізній",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [
-      "nicht früh"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "früh"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist schon sehr spät.",
-        "ru": "Уже очень поздно.",
-        "uk": "Вже дуже пізно."
-      }
-    ]
-  },
-  {
-    "id": 148,
-    "word": "stark",
-    "ru": "сильный",
-    "uk": "сильний",
-    "level": "A1",
-    "topics": [
-      "description",
-      "health"
-    ],
-    "deSynonyms": [
-      "kräftig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schwach"
-    ],
-    "ruAntonyms": [
-      "слабый"
-    ],
-    "ukAntonyms": [
-      "слабкий"
-    ],
-    "examples": [
-      {
-        "L2": "Sie ist körperlich sehr stark.",
-        "ru": "Она физически очень сильная.",
-        "uk": "Вона фізично дуже сильна."
-      }
-    ]
-  },
-  {
-    "id": 149,
-    "word": "stolz",
-    "ru": "гордый",
-    "uk": "гордий",
-    "level": "B1",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "zufrieden"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin stolz auf dich.",
-        "ru": "Я горжусь тобой.",
-        "uk": "Я пишаюся тобою."
-      }
-    ]
-  },
-  {
-    "id": 150,
-    "word": "süß",
-    "ru": "сладкий",
-    "uk": "солодкий",
-    "level": "A1",
-    "topics": [
-      "food"
-    ],
-    "deSynonyms": [
-      "zuckerhaltig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Kuchen ist sehr süß.",
-        "ru": "Пирог очень сладкий.",
-        "uk": "Торт дуже солодкий."
-      }
-    ]
-  },
-  {
-    "id": 151,
-    "word": "tapfer",
-    "ru": "храбрый",
-    "uk": "хоробрий",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "mutig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Kinder waren sehr tapfer beim Zahnarzt.",
-        "ru": "Дети были очень храбры у стоматолога.",
-        "uk": "Діти були дуже хоробрими у стоматолога."
-      }
-    ]
-  },
-  {
-    "id": 152,
-    "word": "teuer",
-    "ru": "дорогой",
-    "uk": "дорогий",
-    "level": "A1",
-    "topics": [
-      "money"
-    ],
-    "deSynonyms": [
-      "kostspielig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "billig",
-      "preiswert"
-    ],
-    "ruAntonyms": [
-      "дешёвый"
-    ],
-    "ukAntonyms": [
-      "дешевий"
-    ],
-    "examples": [
-      {
-        "L2": "Das Auto war ziemlich teuer.",
-        "ru": "Машина была довольно дорогой.",
-        "uk": "Авто було досить дорогим."
-      }
-    ]
-  },
-  {
-    "id": 153,
-    "word": "tief",
-    "ru": "глубокий",
-    "uk": "глибокий",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "niedrig gelegen"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der See ist hier sehr tief.",
-        "ru": "Озеро здесь очень глубокое.",
-        "uk": "Озеро тут дуже глибоке."
-      }
-    ]
-  },
-  {
-    "id": 154,
-    "word": "traurig",
-    "ru": "грустный",
-    "uk": "сумний",
-    "level": "A2",
-    "topics": [
-      "feelings"
-    ],
-    "deSynonyms": [
-      "bedrückt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "fröhlich",
-      "glücklich"
-    ],
-    "ruAntonyms": [
-      "весёлый"
-    ],
-    "ukAntonyms": [
-      "веселий"
-    ],
-    "examples": [
-      {
-        "L2": "Der Film war sehr traurig.",
-        "ru": "Фильм был очень грустный.",
-        "uk": "Фільм був дуже сумний."
-      }
-    ]
-  },
-  {
-    "id": 155,
-    "word": "typisch",
-    "ru": "типичный",
-    "uk": "типовий",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "charakteristisch"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ungewöhnlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist typisch für dieses Wetter.",
-        "ru": "Это типично для такой погоды.",
-        "uk": "Це типово для такої погоди."
-      }
-    ]
-  },
-  {
-    "id": 156,
-    "word": "unbekannt",
-    "ru": "неизвестный",
-    "uk": "невідомий",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "nicht bekannt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "bekannt"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Autor ist noch unbekannt.",
-        "ru": "Автор пока неизвестен.",
-        "uk": "Автор поки що невідомий."
-      }
-    ]
-  },
-  {
-    "id": 157,
-    "word": "unfreundlich",
-    "ru": "недружелюбный",
-    "uk": "недружній",
-    "level": "A2",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "kühl"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "freundlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Der Kellner war ziemlich unfreundlich.",
-        "ru": "Официант был довольно недружелюбен.",
-        "uk": "Офіціант був доволі недружній."
-      }
-    ]
-  },
-  {
-    "id": 158,
-    "word": "unfähig",
-    "ru": "неспособный",
-    "uk": "нездатний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "fähig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist dafür nicht unfähig, nur unsicher.",
-        "ru": "Он не неспособен к этому, просто неуверен.",
-        "uk": "Він не нездатний до цього, просто невпевнений."
-      }
-    ]
-  },
-  {
-    "id": 159,
-    "word": "ungefähr",
-    "ru": "примерный",
-    "uk": "приблизний",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "circa"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das dauert ungefähr eine Stunde.",
-        "ru": "Это длится примерно час.",
-        "uk": "Це триває приблизно годину."
-      }
-    ]
-  },
-  {
-    "id": 160,
-    "word": "ungewöhnlich",
-    "ru": "необычный",
-    "uk": "незвичайний",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "auffällig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "gewöhnlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Farbe ist etwas ungewöhnlich.",
-        "ru": "Цвет немного необычный.",
-        "uk": "Колір трохи незвичайний."
-      }
-    ]
-  },
-  {
-    "id": 161,
-    "word": "unglücklich",
-    "ru": "несчастный",
-    "uk": "нещасний",
-    "level": "B1",
-    "topics": [
-      "feelings"
-    ],
-    "deSynonyms": [
-      "unzufrieden"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "glücklich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er war lange Zeit unglücklich.",
-        "ru": "Он долгое время был несчастным.",
-        "uk": "Він довгий час був нещасним."
-      }
-    ]
-  },
-  {
-    "id": 162,
-    "word": "unhöflich",
-    "ru": "невежливый",
-    "uk": "неввічливий",
-    "level": "A2",
-    "topics": [
-      "relationships"
-    ],
-    "deSynonyms": [
-      "respektlos"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "höflich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist unhöflich, andere zu unterbrechen.",
-        "ru": "Невежливо перебивать других.",
-        "uk": "Неввічливо перебивати інших."
-      }
-    ]
-  },
-  {
-    "id": 163,
-    "word": "unmöglich",
-    "ru": "невозможный",
-    "uk": "неможливий",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "undenkbar"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "möglich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist fast unmöglich.",
-        "ru": "Это почти невозможно.",
-        "uk": "Це майже неможливо."
-      }
-    ]
-  },
-  {
-    "id": 164,
-    "word": "unnötig",
-    "ru": "ненужный",
-    "uk": "непотрібний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "überflüssig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "notwendig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Mach dir keine unnötigen Sorgen.",
-        "ru": "Не делай себе лишних переживаний.",
-        "uk": "Не переймайся непотрібними хвилюваннями."
-      }
-    ]
-  },
-  {
-    "id": 165,
-    "word": "unpünktlich",
-    "ru": "непунктуальный",
-    "uk": "непунктуальний",
-    "level": "B1",
-    "topics": [
-      "work",
-      "time"
-    ],
-    "deSynonyms": [
-      "zu spät"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "pünktlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist leider oft unpünktlich.",
-        "ru": "К сожалению, он часто непунктуален.",
-        "uk": "На жаль, він часто непунктуальний."
-      }
-    ]
-  },
-  {
-    "id": 166,
-    "word": "unschuldig",
-    "ru": "невиновный",
-    "uk": "невинний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "ohne Schuld"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "schuldig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie blieb vor Gericht unschuldig.",
-        "ru": "В суде она осталась невиновной.",
-        "uk": "У суді її визнали невинною."
-      }
-    ]
-  },
-  {
-    "id": 167,
-    "word": "unsicher",
-    "ru": "ненадёжный",
-    "uk": "небезпечний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "instabil"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "sicher"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Lage ist politisch noch unsicher.",
-        "ru": "Ситуация в политике всё ещё нестабильная.",
-        "uk": "Ситуація в політиці ще нестабільна"
-      }
-    ]
-  },
-  {
-    "id": 168,
-    "word": "unterschiedlich",
-    "ru": "различный",
-    "uk": "відмінний",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "verschieden"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "gleich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Meinungen sind sehr unterschiedlich.",
-        "ru": "Мнения очень различаются.",
-        "uk": "Думки дуже відрізняються."
-      }
-    ]
-  },
-  {
-    "id": 169,
-    "word": "unvollständig",
-    "ru": "неполный",
-    "uk": "неповний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "lückenhaft"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "vollständig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Liste ist noch unvollständig.",
-        "ru": "Список пока ещё неполный.",
-        "uk": "Список поки що неповний."
-      }
-    ]
-  },
-  {
-    "id": 170,
-    "word": "unwichtig",
-    "ru": "неважный",
-    "uk": "неважливий",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "nebensächlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "wichtig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist im Moment unwichtig.",
-        "ru": "Это сейчас неважно.",
-        "uk": "Це зараз неважливо."
-      }
-    ]
-  },
-  {
-    "id": 171,
-    "word": "unwirklich",
-    "ru": "недействительный",
-    "uk": "несправжній",
-    "level": "B2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "irreal"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "wirklich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das alles fühlt sich unwirklich an.",
-        "ru": "Всё это кажется нереальным.",
-        "uk": "Усе це здається нереальним."
-      }
-    ]
-  },
-  {
-    "id": 172,
-    "word": "verfügbar",
-    "ru": "доступный",
-    "uk": "доступний",
-    "level": "B1",
-    "topics": [
-      "work",
-      "abstract"
-    ],
-    "deSynonyms": [
-      "frei"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "nicht verfügbar"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Daten sind online verfügbar.",
-        "ru": "Данные доступны онлайн.",
-        "uk": "Дані доступні онлайн."
-      }
-    ]
-  },
-  {
-    "id": 173,
-    "word": "verpflichtet",
-    "ru": "обязанный",
-    "uk": "зобов’язаний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "gebunden"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er fühlt sich der Firma verpflichtet.",
-        "ru": "Он чувствует себя обязанным компании.",
-        "uk": "Він почувається зобов’язаним компанії."
-      }
-    ]
-  },
-  {
-    "id": 174,
-    "word": "verschieden",
-    "ru": "разный",
-    "uk": "різний",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "anders"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "gleich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir haben ganz verschiedene Ansichten.",
-        "ru": "У нас совершенно разные взгляды.",
-        "uk": "У нас зовсім різні погляди."
-      }
-    ]
-  },
-  {
-    "id": 175,
-    "word": "voll",
-    "ru": "полный",
-    "uk": "повний",
-    "level": "A1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "gefüllt"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "leer"
-    ],
-    "ruAntonyms": [
-      "пустой"
-    ],
-    "ukAntonyms": [
-      "порожній"
-    ],
-    "examples": [
-      {
-        "L2": "Der Bus ist schon voll.",
-        "ru": "Автобус уже полный.",
-        "uk": "Автобус уже повний."
-      }
-    ]
-  },
-  {
-    "id": 176,
-    "word": "vollständig",
-    "ru": "полный",
-    "uk": "повний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "komplett"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unvollständig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Jetzt ist der Bericht vollständig.",
-        "ru": "Теперь отчёт полный.",
-        "uk": "Тепер звіт повний."
-      }
-    ]
-  },
-  {
-    "id": 177,
-    "word": "wahr",
-    "ru": "правдивый",
-    "uk": "правдивий",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "richtig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "falsch"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ist diese Geschichte wirklich wahr?",
-        "ru": "Эта история действительно правдива?",
-        "uk": "Ця історія справді правдива?"
-      }
-    ]
-  },
-  {
-    "id": 178,
-    "word": "warm",
-    "ru": "тёплый",
-    "uk": "теплий",
-    "level": "A1",
-    "topics": [
-      "weather",
-      "description"
-    ],
-    "deSynonyms": [
-      "mild"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "kalt"
-    ],
-    "ruAntonyms": [
-      "холодный"
-    ],
-    "ukAntonyms": [
-      "холодний"
-    ],
-    "examples": [
-      {
-        "L2": "Im Frühling wird es langsam warm.",
-        "ru": "Весной постепенно становится тепло.",
-        "uk": "Навесні поступово стає тепло."
-      }
-    ]
-  },
-  {
-    "id": 179,
-    "word": "weich",
-    "ru": "мягкий",
-    "uk": "м’який",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "sanft"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "hart"
-    ],
-    "ruAntonyms": [
-      "твёрдый"
-    ],
-    "ukAntonyms": [
-      "твердий"
-    ],
-    "examples": [
-      {
-        "L2": "Das Kissen ist sehr weich.",
-        "ru": "Подушка очень мягкая.",
-        "uk": "Подушка дуже м’яка."
-      }
-    ]
-  },
-  {
-    "id": 180,
-    "word": "wichtig",
-    "ru": "важный",
-    "uk": "важливий",
-    "level": "A1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "bedeutsam"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unwichtig"
-    ],
-    "ruAntonyms": [
-      "неважный"
-    ],
-    "ukAntonyms": [
-      "неважливий"
-    ],
-    "examples": [
-      {
-        "L2": "Das ist eine wichtige Entscheidung.",
-        "ru": "Это важное решение.",
-        "uk": "Це важливе рішення."
-      }
-    ]
-  },
-  {
-    "id": 181,
-    "word": "wirklich",
-    "ru": "действительный",
-    "uk": "справжній",
-    "level": "A2",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "real"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unwirklich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Bist du wirklich sicher?",
-        "ru": "Ты действительно уверен?",
-        "uk": "Ти справді впевнений?"
-      }
-    ]
-  },
-  {
-    "id": 182,
-    "word": "wütend",
-    "ru": "разъярённый",
-    "uk": "розлючений",
-    "level": "B1",
-    "topics": [
-      "feelings"
-    ],
-    "deSynonyms": [
-      "zornig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ruhig",
-      "zufrieden"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie war sehr wütend auf ihn.",
-        "ru": "Она очень злилась на него.",
-        "uk": "Вона була дуже розлючена на нього."
-      }
-    ]
-  },
-  {
-    "id": 183,
-    "word": "zufrieden",
-    "ru": "довольный",
-    "uk": "задоволений",
-    "level": "A2",
-    "topics": [
-      "feelings"
-    ],
-    "deSynonyms": [
-      "glücklich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unzufrieden",
-      "unglücklich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin mit dem Ergebnis zufrieden.",
-        "ru": "Я доволен результатом.",
-        "uk": "Я задоволений результатом."
-      }
-    ]
-  },
-  {
-    "id": 184,
-    "word": "zusätzlich",
-    "ru": "дополнительный",
-    "uk": "додатковий",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "extra"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir brauchen zusätzliches Material.",
-        "ru": "Нам нужен дополнительный материал.",
-        "uk": "Нам потрібен додатковий матеріал."
-      }
-    ]
-  },
-  {
-    "id": 185,
-    "word": "zuverlässig",
-    "ru": "надёжный",
-    "uk": "надійний",
-    "level": "B1",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "vertrauenswürdig"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "unzuverlässig"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist ein sehr zuverlässiger Kollege.",
-        "ru": "Он очень надёжный коллега.",
-        "uk": "Він дуже надійний колега."
-      }
-    ]
-  },
-  {
-    "id": 186,
-    "word": "ähnlich",
-    "ru": "похожий",
-    "uk": "подібний",
-    "level": "A2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "vergleichbar"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "verschieden"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die beiden Wörter sind sich sehr ähnlich.",
-        "ru": "Эти два слова очень похожи.",
-        "uk": "Ці два слова дуже подібні."
-      }
-    ]
-  },
-  {
-    "id": 187,
-    "word": "ängstlich",
-    "ru": "боязливый",
-    "uk": "боязкий",
-    "level": "B1",
-    "topics": [
-      "feelings"
-    ],
-    "deSynonyms": [
-      "furchtsam"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "mutig",
-      "tapfer"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Katze ist sehr ängstlich.",
-        "ru": "Кошка очень боязливая.",
-        "uk": "Кішка дуже боязка."
-      }
-    ]
-  },
-  {
-    "id": 188,
-    "word": "äußerlich",
-    "ru": "внешний",
-    "uk": "зовнішній",
-    "level": "B2",
-    "topics": [
-      "description"
-    ],
-    "deSynonyms": [
-      "von außen"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "inner"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Äußerlich hat sich wenig verändert.",
-        "ru": "Внешне мало что изменилось.",
-        "uk": "Зовні мало що змінилося."
-      }
-    ]
-  },
-  {
-    "id": 189,
-    "word": "öffentlich",
-    "ru": "публичный",
-    "uk": "публічний",
-    "level": "B1",
-    "topics": [
-      "city",
-      "abstract"
-    ],
-    "deSynonyms": [
-      "staatlich"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "privat"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist ein öffentliches Gebäude.",
-        "ru": "Это общественное здание.",
-        "uk": "Це публічна будівля."
-      }
-    ]
-  },
-  {
-    "id": 190,
-    "word": "üblich",
-    "ru": "привычный",
-    "uk": "звичний",
-    "level": "B1",
-    "topics": [
-      "abstract"
-    ],
-    "deSynonyms": [
-      "normal"
-    ],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ungewöhnlich"
-    ],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist hier üblich, Trinkgeld zu geben.",
-        "ru": "Здесь принято давать чаевые.",
-        "uk": "Тут є звичним давати чайові."
-      }
-    ]
-  }
+ {
+  "id": 1,
+  "word": "abwesend",
+  "ru": "отсутствующий",
+  "uk": "відсутній",
+  "level": "B1",
+  "topics": ["description", "work"],
+  "deSynonyms": ["nicht anwesend"],
+  "ruSynonyms": ["не присутствующий"],
+  "ukSynonyms": ["не присутній"],
+  "deAntonyms": ["anwesend"],
+  "ruAntonyms": ["присутствующий"],
+  "ukAntonyms": ["присутній"],
+  "examples": [
+    {
+      "L2": "Er wirkt heute sehr abwesend.",
+      "ru": "Он сегодня выглядит очень отсутствующим.",
+      "uk": "Він сьогодні виглядає дуже відсутнім."
+    }
+  ]
+},
+{
+  "id": 2,
+  "word": "aktiv",
+  "ru": "активный",
+  "uk": "активний",
+  "level": "A2",
+  "topics": ["health", "free_time"],
+  "deSynonyms": ["engagiert", "tatkräftig"],
+  "ruSynonyms": ["энергичный", "инициативный"],
+  "ukSynonyms": ["енергійний", "ініціативний"],
+  "deAntonyms": ["passiv"],
+  "ruAntonyms": ["пассивный"],
+  "ukAntonyms": ["пасивний"],
+  "examples": [
+    {
+      "L2": "Sie führt einen sehr aktiven Lebensstil.",
+      "ru": "Она ведёт очень активный образ жизни.",
+      "uk": "Вона веде дуже активний спосіб життя."
+    }
+  ]
+},
+{
+  "id": 3,
+  "word": "alt",
+  "ru": "старый",
+  "uk": "старий",
+  "level": "A1",
+  "topics": ["description"],
+  "deSynonyms": ["betagt"],
+  "ruSynonyms": ["пожилой"],
+  "ukSynonyms": ["літній"],
+  "deAntonyms": ["jung", "neu"],
+  "ruAntonyms": ["молодой", "новый"],
+  "ukAntonyms": ["молодий", "новий"],
+  "examples": [
+    {
+      "L2": "Mein Auto ist schon sehr alt.",
+      "ru": "Моя машина уже очень старая.",
+      "uk": "Моя машина вже дуже стара."
+    }
+  ]
+},
+{
+  "id": 4,
+  "word": "altmodisch",
+  "ru": "старомодный",
+  "uk": "застарілий",
+  "level": "B1",
+  "topics": ["description"],
+  "deSynonyms": ["traditionell", "konservativ"],
+  "ruSynonyms": ["традиционный", "консервативный"],
+  "ukSynonyms": ["традиційний", "консервативний"],
+  "deAntonyms": ["modern"],
+  "ruAntonyms": ["современный"],
+  "ukAntonyms": ["сучасний"],
+  "examples": [
+    {
+      "L2": "Das Kleid finde ich etwas altmodisch.",
+      "ru": "Это платье, по-моему, немного старомодное.",
+      "uk": "Ця сукня, як на мене, трохи застаріла."
+    }
+  ]
+},
+{
+  "id": 5,
+  "word": "angenehm",
+  "ru": "приятный",
+  "uk": "приємний",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["nett", "freundlich"],
+  "ruSynonyms": ["милый", "дружелюбный"],
+  "ukSynonyms": ["милий", "дружній"],
+  "deAntonyms": ["unangenehm"],
+  "ruAntonyms": ["неприятный"],
+  "ukAntonyms": ["неприємний"],
+  "examples": [
+    {
+      "L2": "Wir hatten einen sehr angenehmen Abend.",
+      "ru": "У нас был очень приятный вечер.",
+      "uk": "У нас був дуже приємний вечір."
+    }
+  ]
+},
+{
+  "id": 6,
+  "word": "anwesend",
+  "ru": "присутствующий",
+  "uk": "присутній",
+  "level": "B1",
+  "topics": ["work", "education"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": ["abwesend"],
+  "ruAntonyms": ["отсутствующий"],
+  "ukAntonyms": ["відсутній"],
+  "examples": [
+    {
+      "L2": "Alle Mitarbeiter waren bei der Besprechung anwesend.",
+      "ru": "Все сотрудники присутствовали на совещании.",
+      "uk": "Усі працівники були присутні на нараді."
+    }
+  ]
+},
+{
+  "id": 7,
+  "word": "arm",
+  "ru": "бедный",
+  "uk": "бідний",
+  "level": "A2",
+  "topics": ["money", "description"],
+  "deSynonyms": ["bedürftig"],
+  "ruSynonyms": ["нуждающийся"],
+  "ukSynonyms": ["малозабезпечений"],
+  "deAntonyms": ["reich"],
+  "ruAntonyms": ["богатый"],
+  "ukAntonyms": ["багатий"],
+  "examples": [
+    {
+      "L2": "Die Familie war früher sehr arm.",
+      "ru": "Раньше семья была очень бедной.",
+      "uk": "Раніше ця родина була дуже бідною."
+    }
+  ]
+},
+{
+  "id": 8,
+  "word": "ausgezeichnet",
+  "ru": "отличный",
+  "uk": "відмінний",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["hervorragend", "sehr gut"],
+  "ruSynonyms": ["превосходный", "очень хороший"],
+  "ukSynonyms": ["пречудовий", "дуже хороший"],
+  "deAntonyms": ["schlecht"],
+  "ruAntonyms": ["плохой"],
+  "ukAntonyms": ["поганий"],
+  "examples": [
+    {
+      "L2": "Das war ein ausgezeichnetes Essen.",
+      "ru": "Это была отличная еда.",
+      "uk": "Це була відмінна їжа."
+    }
+  ]
+},
+{
+  "id": 9,
+  "word": "bekannt",
+  "ru": "известный",
+  "uk": "відомий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["berühmt"],
+  "ruSynonyms": ["знаменитый"],
+  "ukSynonyms": ["знаменитий"],
+  "deAntonyms": ["unbekannt"],
+  "ruAntonyms": ["неизвестный"],
+  "ukAntonyms": ["невідомий"],
+  "examples": [
+    {
+      "L2": "Er ist als Musiker sehr bekannt.",
+      "ru": "Он очень известен как музыкант.",
+      "uk": "Він дуже відомий як музикант."
+    }
+  ]
+},
+{
+  "id": 10,
+  "word": "beliebt",
+  "ru": "популярный",
+  "uk": "популярний",
+  "level": "B1",
+  "topics": ["relationships", "description"],
+  "deSynonyms": ["populär", "geschätzt"],
+  "ruSynonyms": ["популярный", "любимый"],
+  "ukSynonyms": ["популярний", "улюблений"],
+  "deAntonyms": ["unbeliebt"],
+  "ruAntonyms": ["непопулярный"],
+  "ukAntonyms": ["непопулярний"],
+  "examples": [
+    {
+      "L2": "Sie ist bei ihren Kollegen sehr beliebt.",
+      "ru": "Она очень популярна среди коллег.",
+      "uk": "Вона дуже популярна серед колег."
+    }
+  ]
+},
+{
+  "id": 11,
+  "word": "bequem",
+  "ru": "удобный",
+  "uk": "зручний",
+  "level": "A2",
+  "topics": ["home", "description"],
+  "deSynonyms": ["komfortabel"],
+  "ruSynonyms": ["комфортный"],
+  "ukSynonyms": ["комфортний"],
+  "deAntonyms": ["unbequem"],
+  "ruAntonyms": ["неудобный"],
+  "ukAntonyms": ["незручний"],
+  "examples": [
+    {
+      "L2": "Der Sessel ist sehr bequem.",
+      "ru": "Кресло очень удобное.",
+      "uk": "Крісло дуже зручне."
+    }
+  ]
+},
+{
+  "id": 12,
+  "word": "bereit",
+  "ru": "готовый",
+  "uk": "готовий",
+  "level": "A2",
+  "topics": ["work", "education"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ich bin bereit, jetzt zu starten.",
+      "ru": "Я готов сейчас начать.",
+      "uk": "Я готовий зараз почати."
+    }
+  ]
+},
+{
+  "id": 13,
+  "word": "berühmt",
+  "ru": "знаменитый",
+  "uk": "відомий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Berlin ist für seine Museen berühmt.",
+      "ru": "Берлин знаменит своими музеями.",
+      "uk": "Берлін відомий своїми музеями."
+    }
+  ]
+},
+{
+  "id": 14,
+  "word": "beschäftigt",
+  "ru": "занятый",
+  "uk": "зайнятий",
+  "level": "A2",
+  "topics": ["work"],
+  "deSynonyms": ["ausgelastet"],
+  "ruSynonyms": ["загруженный делами"],
+  "ukSynonyms": ["завантажений роботою"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ich bin heute den ganzen Tag beschäftigt.",
+      "ru": "Я сегодня весь день занят.",
+      "uk": "Я сьогодні зайнятий весь день."
+    }
+  ]
+},
+{
+  "id": 15,
+  "word": "besetzt",
+  "ru": "занятый",
+  "uk": "зайнятий",
+  "level": "A2",
+  "topics": ["work", "place"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der Platz ist schon besetzt.",
+      "ru": "Это место уже занято.",
+      "uk": "Це місце вже зайняте."
+    }
+  ]
+},
+{
+  "id": 16,
+  "word": "billig",
+  "ru": "дешёвый",
+  "uk": "дешевий",
+  "level": "A2",
+  "topics": ["money", "description"],
+  "deSynonyms": ["preiswert", "günstig"],
+  "ruSynonyms": ["недорогой", "выгодный"],
+  "ukSynonyms": ["недорогий", "вигідний"],
+  "deAntonyms": ["teuer"],
+  "ruAntonyms": ["дорогой"],
+  "ukAntonyms": ["дорогий"],
+  "examples": [
+    {
+      "L2": "Das Handy war sehr billig.",
+      "ru": "Телефон был очень дешёвый.",
+      "uk": "Телефон був дуже дешевий."
+    }
+  ]
+},
+{
+  "id": 17,
+  "word": "bitter",
+  "ru": "горький",
+  "uk": "гіркий",
+  "level": "A2",
+  "topics": ["food", "description"],
+  "deSynonyms": ["herb"],
+  "ruSynonyms": ["горьковатый", "терпкий"],
+  "ukSynonyms": ["гіркуватий", "терпкий"],
+  "deAntonyms": ["süß"],
+  "ruAntonyms": ["сладкий"],
+  "ukAntonyms": ["солодкий"],
+  "examples": [
+    {
+      "L2": "Der Kaffee schmeckt heute bitter.",
+      "ru": "Кофе сегодня горький на вкус.",
+      "uk": "Кава сьогодні гірка на смак."
+    }
+  ]
+},
+{
+  "id": 18,
+  "word": "blöd",
+  "ru": "тупой",
+  "uk": "дурнуватий",
+  "level": "B1",
+  "topics": ["communication", "description"],
+  "deSynonyms": ["dumm"],
+  "ruSynonyms": ["глупый", "дурацкий"],
+  "ukSynonyms": ["дурний", "безглуздий"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das war eine blöde Idee.",
+      "ru": "Это была тупая идея.",
+      "uk": "Це була дурнувата ідея."
+    }
+  ]
+},
+{
+  "id": 19,
+  "word": "breit",
+  "ru": "широкий",
+  "uk": "широкий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["weit"],
+  "ruSynonyms": ["просторный"],
+  "ukSynonyms": ["просторий"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Straße ist hier sehr breit.",
+      "ru": "Дорога здесь очень широкая.",
+      "uk": "Дорога тут дуже широка."
+    }
+  ]
+},
+{
+  "id": 20,
+  "word": "böse",
+  "ru": "злой",
+  "uk": "злий",
+  "level": "A2",
+  "topics": ["relationships", "description"],
+  "deSynonyms": ["verärgert"],
+  "ruSynonyms": ["сердитый", "разозлённый"],
+  "ukSynonyms": ["сердитий", "роздратований"],
+  "deAntonyms": ["freundlich"],
+  "ruAntonyms": ["доброжелательный"],
+  "ukAntonyms": ["доброзичливий"],
+  "examples": [
+    {
+      "L2": "Sie ist böse auf mich.",
+      "ru": "Она злится на меня.",
+      "uk": "Вона злиться на мене."
+    }
+  ]
+},
+{
+  "id": 21,
+  "word": "chaotisch",
+  "ru": "хаотичный",
+  "uk": "хаотичний",
+  "level": "B1",
+  "topics": ["description", "home"],
+  "deSynonyms": ["unordentlich"],
+  "ruSynonyms": ["беспорядочный"],
+  "ukSynonyms": ["безладний"],
+  "deAntonyms": ["ordentlich"],
+  "ruAntonyms": ["аккуратный"],
+  "ukAntonyms": ["акуратний"],
+  "examples": [
+    {
+      "L2": "Mein Schreibtisch ist total chaotisch.",
+      "ru": "Мой письменный стол полностью в хаосе.",
+      "uk": "Мій письмовий стіл у повному хаосі."
+    }
+  ]
+},
+{
+  "id": 22,
+  "word": "deutlich",
+  "ru": "чёткий",
+  "uk": "чіткий",
+  "level": "B1",
+  "topics": ["education", "communication"],
+  "deSynonyms": ["klar"],
+  "ruSynonyms": ["ясный", "разборчивый"],
+  "ukSynonyms": ["ясний", "чіткий"],
+  "deAntonyms": ["undeutlich"],
+  "ruAntonyms": ["нечёткий", "неразборчивый"],
+  "ukAntonyms": ["нечіткий", "нерозбірливий"],
+  "examples": [
+    {
+      "L2": "Er spricht sehr deutlich.",
+      "ru": "Он говорит очень чётко.",
+      "uk": "Він говорить дуже чітко."
+    }
+  ]
+},
+{
+  "id": 23,
+  "word": "dick",
+  "ru": "толстый",
+  "uk": "товстий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["kräftig"],
+  "ruSynonyms": ["крепкого телосложения"],
+  "ukSynonyms": ["кремезний"],
+  "deAntonyms": ["dünn"],
+  "ruAntonyms": ["тонкий"],
+  "ukAntonyms": ["тонкий"],
+  "examples": [
+    {
+      "L2": "Das Buch ist ziemlich dick.",
+      "ru": "Книга довольно толстая.",
+      "uk": "Книга досить товста."
+    }
+  ]
+},
+{
+  "id": 24,
+  "word": "dringend",
+  "ru": "срочный",
+  "uk": "терміновий",
+  "level": "B1",
+  "topics": ["work"],
+  "deSynonyms": ["eilig"],
+  "ruSynonyms": ["безотлагательный"],
+  "ukSynonyms": ["невідкладний"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ich habe eine dringende Anfrage.",
+      "ru": "У меня срочный запрос.",
+      "uk": "У мене терміновий запит."
+    }
+  ]
+},
+{
+  "id": 25,
+  "word": "dumm",
+  "ru": "глупый",
+  "uk": "дурний",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["blöd"],
+  "ruSynonyms": ["тупой", "глуповатый"],
+  "ukSynonyms": ["дурнуватий"],
+  "deAntonyms": ["klug"],
+  "ruAntonyms": ["умный"],
+  "ukAntonyms": ["розумний"],
+  "examples": [
+    {
+      "L2": "Das war eine dumme Frage.",
+      "ru": "Это был глупый вопрос.",
+      "uk": "Це було дурне запитання."
+    }
+  ]
+},
+{
+  "id": 26,
+  "word": "dunkel",
+  "ru": "тёмный",
+  "uk": "темний",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["schattig"],
+  "ruSynonyms": ["мрачный", "затенённый"],
+  "ukSynonyms": ["похмурий", "затінений"],
+  "deAntonyms": ["hell"],
+  "ruAntonyms": ["светлый"],
+  "ukAntonyms": ["світлий"],
+  "examples": [
+    {
+      "L2": "Es ist schon dunkel draußen.",
+      "ru": "На улице уже темно.",
+      "uk": "На вулиці вже темно."
+    }
+  ]
+},
+{
+  "id": 27,
+  "word": "durchschnittlich",
+  "ru": "средний",
+  "uk": "середній",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["mittel", "normal"],
+  "ruSynonyms": ["средний", "обычный"],
+  "ukSynonyms": ["середній", "звичайний"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Preise sind hier nur durchschnittlich.",
+      "ru": "Цены здесь всего лишь средние.",
+      "uk": "Ціни тут лише середні."
+    }
+  ]
+},
+{
+  "id": 28,
+  "word": "durstig",
+  "ru": "жаждущий",
+  "uk": "спраглий",
+  "level": "A2",
+  "topics": ["health", "food"],
+  "deSynonyms": ["sehr hungrig nach Trinken"],
+  "ruSynonyms": ["очень хочет пить"],
+  "ukSynonyms": ["дуже хоче пити"],
+  "deAntonyms": ["satt"],
+  "ruAntonyms": ["сытый"],
+  "ukAntonyms": ["ситий"],
+  "examples": [
+    {
+      "L2": "Nach dem Lauf bin ich sehr durstig.",
+      "ru": "После пробежки я очень хочу пить.",
+      "uk": "Після пробіжки я дуже хочу пити."
+    }
+  ]
+},
+{
+  "id": 29,
+  "word": "dünn",
+  "ru": "тонкий",
+  "uk": "тонкий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["schmal"],
+  "ruSynonyms": ["узкий"],
+  "ukSynonyms": ["вузький"],
+  "deAntonyms": ["dick"],
+  "ruAntonyms": ["толстый"],
+  "ukAntonyms": ["товстий"],
+  "examples": [
+    {
+      "L2": "Das Papier ist zu dünn.",
+      "ru": "Эта бумага слишком тонкая.",
+      "uk": "Цей папір занадто тонкий."
+    }
+  ]
+},
+{
+  "id": 30,
+  "word": "eifersüchtig",
+  "ru": "ревнивый",
+  "uk": "ревнивий",
+  "level": "B1",
+  "topics": ["relationships"],
+  "deSynonyms": ["neidisch"],
+  "ruSynonyms": ["завистливый"],
+  "ukSynonyms": ["заздрісний"],
+  "deAntonyms": ["vertrauend"],
+  "ruAntonyms": ["доверяющий", "доверчивый"],
+  "ukAntonyms": ["той, хто довіряє", "довірливий"],
+  "examples": [
+    {
+      "L2": "Er ist schnell eifersüchtig.",
+      "ru": "Он быстро становится ревнивым.",
+      "uk": "Він швидко стає ревнивим."
+    }
+  ]
+},
+{
+  "id": 31,
+  "word": "einfach",
+  "ru": "простой",
+  "uk": "простий",
+  "level": "A1",
+  "topics": ["education", "description"],
+  "deSynonyms": ["leicht"],
+  "ruSynonyms": ["лёгкий", "несложный"],
+  "ukSynonyms": ["легкий", "нескладний"],
+  "deAntonyms": ["kompliziert", "schwierig"],
+  "ruAntonyms": ["сложный", "трудный"],
+  "ukAntonyms": ["складний", "важкий"],
+  "examples": [
+    {
+      "L2": "Die Aufgabe ist ganz einfach.",
+      "ru": "Задание совсем простое.",
+      "uk": "Завдання зовсім просте."
+    }
+  ]
+},
+{
+  "id": 32,
+  "word": "empfindlich",
+  "ru": "чувствительный",
+  "uk": "чутливий",
+  "level": "B1",
+  "topics": ["health", "description"],
+  "deSynonyms": ["sensibel"],
+  "ruSynonyms": ["чувствительный", "ранимый"],
+  "ukSynonyms": ["чутливий", "вразливий"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Meine Haut ist sehr empfindlich.",
+      "ru": "Моя кожа очень чувствительная.",
+      "uk": "Моя шкіра дуже чутлива."
+    }
+  ]
+},
+{
+  "id": 33,
+  "word": "eng",
+  "ru": "узкий",
+  "uk": "вузький",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["schmal"],
+  "ruSynonyms": ["тесный"],
+  "ukSynonyms": ["тісний"],
+  "deAntonyms": ["weit"],
+  "ruAntonyms": ["широкий", "просторный"],
+  "ukAntonyms": ["широкий", "просторий"],
+  "examples": [
+    {
+      "L2": "Die Hose ist mir zu eng.",
+      "ru": "Штаны мне слишком узкие.",
+      "uk": "Штани мені надто вузькі."
+    }
+  ]
+},
+{
+  "id": 34,
+  "word": "ernst",
+  "ru": "серьёзный",
+  "uk": "серйозний",
+  "level": "A2",
+  "topics": ["health", "description"],
+  "deSynonyms": ["seriös"],
+  "ruSynonyms": ["серьёзный", "солидный"],
+  "ukSynonyms": ["серйозний", "поважний"],
+  "deAntonyms": ["lustig"],
+  "ruAntonyms": ["весёлый"],
+  "ukAntonyms": ["веселий"],
+  "examples": [
+    {
+      "L2": "Das ist ein ernstes Problem.",
+      "ru": "Это серьёзная проблема.",
+      "uk": "Це серйозна проблема."
+    }
+  ]
+},
+{
+  "id": 35,
+  "word": "falsch",
+  "ru": "неправильный",
+  "uk": "неправильний",
+  "level": "A2",
+  "topics": ["education", "abstract"],
+  "deSynonyms": ["inkorrekt"],
+  "ruSynonyms": ["ошибочный", "неверный"],
+  "ukSynonyms": ["помилковий", "невірний"],
+  "deAntonyms": ["richtig"],
+  "ruAntonyms": ["правильный", "верный"],
+  "ukAntonyms": ["правильний", "вірний"],
+  "examples": [
+    {
+      "L2": "Die Antwort ist leider falsch.",
+      "ru": "К сожалению, ответ неверный.",
+      "uk": "На жаль, відповідь неправильна."
+    }
+  ]
+},
+{
+  "id": 36,
+  "word": "faul",
+  "ru": "ленивый",
+  "uk": "ледачий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["träge"],
+  "ruSynonyms": ["малоактивный", "вялый"],
+  "ukSynonyms": ["млявий", "малорухливий"],
+  "deAntonyms": ["fleißig"],
+  "ruAntonyms": ["трудолюбивый", "усердный"],
+  "ukAntonyms": ["працьовитий", "старанний"],
+  "examples": [
+    {
+      "L2": "Heute bin ich einfach zu faul zum Aufräumen.",
+      "ru": "Сегодня я слишком ленив, чтобы убираться.",
+      "uk": "Сьогодні я занадто ледачий, щоб прибиратися."
+    }
+  ]
+},
+{
+  "id": 37,
+  "word": "fein",
+  "ru": "изящный",
+  "uk": "витончений",
+  "level": "B1",
+  "topics": ["description"],
+  "deSynonyms": ["edel"],
+  "ruSynonyms": ["изысканный", "благородный"],
+  "ukSynonyms": ["вишуканий", "шляхетний"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Sie trägt einen sehr feinen Schmuck.",
+      "ru": "У неё очень изящные украшения.",
+      "uk": "Вона носить дуже витончені прикраси."
+    }
+  ]
+},
+{
+  "id": 38,
+  "word": "fern",
+  "ru": "далёкий",
+  "uk": "далекий",
+  "level": "A2",
+  "topics": ["place"],
+  "deSynonyms": ["weit entfernt"],
+  "ruSynonyms": ["далёкий", "удалённый"],
+  "ukSynonyms": ["далекий", "віддалений"],
+  "deAntonyms": ["nah"],
+  "ruAntonyms": ["близкий"],
+  "ukAntonyms": ["близький"],
+  "examples": [
+    {
+      "L2": "Sie träumt von einem fernen Land.",
+      "ru": "Она мечтает о далёкой стране.",
+      "uk": "Вона мріє про далеку країну."
+    }
+  ]
+},
+{
+  "id": 39,
+  "word": "feucht",
+  "ru": "влажный",
+  "uk": "вологий",
+  "level": "A2",
+  "topics": ["description", "weather"],
+  "deSynonyms": ["nass"],
+  "ruSynonyms": ["сырой", "мокрый"],
+  "ukSynonyms": ["вологий", "мокрий"],
+  "deAntonyms": ["trocken"],
+  "ruAntonyms": ["сухой"],
+  "ukAntonyms": ["сухий"],
+  "examples": [
+    {
+      "L2": "Es ist heute sehr feucht in der Luft.",
+      "ru": "Сегодня в воздухе очень влажно.",
+      "uk": "Сьогодні в повітрі дуже волого."
+    }
+  ]
+},
+{
+  "id": 40,
+  "word": "fit",
+  "ru": "в форме",
+  "uk": "у гарній формі",
+  "level": "A2",
+  "topics": ["health"],
+  "deSynonyms": ["gesund", "in Form"],
+  "ruSynonyms": ["здоровый", "в хорошей форме"],
+  "ukSynonyms": ["здоровий", "у добрій формі"],
+  "deAntonyms": ["ungesund"],
+  "ruAntonyms": ["нездоровый", "в плохой форме"],
+  "ukAntonyms": ["нездоровий", "у поганій формі"],
+  "examples": [
+    {
+      "L2": "Er ist körperlich sehr fit.",
+      "ru": "Он в очень хорошей физической форме.",
+      "uk": "Він у дуже гарній фізичній формі."
+    }
+  ]
+},
+{
+  "id": 41,
+  "word": "flach",
+  "ru": "плоский",
+  "uk": "плаский",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["eben"],
+  "ruSynonyms": ["ровный"],
+  "ukSynonyms": ["рівний"],
+  "deAntonyms": ["steil"],
+  "ruAntonyms": ["крутой"],
+  "ukAntonyms": ["крутий"],
+  "examples": [
+    {
+      "L2": "Das Land ist hier ganz flach.",
+      "ru": "Местность здесь совсем плоская.",
+      "uk": "Місцевість тут зовсім плоска."
+    }
+  ]
+},
+{
+  "id": 42,
+  "word": "fleißig",
+  "ru": "прилежный",
+  "uk": "працьовитий",
+  "level": "A2",
+  "topics": ["education", "work"],
+  "deSynonyms": ["arbeitsam"],
+  "ruSynonyms": ["трудолюбивый", "усердный"],
+  "ukSynonyms": ["працьовитий", "старанний"],
+  "deAntonyms": ["faul"],
+  "ruAntonyms": ["ленивый"],
+  "ukAntonyms": ["ледачий"],
+  "examples": [
+    {
+      "L2": "Sie ist eine sehr fleißige Studentin.",
+      "ru": "Она очень прилежная студентка.",
+      "uk": "Вона дуже працьовита студентка."
+    }
+  ]
+},
+{
+  "id": 43,
+  "word": "frei",
+  "ru": "свободный",
+  "uk": "вільний",
+  "level": "A2",
+  "topics": ["free_time", "work"],
+  "deSynonyms": ["verfügbar"],
+  "ruSynonyms": ["свободный", "в наличии"],
+  "ukSynonyms": ["вільний", "доступний"],
+  "deAntonyms": ["besetzt"],
+  "ruAntonyms": ["занятый"],
+  "ukAntonyms": ["зайнятий"],
+  "examples": [
+    {
+      "L2": "Hast du heute Abend frei?",
+      "ru": "Ты сегодня вечером свободен?",
+      "uk": "Ти сьогодні ввечері вільний?"
+    }
+  ]
+},
+{
+  "id": 44,
+  "word": "freiwillig",
+  "ru": "добровольный",
+  "uk": "добровільний",
+  "level": "B1",
+  "topics": ["work", "abstract"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Teilnahme ist freiwillig.",
+      "ru": "Участие добровольное.",
+      "uk": "Участь є добровільною."
+    }
+  ]
+},
+{
+  "id": 45,
+  "word": "fremd",
+  "ru": "чужой",
+  "uk": "чужий",
+  "level": "A2",
+  "topics": ["description", "place"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ich fühle mich in der Stadt noch fremd.",
+      "ru": "Я всё ещё чувствую себя чужим в этом городе.",
+      "uk": "Я досі почуваюся чужим у цьому місті."
+    }
+  ]
+},
+{
+  "id": 46,
+  "word": "freundlich",
+  "ru": "дружелюбный",
+  "uk": "дружній",
+  "level": "A2",
+  "topics": ["relationships"],
+  "deSynonyms": ["nett", "hilfsbereit"],
+  "ruSynonyms": ["милый", "отзывчивый"],
+  "ukSynonyms": ["милий", "доброзичливий"],
+  "deAntonyms": ["unfreundlich"],
+  "ruAntonyms": ["недружелюбный"],
+  "ukAntonyms": ["недружній", "недоброзичливий"],
+  "examples": [
+    {
+      "L2": "Die Verkäuferin war sehr freundlich.",
+      "ru": "Продавщица была очень дружелюбной.",
+      "uk": "Продавчиня була дуже дружньою."
+    }
+  ]
+},
+{
+  "id": 47,
+  "word": "frisch",
+  "ru": "свежий",
+  "uk": "свіжий",
+  "level": "A2",
+  "topics": ["food"],
+  "deSynonyms": ["neu", "nicht alt"],
+  "ruSynonyms": ["новый", "недавний"],
+  "ukSynonyms": ["новий", "недавній"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das Brot ist noch ganz frisch.",
+      "ru": "Хлеб ещё совсем свежий.",
+      "uk": "Хліб ще зовсім свіжий."
+    }
+  ]
+},
+{
+  "id": 48,
+  "word": "früh",
+  "ru": "ранний",
+  "uk": "ранній",
+  "level": "A1",
+  "topics": ["time"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ich stehe jeden Tag früh auf.",
+      "ru": "Я каждый день рано встаю.",
+      "uk": "Я щодня рано встаю."
+    }
+  ]
+},
+{
+  "id": 49,
+  "word": "fähig",
+  "ru": "способный",
+  "uk": "здатний",
+  "level": "B1",
+  "topics": ["work", "education"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": ["unfähig"],
+  "ruAntonyms": ["неспособный"],
+  "ukAntonyms": ["нездатний"],
+  "examples": [
+    {
+      "L2": "Er ist zu großen Leistungen fähig.",
+      "ru": "Он способен на большие достижения.",
+      "uk": "Він здатний на великі досягнення."
+    }
+  ]
+},
+{
+  "id": 50,
+  "word": "gefährlich",
+  "ru": "опасный",
+  "uk": "небезпечний",
+  "level": "A2",
+  "topics": ["health", "transport"],
+  "deSynonyms": ["riskant"],
+  "ruSynonyms": ["рискованный"],
+  "ukSynonyms": ["ризикований"],
+  "deAntonyms": ["harmlos", "sicher"],
+  "ruAntonyms": ["безопасный", "надёжный"],
+  "ukAntonyms": ["безпечний", "надійний"],
+  "examples": [
+    {
+      "L2": "Zu schnell zu fahren ist gefährlich.",
+      "ru": "Ездить слишком быстро — опасно.",
+      "uk": "Їздити надто швидко — небезпечно."
+    }
+  ]
+},
+  {
+  "id": 51,
+  "word": "gemeinsam",
+  "ru": "общий",
+  "uk": "спільний",
+  "level": "A2",
+  "topics": [
+    "relationships",
+    "work"
+  ],
+  "deSynonyms": [
+    "zusammen"
+  ],
+  "ruSynonyms": [
+    "совместный"
+  ],
+  "ukSynonyms": [
+    "спільний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Wir haben viele gemeinsame Interessen.",
+      "ru": "У нас много общих интересов.",
+      "uk": "У нас багато спільних інтересів."
+    }
+  ]
+},
+{
+  "id": 52,
+  "word": "genau",
+  "ru": "точный",
+  "uk": "точний",
+  "level": "A2",
+  "topics": [
+    "education",
+    "work"
+  ],
+  "deSynonyms": [
+    "präzise",
+    "exakt"
+  ],
+  "ruSynonyms": [
+    "точный",
+    "прецизионный"
+  ],
+  "ukSynonyms": [
+    "точний",
+    "прецизійний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Bitte seien Sie morgen um neun Uhr genau hier.",
+      "ru": "Пожалуйста, будьте завтра ровно в девять здесь.",
+      "uk": "Будь ласка, будьте завтра рівно о дев’ятій тут."
+    }
+  ]
+},
+{
+  "id": 53,
+  "word": "geschlossen",
+  "ru": "закрытый",
+  "uk": "закритий",
+  "level": "A2",
+  "topics": [
+    "place"
+  ],
+  "deSynonyms": [
+    "zu"
+  ],
+  "ruSynonyms": [
+    "закрыт"
+  ],
+  "ukSynonyms": [
+    "зачинений"
+  ],
+  "deAntonyms": [
+    "offen"
+  ],
+  "ruAntonyms": [
+    "открытый"
+  ],
+  "ukAntonyms": [
+    "відкритий"
+  ],
+  "examples": [
+    {
+      "L2": "Das Geschäft ist sonntags geschlossen.",
+      "ru": "Магазин по воскресеньям закрыт.",
+      "uk": "Магазин у неділю зачинений."
+    }
+  ]
+},
+{
+  "id": 54,
+  "word": "gesund",
+  "ru": "здоровый",
+  "uk": "здоровий",
+  "level": "A1",
+  "topics": [
+    "health"
+  ],
+  "deSynonyms": [
+    "fit"
+  ],
+  "ruSynonyms": [
+    "в хорошей форме"
+  ],
+  "ukSynonyms": [
+    "у гарній формі"
+  ],
+  "deAntonyms": [
+    "krank"
+  ],
+  "ruAntonyms": [
+    "больной"
+  ],
+  "ukAntonyms": [
+    "хворий"
+  ],
+  "examples": [
+    {
+      "L2": "Gemüse ist sehr gesund.",
+      "ru": "Овощи очень полезны для здоровья.",
+      "uk": "Овочі дуже корисні для здоров’я."
+    }
+  ]
+},
+{
+  "id": 55,
+  "word": "gewöhnlich",
+  "ru": "обычный",
+  "uk": "звичайний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [
+    "ungewöhnlich"
+  ],
+  "ruAntonyms": [
+    "необычный"
+  ],
+  "ukAntonyms": [
+    "незвичайний"
+  ],
+  "examples": [
+    {
+      "L2": "Ich stehe gewöhnlich um sieben Uhr auf.",
+      "ru": "Обычно я встаю в семь.",
+      "uk": "Зазвичай я встаю о сьомій."
+    }
+  ]
+},
+{
+  "id": 56,
+  "word": "glatt",
+  "ru": "гладкий",
+  "uk": "гладкий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "eben"
+  ],
+  "ruSynonyms": [
+    "ровный"
+  ],
+  "ukSynonyms": [
+    "рівний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Oberfläche ist ganz glatt.",
+      "ru": "Поверхность совсем гладкая.",
+      "uk": "Поверхня зовсім гладка."
+    }
+  ]
+},
+{
+  "id": 57,
+  "word": "gleich",
+  "ru": "одинаковый",
+  "uk": "однаковий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "identisch"
+  ],
+  "ruSynonyms": [
+    "идентичный"
+  ],
+  "ukSynonyms": [
+    "ідентичний"
+  ],
+  "deAntonyms": [
+    "unterschiedlich"
+  ],
+  "ruAntonyms": [
+    "разный"
+  ],
+  "ukAntonyms": [
+    "різний"
+  ],
+  "examples": [
+    {
+      "L2": "Wir haben die gleichen Interessen.",
+      "ru": "У нас одинаковые интересы.",
+      "uk": "У нас однакові інтереси."
+    }
+  ]
+},
+{
+  "id": 58,
+  "word": "glücklich",
+  "ru": "счастливый",
+  "uk": "щасливий",
+  "level": "A2",
+  "topics": [
+    "relationships",
+    "health"
+  ],
+  "deSynonyms": [
+    "zufrieden",
+    "froh"
+  ],
+  "ruSynonyms": [
+    "довольный",
+    "радостный"
+  ],
+  "ukSynonyms": [
+    "задоволений",
+    "радий"
+  ],
+  "deAntonyms": [
+    "unglücklich",
+    "traurig"
+  ],
+  "ruAntonyms": [
+    "несчастный",
+    "грустный"
+  ],
+  "ukAntonyms": [
+    "нещасний",
+    "сумний"
+  ],
+  "examples": [
+    {
+      "L2": "Sie sind seit Jahren glücklich verheiratet.",
+      "ru": "Они уже много лет счастливо женаты.",
+      "uk": "Вони вже багато років щасливо одружені."
+    }
+  ]
+},
+{
+  "id": 59,
+  "word": "grob",
+  "ru": "грубый",
+  "uk": "грубий",
+  "level": "B1",
+  "topics": [
+    "relationships",
+    "communication"
+  ],
+  "deSynonyms": [
+    "ruppig"
+  ],
+  "ruSynonyms": [
+    "резкий",
+    "грубый"
+  ],
+  "ukSynonyms": [
+    "різкий",
+    "грубий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Er war sehr grob zu ihr.",
+      "ru": "Он был с ней очень груб.",
+      "uk": "Він був із нею дуже грубий."
+    }
+  ]
+},
+{
+  "id": 60,
+  "word": "groß",
+  "ru": "большой",
+  "uk": "великий",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "riesig"
+  ],
+  "ruSynonyms": [
+    "огромный"
+  ],
+  "ukSynonyms": [
+    "величезний"
+  ],
+  "deAntonyms": [
+    "klein"
+  ],
+  "ruAntonyms": [
+    "маленький"
+  ],
+  "ukAntonyms": [
+    "малий"
+  ],
+  "examples": [
+    {
+      "L2": "Sie wohnt in einer großen Stadt.",
+      "ru": "Она живёт в большом городе.",
+      "uk": "Вона живе у великому місті."
+    }
+  ]
+},
+{
+  "id": 61,
+  "word": "gut",
+  "ru": "хороший",
+  "uk": "добрий",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "toll"
+  ],
+  "ruSynonyms": [
+    "классный"
+  ],
+  "ukSynonyms": [
+    "класний"
+  ],
+  "deAntonyms": [
+    "schlecht"
+  ],
+  "ruAntonyms": [
+    "плохой"
+  ],
+  "ukAntonyms": [
+    "поганий"
+  ],
+  "examples": [
+    {
+      "L2": "Das ist eine gute Idee.",
+      "ru": "Это хорошая идея.",
+      "uk": "Це гарна ідея."
+    }
+  ]
+},
+{
+  "id": 62,
+  "word": "harmlos",
+  "ru": "безвредный",
+  "uk": "нешкідливий",
+  "level": "B1",
+  "topics": [
+    "health"
+  ],
+  "deSynonyms": [
+    "ungefährlich"
+  ],
+  "ruSynonyms": [
+    "безопасный"
+  ],
+  "ukSynonyms": [
+    "безпечний"
+  ],
+  "deAntonyms": [
+    "gefährlich"
+  ],
+  "ruAntonyms": [
+    "опасный"
+  ],
+  "ukAntonyms": [
+    "небезпечний"
+  ],
+  "examples": [
+    {
+      "L2": "Der Ausschlag ist harmlos.",
+      "ru": "Эта сыпь безвредна.",
+      "uk": "Цей висип нешкідливий."
+    }
+  ]
+},
+{
+  "id": 63,
+  "word": "hart",
+  "ru": "твёрдый",
+  "uk": "твердий",
+  "level": "A2",
+  "topics": [
+    "description",
+    "food"
+  ],
+  "deSynonyms": [
+    "fest"
+  ],
+  "ruSynonyms": [
+    "жёсткий"
+  ],
+  "ukSynonyms": [
+    "жорсткий"
+  ],
+  "deAntonyms": [
+    "weich"
+  ],
+  "ruAntonyms": [
+    "мягкий"
+  ],
+  "ukAntonyms": [
+    "м’який"
+  ],
+  "examples": [
+    {
+      "L2": "Das Brot ist schon hart geworden.",
+      "ru": "Хлеб уже стал твёрдым.",
+      "uk": "Хліб уже став твердим."
+    }
+  ]
+},
+{
+  "id": 64,
+  "word": "heiß",
+  "ru": "горячий",
+  "uk": "гарячий",
+  "level": "A1",
+  "topics": [
+    "food",
+    "weather"
+  ],
+  "deSynonyms": [
+    "sehr warm"
+  ],
+  "ruSynonyms": [
+    "жаркий"
+  ],
+  "ukSynonyms": [
+    "спекотний"
+  ],
+  "deAntonyms": [
+    "kalt"
+  ],
+  "ruAntonyms": [
+    "холодный"
+  ],
+  "ukAntonyms": [
+    "холодний"
+  ],
+  "examples": [
+    {
+      "L2": "Der Tee ist noch sehr heiß.",
+      "ru": "Чай ещё очень горячий.",
+      "uk": "Чай ще дуже гарячий."
+    }
+  ]
+},
+{
+  "id": 65,
+  "word": "hektisch",
+  "ru": "суетливый",
+  "uk": "метушливий",
+  "level": "B1",
+  "topics": [
+    "work",
+    "city"
+  ],
+  "deSynonyms": [
+    "stressig"
+  ],
+  "ruSynonyms": [
+    "напряжённый",
+    "стрессовый"
+  ],
+  "ukSynonyms": [
+    "напружений",
+    "стресовий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der Tag im Büro war heute sehr hektisch.",
+      "ru": "День в офисе сегодня был очень суетливым.",
+      "uk": "День в офісі сьогодні був дуже метушливим."
+    }
+  ]
+},
+{
+  "id": 66,
+  "word": "hell",
+  "ru": "светлый",
+  "uk": "світлий",
+  "level": "A1",
+  "topics": [
+    "home",
+    "description"
+  ],
+  "deSynonyms": [
+    "licht"
+  ],
+  "ruSynonyms": [
+    "яркий",
+    "залитый светом"
+  ],
+  "ukSynonyms": [
+    "яскравий",
+    "залитий світлом"
+  ],
+  "deAntonyms": [
+    "dunkel"
+  ],
+  "ruAntonyms": [
+    "тёмный"
+  ],
+  "ukAntonyms": [
+    "темний"
+  ],
+  "examples": [
+    {
+      "L2": "Das Zimmer ist groß und hell.",
+      "ru": "Комната большая и светлая.",
+      "uk": "Кімната велика й світла."
+    }
+  ]
+},
+{
+  "id": 67,
+  "word": "hoch",
+  "ru": "высокий",
+  "uk": "високий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "erhaben"
+  ],
+  "ruSynonyms": [
+    "возвышенный"
+  ],
+  "ukSynonyms": [
+    "піднесений"
+  ],
+  "deAntonyms": [
+    "niedrig",
+    "tief"
+  ],
+  "ruAntonyms": [
+    "низкий"
+  ],
+  "ukAntonyms": [
+    "низький"
+  ],
+  "examples": [
+    {
+      "L2": "Das Haus ist sehr hoch.",
+      "ru": "Дом очень высокий.",
+      "uk": "Будинок дуже високий."
+    }
+  ]
+},
+{
+  "id": 68,
+  "word": "hungrig",
+  "ru": "голодный",
+  "uk": "голодний",
+  "level": "A1",
+  "topics": [
+    "food",
+    "health"
+  ],
+  "deSynonyms": [
+    "sehr appetitlich"
+  ],
+  "ruSynonyms": [
+    "очень аппетитный"
+  ],
+  "ukSynonyms": [
+    "дуже апетитний"
+  ],
+  "deAntonyms": [
+    "satt"
+  ],
+  "ruAntonyms": [
+    "сытый"
+  ],
+  "ukAntonyms": [
+    "ситий"
+  ],
+  "examples": [
+    {
+      "L2": "Ich bin schon wieder hungrig.",
+      "ru": "Я снова голоден.",
+      "uk": "Я знову голодний."
+    }
+  ]
+},
+{
+  "id": 69,
+  "word": "hässlich",
+  "ru": "уродливый",
+  "uk": "потворний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "unschön"
+  ],
+  "ruSynonyms": [
+    "некрасивый"
+  ],
+  "ukSynonyms": [
+    "некрасивий"
+  ],
+  "deAntonyms": [
+    "schön"
+  ],
+  "ruAntonyms": [
+    "красивый"
+  ],
+  "ukAntonyms": [
+    "гарний"
+  ],
+  "examples": [
+    {
+      "L2": "Das Gebäude sieht ziemlich hässlich aus.",
+      "ru": "Здание выглядит довольно уродливо.",
+      "uk": "Будівля виглядає доволі потворно."
+    }
+  ]
+},
+{
+  "id": 70,
+  "word": "häufig",
+  "ru": "частый",
+  "uk": "частий",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "oft"
+  ],
+  "ruSynonyms": [
+    "часто"
+  ],
+  "ukSynonyms": [
+    "часто"
+  ],
+  "deAntonyms": [
+    "selten"
+  ],
+  "ruAntonyms": [
+    "редко"
+  ],
+  "ukAntonyms": [
+    "рідко"
+  ],
+  "examples": [
+    {
+      "L2": "Zugverspätungen sind hier häufig.",
+      "ru": "Задержки поездов здесь частое явление.",
+      "uk": "Запізнення поїздів тут трапляються часто."
+    }
+  ]
+},
+{
+  "id": 71,
+  "word": "höflich",
+  "ru": "вежливый",
+  "uk": "ввічливий",
+  "level": "A2",
+  "topics": [
+    "relationships"
+  ],
+  "deSynonyms": [
+    "freundlich"
+  ],
+  "ruSynonyms": [
+    "доброжелательный"
+  ],
+  "ukSynonyms": [
+    "доброзичливий"
+  ],
+  "deAntonyms": [
+    "unhöflich"
+  ],
+  "ruAntonyms": [
+    "невежливый"
+  ],
+  "ukAntonyms": [
+    "неввічливий"
+  ],
+  "examples": [
+    {
+      "L2": "Es ist wichtig, höflich zu bleiben.",
+      "ru": "Важно оставаться вежливым.",
+      "uk": "Важливо залишатися ввічливим."
+    }
+  ]
+},
+{
+  "id": 72,
+  "word": "illegal",
+  "ru": "незаконный",
+  "uk": "незаконний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "unerlaubt"
+  ],
+  "ruSynonyms": [
+    "запрещённый"
+  ],
+  "ukSynonyms": [
+    "заборонений"
+  ],
+  "deAntonyms": [
+    "legal"
+  ],
+  "ruAntonyms": [
+    "законный"
+  ],
+  "ukAntonyms": [
+    "законний"
+  ],
+  "examples": [
+    {
+      "L2": "Das ist in diesem Land illegal.",
+      "ru": "Это незаконно в этой стране.",
+      "uk": "Це незаконно в цій країні."
+    }
+  ]
+},
+{
+  "id": 73,
+  "word": "inner",
+  "ru": "внутренний",
+  "uk": "внутрішній",
+  "level": "B1",
+  "topics": [
+    "description",
+    "abstract"
+  ],
+  "deSynonyms": [
+    "intern"
+  ],
+  "ruSynonyms": [
+    "внутренний (служебный)"
+  ],
+  "ukSynonyms": [
+    "внутрішній (службовий)"
+  ],
+  "deAntonyms": [
+    "äußerlich"
+  ],
+  "ruAntonyms": [
+    "внешний"
+  ],
+  "ukAntonyms": [
+    "зовнішній"
+  ],
+  "examples": [
+    {
+      "L2": "Sie hat einen starken inneren Frieden gefunden.",
+      "ru": "Она нашла сильное внутреннее спокойствие.",
+      "uk": "Вона знайшла сильний внутрішній спокій."
+    }
+  ]
+},
+{
+  "id": 74,
+  "word": "inoffiziell",
+  "ru": "неофициальный",
+  "uk": "неофіційний",
+  "level": "B2",
+  "topics": [
+    "work",
+    "communication"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das ist nur eine inoffizielle Information.",
+      "ru": "Это всего лишь неофициальная информация.",
+      "uk": "Це лише неофіційна інформація."
+    }
+  ]
+},
+{
+  "id": 75,
+  "word": "intelligent",
+  "ru": "умный",
+  "uk": "розумний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "klug"
+  ],
+  "ruSynonyms": [
+    "умный"
+  ],
+  "ukSynonyms": [
+    "розумний"
+  ],
+  "deAntonyms": [
+    "dumm"
+  ],
+  "ruAntonyms": [
+    "глупый"
+  ],
+  "ukAntonyms": [
+    "дурний"
+  ],
+  "examples": [
+    {
+      "L2": "Er ist sehr intelligent und lernt schnell.",
+      "ru": "Он очень умный и быстро учится.",
+      "uk": "Він дуже розумний і швидко навчається."
+    }
+  ]
+},
+{
+  "id": 76,
+  "word": "interessant",
+  "ru": "интересный",
+  "uk": "цікавий",
+  "level": "A1",
+  "topics": [
+    "education",
+    "free_time"
+  ],
+  "deSynonyms": [
+    "spannend"
+  ],
+  "ruSynonyms": [
+    "захватывающий"
+  ],
+  "ukSynonyms": [
+    "захопливий"
+  ],
+  "deAntonyms": [
+    "langweilig"
+  ],
+  "ruAntonyms": [
+    "скучный"
+  ],
+  "ukAntonyms": [
+    "нудний"
+  ],
+  "examples": [
+    {
+      "L2": "Das Buch ist wirklich interessant.",
+      "ru": "Книга действительно интересная.",
+      "uk": "Книга справді цікава."
+    }
+  ]
+},
+{
+  "id": 77,
+  "word": "international",
+  "ru": "международный",
+  "uk": "міжнародний",
+  "level": "A2",
+  "topics": [
+    "work",
+    "education"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Er arbeitet in einem internationalen Team.",
+      "ru": "Он работает в международной команде.",
+      "uk": "Він працює в міжнародній команді."
+    }
+  ]
+},
+{
+  "id": 78,
+  "word": "jung",
+  "ru": "молодой",
+  "uk": "молодий",
+  "level": "A1",
+  "topics": [
+    "family",
+    "description"
+  ],
+  "deSynonyms": [
+    "nicht alt"
+  ],
+  "ruSynonyms": [
+    "не старый"
+  ],
+  "ukSynonyms": [
+    "не старий"
+  ],
+  "deAntonyms": [
+    "alt"
+  ],
+  "ruAntonyms": [
+    "старый"
+  ],
+  "ukAntonyms": [
+    "старий"
+  ],
+  "examples": [
+    {
+      "L2": "Sie ist noch sehr jung.",
+      "ru": "Она ещё очень молода.",
+      "uk": "Вона ще дуже молода."
+    }
+  ]
+},
+{
+  "id": 79,
+  "word": "kalt",
+  "ru": "холодный",
+  "uk": "холодний",
+  "level": "A1",
+  "topics": [
+    "weather",
+    "food"
+  ],
+  "deSynonyms": [
+    "frisch"
+  ],
+  "ruSynonyms": [
+    "прохладный",
+    "свежий"
+  ],
+  "ukSynonyms": [
+    "прохолодний",
+    "свіжий"
+  ],
+  "deAntonyms": [
+    "warm",
+    "heiß"
+  ],
+  "ruAntonyms": [
+    "тёплый",
+    "горячий"
+  ],
+  "ukAntonyms": [
+    "теплий",
+    "гарячий"
+  ],
+  "examples": [
+    {
+      "L2": "Im Winter ist es hier sehr kalt.",
+      "ru": "Зимой здесь очень холодно.",
+      "uk": "Взимку тут дуже холодно."
+    }
+  ]
+},
+{
+  "id": 80,
+  "word": "klar",
+  "ru": "ясный",
+  "uk": "ясний",
+  "level": "A2",
+  "topics": [
+    "communication",
+    "description"
+  ],
+  "deSynonyms": [
+    "eindeutig"
+  ],
+  "ruSynonyms": [
+    "однозначный"
+  ],
+  "ukSynonyms": [
+    "однозначний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Regeln sind jetzt ganz klar.",
+      "ru": "Правила теперь совершенно ясны.",
+      "uk": "Правила тепер цілком ясні."
+    }
+  ]
+},
+{
+  "id": 81,
+  "word": "klein",
+  "ru": "маленький",
+  "uk": "малий",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "winzig"
+  ],
+  "ruSynonyms": [
+    "крошечный"
+  ],
+  "ukSynonyms": [
+    "крихітний"
+  ],
+  "deAntonyms": [
+    "groß"
+  ],
+  "ruAntonyms": [
+    "большой"
+  ],
+  "ukAntonyms": [
+    "великий"
+  ],
+  "examples": [
+    {
+      "L2": "Er wohnt in einer kleinen Wohnung.",
+      "ru": "Он живёт в небольшой квартире.",
+      "uk": "Він живе в маленькій квартирі."
+    }
+  ]
+},
+{
+  "id": 82,
+  "word": "klug",
+  "ru": "умный",
+  "uk": "кмітливий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "intelligent"
+  ],
+  "ruSynonyms": [
+    "умный"
+  ],
+  "ukSynonyms": [
+    "розумний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das war eine kluge Entscheidung.",
+      "ru": "Это было умное решение.",
+      "uk": "Це було кмітливе рішення."
+    }
+  ]
+},
+{
+  "id": 83,
+  "word": "komisch",
+  "ru": "смешной",
+  "uk": "дивний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "merkwürdig",
+    "lustig"
+  ],
+  "ruSynonyms": [
+    "странный",
+    "смешной"
+  ],
+  "ukSynonyms": [
+    "дивний",
+    "смішний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der Film war ein bisschen komisch.",
+      "ru": "Фильм был немного странный",
+      "uk": "Фільм був трохи дивний"
+    }
+  ]
+},
+{
+  "id": 84,
+  "word": "kompliziert",
+  "ru": "сложный",
+  "uk": "складний",
+  "level": "B1",
+  "topics": [
+    "education",
+    "work"
+  ],
+  "deSynonyms": [
+    "schwierig"
+  ],
+  "ruSynonyms": [
+    "трудный"
+  ],
+  "ukSynonyms": [
+    "важкий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Situation ist ziemlich kompliziert.",
+      "ru": "Ситуация довольно сложная.",
+      "uk": "Ситуація досить складна."
+    }
+  ]
+},
+{
+  "id": 85,
+  "word": "krank",
+  "ru": "больной",
+  "uk": "хворий",
+  "level": "A1",
+  "topics": [
+    "health"
+  ],
+  "deSynonyms": [
+    "nicht gesund"
+  ],
+  "ruSynonyms": [
+    "нездоровый"
+  ],
+  "ukSynonyms": [
+    "нездоровий"
+  ],
+  "deAntonyms": [
+    "gesund"
+  ],
+  "ruAntonyms": [
+    "здоровый"
+  ],
+  "ukAntonyms": [
+    "здоровий"
+  ],
+  "examples": [
+    {
+      "L2": "Ich war letzte Woche krank.",
+      "ru": "Я был болен на прошлой неделе.",
+      "uk": "Я минулого тижня хворів."
+    }
+  ]
+},
+{
+  "id": 86,
+  "word": "kreativ",
+  "ru": "креативный",
+  "uk": "креативний",
+  "level": "B1",
+  "topics": [
+    "work",
+    "education"
+  ],
+  "deSynonyms": [
+    "einfallsreich"
+  ],
+  "ruSynonyms": [
+    "изобретательный"
+  ],
+  "ukSynonyms": [
+    "вигадливий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Sie hat viele kreative Ideen.",
+      "ru": "У неё много креативных идей.",
+      "uk": "У неї багато креативних ідей."
+    }
+  ]
+},
+{
+  "id": 87,
+  "word": "kühl",
+  "ru": "прохладный",
+  "uk": "прохолодний",
+  "level": "A2",
+  "topics": [
+    "weather",
+    "description"
+  ],
+  "deSynonyms": [
+    "frisch"
+  ],
+  "ruSynonyms": [
+    "свежий",
+    "прохладный"
+  ],
+  "ukSynonyms": [
+    "свіжий",
+    "прохолодний"
+  ],
+  "deAntonyms": [
+    "heiß",
+    "warm"
+  ],
+  "ruAntonyms": [
+    "жаркий",
+    "тёплый"
+  ],
+  "ukAntonyms": [
+    "спекотний",
+    "теплий"
+  ],
+  "examples": [
+    {
+      "L2": "Heute ist es draußen kühl.",
+      "ru": "Сегодня на улице прохладно.",
+      "uk": "Сьогодні надворі прохолодно."
+    }
+  ]
+},
+{
+  "id": 88,
+  "word": "langsam",
+  "ru": "медленный",
+  "uk": "повільний",
+  "level": "A1",
+  "topics": [
+    "movement"
+  ],
+  "deSynonyms": [
+    "träge"
+  ],
+  "ruSynonyms": [
+    "медлительный"
+  ],
+  "ukSynonyms": [
+    "млявий"
+  ],
+  "deAntonyms": [
+    "schnell"
+  ],
+  "ruAntonyms": [
+    "быстрый"
+  ],
+  "ukAntonyms": [
+    "швидкий"
+  ],
+  "examples": [
+    {
+      "L2": "Bitte fahr langsamer.",
+      "ru": "Пожалуйста, езжай медленнее.",
+      "uk": "Будь ласка, їдь повільніше."
+    }
+  ]
+},
+{
+  "id": 89,
+  "word": "langweilig",
+  "ru": "скучный",
+  "uk": "нудний",
+  "level": "A2",
+  "topics": [
+    "education",
+    "free_time"
+  ],
+  "deSynonyms": [
+    "eintönig"
+  ],
+  "ruSynonyms": [
+    "однообразный"
+  ],
+  "ukSynonyms": [
+    "одноманітний"
+  ],
+  "deAntonyms": [
+    "interessant",
+    "spannend"
+  ],
+  "ruAntonyms": [
+    "интересный",
+    "захватывающий"
+  ],
+  "ukAntonyms": [
+    "цікавий",
+    "захопливий"
+  ],
+  "examples": [
+    {
+      "L2": "Der Unterricht war heute langweilig.",
+      "ru": "Урок сегодня был скучный.",
+      "uk": "Урок сьогодні був нудний."
+    }
+  ]
+},
+{
+  "id": 90,
+  "word": "laut",
+  "ru": "громкий",
+  "uk": "гучний",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "lärmend"
+  ],
+  "ruSynonyms": [
+    "шумный"
+  ],
+  "ukSynonyms": [
+    "шумний"
+  ],
+  "deAntonyms": [
+    "leise"
+  ],
+  "ruAntonyms": [
+    "тихий"
+  ],
+  "ukAntonyms": [
+    "тихий"
+  ],
+  "examples": [
+    {
+      "L2": "Die Musik ist zu laut.",
+      "ru": "Музыка слишком громкая.",
+      "uk": "Музика надто гучна."
+    }
+  ]
+},
+{
+  "id": 91,
+  "word": "leer",
+  "ru": "пустой",
+  "uk": "порожній",
+  "level": "A1",
+  "topics": [
+    "home",
+    "place"
+  ],
+  "deSynonyms": [
+    "unbesetzt"
+  ],
+  "ruSynonyms": [
+    "свободный",
+    "незанятый"
+  ],
+  "ukSynonyms": [
+    "вільний",
+    "незайнятий"
+  ],
+  "deAntonyms": [
+    "voll"
+  ],
+  "ruAntonyms": [
+    "полный"
+  ],
+  "ukAntonyms": [
+    "повний"
+  ],
+  "examples": [
+    {
+      "L2": "Der Kühlschrank ist fast leer.",
+      "ru": "Холодильник почти пуст.",
+      "uk": "Холодильник майже порожній."
+    }
+  ]
+},
+{
+  "id": 92,
+  "word": "legal",
+  "ru": "законный",
+  "uk": "законний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ist das hier überhaupt legal?",
+      "ru": "Это здесь вообще законно?",
+      "uk": "Це тут взагалі законно?"
+    }
+  ]
+},
+{
+  "id": 93,
+  "word": "leicht",
+  "ru": "лёгкий",
+  "uk": "легкий",
+  "level": "A1",
+  "topics": [
+    "description",
+    "education"
+  ],
+  "deSynonyms": [
+    "einfach"
+  ],
+  "ruSynonyms": [
+    "простой"
+  ],
+  "ukSynonyms": [
+    "простий"
+  ],
+  "deAntonyms": [
+    "schwer"
+  ],
+  "ruAntonyms": [
+    "тяжёлый"
+  ],
+  "ukAntonyms": [
+    "важкий"
+  ],
+  "examples": [
+    {
+      "L2": "Die Übung ist ziemlich leicht.",
+      "ru": "Упражнение довольно лёгкое.",
+      "uk": "Вправа досить легка."
+    }
+  ]
+},
+{
+  "id": 94,
+  "word": "lokal",
+  "ru": "местный",
+  "uk": "місцевий",
+  "level": "B1",
+  "topics": [
+    "city",
+    "work"
+  ],
+  "deSynonyms": [
+    "örtlich"
+  ],
+  "ruSynonyms": [
+    "локальный"
+  ],
+  "ukSynonyms": [
+    "локальний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Wir kaufen gern bei lokalen Händlern.",
+      "ru": "Мы любим покупать у местных продавцов.",
+      "uk": "Ми любимо купувати в місцевих продавців."
+    }
+  ]
+},
+{
+  "id": 95,
+  "word": "lustig",
+  "ru": "весёлый",
+  "uk": "смішний",
+  "level": "A2",
+  "topics": [
+    "free_time",
+    "relationships"
+  ],
+  "deSynonyms": [
+    "witzig"
+  ],
+  "ruSynonyms": [
+    "забавный"
+  ],
+  "ukSynonyms": [
+    "кумедний"
+  ],
+  "deAntonyms": [
+    "traurig"
+  ],
+  "ruAntonyms": [
+    "грустный"
+  ],
+  "ukAntonyms": [
+    "сумний"
+  ],
+  "examples": [
+    {
+      "L2": "Der Film war sehr lustig.",
+      "ru": "Фильм был очень весёлый",
+      "uk": "Фільм був дуже смішний."
+    }
+  ]
+},
+{
+  "id": 96,
+  "word": "maximal",
+  "ru": "максимальный",
+  "uk": "максимальний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die maximale Anzahl ist zehn Personen.",
+      "ru": "Максимальное количество — десять человек.",
+      "uk": "Максимальна кількість — десять осіб."
+    }
+  ]
+},
+{
+  "id": 97,
+  "word": "minimal",
+  "ru": "минимальный",
+  "uk": "мінімальний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Kosten sollen minimal bleiben.",
+      "ru": "Затраты должны оставаться минимальными.",
+      "uk": "Витрати мають залишатися мінімальними."
+    }
+  ]
+},
+{
+  "id": 98,
+  "word": "modern",
+  "ru": "современный",
+  "uk": "сучасний",
+  "level": "A2",
+  "topics": [
+    "home",
+    "city"
+  ],
+  "deSynonyms": [
+    "zeitgemäß"
+  ],
+  "ruSynonyms": [
+    "актуальный"
+  ],
+  "ukSynonyms": [
+    "модерний"
+  ],
+  "deAntonyms": [
+    "altmodisch"
+  ],
+  "ruAntonyms": [
+    "старомодный"
+  ],
+  "ukAntonyms": [
+    "застарілий"
+  ],
+  "examples": [
+    {
+      "L2": "Sie wohnen in einem modernen Haus.",
+      "ru": "Они живут в современном доме.",
+      "uk": "Вони живуть у сучасному будинку."
+    }
+  ]
+},
+{
+  "id": 99,
+  "word": "mutig",
+  "ru": "смелый",
+  "uk": "сміливий",
+  "level": "B1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "tapfer"
+  ],
+  "ruSynonyms": [
+    "храбрый"
+  ],
+  "ukSynonyms": [
+    "хоробрий"
+  ],
+  "deAntonyms": [
+    "ängstlich",
+    "feige"
+  ],
+  "ruAntonyms": [
+    "трусливый",
+    "боязливый"
+  ],
+  "ukAntonyms": [
+    "боязкий",
+    "лякливий"
+  ],
+  "examples": [
+    {
+      "L2": "Es war sehr mutig von dir, das zu sagen.",
+      "ru": "С твоей стороны было очень смело это сказать.",
+      "uk": "З твого боку було дуже сміливо це сказати."
+    }
+  ]
+},
+
+  {
+  "id": 100,
+  "word": "möglich",
+  "ru": "возможный",
+  "uk": "можливий",
+  "level": "A2",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "denkbar"
+  ],
+  "ruSynonyms": [
+    "реальный",
+    "допустимый"
+  ],
+  "ukSynonyms": [
+    "реальний",
+    "допустимий"
+  ],
+  "deAntonyms": [
+    "unmöglich"
+  ],
+  "ruAntonyms": [
+    "невозможный"
+  ],
+  "ukAntonyms": [
+    "неможливий"
+  ],
+  "examples": [
+    {
+      "L2": "Alles ist möglich, wenn du übst.",
+      "ru": "Всё возможно, если ты тренируешься.",
+      "uk": "Все можливо, якщо ти тренуєшся."
+    }
+  ]
+},
+{
+  "id": 101,
+  "word": "müde",
+  "ru": "уставший",
+  "uk": "втомлений",
+  "level": "A1",
+  "topics": [
+    "health"
+  ],
+  "deSynonyms": [
+    "erschöpft"
+  ],
+  "ruSynonyms": [
+    "утомлённый"
+  ],
+  "ukSynonyms": [
+    "стомлений"
+  ],
+  "deAntonyms": [
+    "wach"
+  ],
+  "ruAntonyms": [
+    "бодрый"
+  ],
+  "ukAntonyms": [
+    "бадьорий"
+  ],
+  "examples": [
+    {
+      "L2": "Ich bin nach der Arbeit sehr müde.",
+      "ru": "Я после работы очень устал.",
+      "uk": "Я після роботи дуже втомлений."
+    }
+  ]
+},
+{
+  "id": 102,
+  "word": "nah",
+  "ru": "близкий",
+  "uk": "близький",
+  "level": "A2",
+  "topics": [
+    "place",
+    "relationships"
+  ],
+  "deSynonyms": [
+    "in der Nähe"
+  ],
+  "ruSynonyms": [
+    "рядом",
+    "поблизости"
+  ],
+  "ukSynonyms": [
+    "поруч",
+    "поблизу"
+  ],
+  "deAntonyms": [
+    "fern"
+  ],
+  "ruAntonyms": [
+    "далёкий"
+  ],
+  "ukAntonyms": [
+    "далекий"
+  ],
+  "examples": [
+    {
+      "L2": "Wir wohnen ganz nah am Bahnhof.",
+      "ru": "Мы живём совсем близко от вокзала.",
+      "uk": "Ми живемо зовсім близько від вокзалу."
+    }
+  ]
+},
+{
+  "id": 103,
+  "word": "national",
+  "ru": "национальный",
+  "uk": "національний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [
+    "общегосударственный"
+  ],
+  "ukSynonyms": [
+    "загальнодержавний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das ist ein wichtiges nationales Projekt.",
+      "ru": "Это важный национальный проект.",
+      "uk": "Це важливий національний проєкт."
+    }
+  ]
+},
+{
+  "id": 104,
+  "word": "nervös",
+  "ru": "нервный",
+  "uk": "нервовий",
+  "level": "A2",
+  "topics": [
+    "health",
+    "description"
+  ],
+  "deSynonyms": [
+    "aufgeregt"
+  ],
+  "ruSynonyms": [
+    "возбуждённый",
+    "напряжённый"
+  ],
+  "ukSynonyms": [
+    "збуджений",
+    "напружений"
+  ],
+  "deAntonyms": [
+    "ruhig"
+  ],
+  "ruAntonyms": [
+    "спокойный"
+  ],
+  "ukAntonyms": [
+    "спокійний"
+  ],
+  "examples": [
+    {
+      "L2": "Vor Prüfungen bin ich immer nervös.",
+      "ru": "Перед экзаменами я всегда нервничаю.",
+      "uk": "Перед іспитами я завжди нервую."
+    }
+  ]
+},
+{
+  "id": 105,
+  "word": "nett",
+  "ru": "милый",
+  "uk": "приємний",
+  "level": "A1",
+  "topics": [
+    "relationships"
+  ],
+  "deSynonyms": [
+    "freundlich"
+  ],
+  "ruSynonyms": [
+    "приятный",
+    "доброжелательный"
+  ],
+  "ukSynonyms": [
+    "милий",
+    "доброзичливий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Nachbarn sind sehr nett.",
+      "ru": "Соседи очень милые.",
+      "uk": "Сусіди дуже приємні."
+    }
+  ]
+},
+{
+  "id": 106,
+  "word": "neu",
+  "ru": "новый",
+  "uk": "новий",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "frisch"
+  ],
+  "ruSynonyms": [
+    "свежий",
+    "современный"
+  ],
+  "ukSynonyms": [
+    "свіжий",
+    "новенький"
+  ],
+  "deAntonyms": [
+    "alt"
+  ],
+  "ruAntonyms": [
+    "старый"
+  ],
+  "ukAntonyms": [
+    "старий"
+  ],
+  "examples": [
+    {
+      "L2": "Ich habe ein neues Handy gekauft.",
+      "ru": "Я купил новый телефон.",
+      "uk": "Я купив новий телефон."
+    }
+  ]
+},
+{
+  "id": 107,
+  "word": "neugierig",
+  "ru": "любопытный",
+  "uk": "допитливий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "interessiert"
+  ],
+  "ruSynonyms": [
+    "любознательный",
+    "заинтересованный"
+  ],
+  "ukSynonyms": [
+    "допитливий",
+    "зацікавлений"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Kinder sind meistens sehr neugierig.",
+      "ru": "Дети обычно очень любопытны.",
+      "uk": "Діти зазвичай дуже допитливі."
+    }
+  ]
+},
+{
+  "id": 108,
+  "word": "niedrig",
+  "ru": "низкий",
+  "uk": "низький",
+  "level": "A2",
+  "topics": [
+    "description",
+    "money"
+  ],
+  "deSynonyms": [
+    "gering"
+  ],
+  "ruSynonyms": [
+    "невысокий"
+  ],
+  "ukSynonyms": [
+    "невисокий"
+  ],
+  "deAntonyms": [
+    "hoch"
+  ],
+  "ruAntonyms": [
+    "высокий"
+  ],
+  "ukAntonyms": [
+    "високий"
+  ],
+  "examples": [
+    {
+      "L2": "Die Preise sind hier relativ niedrig.",
+      "ru": "Цены здесь относительно низкие.",
+      "uk": "Ціни тут відносно низькі."
+    }
+  ]
+},
+{
+  "id": 109,
+  "word": "normal",
+  "ru": "нормальный",
+  "uk": "нормальний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "gewöhnlich"
+  ],
+  "ruSynonyms": [
+    "обычный",
+    "стандартный"
+  ],
+  "ukSynonyms": [
+    "звичайний",
+    "типовий"
+  ],
+  "deAntonyms": [
+    "ungewöhnlich"
+  ],
+  "ruAntonyms": [
+    "необычный"
+  ],
+  "ukAntonyms": [
+    "незвичайний"
+  ],
+  "examples": [
+    {
+      "L2": "Das ist völlig normal.",
+      "ru": "Это совершенно нормально.",
+      "uk": "Це цілком нормально."
+    }
+  ]
+},
+{
+  "id": 110,
+  "word": "notwendig",
+  "ru": "необходимый",
+  "uk": "необхідний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "erforderlich"
+  ],
+  "ruSynonyms": [
+    "обязательный"
+  ],
+  "ukSynonyms": [
+    "обов’язковий"
+  ],
+  "deAntonyms": [
+    "unnötig"
+  ],
+  "ruAntonyms": [
+    "ненужный"
+  ],
+  "ukAntonyms": [
+    "непотрібний"
+  ],
+  "examples": [
+    {
+      "L2": "Ist das wirklich notwendig?",
+      "ru": "Это действительно необходимо?",
+      "uk": "Це справді необхідно?"
+    }
+  ]
+},
+{
+  "id": 111,
+  "word": "nutzlos",
+  "ru": "бесполезный",
+  "uk": "марний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "sinnlos"
+  ],
+  "ruSynonyms": [
+    "непригодный"
+  ],
+  "ukSynonyms": [
+    "даремний"
+  ],
+  "deAntonyms": [
+    "nützlich"
+  ],
+  "ruAntonyms": [
+    "полезный"
+  ],
+  "ukAntonyms": [
+    "корисний"
+  ],
+  "examples": [
+    {
+      "L2": "Ohne Daten ist diese Statistik nutzlos.",
+      "ru": "Без данных эта статистика бесполезна.",
+      "uk": "Без даних ця статистика марна."
+    }
+  ]
+},
+{
+  "id": 112,
+  "word": "nützlich",
+  "ru": "полезный",
+  "uk": "корисний",
+  "level": "A2",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "hilfreich"
+  ],
+  "ruSynonyms": [
+    "практичный"
+  ],
+  "ukSynonyms": [
+    "практичний"
+  ],
+  "deAntonyms": [
+    "nutzlos"
+  ],
+  "ruAntonyms": [
+    "бесполезный",
+    "марный"
+  ],
+  "ukAntonyms": [
+    "марний",
+    "даремний"
+  ],
+  "examples": [
+    {
+      "L2": "Sprachenlernen ist immer nützlich.",
+      "ru": "Изучать языки всегда полезно.",
+      "uk": "Вивчати мови завжди корисно."
+    }
+  ]
+},
+{
+  "id": 113,
+  "word": "offen",
+  "ru": "открытый",
+  "uk": "відкритий",
+  "level": "A2",
+  "topics": [
+    "description",
+    "place"
+  ],
+  "deSynonyms": [
+    "auf"
+  ],
+  "ruSynonyms": [
+    "распахнутый"
+  ],
+  "ukSynonyms": [
+    "розчинений"
+  ],
+  "deAntonyms": [
+    "geschlossen"
+  ],
+  "ruAntonyms": [
+    "закрытый"
+  ],
+  "ukAntonyms": [
+    "закритий"
+  ],
+  "examples": [
+    {
+      "L2": "Das Fenster ist noch offen.",
+      "ru": "Окно всё ещё открыто.",
+      "uk": "Вікно досі відкрите."
+    }
+  ]
+},
+{
+  "id": 114,
+  "word": "offiziell",
+  "ru": "официальный",
+  "uk": "офіційний",
+  "level": "B1",
+  "topics": [
+    "work",
+    "abstract"
+  ],
+  "deSynonyms": [
+    "formell"
+  ],
+  "ruSynonyms": [
+    "формальный"
+  ],
+  "ukSynonyms": [
+    "формальний"
+  ],
+  "deAntonyms": [
+    "inoffiziell"
+  ],
+  "ruAntonyms": [
+    "неофициальный"
+  ],
+  "ukAntonyms": [
+    "неофіційний"
+  ],
+  "examples": [
+    {
+      "L2": "Das ist die offizielle Version.",
+      "ru": "Это официальная версия.",
+      "uk": "Це офіційна версія."
+    }
+  ]
+},
+{
+  "id": 115,
+  "word": "ordentlich",
+  "ru": "аккуратный",
+  "uk": "охайний",
+  "level": "A2",
+  "topics": [
+    "description",
+    "home"
+  ],
+  "deSynonyms": [
+    "aufgeräumt"
+  ],
+  "ruSynonyms": [
+    "опрятный"
+  ],
+  "ukSynonyms": [
+    "прибраний"
+  ],
+  "deAntonyms": [
+    "chaotisch"
+  ],
+  "ruAntonyms": [
+    "хаотичный"
+  ],
+  "ukAntonyms": [
+    "хаотичний"
+  ],
+  "examples": [
+    {
+      "L2": "Ihr Zimmer ist immer sehr ordentlich.",
+      "ru": "Её комната всегда очень аккуратная.",
+      "uk": "Її кімната завжди дуже охайна."
+    }
+  ]
+},
+{
+  "id": 116,
+  "word": "passiv",
+  "ru": "пассивный",
+  "uk": "пасивний",
+  "level": "B1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "zurückhaltend"
+  ],
+  "ruSynonyms": [
+    "бездеятельный"
+  ],
+  "ukSynonyms": [
+    "бездіяльний"
+  ],
+  "deAntonyms": [
+    "aktiv"
+  ],
+  "ruAntonyms": [
+    "активный"
+  ],
+  "ukAntonyms": [
+    "активний"
+  ],
+  "examples": [
+    {
+      "L2": "Er bleibt in Diskussionen oft passiv.",
+      "ru": "В дискуссиях он часто остаётся пассивным.",
+      "uk": "У дискусіях він часто залишається пасивним."
+    }
+  ]
+},
+{
+  "id": 117,
+  "word": "persönlich",
+  "ru": "личный",
+  "uk": "особистий",
+  "level": "A2",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "privat"
+  ],
+  "ruSynonyms": [
+    "индивидуальный",
+    "приватный"
+  ],
+  "ukSynonyms": [
+    "індивідуальний",
+    "приватний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das ist meine persönliche Meinung.",
+      "ru": "Это моё личное мнение.",
+      "uk": "Це моя особиста думка."
+    }
+  ]
+},
+{
+  "id": 118,
+  "word": "praktisch",
+  "ru": "практичный",
+  "uk": "практичний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "handlich"
+  ],
+  "ruSynonyms": [
+    "удобный",
+    "функциональный"
+  ],
+  "ukSynonyms": [
+    "зручний",
+    "функціональний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Tasche ist klein, aber sehr praktisch.",
+      "ru": "Сумка маленькая, но очень практичная.",
+      "uk": "Сумка маленька, але дуже практична."
+    }
+  ]
+},
+{
+  "id": 119,
+  "word": "preiswert",
+  "ru": "доступный по цене",
+  "uk": "недорогий",
+  "level": "A2",
+  "topics": [
+    "money"
+  ],
+  "deSynonyms": [
+    "günstig"
+  ],
+  "ruSynonyms": [
+    "недорогой",
+    "выгодный"
+  ],
+  "ukSynonyms": [
+    "доступний за ціною",
+    "вигідний"
+  ],
+  "deAntonyms": [
+    "teuer"
+  ],
+  "ruAntonyms": [
+    "дорогой"
+  ],
+  "ukAntonyms": [
+    "дорогий"
+  ],
+  "examples": [
+    {
+      "L2": "Das Hotel war sehr preiswert.",
+      "ru": "Отель был по очень доступной цене.",
+      "uk": "Готель був дуже недорогий."
+    }
+  ]
+},
+{
+  "id": 120,
+  "word": "privat",
+  "ru": "частный",
+  "uk": "приватний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "persönlich"
+  ],
+  "ruSynonyms": [
+    "личный"
+  ],
+  "ukSynonyms": [
+    "особистий"
+  ],
+  "deAntonyms": [
+    "öffentlich"
+  ],
+  "ruAntonyms": [
+    "публичный"
+  ],
+  "ukAntonyms": [
+    "публічний"
+  ],
+  "examples": [
+    {
+      "L2": "Das ist eine private Veranstaltung.",
+      "ru": "Это частное мероприятие.",
+      "uk": "Це приватний захід."
+    }
+  ]
+},
+{
+  "id": 121,
+  "word": "präzise",
+  "ru": "прецизионный",
+  "uk": "прецизійний",
+  "level": "B2",
+  "topics": [
+    "work",
+    "education"
+  ],
+  "deSynonyms": [
+    "genau",
+    "exakt"
+  ],
+  "ruSynonyms": [
+    "точный"
+  ],
+  "ukSynonyms": [
+    "точний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Wir brauchen eine präzise Beschreibung.",
+      "ru": "Нам нужно точное описание.",
+      "uk": "Нам потрібен прецизійний опис."
+    }
+  ]
+},
+{
+  "id": 122,
+  "word": "pünktlich",
+  "ru": "пунктуальный",
+  "uk": "пунктуальний",
+  "level": "A2",
+  "topics": [
+    "work",
+    "time"
+  ],
+  "deSynonyms": [
+    "rechtzeitig"
+  ],
+  "ruSynonyms": [
+    "точный (по времени)"
+  ],
+  "ukSynonyms": [
+    "вчасний"
+  ],
+  "deAntonyms": [
+    "unpünktlich"
+  ],
+  "ruAntonyms": [
+    "непунктуальный"
+  ],
+  "ukAntonyms": [
+    "непунктуальний"
+  ],
+  "examples": [
+    {
+      "L2": "Der Zug ist heute pünktlich.",
+      "ru": "Поезд сегодня пришёл вовремя.",
+      "uk": "Потяг сьогодні прибув вчасно."
+    }
+  ]
+},
+{
+  "id": 123,
+  "word": "rau",
+  "ru": "шероховатый",
+  "uk": "шорсткий",
+  "level": "B1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "nicht glatt"
+  ],
+  "ruSynonyms": [
+    "шершавый"
+  ],
+  "ukSynonyms": [
+    "нерівний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Wand fühlt sich rau an.",
+      "ru": "Стена на ощупь шероховатая.",
+      "uk": "Стіна на дотик шорстка."
+    }
+  ]
+},
+{
+  "id": 124,
+  "word": "reich",
+  "ru": "богатый",
+  "uk": "багатий",
+  "level": "A2",
+  "topics": [
+    "money"
+  ],
+  "deSynonyms": [
+    "wohlhabend"
+  ],
+  "ruSynonyms": [
+    "состоятельный"
+  ],
+  "ukSynonyms": [
+    "заможний"
+  ],
+  "deAntonyms": [
+    "arm"
+  ],
+  "ruAntonyms": [
+    "бедный"
+  ],
+  "ukAntonyms": [
+    "бідний"
+  ],
+  "examples": [
+    {
+      "L2": "Er ist sehr reich geworden.",
+      "ru": "Он стал очень богатым.",
+      "uk": "Він став дуже багатим."
+    }
+  ]
+},
+{
+  "id": 125,
+  "word": "richtig",
+  "ru": "правильный",
+  "uk": "правильний",
+  "level": "A1",
+  "topics": [
+    "education"
+  ],
+  "deSynonyms": [
+    "korrekt"
+  ],
+  "ruSynonyms": [
+    "верный"
+  ],
+  "ukSynonyms": [
+    "вірний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Antwort ist richtig.",
+      "ru": "Ответ правильный.",
+      "uk": "Відповідь правильна."
+    }
+  ]
+},
+{
+  "id": 126,
+  "word": "robust",
+  "ru": "прочный",
+  "uk": "міцний",
+  "level": "B1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "stabil"
+  ],
+  "ruSynonyms": [
+    "надёжный"
+  ],
+  "ukSynonyms": [
+    "надійний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der Tisch ist sehr robust.",
+      "ru": "Стол очень прочный.",
+      "uk": "Стіл дуже міцний."
+    }
+  ]
+},
+{
+  "id": 127,
+  "word": "ruhig",
+  "ru": "спокойный",
+  "uk": "спокійний",
+  "level": "A2",
+  "topics": [
+    "description",
+    "place"
+  ],
+  "deSynonyms": [
+    "still"
+  ],
+  "ruSynonyms": [
+    "умиротворённый",
+    "тихий"
+  ],
+  "ukSynonyms": [
+    "тихий",
+    "урівноважений"
+  ],
+  "deAntonyms": [
+    "hektisch",
+    "laut"
+  ],
+  "ruAntonyms": [
+    "шумный",
+    "суетливый"
+  ],
+  "ukAntonyms": [
+    "шумний",
+    "метушливий"
+  ],
+  "examples": [
+    {
+      "L2": "Die Gegend ist sehr ruhig.",
+      "ru": "Район очень спокойный.",
+      "uk": "Район дуже спокійний."
+    }
+  ]
+},
+{
+  "id": 128,
+  "word": "salzig",
+  "ru": "солёный",
+  "uk": "солоний",
+  "level": "A2",
+  "topics": [
+    "food"
+  ],
+  "deSynonyms": [
+    "würzig"
+  ],
+  "ruSynonyms": [
+    "пересоленный"
+  ],
+  "ukSynonyms": [
+    "пересолений"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Suppe ist zu salzig.",
+      "ru": "Суп слишком солёный.",
+      "uk": "Суп занадто солоний."
+    }
+  ]
+},
+{
+  "id": 129,
+  "word": "satt",
+  "ru": "сытый",
+  "uk": "ситий",
+  "level": "A1",
+  "topics": [
+    "food"
+  ],
+  "deSynonyms": [
+    "vollgegessen"
+  ],
+  "ruSynonyms": [
+    "наевшийся"
+  ],
+  "ukSynonyms": [
+    "наївшийся"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Danke, ich bin schon satt.",
+      "ru": "Спасибо, я уже сыт.",
+      "uk": "Дякую, я вже ситий."
+    }
+  ]
+},
+{
+  "id": 130,
+  "word": "sauber",
+  "ru": "чистый",
+  "uk": "чистий",
+  "level": "A1",
+  "topics": [
+    "home",
+    "description"
+  ],
+  "deSynonyms": [
+    "rein"
+  ],
+  "ruSynonyms": [
+    "опрятный"
+  ],
+  "ukSynonyms": [
+    "охайний"
+  ],
+  "deAntonyms": [
+    "schmutzig"
+  ],
+  "ruAntonyms": [
+    "грязный"
+  ],
+  "ukAntonyms": [
+    "брудний"
+  ],
+  "examples": [
+    {
+      "L2": "Die Küche ist jetzt sauber.",
+      "ru": "Кухня теперь чистая.",
+      "uk": "Кухня тепер чиста."
+    }
+  ]
+},
+{
+  "id": 131,
+  "word": "scharf",
+  "ru": "острый",
+  "uk": "гострий",
+  "level": "A2",
+  "topics": [
+    "food",
+    "description"
+  ],
+  "deSynonyms": [
+    "würzig"
+  ],
+  "ruSynonyms": [
+    "острый (на вкус)"
+  ],
+  "ukSynonyms": [
+    "пекучий"
+  ],
+  "deAntonyms": [
+    "mild"
+  ],
+  "ruAntonyms": [
+    "пресный"
+  ],
+  "ukAntonyms": [
+    "прісний"
+  ],
+  "examples": [
+    {
+      "L2": "Das Essen ist sehr scharf.",
+      "ru": "Еда очень острая.",
+      "uk": "Їжа дуже гостра."
+    }
+  ]
+},
+{
+  "id": 132,
+  "word": "schlecht",
+  "ru": "плохой",
+  "uk": "поганий",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "mies"
+  ],
+  "ruSynonyms": [
+    "ужасный"
+  ],
+  "ukSynonyms": [
+    "жахливий"
+  ],
+  "deAntonyms": [
+    "gut"
+  ],
+  "ruAntonyms": [
+    "хороший"
+  ],
+  "ukAntonyms": [
+    "гарний"
+  ],
+  "examples": [
+    {
+      "L2": "Das Wetter ist heute schlecht.",
+      "ru": "Погода сегодня плохая.",
+      "uk": "Погода сьогодні погана."
+    }
+  ]
+},
+{
+  "id": 133,
+  "word": "schmutzig",
+  "ru": "грязный",
+  "uk": "брудний",
+  "level": "A1",
+  "topics": [
+    "home",
+    "description"
+  ],
+  "deSynonyms": [
+    "dreckig"
+  ],
+  "ruSynonyms": [
+    "запачканный"
+  ],
+  "ukSynonyms": [
+    "забруднений"
+  ],
+  "deAntonyms": [
+    "sauber"
+  ],
+  "ruAntonyms": [
+    "чистый"
+  ],
+  "ukAntonyms": [
+    "чистий"
+  ],
+  "examples": [
+    {
+      "L2": "Die Schuhe sind sehr schmutzig.",
+      "ru": "Обувь очень грязная.",
+      "uk": "Взуття дуже брудне."
+    }
+  ]
+},
+{
+  "id": 134,
+  "word": "schnell",
+  "ru": "быстрый",
+  "uk": "швидкий",
+  "level": "A1",
+  "topics": [
+    "movement"
+  ],
+  "deSynonyms": [
+    "rasch"
+  ],
+  "ruSynonyms": [
+    "скорый"
+  ],
+  "ukSynonyms": [
+    "швидкісний"
+  ],
+  "deAntonyms": [
+    "langsam"
+  ],
+  "ruAntonyms": [
+    "медленный"
+  ],
+  "ukAntonyms": [
+    "повільний"
+  ],
+  "examples": [
+    {
+      "L2": "Er fährt viel zu schnell.",
+      "ru": "Он ездит слишком быстро.",
+      "uk": "Він їздить занадто швидко."
+    }
+  ]
+},
+{
+  "id": 135,
+  "word": "schuldig",
+  "ru": "виновный",
+  "uk": "винний",
+  "level": "B1",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "verantwortlich"
+  ],
+  "ruSynonyms": [
+    "виноватый"
+  ],
+  "ukSynonyms": [
+    "винуватий"
+  ],
+  "deAntonyms": [
+    "unschuldig"
+  ],
+  "ruAntonyms": [
+    "невиновный"
+  ],
+  "ukAntonyms": [
+    "невинний"
+  ],
+  "examples": [
+    {
+      "L2": "Er fühlte sich schuldig.",
+      "ru": "Он чувствовал себя виноватым.",
+      "uk": "Він почувався винним."
+    }
+  ]
+},
+{
+  "id": 136,
+  "word": "schuldlos",
+  "ru": "невиновный",
+  "uk": "невинний",
+  "level": "B2",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [],
+  "ruSynonyms": [
+    "без вины"
+  ],
+  "ukSynonyms": [
+    "без вини"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Sie ist in dieser Sache schuldlos.",
+      "ru": "В этом деле она невиновна.",
+      "uk": "У цій справі вона невинна."
+    }
+  ]
+},
+{
+  "id": 137,
+  "word": "schwach",
+  "ru": "слабый",
+  "uk": "слабкий",
+  "level": "A2",
+  "topics": [
+    "health",
+    "description"
+  ],
+  "deSynonyms": [
+    "kraftlos"
+  ],
+  "ruSynonyms": [
+    "хилый"
+  ],
+  "ukSynonyms": [
+    "кволий"
+  ],
+  "deAntonyms": [
+    "stark"
+  ],
+  "ruAntonyms": [
+    "сильный"
+  ],
+  "ukAntonyms": [
+    "сильний"
+  ],
+  "examples": [
+    {
+      "L2": "Ich fühle mich heute etwas schwach.",
+      "ru": "Я сегодня чувствую себя немного слабым.",
+      "uk": "Я сьогодні почуваюся трохи слабким."
+    }
+  ]
+},
+{
+  "id": 138,
+  "word": "schwer",
+  "ru": "тяжёлый",
+  "uk": "важкий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "anstrengend"
+  ],
+  "ruSynonyms": [
+    "масcивный"
+  ],
+  "ukSynonyms": [
+    "тяжкий"
+  ],
+  "deAntonyms": [
+    "leicht"
+  ],
+  "ruAntonyms": [
+    "лёгкий"
+  ],
+  "ukAntonyms": [
+    "легкий"
+  ],
+  "examples": [
+    {
+      "L2": "Der Koffer ist sehr schwer.",
+      "ru": "Чемодан очень тяжёлый.",
+      "uk": "Валіза дуже важка."
+    }
+  ]
+},
+{
+  "id": 139,
+  "word": "schwierig",
+  "ru": "сложный",
+  "uk": "складний",
+  "level": "A2",
+  "topics": [
+    "education",
+    "work"
+  ],
+  "deSynonyms": [
+    "kompliziert"
+  ],
+  "ruSynonyms": [
+    "затруднительный"
+  ],
+  "ukSynonyms": [
+    "утруднений"
+  ],
+  "deAntonyms": [
+    "einfach"
+  ],
+  "ruAntonyms": [
+    "лёгкий",
+    "простой"
+  ],
+  "ukAntonyms": [
+    "легкий",
+    "простий"
+  ],
+  "examples": [
+    {
+      "L2": "Die Aufgabe ist ziemlich schwierig.",
+      "ru": "Задание довольно сложное.",
+      "uk": "Завдання досить складне."
+    }
+  ]
+},
+{
+  "id": 140,
+  "word": "schön",
+  "ru": "красивый",
+  "uk": "гарний",
+  "level": "A1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "hübsch"
+  ],
+  "ruSynonyms": [
+    "прекрасный"
+  ],
+  "ukSynonyms": [
+    "прекрасний"
+  ],
+  "deAntonyms": [
+    "hässlich"
+  ],
+  "ruAntonyms": [
+    "уродливый"
+  ],
+  "ukAntonyms": [
+    "потворний"
+  ],
+  "examples": [
+    {
+      "L2": "Das ist ein sehr schönes Bild.",
+      "ru": "Это очень красивая картина.",
+      "uk": "Це дуже гарна картина."
+    }
+  ]
+},
+{
+  "id": 141,
+  "word": "schüchtern",
+  "ru": "застенчивый",
+  "uk": "сором’язливий",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "zurückhaltend"
+  ],
+  "ruSynonyms": [
+    "робкий"
+  ],
+  "ukSynonyms": [
+    "несміливий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Er ist ein eher schüchterner Mensch.",
+      "ru": "Он скорее застенчивый человек.",
+      "uk": "Він радше сором’язлива людина."
+    }
+  ]
+},
+{
+  "id": 142,
+  "word": "selten",
+  "ru": "редкий",
+  "uk": "рідкісний",
+  "level": "A2",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "nicht oft"
+  ],
+  "ruSynonyms": [
+    "нечастый"
+  ],
+  "ukSynonyms": [
+    "нечастий"
+  ],
+  "deAntonyms": [
+    "häufig"
+  ],
+  "ruAntonyms": [
+    "частый"
+  ],
+  "ukAntonyms": [
+    "частий"
+  ],
+  "examples": [
+    {
+      "L2": "Solche Chancen sind selten.",
+      "ru": "Такие шансы бывают редко.",
+      "uk": "Такі шанси трапляються рідко."
+    }
+  ]
+},
+{
+  "id": 143,
+  "word": "seltsam",
+  "ru": "странный",
+  "uk": "дивний",
+  "level": "A2",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "merkwürdig"
+  ],
+  "ruSynonyms": [
+    "странноватый"
+  ],
+  "ukSynonyms": [
+    "химерний"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das ist eine seltsame Geschichte.",
+      "ru": "Это странная история.",
+      "uk": "Це дивна історія."
+    }
+  ]
+},
+{
+  "id": 144,
+  "word": "separat",
+  "ru": "отдельный",
+  "uk": "окремий",
+  "level": "B1",
+  "topics": [
+    "description"
+  ],
+  "deSynonyms": [
+    "getrennt"
+  ],
+  "ruSynonyms": [
+    "раздельный"
+  ],
+  "ukSynonyms": [
+    "відокремлений"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Wir zahlen die Rechnungen separat.",
+      "ru": "Мы оплатим счета отдельно.",
+      "uk": "Ми оплатимо рахунки окремо."
+    }
+  ]
+},
+{
+  "id": 145,
+  "word": "sicher",
+  "ru": "надёжный",
+  "uk": "безпечний",
+  "level": "A2",
+  "topics": [
+    "abstract"
+  ],
+  "deSynonyms": [
+    "geschützt"
+  ],
+  "ruSynonyms": [
+    "безопасный"
+  ],
+  "ukSynonyms": [
+    "надійний"
+  ],
+  "deAntonyms": [
+    "unsicher",
+    "gefährlich"
+  ],
+  "ruAntonyms": [
+    "ненадёжный",
+    "небезопасный"
+  ],
+  "ukAntonyms": [
+    "ненадійний",
+    "небезпечний"
+  ],
+  "examples": [
+    {
+      "L2": "Dieses Passwort ist nicht sehr sicher.",
+      "ru": "Этот пароль не очень надёжный.",
+      "uk": "Цей пароль не дуже безпечний."
+    }
+  ]
+},
+{
+  "id": 146,
+  "word": "spannend",
+  "ru": "увлекательный",
+  "uk": "захоплюючий",
+  "level": "A2",
+  "topics": [
+    "free_time"
+  ],
+  "deSynonyms": [
+    "interessant"
+  ],
+  "ruSynonyms": [
+    "захватывающий"
+  ],
+  "ukSynonyms": [
+    "інтригуючий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der Film war wirklich spannend.",
+      "ru": "Фильм был действительно захватывающим.",
+      "uk": "Фільм був справді захопливим."
+    }
+  ]
+},
+{
+  "id": 147,
+  "word": "spät",
+  "ru": "поздний",
+  "uk": "пізній",
+  "level": "A1",
+  "topics": [
+    "time"
+  ],
+  "deSynonyms": [
+    "nicht früh"
+  ],
+  "ruSynonyms": [
+    "запоздалый"
+  ],
+  "ukSynonyms": [
+    "запізнілий"
+  ],
+  "deAntonyms": [
+    "früh"
+  ],
+  "ruAntonyms": [
+    "ранний"
+  ],
+  "ukAntonyms": [
+    "ранній"
+  ],
+  "examples": [
+    {
+      "L2": "Es ist schon sehr spät.",
+      "ru": "Уже очень поздно.",
+      "uk": "Вже дуже пізно."
+    }
+  ]
+},
+{
+  "id": 148,
+  "word": "stark",
+  "ru": "сильный",
+  "uk": "сильний",
+  "level": "A1",
+  "topics": [
+    "description",
+    "health"
+  ],
+  "deSynonyms": [
+    "kräftig"
+  ],
+  "ruSynonyms": [
+    "мощный"
+  ],
+  "ukSynonyms": [
+    "потужний"
+  ],
+  "deAntonyms": [
+    "schwach"
+  ],
+  "ruAntonyms": [
+    "слабый"
+  ],
+  "ukAntonyms": [
+    "слабкий"
+  ],
+  "examples": [
+    {
+      "L2": "Sie ist körperlich sehr stark.",
+      "ru": "Она физически очень сильная.",
+      "uk": "Вона фізично дуже сильна."
+    }
+  ]
+},
+{
+  "id": 149,
+  "word": "stolz",
+  "ru": "гордый",
+  "uk": "гордий",
+  "level": "B1",
+  "topics": [
+    "relationships"
+  ],
+  "deSynonyms": [
+    "zufrieden"
+  ],
+  "ruSynonyms": [
+    "горделивый",
+    "сповнений гордости"
+  ],
+  "ukSynonyms": [
+    "сповнений гордості"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Ich bin stolz auf dich.",
+      "ru": "Я горжусь тобой.",
+      "uk": "Я пишаюся тобою."
+    }
+  ]
+},
+{
+  "id": 150,
+  "word": "süß",
+  "ru": "сладкий",
+  "uk": "солодкий",
+  "level": "A1",
+  "topics": [
+    "food"
+  ],
+  "deSynonyms": [
+    "zuckerhaltig"
+  ],
+  "ruSynonyms": [
+    "сахарный"
+  ],
+  "ukSynonyms": [
+    "цукровий"
+  ],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der Kuchen ist sehr süß.",
+      "ru": "Пирог очень сладкий.",
+      "uk": "Торт дуже солодкий."
+    }
+  ]
+},
+  {
+  "id": 151,
+  "word": "tapfer",
+  "ru": "храбрый",
+  "uk": "хоробрий",
+  "level": "B1",
+  "topics": ["description"],
+  "deSynonyms": ["mutig"],
+  "ruSynonyms": ["смелый"],
+  "ukSynonyms": ["сміливий"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Die Kinder waren sehr tapfer beim Zahnarzt.",
+      "ru": "Дети были очень храбры у стоматолога.",
+      "uk": "Діти були дуже хоробрими у стоматолога."
+    }
+  ]
+},
+{
+  "id": 152,
+  "word": "teuer",
+  "ru": "дорогой",
+  "uk": "дорогий",
+  "level": "A1",
+  "topics": ["money"],
+  "deSynonyms": ["kostspielig"],
+  "ruSynonyms": ["затратный"],
+  "ukSynonyms": ["затратний"],
+  "deAntonyms": ["billig", "preiswert"],
+  "ruAntonyms": ["дешёвый"],
+  "ukAntonyms": ["дешевий"],
+  "examples": [
+    {
+      "L2": "Das Auto war ziemlich teuer.",
+      "ru": "Машина была довольно дорогой.",
+      "uk": "Авто було досить дорогим."
+    }
+  ]
+},
+{
+  "id": 153,
+  "word": "tief",
+  "ru": "глубокий",
+  "uk": "глибокий",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["niedrig gelegen"],
+  "ruSynonyms": ["низко расположенный"],
+  "ukSynonyms": ["низько розташований"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Der See ist hier sehr tief.",
+      "ru": "Озеро здесь очень глубокое.",
+      "uk": "Озеро тут дуже глибоке."
+    }
+  ]
+},
+{
+  "id": 154,
+  "word": "traurig",
+  "ru": "грустный",
+  "uk": "сумний",
+  "level": "A2",
+  "topics": ["feelings"],
+  "deSynonyms": ["bedrückt"],
+  "ruSynonyms": ["унылый"],
+  "ukSynonyms": ["пригнічений"],
+  "deAntonyms": ["fröhlich", "glücklich"],
+  "ruAntonyms": ["весёлый"],
+  "ukAntonyms": ["веселий"],
+  "examples": [
+    {
+      "L2": "Der Film war sehr traurig.",
+      "ru": "Фильм был очень грустный.",
+      "uk": "Фільм був дуже сумний."
+    }
+  ]
+},
+{
+  "id": 155,
+  "word": "typisch",
+  "ru": "типичный",
+  "uk": "типовий",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["charakteristisch"],
+  "ruSynonyms": ["характерный"],
+  "ukSynonyms": ["характерний"],
+  "deAntonyms": ["ungewöhnlich"],
+  "ruAntonyms": ["необычный"],
+  "ukAntonyms": ["незвичайний"],
+  "examples": [
+    {
+      "L2": "Das ist typisch für dieses Wetter.",
+      "ru": "Это типично для такой погоды.",
+      "uk": "Це типово для такої погоди."
+    }
+  ]
+},
+{
+  "id": 156,
+  "word": "unbekannt",
+  "ru": "неизвестный",
+  "uk": "невідомий",
+  "level": "B1",
+  "topics": ["description"],
+  "deSynonyms": ["nicht bekannt"],
+  "ruSynonyms": ["малоизвестный"],
+  "ukSynonyms": ["маловідомий"],
+  "deAntonyms": ["bekannt"],
+  "ruAntonyms": ["известный"],
+  "ukAntonyms": ["відомий"],
+  "examples": [
+    {
+      "L2": "Der Autor ist noch unbekannt.",
+      "ru": "Автор пока неизвестен.",
+      "uk": "Автор поки що невідомий."
+    }
+  ]
+},
+{
+  "id": 157,
+  "word": "unfreundlich",
+  "ru": "недружелюбный",
+  "uk": "недружній",
+  "level": "A2",
+  "topics": ["relationships"],
+  "deSynonyms": ["kühl"],
+  "ruSynonyms": ["холодный (в общении)"],
+  "ukSynonyms": ["холодний (у спілкуванні)"],
+  "deAntonyms": ["freundlich"],
+  "ruAntonyms": ["дружелюбный"],
+  "ukAntonyms": ["дружній"],
+  "examples": [
+    {
+      "L2": "Der Kellner war ziemlich unfreundlich.",
+      "ru": "Официант был довольно недружелюбен.",
+      "uk": "Офіціант був доволі недружній."
+    }
+  ]
+},
+{
+  "id": 158,
+  "word": "unfähig",
+  "ru": "неспособный",
+  "uk": "нездатний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": [],
+  "ruSynonyms": [],
+  "ukSynonyms": [],
+  "deAntonyms": ["fähig"],
+  "ruAntonyms": ["способный"],
+  "ukAntonyms": ["здатний"],
+  "examples": [
+    {
+      "L2": "Er ist dafür nicht unfähig, nur unsicher.",
+      "ru": "Он не неспособен к этому, просто неуверен.",
+      "uk": "Він не нездатний до цього, просто невпевнений."
+    }
+  ]
+},
+{
+  "id": 159,
+  "word": "ungefähr",
+  "ru": "примерный",
+  "uk": "приблизний",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["circa"],
+  "ruSynonyms": ["около", "приблизительно"],
+  "ukSynonyms": ["приблизно"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Das dauert ungefähr eine Stunde.",
+      "ru": "Это длится примерно час.",
+      "uk": "Це триває приблизно годину."
+    }
+  ]
+},
+{
+  "id": 160,
+  "word": "ungewöhnlich",
+  "ru": "необычный",
+  "uk": "незвичайний",
+  "level": "B1",
+  "topics": ["description"],
+  "deSynonyms": ["auffällig"],
+  "ruSynonyms": ["выделяющийся"],
+  "ukSynonyms": ["помітний"],
+  "deAntonyms": ["gewöhnlich"],
+  "ruAntonyms": ["обычный"],
+  "ukAntonyms": ["звичайний"],
+  "examples": [
+    {
+      "L2": "Die Farbe ist etwas ungewöhnlich.",
+      "ru": "Цвет немного необычный.",
+      "uk": "Колір трохи незвичайний."
+    }
+  ]
+},
+{
+  "id": 161,
+  "word": "unglücklich",
+  "ru": "несчастный",
+  "uk": "нещасний",
+  "level": "B1",
+  "topics": ["feelings"],
+  "deSynonyms": ["unzufrieden"],
+  "ruSynonyms": ["расстроенный"],
+  "ukSynonyms": ["засмучений"],
+  "deAntonyms": ["glücklich"],
+  "ruAntonyms": ["счастливый"],
+  "ukAntonyms": ["щасливий"],
+  "examples": [
+    {
+      "L2": "Er war lange Zeit unglücklich.",
+      "ru": "Он долгое время был несчастным.",
+      "uk": "Він довгий час був нещасним."
+    }
+  ]
+},
+{
+  "id": 162,
+  "word": "unhöflich",
+  "ru": "невежливый",
+  "uk": "неввічливий",
+  "level": "A2",
+  "topics": ["relationships"],
+  "deSynonyms": ["respektlos"],
+  "ruSynonyms": ["грубый"],
+  "ukSynonyms": ["грубий"],
+  "deAntonyms": ["höflich"],
+  "ruAntonyms": ["вежливый"],
+  "ukAntonyms": ["ввічливий"],
+  "examples": [
+    {
+      "L2": "Es ist unhöflich, andere zu unterbrechen.",
+      "ru": "Невежливо перебивать других.",
+      "uk": "Неввічливо перебивати інших."
+    }
+  ]
+},
+{
+  "id": 163,
+  "word": "unmöglich",
+  "ru": "невозможный",
+  "uk": "неможливий",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["undenkbar"],
+  "ruSynonyms": ["немыслимый"],
+  "ukSynonyms": ["немислимий"],
+  "deAntonyms": ["möglich"],
+  "ruAntonyms": ["возможный"],
+  "ukAntonyms": ["можливий"],
+  "examples": [
+    {
+      "L2": "Das ist fast unmöglich.",
+      "ru": "Это почти невозможно.",
+      "uk": "Це майже неможливо."
+    }
+  ]
+},
+{
+  "id": 164,
+  "word": "unnötig",
+  "ru": "ненужный",
+  "uk": "непотрібний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["überflüssig"],
+  "ruSynonyms": ["лишний"],
+  "ukSynonyms": ["зайвий"],
+  "deAntonyms": ["notwendig"],
+  "ruAntonyms": ["необходимый"],
+  "ukAntonyms": ["необхідний"],
+  "examples": [
+    {
+      "L2": "Mach dir keine unnötigen Sorgen.",
+      "ru": "Не делай себе лишних переживаний.",
+      "uk": "Не переймайся непотрібними хвилюваннями."
+    }
+  ]
+},
+{
+  "id": 165,
+  "word": "unpünktlich",
+  "ru": "непунктуальный",
+  "uk": "непунктуальний",
+  "level": "B1",
+  "topics": ["work", "time"],
+  "deSynonyms": ["zu spät"],
+  "ruSynonyms": ["опаздывающий"],
+  "ukSynonyms": ["той, хто запізнюється"],
+  "deAntonyms": ["pünktlich"],
+  "ruAntonyms": ["пунктуальный"],
+  "ukAntonyms": ["пунктуальний"],
+  "examples": [
+    {
+      "L2": "Er ist leider oft unpünktlich.",
+      "ru": "К сожалению, он часто непунктуален.",
+      "uk": "На жаль, він часто непунктуальний."
+    }
+  ]
+},
+{
+  "id": 166,
+  "word": "unschuldig",
+  "ru": "невиновный",
+  "uk": "невинний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["ohne Schuld"],
+  "ruSynonyms": ["без вины"],
+  "ukSynonyms": ["без провини"],
+  "deAntonyms": ["schuldig"],
+  "ruAntonyms": ["виновный"],
+  "ukAntonyms": ["винний"],
+  "examples": [
+    {
+      "L2": "Sie blieb vor Gericht unschuldig.",
+      "ru": "В суде она осталась невиновной.",
+      "uk": "У суді її визнали невинною."
+    }
+  ]
+},
+{
+  "id": 167,
+  "word": "unsicher",
+  "ru": "ненадёжный",
+  "uk": "небезпечний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["instabil"],
+  "ruSynonyms": ["нестабильный"],
+  "ukSynonyms": ["нестабільний"],
+  "deAntonyms": ["sicher"],
+  "ruAntonyms": ["надёжный"],
+  "ukAntonyms": ["надійний"],
+  "examples": [
+    {
+      "L2": "Die Lage ist politisch noch unsicher.",
+      "ru": "Ситуация в политике всё ещё нестабильная.",
+      "uk": "Ситуація в політиці ще нестабільна"
+    }
+  ]
+},
+{
+  "id": 168,
+  "word": "unterschiedlich",
+  "ru": "различный",
+  "uk": "відмінний",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["verschieden"],
+  "ruSynonyms": ["разный"],
+  "ukSynonyms": ["різний"],
+  "deAntonyms": ["gleich"],
+  "ruAntonyms": ["одинаковый"],
+  "ukAntonyms": ["однаковий"],
+  "examples": [
+    {
+      "L2": "Die Meinungen sind sehr unterschiedlich.",
+      "ru": "Мнения очень различаются.",
+      "uk": "Думки дуже відрізняються."
+    }
+  ]
+},
+{
+  "id": 169,
+  "word": "unvollständig",
+  "ru": "неполный",
+  "uk": "неповний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["lückenhaft"],
+  "ruSynonyms": ["фрагментарный"],
+  "ukSynonyms": ["фрагментарний"],
+  "deAntonyms": ["vollständig"],
+  "ruAntonyms": ["полный"],
+  "ukAntonyms": ["повний"],
+  "examples": [
+    {
+      "L2": "Die Liste ist noch unvollständig.",
+      "ru": "Список пока ещё неполный.",
+      "uk": "Список поки що неповний."
+    }
+  ]
+},
+{
+  "id": 170,
+  "word": "unwichtig",
+  "ru": "неважный",
+  "uk": "неважливий",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["nebensächlich"],
+  "ruSynonyms": ["несущественный"],
+  "ukSynonyms": ["несуттєвий"],
+  "deAntonyms": ["wichtig"],
+  "ruAntonyms": ["важный"],
+  "ukAntonyms": ["важливий"],
+  "examples": [
+    {
+      "L2": "Das ist im Moment unwichtig.",
+      "ru": "Это сейчас неважно.",
+      "uk": "Це зараз неважливо."
+    }
+  ]
+},
+{
+  "id": 171,
+  "word": "unwirklich",
+  "ru": "недействительный",
+  "uk": "несправжній",
+  "level": "B2",
+  "topics": ["abstract"],
+  "deSynonyms": ["irreal"],
+  "ruSynonyms": ["нереальный"],
+  "ukSynonyms": ["нереальний"],
+  "deAntonyms": ["wirklich"],
+  "ruAntonyms": ["реальный"],
+  "ukAntonyms": ["справжній"],
+  "examples": [
+    {
+      "L2": "Das alles fühlt sich unwirklich an.",
+      "ru": "Всё это кажется нереальным.",
+      "uk": "Усе це здається нереальним."
+    }
+  ]
+},
+{
+  "id": 172,
+  "word": "verfügbar",
+  "ru": "доступный",
+  "uk": "доступний",
+  "level": "B1",
+  "topics": ["work","abstract"],
+  "deSynonyms": ["frei"],
+  "ruSynonyms": ["свободный"],
+  "ukSynonyms": ["вільний"],
+  "deAntonyms": ["nicht verfügbar"],
+  "ruAntonyms": ["недоступный"],
+  "ukAntonyms": ["недоступний"],
+  "examples": [
+    {
+      "L2": "Die Daten sind online verfügbar.",
+      "ru": "Данные доступны онлайн.",
+      "uk": "Дані доступні онлайн."
+    }
+  ]
+},
+{
+  "id": 173,
+  "word": "verpflichtet",
+  "ru": "обязанный",
+  "uk": "зобов’язаний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["gebunden"],
+  "ruSynonyms": ["связанный обязательством"],
+  "ukSynonyms": ["пов’язаний обов’язком"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Er fühlt sich der Firma verpflichtet.",
+      "ru": "Он чувствует себя обязанным компании.",
+      "uk": "Він почувається зобов’язаним компанії."
+    }
+  ]
+},
+{
+  "id": 174,
+  "word": "verschieden",
+  "ru": "разный",
+  "uk": "різний",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["anders"],
+  "ruSynonyms": ["иной"],
+  "ukSynonyms": ["інший"],
+  "deAntonyms": ["gleich"],
+  "ruAntonyms": ["одинаковый"],
+  "ukAntonyms": ["однаковий"],
+  "examples": [
+    {
+      "L2": "Wir haben ganz verschiedene Ansichten.",
+      "ru": "У нас совершенно разные взгляды.",
+      "uk": "У нас зовсім різні погляди."
+    }
+  ]
+},
+{
+  "id": 175,
+  "word": "voll",
+  "ru": "полный",
+  "uk": "повний",
+  "level": "A1",
+  "topics": ["description"],
+  "deSynonyms": ["gefüllt"],
+  "ruSynonyms": ["наполненный"],
+  "ukSynonyms": ["наповнений"],
+  "deAntonyms": ["leer"],
+  "ruAntonyms": ["пустой"],
+  "ukAntonyms": ["порожній"],
+  "examples": [
+    {
+      "L2": "Der Bus ist schon voll.",
+      "ru": "Автобус уже полный.",
+      "uk": "Автобус уже повний."
+    }
+  ]
+},
+{
+  "id": 176,
+  "word": "vollständig",
+  "ru": "полный",
+  "uk": "повний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["komplett"],
+  "ruSynonyms": ["завершённый"],
+  "ukSynonyms": ["завершений"],
+  "deAntonyms": ["unvollständig"],
+  "ruAntonyms": ["неполный"],
+  "ukAntonyms": ["неповний"],
+  "examples": [
+    {
+      "L2": "Jetzt ist der Bericht vollständig.",
+      "ru": "Теперь отчёт полный.",
+      "uk": "Тепер звіт повний."
+    }
+  ]
+},
+{
+  "id": 177,
+  "word": "wahr",
+  "ru": "правдивый",
+  "uk": "правдивий",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["richtig"],
+  "ruSynonyms": ["истинный"],
+  "ukSynonyms": ["істинний"],
+  "deAntonyms": ["falsch"],
+  "ruAntonyms": ["ложный"],
+  "ukAntonyms": ["неправдивий"],
+  "examples": [
+    {
+      "L2": "Ist diese Geschichte wirklich wahr?",
+      "ru": "Эта история действительно правдива?",
+      "uk": "Ця історія справді правдива?"
+    }
+  ]
+},
+{
+  "id": 178,
+  "word": "warm",
+  "ru": "тёплый",
+  "uk": "теплий",
+  "level": "A1",
+  "topics": ["weather","description"],
+  "deSynonyms": ["mild"],
+  "ruSynonyms": ["умеренно тёплый"],
+  "ukSynonyms": ["помірно теплий"],
+  "deAntonyms": ["kalt"],
+  "ruAntonyms": ["холодный"],
+  "ukAntonyms": ["холодний"],
+  "examples": [
+    {
+      "L2": "Im Frühling wird es langsam warm.",
+      "ru": "Весной постепенно становится тепло.",
+      "uk": "Навесні поступово стає тепло."
+    }
+  ]
+},
+{
+  "id": 179,
+  "word": "weich",
+  "ru": "мягкий",
+  "uk": "м’який",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["sanft"],
+  "ruSynonyms": ["нежный"],
+  "ukSynonyms": ["ніжний"],
+  "deAntonyms": ["hart"],
+  "ruAntonyms": ["твёрдый"],
+  "ukAntonyms": ["твердий"],
+  "examples": [
+    {
+      "L2": "Das Kissen ist sehr weich.",
+      "ru": "Подушка очень мягкая.",
+      "uk": "Подушка дуже м’яка."
+    }
+  ]
+},
+{
+  "id": 180,
+  "word": "wichtig",
+  "ru": "важный",
+  "uk": "важливий",
+  "level": "A1",
+  "topics": ["abstract"],
+  "deSynonyms": ["bedeutsam"],
+  "ruSynonyms": ["значимый"],
+  "ukSynonyms": ["значущий"],
+  "deAntonyms": ["unwichtig"],
+  "ruAntonyms": ["неважный"],
+  "ukAntonyms": ["неважливий"],
+  "examples": [
+    {
+      "L2": "Das ist eine wichtige Entscheidung.",
+      "ru": "Это важное решение.",
+      "uk": "Це важливе рішення."
+    }
+  ]
+},
+{
+  "id": 181,
+  "word": "wirklich",
+  "ru": "действительный",
+  "uk": "справжній",
+  "level": "A2",
+  "topics": ["abstract"],
+  "deSynonyms": ["real"],
+  "ruSynonyms": ["реальный"],
+  "ukSynonyms": ["реальний"],
+  "deAntonyms": ["unwirklich"],
+  "ruAntonyms": ["нереальный"],
+  "ukAntonyms": ["несправжній"],
+  "examples": [
+    {
+      "L2": "Bist du wirklich sicher?",
+      "ru": "Ты действительно уверен?",
+      "uk": "Ти справді впевнений?"
+    }
+  ]
+},
+{
+  "id": 182,
+  "word": "wütend",
+  "ru": "разъярённый",
+  "uk": "розлючений",
+  "level": "B1",
+  "topics": ["feelings"],
+  "deSynonyms": ["zornig"],
+  "ruSynonyms": ["разозлённый"],
+  "ukSynonyms": ["роздратований"],
+  "deAntonyms": ["ruhig", "zufrieden"],
+  "ruAntonyms": ["спокойный", "довольный"],
+  "ukAntonyms": ["спокійний", "задоволений"],
+  "examples": [
+    {
+      "L2": "Sie war sehr wütend auf ihn.",
+      "ru": "Она очень злилась на него.",
+      "uk": "Вона була дуже розлючена на нього."
+    }
+  ]
+},
+{
+  "id": 183,
+  "word": "zufrieden",
+  "ru": "довольный",
+  "uk": "задоволений",
+  "level": "A2",
+  "topics": ["feelings"],
+  "deSynonyms": ["glücklich"],
+  "ruSynonyms": ["удовлетворённый"],
+  "ukSynonyms": ["задоволений"],
+  "deAntonyms": ["unzufrieden", "unglücklich"],
+  "ruAntonyms": ["недовольный", "несчастный"],
+  "ukAntonyms": ["незадоволений", "нещасний"],
+  "examples": [
+    {
+      "L2": "Ich bin mit dem Ergebnis zufrieden.",
+      "ru": "Я доволен результатом.",
+      "uk": "Я задоволений результатом."
+    }
+  ]
+},
+{
+  "id": 184,
+  "word": "zusätzlich",
+  "ru": "дополнительный",
+  "uk": "додатковий",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["extra"],
+  "ruSynonyms": ["прибавочный"],
+  "ukSynonyms": ["прибавковий"],
+  "deAntonyms": [],
+  "ruAntonyms": [],
+  "ukAntonyms": [],
+  "examples": [
+    {
+      "L2": "Wir brauchen zusätzliches Material.",
+      "ru": "Нам нужен дополнительный материал.",
+      "uk": "Нам потрібен додатковий матеріал."
+    }
+  ]
+},
+{
+  "id": 185,
+  "word": "zuverlässig",
+  "ru": "надёжный",
+  "uk": "надійний",
+  "level": "B1",
+  "topics": ["description"],
+  "deSynonyms": ["vertrauenswürdig"],
+  "ruSynonyms": ["достойный доверия"],
+  "ukSynonyms": ["той, кому можна довіряти"],
+  "deAntonyms": ["unzuverlässig"],
+  "ruAntonyms": ["ненадёжный"],
+  "ukAntonyms": ["ненадійний"],
+  "examples": [
+    {
+      "L2": "Er ist ein sehr zuverlässiger Kollege.",
+      "ru": "Он очень надёжный коллега.",
+      "uk": "Він дуже надійний колега."
+    }
+  ]
+},
+{
+  "id": 186,
+  "word": "ähnlich",
+  "ru": "похожий",
+  "uk": "подібний",
+  "level": "A2",
+  "topics": ["description"],
+  "deSynonyms": ["vergleichbar"],
+  "ruSynonyms": ["схожий"],
+  "ukSynonyms": ["схожий"],
+  "deAntonyms": ["verschieden"],
+  "ruAntonyms": ["разный"],
+  "ukAntonyms": ["різний"],
+  "examples": [
+    {
+      "L2": "Die beiden Wörter sind sich sehr ähnlich.",
+      "ru": "Эти два слова очень похожи.",
+      "uk": "Ці два слова дуже подібні."
+    }
+  ]
+},
+{
+  "id": 187,
+  "word": "ängstlich",
+  "ru": "боязливый",
+  "uk": "боязкий",
+  "level": "B1",
+  "topics": ["feelings"],
+  "deSynonyms": ["furchtsam"],
+  "ruSynonyms": ["пугливый"],
+  "ukSynonyms": ["лякливий"],
+  "deAntonyms": ["mutig", "tapfer"],
+  "ruAntonyms": ["смелый"],
+  "ukAntonyms": ["сміливий"],
+  "examples": [
+    {
+      "L2": "Die Katze ist sehr ängstlich.",
+      "ru": "Кошка очень боязливая.",
+      "uk": "Кішка дуже боязка."
+    }
+  ]
+},
+{
+  "id": 188,
+  "word": "äußerlich",
+  "ru": "внешний",
+  "uk": "зовнішній",
+  "level": "B2",
+  "topics": ["description"],
+  "deSynonyms": ["von außen"],
+  "ruSynonyms": ["снаружи"],
+  "ukSynonyms": ["ззовні"],
+  "deAntonyms": ["inner"],
+  "ruAntonyms": ["внутренний"],
+  "ukAntonyms": ["внутрішній"],
+  "examples": [
+    {
+      "L2": "Äußerlich hat sich wenig verändert.",
+      "ru": "Внешне мало что изменилось.",
+      "uk": "Зовні мало що змінилося."
+    }
+  ]
+},
+{
+  "id": 189,
+  "word": "öffentlich",
+  "ru": "публичный",
+  "uk": "публічний",
+  "level": "B1",
+  "topics": ["city","abstract"],
+  "deSynonyms": ["staatlich"],
+  "ruSynonyms": ["общественный"],
+  "ukSynonyms": ["громадський"],
+  "deAntonyms": ["privat"],
+  "ruAntonyms": ["частный"],
+  "ukAntonyms": ["приватний"],
+  "examples": [
+    {
+      "L2": "Das ist ein öffentliches Gebäude.",
+      "ru": "Это общественное здание.",
+      "uk": "Це публічна будівля."
+    }
+  ]
+},
+{
+  "id": 190,
+  "word": "üblich",
+  "ru": "привычный",
+  "uk": "звичний",
+  "level": "B1",
+  "topics": ["abstract"],
+  "deSynonyms": ["normal"],
+  "ruSynonyms": ["обычный"],
+  "ukSynonyms": ["звичайний"],
+  "deAntonyms": ["ungewöhnlich"],
+  "ruAntonyms": ["необычный"],
+  "ukAntonyms": ["незвичайний"],
+  "examples": [
+    {
+      "L2": "Es ist hier üblich, Trinkgeld zu geben.",
+      "ru": "Здесь принято давать чаевые.",
+      "uk": "Тут є звичним давати чайові."
+    }
+  ]
+}
 ];
 window.decks.de_adverbs = [
   {

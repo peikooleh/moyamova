@@ -282,3 +282,90 @@ body.no-scroll {
   line-height: 1;
   opacity: 0.9;
 }
+/* ==========================================================
+ * Dark theme fine-tuning (more "moyamova.com"-style)
+ * ========================================================== */
+
+:root[data-theme="dark"] {
+  /* Чуть более глубокий и холодный тёмный фон */
+  --surface-1: #020617;  /* общий фон приложения */
+  --surface-2: #02081a;  /* фон карточек/блоков */
+  --surface-3: #020c1f;  /* приподнятые панели */
+
+  /* Текст и разделители */
+  --text-primary:   #e5e7eb;
+  --text-secondary: #9ca3af;
+  --divider:        rgba(148,163,184,.45);
+}
+
+/* Базовый фон приложения */
+html[data-theme="dark"],
+html[data-theme="dark"] body{
+  background:
+    radial-gradient(circle at top, #02081a 0, #020617 45%, #000 100%);
+  color: var(--text-primary);
+}
+
+/* Основные карточки и панели */
+html[data-theme="dark"] .home,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .dicts-card,
+html[data-theme="dark"] .stats-card,
+html[data-theme="dark"] .mistakes-card,
+html[data-theme="dark"] .favorites-card,
+html[data-theme="dark"] .trainer-card{
+  background: var(--surface-2);
+  box-shadow: 0 18px 45px rgba(0,0,0,.65);
+}
+
+/* Шапка */
+html[data-theme="dark"] .app-header,
+html[data-theme="dark"] header.app-header{
+  background: linear-gradient(135deg, #020617, #02081a);
+  border-bottom-color: var(--divider);
+}
+
+/* Футер */
+html[data-theme="dark"] .app-footer{
+  background: #020617;
+  border-top-color: var(--divider);
+}
+
+/* Боковое меню */
+html[data-theme="dark"] .oc-panel{
+  background: #020617;
+  box-shadow: -24px 0 60px rgba(0,0,0,.85);
+}
+
+/* Немного подсветить фон внутри карточек статистики */
+html[data-theme="dark"] .stats-lang-card__body{
+  background:
+    radial-gradient(circle at top, #020b1f 0, #020617 55%, #000 100%);
+}
+
+/* ==========================================================
+ * Отступ сверху только для PWA (runmode=pwa)
+ * ========================================================== */
+html[data-runmode="pwa"] #app.content {
+  box-sizing: border-box;
+  padding-top: 48px; /* подкорректируй по вкусу */
+}
+
+/* ==========================================================
+ * PWA: увеличенная зона подсказок (Пример/Синонимы/Антонимы)
+ * ========================================================== */
+
+/* Только установленная PWA */
+html[data-runmode="pwa"] .home-hints .hints-body{
+  /* перебиваем light-тему (flex + min-height:48px)
+     и dark-тему (height:2.6em) одним махом */
+  display: block;
+  min-height: 0;
+  height: 5.8em;              /* подгони по вкусу: 3.8–4.6em */
+  max-height: 5.8em;
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+}

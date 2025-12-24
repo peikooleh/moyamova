@@ -300,7 +300,7 @@ donate() {
     },
 
     contact() {
-      location.href = 'mailto:support@moyamova.app';
+      location.href = 'mailto:peiko.oleh@gmail.com';
     }
   };
 
