@@ -10,7 +10,7 @@
   'use strict';
 
   // Твой реальный GA4 ID из старой версии
-  var GA_ID = (window.GA_ID || 'G-DZL66KME4H');
+  var GA_ID = (window.GA_ID || '');
 
   var __gaLoaded = false;
   var LS_KEY_OLD = 'ga_consent';   // yes / no

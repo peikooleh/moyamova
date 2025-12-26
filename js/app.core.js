@@ -2,13 +2,13 @@
  * Проект: MOYAMOVA
  * Файл: app.core.js
  * Назначение: Ядро приложения и общие настройки
- * Версия: 1.5.9
+ * Версия: 1.6.1
  * Обновлено: 2025-11-17
  * ========================================================== */
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.5.9';
+  App.APP_VER = '1.6.1';
 
     // Детектируем запуск как PWA (standalone) и помечаем root
   (function detectRunmodePwa(){
@@ -39,11 +39,7 @@
   const LS_PRO      = 'mm.proUnlocked';
 
   App.isPro = function(){
-    try {
-      return window.localStorage.getItem(LS_PRO) === '1';
-    } catch (e) {
-      return false;
-    }
+      return true;
   };
 
   App.unlockPro = function(){
