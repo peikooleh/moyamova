@@ -96,7 +96,7 @@
           '<div class="menu-item updates-check">' +
             '<div class="menu-label" data-i18n="menuUpdates">Обновления</div>' +
             '<div class="updates-row">' +
-              '<button class="primary-btn" id="btnCheckUpdates" data-i18n="btnCheckUpdates">Проверить обновления</button>' +
+              '<button class="primary-btn" id="btnCheckUpdates" data-close="1" data-i18n="btnCheckUpdates">Проверить обновления</button>' +
             '</div>' +
           '</div>' +
 
