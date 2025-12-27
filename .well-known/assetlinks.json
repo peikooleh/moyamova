@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "online.moyamova.twa",
+      "sha256_cert_fingerprints": [
+        "92:5C:39:89:3F:E2:DD:7A:DE:C0:7C:CF:2D:3C:13:4D:97:38:2B:75:B4:D8:1A:B5:AD:E0:52:02:14:F3:EC:7F"
+      ]
+    }
+  }
+]
