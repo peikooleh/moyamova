@@ -40,6 +40,37 @@
   if (burger) burger.addEventListener('click', toggleMenu);
   if (overlay) overlay.addEventListener('click', closeMenu);
 
+  // Закрытие меню по кликам на элементы с data-close (кнопки в меню и модалках)
+  document.addEventListener('click', function(e){
+    try {
+      var t = e.target;
+      // closest() нужен, чтобы сработало при клике по вложенным элементам (svg/span)
+      var node = (t && t.closest) ? t.closest('[data-close]') : t;
+      var closeAttr = node && node.getAttribute ? node.getAttribute('data-close') : null;
+      if (closeAttr) {
+        e.preventDefault();
+        closeMenu();
+      }
+    } catch(_) {}
+  });
+
+  // Явная обработка кнопки "Проверить обновления" внутри бургер-меню:
+  // закрываем меню, чтобы тосты не оказывались под overlay
+  (function(){
+    function bindUpdatesClose(){
+      var btn = document.getElementById('btnCheckUpdates');
+      if (!btn) return;
+      btn.addEventListener('click', function(){
+        try { closeMenu(); } catch(_) {}
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindUpdatesClose, { once: true });
+    } else {
+      bindUpdatesClose();
+    }
+  })();
+
   // ==========================================================
   // ЭТАП 1: всегда Donate, PRO-активация отключена
   // ==========================================================
