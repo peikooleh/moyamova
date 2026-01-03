@@ -160,29 +160,31 @@
 
  // Синонимы по L2 и L1 (ru/uk)
  function getSynonyms(word) {
- if (!word) return { de: [], l1: [] };
+  if (!word) return { de: [], l1: [] };
 
- const uiLang = getUiLang();
- const de = Array.isArray(word.deSynonyms) ? word.deSynonyms : [];
- const ru = Array.isArray(word.ruSynonyms) ? word.ruSynonyms : [];
- const uk = Array.isArray(word.ukSynonyms) ? word.ukSynonyms : [];
+  const ui = getUiLang();
+  const l2 = word.deSynonyms || word.enSynonyms || word.synonyms || word.l2Synonyms || [];
+  const l1 = (ui === 'uk' ? (word.ukSynonyms || []) : (word.ruSynonyms || [])) || [];
 
- const l1 = (uiLang === 'uk') ? uk : ru;
- return { de: de, l1: l1 };
- }
+  return {
+    de: Array.isArray(l2) ? l2 : [l2].filter(Boolean),
+    l1: Array.isArray(l1) ? l1 : [l1].filter(Boolean),
+  };
+}
 
  // Антонимы по L2 и L1 (ru/uk)
  function getAntonyms(word) {
- if (!word) return { de: [], l1: [] };
+  if (!word) return { de: [], l1: [] };
 
- const uiLang = getUiLang();
- const de = Array.isArray(word.deAntonyms) ? word.deAntonyms : [];
- const ru = Array.isArray(word.ruAntonyms) ? word.ruAntonyms : [];
- const uk = Array.isArray(word.ukAntonyms) ? word.ukAntonyms : [];
+  const ui = getUiLang();
+  const l2 = word.deAntonyms || word.enAntonyms || word.antonyms || word.l2Antonyms || [];
+  const l1 = (ui === 'uk' ? (word.ukAntonyms || []) : (word.ruAntonyms || [])) || [];
 
- const l1 = (uiLang === 'uk') ? uk : ru;
- return { de: de, l1: l1 };
- }
+  return {
+    de: Array.isArray(l2) ? l2 : [l2].filter(Boolean),
+    l1: Array.isArray(l1) ? l1 : [l1].filter(Boolean),
+  };
+}
 
  /* ----------------------------- Заголовок и вкладки ----------------------------- */
 
