@@ -24,6 +24,7 @@
       title: (i && i.statsTitle) || (uk ? 'Статистика' : 'Статистика'),
       coreTitle: uk ? 'Основні частини мови' : 'Основные части речи',
       otherTitle: uk ? 'Інші частини мови' : 'Другие части речи',
+      splitTitle: uk ? 'Час: слова vs артиклі' : 'Время: слова vs артикли',
       activityTitle: uk ? 'Активність' : 'Активность',
       activityNoData: uk
         ? 'Ще немає даних про активність — продовжуйте тренуватися, і тут з’являться кола за днями.'
@@ -99,6 +100,152 @@
         return dict[pos] || pos;
       }
     };
+  }
+
+
+  function isLernpunktKey(deckKey) {
+    return /_lernpunkt\b/i.test(String(deckKey || ''));
+  }
+
+  function currentDeckGroup() {
+    // Контекст статистики: базовые деки vs LearnPunkt.
+    // Используем последний выбранный словарь, чтобы не смешивать прогресс между группами.
+    try {
+      var k = (A.settings && A.settings.lastDeckKey) || '';
+      return isLernpunktKey(k) ? 'lernpunkt' : 'base';
+    } catch (_) {
+      return 'base';
+    }
+  }
+
+  /* ---------------------- раздельное время (слова/артикли) ---------------------- */
+
+  function sumSplitSecondsByLang(langCode) {
+    try {
+      var store = (A.state && A.state.activity) || {};
+      var langMap = store[langCode];
+      if (!langMap) return { words: 0, articles: 0, total: 0 };
+
+      var words = 0;
+      var articles = 0;
+      var total = 0;
+
+      Object.keys(langMap).forEach(function (dateKey) {
+        var row = langMap[dateKey] || {};
+        total += Number(row.seconds || 0);
+        words += Number(row.wordsSeconds || 0);
+        articles += Number(row.articlesSeconds || 0);
+      });
+
+      // Фолбэк для старых данных: если wordsSeconds нет, но total есть — считаем остаток.
+      if (words <= 0 && total > 0 && articles > 0) {
+        words = Math.max(0, total - articles);
+      }
+
+      return { words: words, articles: articles, total: total };
+    } catch (_) {
+      return { words: 0, articles: 0, total: 0 };
+    }
+  }
+
+  function countLearnedArticlesByLang(langCode) {
+    try {
+      if (!A.ArticlesProgress || typeof A.ArticlesProgress.export !== 'function') return 0;
+      if (!A.Decks || typeof A.Decks.langOfKey !== 'function') return 0;
+
+      var data = A.ArticlesProgress.export();
+      var byDeck = (data && data.byDeck) || {};
+      var max = 5;
+      try { max = Number(A.ArticlesProgress.starsMax ? A.ArticlesProgress.starsMax() : 5) || 5; } catch (_) {}
+
+      var group = currentDeckGroup();
+      var cnt = 0;
+      Object.keys(byDeck).forEach(function (deckKey) {
+        var lk = null;
+        try { lk = A.Decks.langOfKey(deckKey) || null; } catch (_) { lk = null; }
+        if (!lk || lk !== langCode) return;
+        if (group === 'lernpunkt' ? !isLernpunktKey(deckKey) : isLernpunktKey(deckKey)) return;
+
+        var map = byDeck[deckKey] || {};
+        Object.keys(map).forEach(function (wordId) {
+          var e = map[wordId] || {};
+          var s = Number(e.s || 0);
+          if (s >= max) cnt += 1;
+        });
+      });
+      return cnt;
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  function formatMinutes(seconds) {
+    seconds = Number(seconds || 0);
+    if (!seconds || seconds <= 0) return '0 мин';
+    var min = Math.round(seconds / 60);
+    return min + ' мин';
+  }
+
+  function renderTimeSplitSet(langCode, texts) {
+    var split = sumSplitSecondsByLang(langCode);
+    var total = split.words + split.articles;
+    if (!total) total = 1;
+
+    var pArticles = Math.round((split.articles / total) * 100);
+    var pWords = 100 - pArticles;
+
+    // Используем тот же "кольцевой" визуал 1:1 (layers + legend), только 2 сегмента.
+    var buckets = [
+      { key: 'words', label: (getUiLang() === 'uk' ? 'Слова' : 'Слова'), seconds: split.words, percent: pWords, color: 'var(--stats-color-verbs, #0ea5e9)' },
+      { key: 'articles', label: (getUiLang() === 'uk' ? 'Артиклі' : 'Артикли'), seconds: split.articles, percent: pArticles, color: 'var(--stats-color-nouns, #6366f1)' }
+    ];
+
+    var layersHtml = buckets.map(function (b, idx) {
+      var angle = degreesFromPercent(b.percent);
+      var scale = buckets.length === 1 ? 1 : 1 - idx * 0.18;
+      return (
+        '<div class="stats-ring-layer" style="--ring-angle:' + angle + 'deg;--ring-scale:' + scale + ';--ring-color:' + b.color + ';">' +
+          '<div class="stats-ring-layer__ring"></div>' +
+        '</div>'
+      );
+    }).join('');
+
+    var legendHtml = buckets.map(function (b) {
+      return (
+        '<div class="stats-ring-legend__item" style="--ring-color:' + b.color + ';">' +
+          '<span class="stats-ring-legend__dot"></span>' +
+          '<span class="stats-ring-legend__label">' + b.label + '</span>' +
+          '<span class="stats-ring-legend__value">' + formatMinutes(b.seconds) + '</span>' +
+        '</div>'
+      );
+    }).join('');
+
+    var learnedArticles = countLearnedArticlesByLang(langCode);
+    var uk = getUiLang() === 'uk';
+    var extraHtml =
+      '<div class="stats-ring-legend" style="margin-top:10px;">' +
+        '<div class="stats-ring-legend__item" style="--ring-color:transparent;">' +
+          '<span class="stats-ring-legend__dot" style="opacity:0;"></span>' +
+          '<span class="stats-ring-legend__label">' + (uk ? 'Вивчено артиклів:' : 'Выучено артиклей:') + '</span>' +
+          '<span class="stats-ring-legend__value">' + learnedArticles + '</span>' +
+        '</div>' +
+        '<div class="stats-ring-legend__item" style="--ring-color:transparent;">' +
+          '<span class="stats-ring-legend__dot" style="opacity:0;"></span>' +
+          '<span class="stats-ring-legend__label">' + (uk ? 'Час на артиклі:' : 'Время на артикли:') + '</span>' +
+          '<span class="stats-ring-legend__value">' + formatMinutes(split.articles) + '</span>' +
+        '</div>' +
+      '</div>';
+
+    return (
+      '<div class="stats-ring-set stats-ring-set--split">' +
+        '<div class="stats-ring-set__title">' + texts.splitTitle + '</div>' +
+        '<div class="stats-ring-set__circle">' +
+          '<div class="stats-ring-set__circle-inner">' + layersHtml + '</div>' +
+        '</div>' +
+        '<div class="stats-ring-legend">' + legendHtml + '</div>' +
+        extraHtml +
+      '</div>'
+    );
   }
 
   function posFromDeckKey(deckKey) {
@@ -190,6 +337,11 @@
         return Array.isArray(rawDecks[k]) && rawDecks[k].length;
       });
     }
+
+    var group = currentDeckGroup();
+    deckKeys = (deckKeys || []).filter(function (k) {
+      return group === 'lernpunkt' ? isLernpunktKey(k) : !isLernpunktKey(k);
+    });
 
     deckKeys.forEach(function (deckKey) {
       let lang;
@@ -683,7 +835,45 @@
         const split = splitPosBuckets(langStat);
         const coreSetHtml = renderRingSet(split.core, texts, 'core');
         const otherSetHtml = renderRingSet(split.other, texts, 'other');
+        const isGerman = langCode === 'de';
+        const splitTimeHtml = isGerman ? renderTimeSplitSet(langCode, texts) : '';
         const activityHtml = renderActivitySection(langCode, texts);
+
+        // Страница "Время: слова vs артикли" показывается только для немецкого языка (de).
+        // Пейджер и PRO-гейт должны работать независимо от количества страниц.
+        const activityPage = isGerman ? 3 : 2;
+
+        const pagesHtml =
+          '<div class="stats-pages">' +
+            '<div class="stats-page stats-page--core is-active" data-page="0">' +
+              '<div class="stats-ring-sets stats-ring-sets--single">' +
+                coreSetHtml +
+              '</div>' +
+            '</div>' +
+            '<div class="stats-page stats-page--other" data-page="1">' +
+              '<div class="stats-ring-sets stats-ring-sets--single">' +
+                otherSetHtml +
+              '</div>' +
+            '</div>' +
+            (isGerman
+              ? ('<div class="stats-page stats-page--split" data-page="2">' +
+                   '<div class="stats-ring-sets stats-ring-sets--single">' +
+                     splitTimeHtml +
+                   '</div>' +
+                 '</div>')
+              : '') +
+            '<div class="stats-page stats-page--analytics" data-page="' + activityPage + '">' +
+              activityHtml +
+            '</div>' +
+          '</div>';
+
+        const dotsHtml =
+          '<div class="stats-pages-dots">' +
+            '<button class="stats-page-dot is-active" type="button" data-page="0"></button>' +
+            '<button class="stats-page-dot" type="button" data-page="1"></button>' +
+            (isGerman ? '<button class="stats-page-dot" type="button" data-page="2"></button>' : '') +
+            '<button class="stats-page-dot" type="button" data-page="' + activityPage + '"></button>' +
+          '</div>';
 
         return (
           '<article class="stats-lang-card' +
@@ -702,26 +892,8 @@
           '</div>' +
           '</header>' +
           '<div class="stats-lang-card__body">' +
-          '<div class="stats-pages">' +
-            '<div class="stats-page stats-page--core is-active" data-page="0">' +
-              '<div class="stats-ring-sets stats-ring-sets--single">' +
-                coreSetHtml +
-              '</div>' +
-            '</div>' +
-            '<div class="stats-page stats-page--other" data-page="1">' +
-              '<div class="stats-ring-sets stats-ring-sets--single">' +
-                otherSetHtml +
-              '</div>' +
-            '</div>' +
-            '<div class="stats-page stats-page--analytics" data-page="2">' +
-              activityHtml +
-            '</div>' +
-          '</div>' +
-          '<div class="stats-pages-dots">' +
-            '<button class="stats-page-dot is-active" type="button" data-page="0"></button>' +
-            '<button class="stats-page-dot" type="button" data-page="1"></button>' +
-            '<button class="stats-page-dot" type="button" data-page="2"></button>' +
-          '</div>' +
+          pagesHtml +
+          dotsHtml +
           '</div>' +
           '</article>'
         );
@@ -873,43 +1045,51 @@
 
       var current = 0;
 
-      function goTo(idx) {
-        // Страница с аналитикой (2) доступна только в PRO-версии
-        if (idx === 2 && (!A.isPro || !A.isPro())) {
+      function goTo(pageNum) {
+        // Доступные страницы определяются по dot'ам (data-page).
+        var pagesList = Array.prototype.slice.call(pages || []);
+        var dotsList  = Array.prototype.slice.call(dots  || []);
+        var nums = dotsList.map(function (d) {
+          return parseInt(d.getAttribute('data-page') || '0', 10) || 0;
+        }).sort(function (a,b){return a-b;});
+        var minPage = nums.length ? nums[0] : 0;
+        var maxPage = nums.length ? nums[nums.length-1] : (pagesList.length ? pagesList.length-1 : 0);
+
+        if (pageNum < minPage) pageNum = minPage;
+        if (pageNum > maxPage) pageNum = maxPage;
+        current = pageNum;
+
+        // PRO-gate: аналитика доступна только в PRO (независимо от индекса)
+        var targetPage = null;
+        pagesList.forEach(function (pageEl) {
+          var pIdx = parseInt(pageEl.getAttribute('data-page') || '0', 10) || 0;
+          if (pIdx === current) targetPage = pageEl;
+        });
+
+        if (targetPage && targetPage.classList.contains('stats-page--analytics') && (!A.isPro || !A.isPro())) {
           try {
             var lang = getUiLang();
-            var body = (lang === 'uk')
+            var bodyText = (lang === 'uk')
               ? 'Статистика доступна у версії MOYAMOVA PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.'
               : 'Статистика доступна в версии MOYAMOVA PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
 
             var stubHtml =
               '<div class="stats-pro-gate" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">' +
-                '<p style="margin-bottom:10px;">' + body + '</p>' +
+                '<p style="margin-bottom:10px;">' + bodyText + '</p>' +
               '</div>';
 
-            var targetPage = null;
-            pages.forEach(function (pageEl) {
-              var pIdx = parseInt(pageEl.getAttribute('data-page') || '0', 10) || 0;
-              if (pIdx === 2) targetPage = pageEl;
-            });
-
-            if (targetPage) {
-              targetPage.innerHTML = stubHtml;
-            }
+            targetPage.innerHTML = stubHtml;
           } catch (_) {}
-          // продолжаем выполнение, чтобы переключить активную страницу и точку
         }
 
-        if (idx < 0) idx = 0;
-        if (idx > pages.length - 1) idx = pages.length - 1;
-        current = idx;
-
-        pages.forEach(function (page, i) {
-          page.classList.toggle('is-active', i === current);
+        // Активные классы
+        pagesList.forEach(function (pageEl) {
+          var pIdx = parseInt(pageEl.getAttribute('data-page') || '0', 10) || 0;
+          pageEl.classList.toggle('is-active', pIdx === current);
         });
-
-        dots.forEach(function (dot, i) {
-          dot.classList.toggle('is-active', i === current);
+        dotsList.forEach(function (dotEl) {
+          var dIdx = parseInt(dotEl.getAttribute('data-page') || '0', 10) || 0;
+          dotEl.classList.toggle('is-active', dIdx === current);
         });
       }
 
@@ -953,7 +1133,7 @@
   }
 
   A.ViewStats = {
-    mount: mount
+    mount: function(){ try{ if (A.stopAllTrainers) A.stopAllTrainers('view:stats'); }catch(_){} return mount(); }
   };
 })();
 /* ========================= Конец файла: view.stats.js ========================= */

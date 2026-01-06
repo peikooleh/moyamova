@@ -126,6 +126,19 @@
 
       // сохраняем в App.state.mistakes + persist
       syncToState();
+
+      // аналитика: добавление слова в ошибки (слова)
+      try {
+        if (A.Analytics && typeof A.Analytics.track === 'function') {
+          A.Analytics.track('mistake_added', {
+            deck_key: String(baseDeckKey || ''),
+            word_id: String(wordId),
+            train_lang: String(trainLang || getTrainLang()),
+            ui_lang: getTrainLang(),
+            learn_lang: (A.Decks && typeof A.Decks.langOfKey === 'function') ? (A.Decks.langOfKey(baseDeckKey) || null) : null
+          });
+        }
+      } catch(_){ }
     }catch(_){}
   }
 
@@ -137,6 +150,18 @@
       if (A.mistakes.buckets[lang] && A.mistakes.buckets[lang][baseDeckKey]){
         delete A.mistakes.buckets[lang][baseDeckKey];
         syncToState();
+
+        // аналитика: очистка ошибок по словарю (слова)
+        try {
+          if (A.Analytics && typeof A.Analytics.track === 'function') {
+            A.Analytics.track('mistakes_cleared', {
+              deck_key: String(baseDeckKey || ''),
+              train_lang: String(lang || getTrainLang()),
+              ui_lang: getTrainLang(),
+              learn_lang: (A.Decks && typeof A.Decks.langOfKey === 'function') ? (A.Decks.langOfKey(baseDeckKey) || null) : null
+            });
+          }
+        } catch(_){ }
       }
     }catch(_){}
   }

@@ -409,25 +409,13 @@ html[data-runmode="pwa"] .home-hints .hints-body{
   bottom: 4px;
 }
 
-/* Dicts pager dots: center (support both class variants) */
-.dicts-card .dicts-page-dots,
+
+/* ==========================================================
+ * Dictionaries (DE): pager dots center
+ * ========================================================== */
 .dicts-card .stats-pages-dots{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0 2px;
-}
-
-/* dots buttons (if needed) */
-.dicts-card .stats-pages-dots .stats-page-dot,
-.dicts-card .dicts-page-dots .stats-page-dot{
-  display: inline-block;
-}
-
-/* keep spacing from actions */
-.dicts-card .dicts-page-dots + .dicts-actions,
-.dicts-card .stats-pages-dots + .dicts-actions{
-  margin-top: 8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
 }

@@ -158,33 +158,48 @@
  return 'Функция доступна в версии PRO. ';
  }
 
+ // Заглушка для упражнения "Артикли" (примеры/синонимы/антонимы)
+ function isArticlesTrainerMode() {
+  return (
+    typeof A !== 'undefined' &&
+    A.ArticlesTrainer &&
+    typeof A.ArticlesTrainer.isActive === 'function' &&
+    A.ArticlesTrainer.isActive()
+  );
+ }
+
+ function getExerciseLockText() {
+  const lang = getUiLang();
+  return (lang === 'uk')
+    ? 'Недоступно в цій вправі.'
+    : 'Не доступно в этом упражнении.';
+ }
+
  // Синонимы по L2 и L1 (ru/uk)
  function getSynonyms(word) {
-  if (!word) return { de: [], l1: [] };
+ if (!word) return { de: [], l1: [] };
 
-  const ui = getUiLang();
-  const l2 = word.deSynonyms || word.enSynonyms || word.synonyms || word.l2Synonyms || [];
-  const l1 = (ui === 'uk' ? (word.ukSynonyms || []) : (word.ruSynonyms || [])) || [];
+ const uiLang = getUiLang();
+ const de = Array.isArray(word.deSynonyms) ? word.deSynonyms : [];
+ const ru = Array.isArray(word.ruSynonyms) ? word.ruSynonyms : [];
+ const uk = Array.isArray(word.ukSynonyms) ? word.ukSynonyms : [];
 
-  return {
-    de: Array.isArray(l2) ? l2 : [l2].filter(Boolean),
-    l1: Array.isArray(l1) ? l1 : [l1].filter(Boolean),
-  };
-}
+ const l1 = (uiLang === 'uk') ? uk : ru;
+ return { de: de, l1: l1 };
+ }
 
  // Антонимы по L2 и L1 (ru/uk)
  function getAntonyms(word) {
-  if (!word) return { de: [], l1: [] };
+ if (!word) return { de: [], l1: [] };
 
-  const ui = getUiLang();
-  const l2 = word.deAntonyms || word.enAntonyms || word.antonyms || word.l2Antonyms || [];
-  const l1 = (ui === 'uk' ? (word.ukAntonyms || []) : (word.ruAntonyms || [])) || [];
+ const uiLang = getUiLang();
+ const de = Array.isArray(word.deAntonyms) ? word.deAntonyms : [];
+ const ru = Array.isArray(word.ruAntonyms) ? word.ruAntonyms : [];
+ const uk = Array.isArray(word.ukAntonyms) ? word.ukAntonyms : [];
 
-  return {
-    de: Array.isArray(l2) ? l2 : [l2].filter(Boolean),
-    l1: Array.isArray(l1) ? l1 : [l1].filter(Boolean),
-  };
-}
+ const l1 = (uiLang === 'uk') ? uk : ru;
+ return { de: de, l1: l1 };
+ }
 
  /* ----------------------------- Заголовок и вкладки ----------------------------- */
 
@@ -239,6 +254,17 @@
  /* ----------------------------- Основной рендер ----------------------------- */
 
  function renderExamplesTab(word, body) {
+ // В упражнении "Артикли" примеры недоступны
+ if (isArticlesTrainerMode()) {
+  body.innerHTML =
+   '<div class="hint-example">' +
+   '<p class="hint-tr is-visible">' +
+   escapeHtml(getExerciseLockText()) +
+   '</p>' +
+   '</div>';
+  return;
+ }
+
  const examples = Array.isArray(word.examples) ? word.examples : [];
  if (!examples.length) {
  // если нет примеров — просто очищаем (как было раньше)
@@ -276,6 +302,17 @@
  }
 
  function renderSynonymsTab(word, body) {
+ // В упражнении "Артикли" синонимы недоступны
+ if (isArticlesTrainerMode()) {
+  body.innerHTML =
+   '<div class="hint-example">' +
+   '<p class="hint-tr is-visible">' +
+   escapeHtml(getExerciseLockText()) +
+   '</p>' +
+   '</div>';
+  return;
+ }
+
  if (!A.isPro || !A.isPro()) {
  body.innerHTML =
  '<div class="hint-example">' +
@@ -311,6 +348,17 @@
 }
 
  function renderAntonymsTab(word, body) {
+ // В упражнении "Артикли" антонимы недоступны
+ if (isArticlesTrainerMode()) {
+  body.innerHTML =
+   '<div class="hint-example">' +
+   '<p class="hint-tr is-visible">' +
+   escapeHtml(getExerciseLockText()) +
+   '</p>' +
+   '</div>';
+  return;
+ }
+
  if (!A.isPro || !A.isPro()) {
  body.innerHTML =
  '<div class="hint-example">' +

@@ -107,6 +107,7 @@
   // ---------------- Открытие / закрытие ----------------
 
   function openModal() {
+    try { if (window.App && window.App.stopAllTrainers) window.App.stopAllTrainers('legal:open'); } catch(_){ }
     var modal = ensureModalExists();
     var body = modal.querySelector('.legal-modal-body');
     if (!body) return;

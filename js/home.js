@@ -41,7 +41,29 @@
     return (v === 'uk') ? 'uk' : 'ru';
   }
 
-  function setUiLang(code){
+  
+  // Подсчет "выученности" в режиме артиклей: считаем отдельно, не смешивая со словами.
+  function countLearnedArticles(words, deckKey){
+    try{
+      if (!words || !words.length) return 0;
+      const P = A.ArticlesProgress;
+      if (!P || typeof P.getStars !== 'function') return 0;
+      const max = (typeof P.starsMax === 'function') ? P.starsMax() : 5;
+      let learned = 0;
+      for (let i=0;i<words.length;i++){
+        const w = words[i];
+        const have = Number(P.getStars(deckKey, w.id) || 0) || 0;
+        if (have >= max) learned++;
+      }
+      return learned;
+    }catch(_){
+      return 0;
+    }
+  }
+
+  // Обновляет строку статистики под карточкой (1:1 с обычным тренером по месту/формату),
+  // но источник цифр зависит от режима: words vs articles.
+function setUiLang(code){
     const lang = (code === 'uk') ? 'uk' : 'ru';
     A.settings = A.settings || {};
     A.settings.lang = lang;
@@ -105,7 +127,12 @@
         if (A.Router && typeof A.Router.routeTo === 'function') {
           A.Router.routeTo(A.Router.current || 'home');
         } else {
-          mountMarkup(); renderSets(); renderTrainer();
+          mountMarkup(); renderSets();
+        if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === "function" && A.ArticlesTrainer.isActive()) {
+          try { if (A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (_){}
+        } else {
+          renderTrainer();
+        }
         }
       } catch(_){}
     });
@@ -195,6 +222,22 @@
     }
   }
 
+  function firstAvailableBaseDeckKeyByGroup(group){
+    try{
+      const g = String(group||'base').toLowerCase();
+      const decks = (window.decks && typeof window.decks === 'object') ? window.decks : {};
+      const keys = Object.keys(decks).filter(k =>
+        Array.isArray(decks[k]) &&
+        decks[k].length > 0 &&
+        !/^favorites:|^mistakes:/i.test(k)
+      ).filter(k => g==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
+      return keys[0] || firstAvailableBaseDeckKey();
+    }catch(_){
+      return firstAvailableBaseDeckKey();
+    }
+  }
+
+
   function pickDefaultKeyLikeRef() {
     try {
       if (A.Decks && typeof A.Decks.pickDefaultKey === 'function') {
@@ -213,11 +256,18 @@
     try {
       if (!key) return null;
       if (/^favorites:/i.test(key)) {
-        const parts = String(key).split(':'); // ["favorites", "<tl>", "<baseKey>"]
-        return parts.slice(2).join(':') || null;
+        const parts = String(key).split(':'); // ["favorites", "<tl>", "<tail>"]
+        const tail = parts.slice(2).join(':') || null;
+        if (!tail) return null;
+        if (/^(base|lernpunkt)$/i.test(tail)) return firstAvailableBaseDeckKeyByGroup(tail);
+        return tail;
       }
       if (/^mistakes:/i.test(key)) {
-        return String(key).split(':').slice(1).join(':') || null;
+        const parts = String(key).split(':'); // ["mistakes", "<tl>", "<tail>"]
+        const tail = parts.slice(2).join(':') || null;
+        if (!tail) return null;
+        if (/^(base|lernpunkt)$/i.test(tail)) return firstAvailableBaseDeckKeyByGroup(tail);
+        return tail;
       }
       return null;
     } catch(_) { return null; }
@@ -225,6 +275,30 @@
 
   // starKey (единственное определение)
   const starKey = (typeof A.starKey === 'function') ? A.starKey : (id, key) => `${key}:${id}`;
+
+  function setDictStatsText(statsEl, deckKey){
+    try{
+      if (!statsEl) return;
+      const full = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') ? (A.Decks.resolveDeckByKey(deckKey) || []) : [];
+      const starsMax = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
+
+      const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
+
+      const learnedWords = full.filter(w => ((A.state && A.state.stars && A.state.stars[starKey(w.id, deckKey)]) || 0) >= starsMax).length;
+      const uk = getUiLang() === 'uk';
+      if (isArticles) {
+        const learnedA = countLearnedArticles(full, deckKey);
+        statsEl.style.display = '';
+        statsEl.textContent = uk ? `Всього слів: ${full.length} / Вивчено: ${learnedA}`
+                               : `Всего слов: ${full.length} / Выучено: ${learnedA}`;
+      } else {
+        statsEl.style.display = '';
+        statsEl.textContent = uk ? `Всього слів: ${full.length} / Вивчено: ${learnedWords}`
+                               : `Всего слов: ${full.length} / Выучено: ${learnedWords}`;
+      }
+    }catch(_){}
+  }
+
 
 // Выбор активного словаря
 function activeDeckKey() {
@@ -401,18 +475,34 @@ function activeDeckKey() {
 
     const starsMax = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
 
+    const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
+
     for (let i = 0; i < totalSets; i++) {
       const from = i * SET_SIZE;
       const to   = Math.min(deck.length, (i + 1) * SET_SIZE);
       const sub  = deck.slice(from, to);
-      const done = sub.length > 0 && sub.every(w => ((A.state && A.state.stars && A.state.stars[starKey(w.id, key)]) || 0) >= starsMax);
+      const done = sub.length > 0 && sub.every(w => {
+        if (isArticles) {
+          try {
+            const maxA = (A.ArticlesProgress && typeof A.ArticlesProgress.starsMax === 'function') ? A.ArticlesProgress.starsMax() : starsMax;
+            const haveA = (A.ArticlesProgress && typeof A.ArticlesProgress.getStars === 'function') ? (A.ArticlesProgress.getStars(key, w.id) || 0) : 0;
+            return Number(haveA || 0) >= Number(maxA || 5);
+          } catch(_) { return false; }
+        }
+        return (((A.state && A.state.stars && A.state.stars[starKey(w.id, key)]) || 0) >= starsMax);
+      });
 
       const btn = document.createElement('button');
       btn.className = 'set-pill' + (i === activeIdx ? ' is-active' : '') + (done ? ' is-done' : '');
       btn.textContent = i + 1;
       btn.onclick = () => {
         try { if (A.Trainer && typeof A.Trainer.setBatchIndex === 'function') A.Trainer.setBatchIndex(i, key); } catch (_){}
-        renderSets(); renderTrainer();
+        renderSets();
+        if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === "function" && A.ArticlesTrainer.isActive()) {
+          try { if (A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (_){}
+        } else {
+          renderTrainer();
+        }
         try { A.Stats && A.Stats.recomputeAndRender && A.Stats.recomputeAndRender(); } catch(_){}
       };
       grid.appendChild(btn);
@@ -427,9 +517,20 @@ function activeDeckKey() {
 
     if (statsEl) {
       const uk = getUiLang() === 'uk';
-      statsEl.textContent = uk
-        ? `Слів у наборі: ${words.length} / Вивчено: ${learned}`
-        : `Слов в наборе: ${words.length} / Выучено: ${learned}`;
+      // В режиме тренера артиклей статистику по словам в сете скрываем.
+      const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
+      if (isArticles) {
+        const learnedA = countLearnedArticles(words, key);
+        statsEl.style.display = '';
+        statsEl.textContent = uk
+          ? `Слів у наборі: ${words.length} / Вивчено: ${learnedA}`
+          : `Слов в наборе: ${words.length} / Выучено: ${learnedA}`;
+      } else {
+        statsEl.style.display = '';
+        statsEl.textContent = uk
+          ? `Слів у наборі: ${words.length} / Вивчено: ${learned}`
+          : `Слов в наборе: ${words.length} / Выучено: ${learned}`;
+      }
     }
   }
 
@@ -593,6 +694,49 @@ function activeDeckKey() {
     const slice = (A.Trainer && typeof A.Trainer.getDeckSlice === 'function') ? (A.Trainer.getDeckSlice(key) || []) : [];
     if (!slice.length) return;
 
+    // Trainer variant switching (words vs articles).
+    // We must NOT fall back to the default trainer when the user interacts with
+    // sets, language toggle, or other UI elements while the articles trainer is active.
+    // Switching is allowed only via the dedicated buttons on selection screens.
+    const baseKeyForArticles = extractBaseFromVirtual(key) || key;
+    const wantArticles = !!(A.settings && A.settings.trainerKind === 'articles')
+      && String(baseKeyForArticles || '').toLowerCase().startsWith('de_nouns')
+      && (A.ArticlesTrainer && A.ArticlesCard);
+
+    if (wantArticles) {
+      // Ensure the articles card is mounted into the standard home trainer container.
+      try { if (A.ArticlesCard && typeof A.ArticlesCard.mount === 'function') A.ArticlesCard.mount(document.querySelector('.home-trainer')); } catch (_){ }
+
+      // Start if needed (mode mirrors the default trainer's difficulty).
+      try {
+        const mode = (typeof getMode === 'function') ? getMode() : 'normal';
+        if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === 'function') {
+          let needStart = !A.ArticlesTrainer.isActive();
+          if (!needStart && typeof A.ArticlesTrainer.getViewModel === 'function') {
+            try {
+              const vm = A.ArticlesTrainer.getViewModel();
+              const curKey = vm ? String(vm.deckKey || '') : '';
+              if (curKey !== String(key || '')) needStart = true;
+            } catch (_e) {}
+          }
+          // IMPORTANT: when navigating from Favorites/Mistakes, the articles trainer can already be active.
+          // In that case we must re-start it with the new virtual key to keep stats and guards consistent.
+          if (needStart) A.ArticlesTrainer.start(key, mode);
+        }
+      } catch (_){ }
+
+      // Force a render for the current viewModel (in addition to bus updates).
+      try { if (A.ArticlesCard && typeof A.ArticlesCard.render === 'function' && A.ArticlesTrainer && typeof A.ArticlesTrainer.getViewModel === 'function') A.ArticlesCard.render(A.ArticlesTrainer.getViewModel()); } catch (_){ }
+
+      // Mode indicator must be visible on first render (same as default trainer).
+      try { if (A.Trainer && typeof A.Trainer.updateModeIndicator === 'function') A.Trainer.updateModeIndicator(); } catch (_){ }
+      return;
+    }
+
+    // If we are NOT in articles mode, make sure the articles plugin is stopped/unmounted.
+    try { if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === 'function' && A.ArticlesTrainer.isActive()) A.ArticlesTrainer.stop(); } catch (_){ }
+    try { if (A.ArticlesCard && typeof A.ArticlesCard.unmount === 'function') A.ArticlesCard.unmount(); } catch (_){ }
+
     const idx = (A.Trainer && typeof A.Trainer.sampleNextIndexWeighted === 'function')
       ? A.Trainer.sampleNextIndexWeighted(slice)
       : Math.floor(Math.random() * slice.length);
@@ -700,9 +844,11 @@ function activeDeckKey() {
           try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(key, word.id, true); } catch (_){}
           try { renderStarsFor(word); } catch(_){}
 
-          // аналитика: пинг при правильном ответе
+          // аналитика: ответ в тренере
           try {
-            if (A.Analytics && typeof A.Analytics.trainingPing === 'function') {
+            if (A.Analytics && typeof A.Analytics.trainingAnswer === 'function') {
+              A.Analytics.trainingAnswer({ result: 'correct', applied: true });
+            } else if (A.Analytics && typeof A.Analytics.trainingPing === 'function') {
               A.Analytics.trainingPing({ reason: 'answer_correct' });
             }
           } catch (_) {}
@@ -713,7 +859,12 @@ function activeDeckKey() {
             btn.disabled = true;
           });
           afterAnswer(true);
-          setTimeout(() => { renderSets(); renderTrainer(); }, ADV_DELAY);
+          setTimeout(() => { renderSets();
+        if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === "function" && A.ArticlesTrainer.isActive()) {
+          try { if (A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (_){}
+        } else {
+          renderTrainer();
+        } }, ADV_DELAY);
           return;
         }
 
@@ -725,9 +876,11 @@ function activeDeckKey() {
           try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(key, word.id, false); } catch (_){}
           try { renderStarsFor(word); } catch(_){}
 
-          // аналитика: пинг при неправильном ответе
+          // аналитика: ответ в тренере (штраф/зачёт только 1 раз)
           try {
-            if (A.Analytics && typeof A.Analytics.trainingPing === 'function') {
+            if (A.Analytics && typeof A.Analytics.trainingAnswer === 'function') {
+              A.Analytics.trainingAnswer({ result: 'wrong', applied: true });
+            } else if (A.Analytics && typeof A.Analytics.trainingPing === 'function') {
               A.Analytics.trainingPing({ reason: 'answer_wrong' });
             }
           } catch (_) {}
@@ -755,24 +908,31 @@ function activeDeckKey() {
         if (correctBtn) correctBtn.classList.add('is-correct');
         lockAll(word.id);
 
-        // аналитика: пинг при "не знаю"
+        // аналитика: "не знаю" (как клик, но без штрафа/начисления)
         try {
-          if (A.Analytics && typeof A.Analytics.trainingPing === 'function') {
+          if (A.Analytics && typeof A.Analytics.trainingAnswer === 'function') {
+            A.Analytics.trainingAnswer({ result: 'dont_know', applied: false });
+          } else if (A.Analytics && typeof A.Analytics.trainingPing === 'function') {
             A.Analytics.trainingPing({ reason: 'answer_idk' });
           }
         } catch (_) {}
 
-        setTimeout(() => { renderSets(); renderTrainer(); }, ADV_DELAY);
+        setTimeout(() => { renderSets();
+        if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === "function" && A.ArticlesTrainer.isActive()) {
+          try { if (A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (_){}
+        } else {
+          renderTrainer();
+        } }, ADV_DELAY);
       };
     }
 
     const full = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') ? (A.Decks.resolveDeckByKey(key) || []) : [];
     const starsMax = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
+
+    const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
     const learned = full.filter(w => ((A.state && A.state.stars && A.state.stars[starKey(w.id, key)]) || 0) >= starsMax).length;
     if (stats) {
-      const uk = getUiLang() === 'uk';
-      stats.textContent = uk ? `Всього слів: ${full.length} / Вивчено: ${learned}`
-                             : `Всего слов: ${full.length} / Выучено: ${learned}`;
+      setDictStatsText(stats, key);
     }
     if (modeEl && A.Trainer && typeof A.Trainer.updateModeIndicator === 'function') {
       A.Trainer.updateModeIndicator();
@@ -800,6 +960,19 @@ function activeDeckKey() {
       this.current = action;
       const app = document.getElementById('app');
       if (!app) return;
+
+      // аналитика: виртуальные экраны (вся навигация идёт через Router)
+      try {
+        if (A.Analytics && typeof A.Analytics.screen === 'function') {
+          A.Analytics.screen(String(action || 'home'), {
+            prev_screen: String(prev || 'home'),
+            ui_lang: getCurrentUiLang(),
+            learn_lang: getCurrentLearnLang(),
+            mode: (typeof getMode === 'function') ? getMode() : null,
+            trainer_kind: (A.settings && A.settings.trainerKind) ? String(A.settings.trainerKind) : null
+          });
+        }
+      } catch(_){ }
 
       // аналитика: если уходим с главного экрана — завершаем тренировку
       if (prev === 'home' && action !== 'home') {
@@ -918,49 +1091,107 @@ function activeDeckKey() {
       // дождаться готовности словарей (важно на «чистом старте»)
       await waitForDecksReady();
 
-      // === корректно определяем прогресс в ТЕКУЩЕМ СЕТЕ без побочных эффектов ===
-      let hasProgress = true;
-      let keyToCheck = null;
+            // === корректно определяем прогресс в ТЕКУЩЕМ СЕТЕ без побочных эффектов ===
+      // Важно:
+      //  - setSize зависит от деки (например, *_lernpunkt => 10)
+      //  - deckKey может быть виртуальным (favorites/mistakes/group), поэтому для storage нужен нормализованный key
+      let hasProgress = false;
+      let deckKeyRaw = null;
+      let deckKeyStorage = null;
       let slice = [];
 
+      const isLernpunktKey = (k) => {
+        try { return String(k || '').toLowerCase().endsWith('_lernpunkt'); } catch (_) { return false; }
+      };
+
+      const getSetSizeLocal = (k) => {
+        try {
+          const kk = String(k || '').toLowerCase();
+          if (kk.endsWith('_lernpunkt')) return 10;
+          return (A.Config && Number.isFinite(A.Config.setSizeDefault)) ? A.Config.setSizeDefault : 50;
+        } catch (_) { return 50; }
+      };
+
+      const normalizeProgressKey = (k) => {
+        const s = String(k || '').trim();
+        if (!s) return s;
+
+        // favorites:xx:base | favorites:xx:lernpunkt | mistakes:xx:base | mistakes:xx:lernpunkt
+        const mGroup = s.match(/^(favorites|mistakes):[a-z]{2}:(base|lernpunkt)$/i);
+        if (mGroup) {
+          const group = String(mGroup[2]).toLowerCase();
+          const last = (A.settings && A.settings.lastDeckKey) ? String(A.settings.lastDeckKey) : '';
+          if (last) {
+            if (group === 'lernpunkt' && isLernpunktKey(last)) return last;
+            if (group === 'base' && !isLernpunktKey(last)) return last;
+          }
+          const keys = Object.keys(window.decks || {});
+          if (group === 'lernpunkt') return keys.find(x => isLernpunktKey(x)) || last || pickDefaultKeyLikeRef();
+          return keys.find(x => !!x && !isLernpunktKey(x)) || last || pickDefaultKeyLikeRef();
+        }
+
+        // favorites:xx:<baseDeckKey> | mistakes:xx:<baseDeckKey>
+        const m = s.match(/^(favorites|mistakes):[a-z]{2}:(.+)$/i);
+        if (m) return String(m[2]);
+
+        return s;
+      };
+
       try {
-        keyToCheck =
+        deckKeyRaw =
           (A.Trainer && typeof A.Trainer.getDeckKey === 'function' && A.Trainer.getDeckKey())
           || ((A.settings && A.settings.lastDeckKey) || null)
           || pickDefaultKeyLikeRef();
 
+        deckKeyStorage = normalizeProgressKey(deckKeyRaw);
+
+        // Пытаемся взять slice у тренера (он лучше знает setSize и batchIndex). Если не удалось — делаем fallback.
         if (A.Trainer && typeof A.Trainer.getDeckSlice === 'function') {
-          slice = A.Trainer.getDeckSlice(keyToCheck) || [];
+          slice = A.Trainer.getDeckSlice(deckKeyRaw) || A.Trainer.getDeckSlice(deckKeyStorage) || [];
         } else {
           const full = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function')
-            ? (A.Decks.resolveDeckByKey(keyToCheck) || [])
+            ? (A.Decks.resolveDeckByKey(deckKeyStorage) || [])
             : [];
           const idx = (A.Trainer && typeof A.Trainer.getBatchIndex === 'function')
-            ? (A.Trainer.getBatchIndex(keyToCheck) || 0)
+            ? (A.Trainer.getBatchIndex(deckKeyStorage) || 0)
             : 0;
-          const from = idx * SET_SIZE;
-          const to   = Math.min(full.length, (idx + 1) * SET_SIZE);
+          const setSize = getSetSizeLocal(deckKeyStorage);
+          const from = idx * setSize;
+          const to   = Math.min(full.length, (idx + 1) * setSize);
           slice = full.slice(from, to);
         }
 
         const st = (A.state && A.state.stars) ? A.state.stars : {};
+        const su = (A.state && A.state.successes) ? A.state.successes : {};
+        const ls = (A.state && A.state.lastSeen) ? A.state.lastSeen : {};
+
         for (let i = 0; i < slice.length; i++) {
           const id = slice[i] && slice[i].id;
           if (!id) continue;
-          const v = Number(st[starKey(id, keyToCheck)] || 0);
-          if (v > 0) { hasProgress = true; break; }
+          const k = starKey(id, deckKeyStorage);
+          const v1 = Number(st[k] || 0);
+          const v2 = Number(su[k] || 0);
+          const v3 = Number(ls[k] || 0);
+          if (v1 > 0 || v2 > 0 || v3 > 0) { hasProgress = true; break; }
         }
       } catch(_) {}
-
-      if (hasProgress) {
+if (hasProgress) {
         const ok = await confirmModeChangeSet();
         if (!ok) { t.checked = (before === 'hard'); return; }
 
-        // Очистка ТЕКУЩЕГО СЕТА — именно по keyToCheck
+        // Очистка ТЕКУЩЕГО СЕТА — по нормализованному ключу deckKeyStorage
         try {
-          const ids = slice.map(w => w && w.id).filter(Boolean);
-          if (A.state && A.state.stars) {
-            ids.forEach(id => { delete A.state.stars[starKey(id, keyToCheck)]; });
+          const ids = (slice || []).map(w => w && w.id).filter(Boolean);
+          if (ids.length && A.state) {
+            A.state.stars = A.state.stars || {};
+            A.state.successes = A.state.successes || {};
+            A.state.lastSeen = A.state.lastSeen || {};
+            ids.forEach(id => {
+              const k = starKey(id, deckKeyStorage);
+              A.state.stars[k] = 0;
+              A.state.successes[k] = 0;
+              A.state.lastSeen[k] = 0;
+            });
             A.saveState && A.saveState(A.state);
           }
         } catch(_){}
@@ -988,6 +1219,17 @@ function activeDeckKey() {
 
     bindLangToggle();
     bindLevelToggle();
+
+    // синхронизация UI при обновлении тренера артиклей: обновляем сеты и строки статистики 1:1
+    try {
+      if (window.UIBus && typeof window.UIBus.on === 'function' && !A.__articlesHomeSyncBound) {
+        A.__articlesHomeSyncBound = true;
+        window.UIBus.on('articles:update', function(){
+          try { renderSets(); } catch(_) {}
+          try { renderTrainer(); } catch(_) {}
+        });
+      }
+    } catch(_) {}
     bindFooterNav();
 
     // ждём словари, потом грузим главную (важно для корректного дефолтного ключа и слайса)

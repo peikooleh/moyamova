@@ -55,6 +55,8 @@
    *   learned   — сколько слов ДОУЧЕНО (дошли до max stars)
    *   reviewed  — сколько карточек просмотрено/отвечено
    *   seconds   — сколько секунд добавить к счётчику времени
+   *   kind     — 'words' | 'articles' (необязательно). Если задан, дополнительно
+   *              пишем раздельные счётчики wordsSeconds / articlesSeconds.
    */
   Stats.bump = function(options) {
     options = options || {};
@@ -76,10 +78,20 @@
     var learned  = Number(options.learned  || 0);
     var reviewed = Number(options.reviewed || 0);
     var seconds  = Number(options.seconds  || 0);
+    var kind     = String(options.kind || '').toLowerCase();
 
     if (learned)  row.learned  += learned;
     if (reviewed) row.reviewed += reviewed;
-    if (seconds)  row.seconds  += seconds;
+
+    if (seconds) {
+      row.seconds += seconds;
+      // Раздельная активность (слова/артикли) — без ломки старого формата.
+      if (kind === 'articles') {
+        row.articlesSeconds = Number(row.articlesSeconds || 0) + seconds;
+      } else if (kind === 'words') {
+        row.wordsSeconds = Number(row.wordsSeconds || 0) + seconds;
+      }
+    }
 
     // При желании можно тут дернуть принудительное сохранение стейта
     try {

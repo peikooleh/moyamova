@@ -2,13 +2,13 @@
  * Проект: MOYAMOVA
  * Файл: app.core.js
  * Назначение: Ядро приложения и общие настройки
- * Версия: 1.7.7
+ * Версия: 1.8.4
  * Обновлено: 2025-11-17
  * ========================================================== */
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.7.7';
+  App.APP_VER = '1.8.4';
 
     // Детектируем запуск как PWA (standalone) и помечаем root
   (function detectRunmodePwa(){
@@ -106,6 +106,11 @@ App.starKey = function(wid, dk){
     'sets.done.v1',
     'sets.progress.v1',
 
+    // артикли: прогресс/статистика/сеты
+    'k_articles_progress_v1',
+    'k_articles_stats_v1',
+    'k_articles_setByDeck_v1',
+
     // мастер и выбор словаря/языка
     'lexitron.uiLang',
     'lexitron.studyLang',
@@ -196,6 +201,49 @@ try{
 
   window.addEventListener('storage', function(){ App.applyI18nTitles(); });
   document.addEventListener('lexitron:ui-lang-changed', function(){ App.applyI18nTitles(); });
+
+  /* ------------------------------------------------------------
+   * Hard stop for trainers (used to avoid mixed/edge states)
+   *
+   * Everything related to Articles must copy the behaviour of the
+   * regular trainer, but remain isolated. To prevent "mixed screens"
+   * and other boundary conditions, we expose a single, safe kill-switch
+   * that can be called from views/modals/lang-toggle.
+   * ---------------------------------------------------------- */
+  App.stopAllTrainers = function(reason){
+    try {
+      // Articles trainer
+      if (window.ArticlesTrainer && typeof window.ArticlesTrainer.stop === 'function') {
+        window.ArticlesTrainer.stop();
+      }
+    } catch(_){ }
+
+    try {
+      if (window.ArticlesCard && typeof window.ArticlesCard.unmount === 'function') {
+        window.ArticlesCard.unmount();
+      }
+    } catch(_){ }
+
+    try {
+      // Word trainer (if it exposes stop)
+      if (App && App.Trainer && typeof App.Trainer.stop === 'function') {
+        App.Trainer.stop();
+      }
+    } catch(_){ }
+
+    try {
+      App.state = App.state || {};
+      App.state.activeTrainerMode = null;
+      App.state._trainerStopReason = reason || null;
+    } catch(_){ }
+  };
+
+  // Language change implies UI re-render; never keep trainers alive.
+  try {
+    document.addEventListener('lexitron:ui-lang-changed', function(){
+      try { App.stopAllTrainers('ui_lang_changed'); } catch(_){ }
+    });
+  } catch(_){ }
 
 App.clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
   App.shuffle = (a)=>{const arr=a.slice();for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;};
@@ -356,7 +404,26 @@ App.toggleFavorite = function(dictKey, wordId){
     const st = App.state || (App.state = {});
     st.favorites_v2 = st.favorites_v2 || {};
     st.favorites_v2[dictKey] = st.favorites_v2[dictKey] || {};
-    st.favorites_v2[dictKey][wordId] = !st.favorites_v2[dictKey][wordId];
+    const before = !!st.favorites_v2[dictKey][wordId];
+    st.favorites_v2[dictKey][wordId] = !before;
+    const after = !!st.favorites_v2[dictKey][wordId];
+    // аналитика: добавление/удаление избранного
+    try {
+      if (App.Analytics && typeof App.Analytics.track === 'function') {
+        const common = {
+          deck_key: String(dictKey || ''),
+          word_id: String(wordId),
+          state: after ? 'on' : 'off',
+          ui_lang: (App.settings && (App.settings.lang || App.settings.uiLang)) || null,
+          learn_lang: (App.Decks && typeof App.Decks.langOfKey === 'function') ? (App.Decks.langOfKey(dictKey) || null) : null
+        };
+
+        // Backward-compatible event (existing dashboards)
+        App.Analytics.track('favorite_toggle', common);
+        // Normalized events
+        App.Analytics.track(after ? 'favorites_add' : 'favorites_remove', common);
+      }
+    } catch(_){ }
     App.saveState && App.saveState();
   }catch(e){}
 };
@@ -482,3 +549,5 @@ try{
   } catch (_) {}
 })();
 /* ========================= Конец файла: app.core.js ========================= */
+
+

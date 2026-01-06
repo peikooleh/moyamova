@@ -518,6 +518,7 @@
    * ------------------------------------ */
 
   function openModal() {
+    try { if (root.App && root.App.stopAllTrainers) root.App.stopAllTrainers('setup:open'); } catch(_){ }
     initStateFromStorage();
     renderAll();
 

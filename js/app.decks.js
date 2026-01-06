@@ -87,7 +87,7 @@ out.sort(function(a,b){
     if (key === 'mistakes') return (t && t.mistakesName) ? t.mistakesName : 'Мои ошибки';
     if (key === 'fav' || key === 'favorites') return (App.settings.lang === 'ru') ? 'Избранное' : 'Обране';
 
-    var m = String(key||'').match(/^([a-z]{2})_([a-z]+)$/i);
+    var m = String(key||'').match(/^([a-z]{2})_([a-z]+)(?:_.+)?$/i);
     var uiRu = (App.settings.lang === 'ru');
     var POS_RU = {
       verbs:'Глаголы', nouns:'Существительные', adjectives:'Прилагательные',

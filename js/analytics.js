@@ -15,8 +15,27 @@
 
   /* ---------------------- low-level helpers ---------------------- */
 
+  // NOTE: ga.consent.js creates a gtag() stub even when consent is denied.
+  // Поэтому проверка только на наличие window.gtag() НЕ является проверкой согласия.
+  function hasAnalyticsConsent() {
+    try {
+      // New key
+      var v = localStorage.getItem('mm.gaChoice');
+      if (v === 'granted') return true;
+      if (v === 'denied') return false;
+    } catch (_) {}
+    try {
+      // Legacy key
+      var old = localStorage.getItem('ga_consent');
+      if (old === 'yes') return true;
+      if (old === 'no') return false;
+    } catch (_) {}
+    return false;
+  }
+
   function hasGA() {
-    return typeof window.gtag === 'function';
+    // gtag stub exists even without consent, поэтому проверяем два условия.
+    return (typeof window.gtag === 'function') && hasAnalyticsConsent();
   }
 
   function safeTrack(eventName, params) {
@@ -31,6 +50,20 @@
     try {
       window.gtag('set', 'user_properties', props || {});
     } catch (_) {}
+  }
+
+  function makeId() {
+    // Short stable-ish random id for session correlations (no PII)
+    try {
+      var s = '';
+      var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      for (var i = 0; i < 16; i++) {
+        s += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return s;
+    } catch (_) {
+      return String(nowMs()) + '_' + Math.floor(Math.random() * 1e9);
+    }
   }
 
   function nowMs() {
@@ -65,6 +98,12 @@
     uiLang: null,
     deckKey: null,
     appMode: null,
+    trainerKind: null,
+    sessionId: null,
+    answeredTotal: 0,
+    correct: 0,
+    wrong: 0,
+    dontKnow: 0,
     heartbeatTimer: null
   };
 
@@ -98,6 +137,8 @@
         ui_lang: trainingState.uiLang || null,
         deck_key: trainingState.deckKey || null,
         app_mode: trainingState.appMode || null,
+        trainer_kind: trainingState.trainerKind || null,
+        trainer_session_id: trainingState.sessionId || null,
         elapsed_sec: elapsedSec
       });
 
@@ -176,6 +217,12 @@
     trainingState.uiLang = opts.uiLang || trainingState.uiLang || null;
     trainingState.deckKey = opts.deckKey || null;
     trainingState.appMode = detectAppMode();
+    trainingState.trainerKind = opts.trainerKind || (window.App && window.App.settings && window.App.settings.trainerKind) || null;
+    trainingState.sessionId = makeId();
+    trainingState.answeredTotal = 0;
+    trainingState.correct = 0;
+    trainingState.wrong = 0;
+    trainingState.dontKnow = 0;
 
     // сразу прокинем user properties
     setUserProps({
@@ -188,7 +235,9 @@
       learn_lang: trainingState.learnLang || null,
       ui_lang: trainingState.uiLang || null,
       deck_key: trainingState.deckKey || null,
-      app_mode: trainingState.appMode || null
+      app_mode: trainingState.appMode || null,
+      trainer_kind: trainingState.trainerKind || null,
+      trainer_session_id: trainingState.sessionId || null
     });
 
     // сразу отправим первый heartbeat, чтобы было видно онлайн мгновенно
@@ -219,16 +268,29 @@
       ui_lang: trainingState.uiLang || null,
       deck_key: trainingState.deckKey || null,
       app_mode: trainingState.appMode || null,
+      trainer_kind: trainingState.trainerKind || null,
+      trainer_session_id: trainingState.sessionId || null,
       duration_sec: durationSec,
-      reason: opts.reason || null
+      reason: opts.reason || null,
+      answered_total: trainingState.answeredTotal || 0,
+      correct: trainingState.correct || 0,
+      wrong: trainingState.wrong || 0,
+      dont_know: trainingState.dontKnow || 0
     });
 
     // локальная статистика времени тренировки (3-й экран)
     try {
       if (window.App && window.App.Stats && typeof window.App.Stats.bump === 'function') {
+        // Разделяем активность: слова vs артикли (на базе trainerKind).
+        var kind = 'words';
+        try {
+          var tk = window.App && window.App.settings && window.App.settings.trainerKind;
+          if (String(tk || '').toLowerCase() === 'articles') kind = 'articles';
+        } catch (_e) {}
         window.App.Stats.bump({
           lang: trainingState.learnLang || null,
-          seconds: durationSec
+          seconds: durationSec,
+          kind: kind
         });
       }
     } catch (_) {}
@@ -237,6 +299,12 @@
     trainingState.startedAt = null;
     trainingState.lastHeartbeatAt = null;
     trainingState.deckKey = null;
+    trainingState.trainerKind = null;
+    trainingState.sessionId = null;
+    trainingState.answeredTotal = 0;
+    trainingState.correct = 0;
+    trainingState.wrong = 0;
+    trainingState.dontKnow = 0;
     // learnLang/uiLang/appMode оставляем в state — они актуальны для user props
   }
 
@@ -255,10 +323,67 @@
     params.ui_lang = trainingState.uiLang || null;
     params.deck_key = trainingState.deckKey || null;
     params.app_mode = trainingState.appMode || null;
+    params.trainer_kind = trainingState.trainerKind || null;
+    params.trainer_session_id = trainingState.sessionId || null;
     params.elapsed_sec = elapsedSec;
 
     safeTrack('training_heartbeat', params);
     trainingState.lastHeartbeatAt = now;
+  }
+
+  /**
+   * Ответ в тренере: правильный/неправильный/не знаю.
+   * Backward-compatible: если не используется — ничего не ломает.
+   */
+  function trainingAnswer(opts) {
+    if (!trainingState.active) return;
+    opts = opts || {};
+    var res = String(opts.result || '').toLowerCase();
+    trainingState.answeredTotal = (trainingState.answeredTotal|0) + 1;
+    if (res === 'correct') trainingState.correct = (trainingState.correct|0) + 1;
+    else if (res === 'wrong') trainingState.wrong = (trainingState.wrong|0) + 1;
+    else if (res === 'dont_know' || res === 'idk') trainingState.dontKnow = (trainingState.dontKnow|0) + 1;
+
+    safeTrack('trainer_answer', {
+      learn_lang: trainingState.learnLang || null,
+      ui_lang: trainingState.uiLang || null,
+      deck_key: trainingState.deckKey || null,
+      app_mode: trainingState.appMode || null,
+      trainer_kind: trainingState.trainerKind || null,
+      trainer_session_id: trainingState.sessionId || null,
+      result: (res === 'idk') ? 'dont_know' : (res || null),
+      applied: (typeof opts.applied === 'boolean') ? opts.applied : null,
+      attempt: (opts.attempt != null) ? (opts.attempt|0) : null
+    });
+
+    // Keep legacy heartbeat semantics for earlier dashboards.
+    try {
+      trainingPing({ reason: res === 'correct' ? 'answer_correct' : (res === 'wrong' ? 'answer_wrong' : 'answer_idk') });
+    } catch (_) {}
+  }
+
+  function screen(screenName, params) {
+    params = params || {};
+    params.screen = screenName || null;
+    params.app_mode = params.app_mode || trainingState.appMode || detectAppMode();
+    params.ui_lang = params.ui_lang || trainingState.uiLang || null;
+    params.learn_lang = params.learn_lang || trainingState.learnLang || null;
+    safeTrack('mm_screen_view', params);
+  }
+
+  function error(code, context) {
+    context = context || {};
+    safeTrack('app_error', {
+      code: code || 'ERR_UNKNOWN',
+      screen: context.screen || null,
+      where: context.where || null,
+      message: context.message || null,
+      deck_key: context.deck_key || trainingState.deckKey || null,
+      trainer_kind: context.trainer_kind || trainingState.trainerKind || null,
+      app_mode: trainingState.appMode || detectAppMode(),
+      ui_lang: trainingState.uiLang || null,
+      learn_lang: trainingState.learnLang || null
+    });
   }
 
   /* ---------------- visibility / lifecycle integration --------------- */
@@ -269,11 +394,42 @@
     document.addEventListener('visibilitychange', function () {
       try {
         if (document.visibilityState === 'hidden' && trainingState.active) {
+          // treat hide as abandon (user left mid-session)
+          safeTrack('trainer_abandon', {
+            learn_lang: trainingState.learnLang || null,
+            ui_lang: trainingState.uiLang || null,
+            deck_key: trainingState.deckKey || null,
+            app_mode: trainingState.appMode || null,
+            trainer_kind: trainingState.trainerKind || null,
+            trainer_session_id: trainingState.sessionId || null,
+            answered_total: trainingState.answeredTotal || 0,
+            correct: trainingState.correct || 0,
+            wrong: trainingState.wrong || 0,
+            dont_know: trainingState.dontKnow || 0,
+            reason: 'hidden'
+          });
           trainingEnd({ reason: 'hidden' });
         }
       } catch (_) {}
     });
   }
+
+  // Global error hooks (lightweight; no stack/PII)
+  try {
+    window.addEventListener('error', function (e) {
+      try {
+        var msg = e && (e.message || (e.error && e.error.message)) ? String(e.message || (e.error && e.error.message)) : 'error';
+        error('ERR_JS', { where: 'window.error', message: msg });
+      } catch (_) {}
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      try {
+        var r = e && e.reason;
+        var msg2 = (r && (r.message || r.toString)) ? String(r.message || r.toString()) : 'rejection';
+        error('ERR_PROMISE', { where: 'window.unhandledrejection', message: msg2 });
+      } catch (_) {}
+    });
+  } catch (_) {}
 
   /* ---------------------- export to App ---------------------- */
 
@@ -282,9 +438,12 @@
     setUserProps: setUserProps,
     updateUserProps: updateUserProps,
     detectAppMode: detectAppMode,
+    screen: screen,
+    error: error,
     trainingStart: trainingStart,
     trainingEnd: trainingEnd,
-    trainingPing: trainingPing
+    trainingPing: trainingPing,
+    trainingAnswer: trainingAnswer
   };
 })();
 

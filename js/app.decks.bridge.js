@@ -20,10 +20,27 @@
   // -------- Виртуальные ключи
   function parseVirtualKey(key){
     const s = String(key||'');
-    let m = s.match(/^(mistakes):(ru|uk):([a-z]{2}_[a-z]+)$/i);
+
+    // Новый формат групп:
+    // favorites:<TL>:base | favorites:<TL>:lernpunkt
+    // mistakes:<TL>:base  | mistakes:<TL>:lernpunkt
+    // Старый формат (совместимость):
+    // favorites:<TL>:<baseDeckKey>
+    // mistakes:<TL>:<baseDeckKey>
+    let m = s.match(/^(mistakes):(ru|uk):(base|lernpunkt)$/i);
+    if (m) return { kind:'mistakes', trainLang:m[2], group:String(m[3]).toLowerCase() };
+
+    m = s.match(/^(favorites):(ru|uk):(base|lernpunkt)$/i);
+    if (m) return { kind:'favorites', trainLang:m[2], group:String(m[3]).toLowerCase() };
+
+    // baseDeckKey может содержать суффиксы (например: de_nouns_lernpunkt),
+    // поэтому разрешаем дополнительные сегменты после части речи.
+    m = s.match(/^(mistakes):(ru|uk):([a-z]{2}_[a-z]+[\w.-]*)$/i);
     if (m) return { kind:'mistakes', trainLang:m[2], baseDeckKey:m[3] };
-    m = s.match(/^(favorites):(ru|uk):([a-z]{2}_[a-z]+)$/i);
+
+    m = s.match(/^(favorites):(ru|uk):([a-z]{2}_[a-z]+[\w.-]*)$/i);
     if (m) return { kind:'favorites', trainLang:m[2], baseDeckKey:m[3] };
+
     return null;
   }
   function isVirtual(key){ return !!parseVirtualKey(key); }
@@ -32,37 +49,103 @@
   function resolveVirtualDeck(key){
     const p = parseVirtualKey(key);
     if (!p) return [];
+    const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
+
+    // Групповой режим (base / lernpunkt): собираем избранное/ошибки по всем базовым декам группы
+    if (p.group){
+      try{
+        const group = String(p.group).toLowerCase();
+        const TL = p.trainLang;
+        const decksObj = (window.decks && typeof window.decks==='object') ? window.decks : {};
+        const baseKeys = Object.keys(decksObj)
+          .filter(k => Array.isArray(decksObj[k]) && !/^favorites:|^mistakes:/i.test(k))
+          .filter(k => group==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
+
+        // В articles-режиме используем изолированные контуры.
+        const Mist = isArticles ? (A.ArticlesMistakes || null) : (A.Mistakes || null);
+        const Fav  = isArticles ? (A.ArticlesFavorites || null) : (A.Favorites || null);
+
+        const out = [];
+        if (p.kind === 'mistakes'){
+          for (const baseKey of baseKeys){
+            // если есть специализированный резолвер — используем его
+            if (Mist && Mist.resolveDeckForMistakesKey){
+              try{
+                const partKey = `mistakes:${TL}:${baseKey}`;
+                const part = Mist.resolveDeckForMistakesKey(partKey) || [];
+                if (part.length) out.push(...part);
+                continue;
+              }catch(_){ /* fallback ниже */ }
+            }
+            try{
+              const full = _resolve ? (_resolve(baseKey) || []) : [];
+              const ids = new Set((Mist && Mist.getIds ? (Mist.getIds(TL, baseKey) || []) : []).map(String));
+              if (!ids.size) continue;
+              for (const w of full){
+                if (ids.has(String(w.id))) out.push(w);
+              }
+            }catch(_){}
+          }
+          return out;
+        }
+
+        if (p.kind === 'favorites'){
+          for (const baseKey of baseKeys){
+            if (Fav && Fav.resolveDeckForFavoritesKey){
+              try{
+                const partKey = `favorites:${TL}:${baseKey}`;
+                const part = Fav.resolveDeckForFavoritesKey(partKey) || [];
+                if (part.length) out.push(...part);
+                continue;
+              }catch(_){ /* fallback ниже */ }
+            }
+            try{
+              const full = _resolve ? (_resolve(baseKey) || []) : [];
+              const ids = new Set((Fav && Fav.getIds ? (Fav.getIds(TL, baseKey) || []) : []).map(String));
+              if (!ids.size) continue;
+              for (const w of full){
+                if (ids.has(String(w.id))) out.push(w);
+              }
+            }catch(_){}
+          }
+          return out;
+        }
+      }catch(_){}
+      return [];
+    }
+
     const base = p.baseDeckKey;
 
     // Базовый словарь целиком
     const full = _resolve ? (_resolve(base) || []) : [];
 
+
     if (p.kind === 'mistakes'){
-      // Если есть Mistakes API — используем его
-      if (A.Mistakes && A.Mistakes.resolveDeckForMistakesKey){
-        try { return A.Mistakes.resolveDeckForMistakesKey(key) || []; } catch(_){}
+      // Articles mode uses isolated mistakes storage.
+      const Mist = isArticles ? (A.ArticlesMistakes || null) : (A.Mistakes || null);
+      // If there is an API to resolve the virtual deck directly — use it.
+      if (Mist && Mist.resolveDeckForMistakesKey){
+        try { return Mist.resolveDeckForMistakesKey(key) || []; } catch(_){ }
       }
-      // Фолбэк: если есть getIds — фильтруем по id
+      // Fallback: filter the base deck by ids.
       try {
-        const ids = new Set((A.Mistakes && A.Mistakes.getIds ? A.Mistakes.getIds(p.trainLang, base) : []).map(String));
+        const ids = new Set((Mist && Mist.getIds ? (Mist.getIds(p.trainLang, base) || []) : []).map(String));
         if (ids.size) return full.filter(w => ids.has(String(w.id)));
-      } catch(_){}
+      } catch(_){ }
       return [];
     }
 
     if (p.kind === 'favorites'){
-      // Если есть Favorites API — используем его
-      if (A.Favorites && A.Favorites.resolveDeckForFavoritesKey){
-        try { return A.Favorites.resolveDeckForFavoritesKey(key) || []; } catch(_){}
+      // Articles mode uses isolated favorites storage.
+      const Fav = isArticles ? (A.ArticlesFavorites || null) : (A.Favorites || null);
+      if (Fav && Fav.resolveDeckForFavoritesKey){
+        try { return Fav.resolveDeckForFavoritesKey(key) || []; } catch(_){ }
       }
-      // Фолбэк: фильтруем через Favorites.has(...)
+      // Fallback: filter the base deck by ids.
       try {
-        const has = A.Favorites && typeof A.Favorites.has === 'function' ? A.Favorites.has.bind(A.Favorites) : null;
-        if (!has) return [];
-        const out = [];
-        for (const w of full){ if (has(base, w.id)) out.push(w); }
-        return out;
-      } catch(_){}
+        const ids = new Set((Fav && Fav.getIds ? (Fav.getIds(p.trainLang, base) || []) : []).map(String));
+        if (ids.size) return full.filter(w => ids.has(String(w.id)));
+      } catch(_){ }
       return [];
     }
 
@@ -82,7 +165,14 @@
     try{
       const p = parseVirtualKey(key);
       if (p){
-        // Имя как у базового словаря, без префикса «Мои ошибки/Избранное»
+        // Групповые ключи: показываем понятное имя
+        if (p.group){
+          const uk = (A.settings && (A.settings.lang || A.settings.uiLang)) === 'uk';
+          const g = String(p.group).toLowerCase()==='lernpunkt' ? (uk ? 'LearnPunkt' : 'LearnPunkt') : (uk ? 'База' : 'База');
+          if (p.kind === 'favorites') return uk ? `Обране (${g})` : `Избранное (${g})`;
+          if (p.kind === 'mistakes')  return uk ? `Мої помилки (${g})` : `Мои ошибки (${g})`;
+        }
+        // Старый формат: имя как у базового словаря
         return _name ? _name(p.baseDeckKey) : p.baseDeckKey;
       }
     }catch(_){}
@@ -93,6 +183,9 @@
     try{
       const p = parseVirtualKey(key);
       if (p){
+        if (p.group){
+          return (p.kind === 'favorites') ? '⭐' : '⚠️';
+        }
         return _flag ? (_flag(p.baseDeckKey) || '🧩') : '🧩';
       }
     }catch(_){}

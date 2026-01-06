@@ -171,6 +171,33 @@
       }
     }catch(_){}
 
+
+    // --- дополнительно: данные артиклей (progress/stats + явные избранное/ошибки) ---
+    try{
+      if (App.ArticlesProgress && typeof App.ArticlesProgress.export === 'function'){
+        payload.articles = payload.articles || {};
+        payload.articles.progress = App.ArticlesProgress.export();
+      }
+    }catch(_){}
+    try{
+      if (App.ArticlesStats && typeof App.ArticlesStats.export === 'function'){
+        payload.articles = payload.articles || {};
+        payload.articles.stats = App.ArticlesStats.export();
+      }
+    }catch(_){}
+    try{
+      if (App.ArticlesFavorites && typeof App.ArticlesFavorites.export === 'function'){
+        payload.articles = payload.articles || {};
+        payload.articles.favorites = App.ArticlesFavorites.export();
+      }
+    }catch(_){}
+    try{
+      if (App.ArticlesMistakes && typeof App.ArticlesMistakes.export === 'function'){
+        payload.articles = payload.articles || {};
+        payload.articles.mistakes = App.ArticlesMistakes.export();
+      }
+    }catch(_){}
+ 
     return payload;
   }
 
@@ -228,6 +255,23 @@
 
             const data = raw;
 
+            // --- Snapshot current articles data for backward-compatible restore ---
+            const __curArticles = (function(){
+              try{
+                const st = (window.App && window.App.state) ? window.App.state : {};
+                return {
+                  favorites: st.articlesFavorites ? JSON.parse(JSON.stringify(st.articlesFavorites)) : null,
+                  mistakes:  st.articlesMistakes  ? JSON.parse(JSON.stringify(st.articlesMistakes))  : null,
+                  // LS-based progress/stats (kept if backup does not contain articles block)
+                  progressLS: localStorage.getItem('k_articles_progress_v1'),
+                  statsLS:    localStorage.getItem('k_articles_stats_v1')
+                };
+              }catch(_){
+                return { favorites:null, mistakes:null, progressLS:null, statsLS:null };
+              }
+            })();
+
+
             // =====================================================
             // === ROLLBACK-GUARD BLOCK — ЗАЩИТА ОТ ОТКАТА ПРОГРЕССА
             // === Тут можно менять поведение тостов/перезагрузки,
@@ -238,6 +282,46 @@
               const incomingStars = (data.state && data.state.stars) || {};
               const curLearned = countLearned(currentStars);
               const newLearned = countLearned(incomingStars);
+
+              // --- Articles rollback-guard (only if backup contains articles.progress) ---
+              function countLearnedArticles(progressObj){
+                try{
+                  const maxStars = (App.ArticlesProgress && typeof App.ArticlesProgress.starsMax === 'function')
+                    ? Number(App.ArticlesProgress.starsMax()) : 5;
+                  const byDeck = (progressObj && progressObj.byDeck) ? progressObj.byDeck : {};
+                  let n = 0;
+                  Object.keys(byDeck).forEach(function(dk){
+                    const m = byDeck[dk] || {};
+                    Object.keys(m).forEach(function(id){
+                      const rec = m[id];
+                      const s = rec && typeof rec.s === 'number' ? rec.s : 0;
+                      if (s >= maxStars) n++;
+                    });
+                  });
+                  return n;
+                }catch(_){ return 0; }
+              }
+              const curArtLearned = (function(){
+                try{
+                  if (App.ArticlesProgress && typeof App.ArticlesProgress.export === 'function'){
+                    return countLearnedArticles(App.ArticlesProgress.export());
+                  }
+                }catch(_){}
+                return 0;
+              })();
+              const incomingArtLearned = (function(){
+                try{
+                  if (data.articles && data.articles.progress){
+                    return countLearnedArticles(data.articles.progress);
+                  }
+                }catch(_){}
+                return curArtLearned; // no articles block → do not treat as rollback
+              })();
+
+              if (incomingArtLearned < curArtLearned){
+                showBackupErrorToast('tooSmall');
+                throw new Error('Backup blocked: fewer learned articles than current state');
+              }
 
               if (newLearned < curLearned){
                 // показываем сообщение о том, что в бэкапе меньше выученных слов
@@ -259,6 +343,19 @@
             if (data.settings) window.App.settings = data.settings;
             if (data.state)    window.App.state    = data.state;
             if (data.dicts)    window.App.dictRegistry = data.dicts;
+
+            // --- Backward compatibility: if backup has no articles data, keep current articles state ---
+            try{
+              if (data.state){
+                if (!data.state.articlesFavorites && __curArticles.favorites){
+                  window.App.state.articlesFavorites = __curArticles.favorites;
+                }
+                if (!data.state.articlesMistakes && __curArticles.mistakes){
+                  window.App.state.articlesMistakes = __curArticles.mistakes;
+                }
+              }
+            }catch(_){}
+
 
             // Виртуальные словари и статистика
             try{
@@ -283,6 +380,33 @@
                 App.Sets.state = data.sets;
               }
             }catch(_){}
+
+            // Articles payload (if present)
+            try{
+              if (data.articles && data.articles.progress && App.ArticlesProgress && typeof App.ArticlesProgress.import === 'function'){
+                App.ArticlesProgress.import(data.articles.progress);
+              } else if (!data.articles && __curArticles.progressLS){
+                // keep current LS value (already in storage) - no action
+              }
+            }catch(_){}
+            try{
+              if (data.articles && data.articles.stats && App.ArticlesStats && typeof App.ArticlesStats.import === 'function'){
+                App.ArticlesStats.import(data.articles.stats);
+              } else if (!data.articles && __curArticles.statsLS){
+                // keep current LS value - no action
+              }
+            }catch(_){}
+            try{
+              if (data.articles && data.articles.favorites && App.ArticlesFavorites && typeof App.ArticlesFavorites.import === 'function'){
+                App.ArticlesFavorites.import(data.articles.favorites);
+              }
+            }catch(_){}
+            try{
+              if (data.articles && data.articles.mistakes && App.ArticlesMistakes && typeof App.ArticlesMistakes.import === 'function'){
+                App.ArticlesMistakes.import(data.articles.mistakes);
+              }
+            }catch(_){}
+
 
             // Сохраняем всё в localStorage
             try{

@@ -20,6 +20,10 @@
   // включён ли звук (по умолчанию: НЕТ, чтобы не пугать)
   var audioEnabled = loadAudioEnabled();
 
+  function isArticlesMode() {
+    try { return A.settings && A.settings.trainerKind === 'articles'; } catch (e) { return false; }
+  }
+
   // запоминаем, какое слово было озвучено автоматически, чтобы не дублировать
   var lastAutoSpokenWord = '';
 
@@ -152,16 +156,18 @@
 
     updateButtonIcon(btn);
 
-    // автоозвучка нового слова (не повторяем одно и то же дважды подряд)
-    var word = getCurrentWord();
-    if (word && audioEnabled && word !== lastAutoSpokenWord) {
-      lastAutoSpokenWord = word;
-      setTimeout(function () {
-        speakText(word);
-      }, 120);
+    // Автоозвучка нового слова — только для обычного тренера (words).
+    // В articles-режиме автоозвучку отключаем, чтобы не ломать механику обучения.
+    if (!isArticlesMode()) {
+      var word = getCurrentWord();
+      if (word && audioEnabled && word !== lastAutoSpokenWord) {
+        lastAutoSpokenWord = word;
+        setTimeout(function () {
+          speakText(word);
+        }, 120);
+      }
     }
   }
-
   /* ========================================================== */
 
   // Следим за изменением .trainer-word и обновляем кнопку/озвучку
@@ -250,6 +256,14 @@
       saveAudioEnabled();
       var btn = document.querySelector('.trainer-audio-btn');
       if (btn) updateButtonIcon(btn);
+    };
+
+    // Для тренера артиклей: озвучить текущее слово после верного ответа
+    A.AudioTTS.onCorrect = function () {
+      if (!isArticlesMode()) return;
+      if (!A.isPro || !A.isPro()) return;
+      if (!audioEnabled) return;
+      speakCurrentWord();
     };
   }
 

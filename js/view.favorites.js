@@ -11,6 +11,24 @@
   const A = (window.App = window.App || {});
 
   /* ---------------- i18n ---------------- */
+  function isArticlesMode(){
+    try { return !!(A.settings && A.settings.trainerKind === 'articles'); } catch(_){ return false; }
+  }
+
+  function currentArticlesGroup(){
+    // Hard filter for articles favorites/mistakes: base vs LearnPunkt
+    // Group is inferred from the last selected deck key (works for both baseKey and virtual keys).
+    try{
+      let k = (A.settings && (A.settings.lastDeckKey || A.settings.lastDeck || A.settings.lastArticlesDeckKey)) || '';
+      k = String(k || '');
+      const m = k.match(/^(favorites|mistakes):(ru|uk):(.+)$/i);
+      if (m) k = String(m[3] || '');
+      return /_lernpunkt$/i.test(k) ? 'lernpunkt' : 'base';
+    }catch(_){
+      return 'base';
+    }
+  }
+
   function getUiLang(){
     const s = (A.settings && (A.settings.lang || A.settings.uiLang)) || 'ru';
     return (String(s).toLowerCase()==='uk') ? 'uk' : 'ru';
@@ -19,7 +37,7 @@
     const uk = getUiLang()==='uk';
     return {
       title   : uk ? 'Обране' : 'Избранное',
-      ok      : 'OK',
+      ok      : isArticlesMode() ? (uk ? 'Вивчати артиклі' : 'Учить артикли') : (uk ? 'Вчити слова' : 'Учить слова'),
       preview : uk ? 'Перегляд' : 'Предпросмотр',
       empty   : uk ? 'На данний момент вибраних слів немає.' : 'В данный момент избранных слов нет.',
       cnt     : uk ? 'К-сть' : 'Кол-во',
@@ -43,8 +61,14 @@
     const out = [];
     try{
       const decks = (window.decks && typeof window.decks==='object') ? window.decks : {};
-      const baseKeys = Object.keys(decks)
+      let baseKeys = Object.keys(decks)
         .filter(k => Array.isArray(decks[k]) && !/^favorites:|^mistakes:/i.test(k));
+
+      // Articles mode: do NOT mix base and LearnPunkt decks in lists (prevents "leak" illusion)
+      if (isArticlesMode()){
+        const grp = currentArticlesGroup();
+        baseKeys = baseKeys.filter(k => grp==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
+      }
 
       for (const baseKey of baseKeys){
         const favKey = `favorites:${TL}:${baseKey}`;
@@ -175,53 +199,56 @@
           return;
         }
 
-        // 🗑️ удаление набора избранного ТОЛЬКО для этой базы
-        const del = e.target.closest('.dicts-delete');
-        if (del){
-          e.stopPropagation();
-          const tr = del.closest('tr'); if (!tr) return;
-          const baseKey = tr.dataset.base;       // напр. "de_verbs"
-          const favKey  = tr.dataset.key;        // "favorites:<TL>:<baseKey>"
-          const TL      = currentTrainLang();
+        
+// 🗑️ удаление набора избранного (одной базовой деки)
+const del = e.target.closest('.dicts-delete');
+if (del){
+  e.stopPropagation();
+  const tr = del.closest('tr'); if (!tr) return;
 
-          // 1) Получаем id избранных слов в этой базе
-          let ids = [];
-          try {
-            if (A.Favorites && typeof A.Favorites.getIds === 'function'){
-              ids = A.Favorites.getIds(TL, baseKey) || [];
-            }
-          } catch(_){}
+  const baseKey = tr.dataset.base;   // напр. "de_nouns"
+  const favKey  = tr.dataset.key;    // "favorites:<TL>:<baseKey>"
+  const TL      = currentTrainLang();
+  const isArticles = isArticlesMode();
 
-          // 2) Снимаем «избранное» для каждого слова этой базы
-          try {
-            if (A.Favorites && typeof A.Favorites.toggle === 'function'){
-              for (const id of ids){
-                // проверка нужна, чтобы не лишний раз дёргать toggle
-                if (A.Favorites.has && A.Favorites.has(baseKey, id)){
-                  A.Favorites.toggle(baseKey, id);
-                }
-              }
-            } else if (typeof App.toggleFavorite === 'function'){
-              for (const id of ids){
-                App.toggleFavorite(baseKey, id);
-              }
-            }
-          } catch(_){}
+  // 1) Получаем id избранных слов в этой базе
+  let ids = [];
+  try {
+    // Самый надёжный путь: взять ids из виртуальной деки (bridge уже выберет правильный storage)
+    if (A.Decks && typeof A.Decks.resolveDeckByKey === 'function'){
+      const deck = A.Decks.resolveDeckByKey(favKey) || [];
+      ids = deck.map(w => w && w.id).filter(v => v != null);
+    }
+    // Fallback для words: если есть быстрый getter
+    if (!ids.length && !isArticles && A.Favorites && typeof A.Favorites.getIds === 'function'){
+      ids = A.Favorites.getIds(TL, baseKey) || [];
+    }
+  } catch(_){ ids = []; }
 
-          // 3) Сбросим сохранённый выбор, если удалили текущий
-          try {
-            if ((A.settings && A.settings.lastFavoritesKey) === favKey){
-              A.settings.lastFavoritesKey = null;
-              if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
-            }
-          } catch(_){}
-
-          // 4) Перерисуем экран (автоселект сам восстановится)
-          render();
-          return;
+  // 2) Снимаем «избранное» для каждого слова этой базы
+  try {
+    if (isArticles && A.ArticlesFavorites){
+      // API ArticlesFavorites: toggle(baseDeckKey, id) + clearForDeck(trainLang, baseDeckKey)
+      if (typeof A.ArticlesFavorites.clearForDeck === 'function'){
+        A.ArticlesFavorites.clearForDeck(TL, baseKey);
+      } else if (typeof A.ArticlesFavorites.toggle === 'function'){
+        for (const id of ids){
+          A.ArticlesFavorites.toggle(baseKey, id);
         }
+      }
+    } else if (!isArticles && A.Favorites && typeof A.Favorites.toggle === 'function'){
+      for (const id of ids){
+        A.Favorites.toggle(baseKey, id);
+      }
+    }
+  } catch(_){}
 
-        // выбор строки
+  // 3) Перерисуем экран
+  render();
+  return;
+}
+
+// выбор строки
         const tr = e.target.closest('tr');
         if (tr){
           selectRow(tr);
@@ -257,6 +284,8 @@
           if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
         } catch(_){}
 
+        // Важно: в режиме articles не форсим words
+        try { A.settings = A.settings || {}; if (isArticlesMode()) A.settings.trainerKind = 'articles'; } catch(_){}
         launchTraining(key);
       };
     }
@@ -289,6 +318,24 @@
     }
 
     function launchTraining(key){
+      // Switch to the default word trainer
+      try { A.settings = A.settings || {}; /* keep current mode; default to words */ if (!A.settings.trainerKind) A.settings.trainerKind = 'words'; } catch(_){ }
+      // Auto-grouping: base vs LearnPunkt для words favorites
+      try{
+        if (!isArticlesMode()){
+          const s = String(key||'');
+          const m = s.match(/^(favorites):(ru|uk):(.+)$/i);
+          if (m){
+            const tl = String(m[2]).toLowerCase()==='uk' ? 'uk' : 'ru';
+            const tail = String(m[3]||'');
+            if (!/^(base|lernpunkt)$/i.test(tail)){
+              const grp = /_lernpunkt$/i.test(tail) ? 'lernpunkt' : 'base';
+              key = `favorites:${tl}:${grp}`;
+            }
+          }
+        }
+      }catch(_){}
+
       // 1) как в других вью: общий стартер, если есть
       if (A.UI && typeof A.UI.startTrainingWithKey === 'function'){
         A.UI.startTrainingWithKey(key);
@@ -347,6 +394,6 @@
   }
 
   // Публичный mount
-  A.ViewFavorites = { mount: render };
+  A.ViewFavorites = { mount: function(){ try{ if (A.stopAllTrainers) A.stopAllTrainers('view:favorites'); }catch(_){} return render(); } };
 })();
 /* ========================= Конец файла: view.favorites.js ========================= */

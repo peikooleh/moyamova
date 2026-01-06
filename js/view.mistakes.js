@@ -10,22 +10,82 @@
   'use strict';
   const A = (window.App = window.App || {});
 
+  function isArticlesMode(){
+    try { return !!(A.settings && A.settings.trainerKind === 'articles'); } catch(_){ return false; }
+  }
+
+  function currentArticlesGroup(){
+    // Hard filter for articles favorites/mistakes: base vs LearnPunkt
+    // Group is inferred from the last selected deck key (works for both baseKey and virtual keys).
+    try{
+      let k = (A.settings && (A.settings.lastDeckKey || A.settings.lastDeck || A.settings.lastArticlesDeckKey)) || '';
+      k = String(k || '');
+      const m = k.match(/^(favorites|mistakes):(ru|uk):(.+)$/i);
+      if (m) k = String(m[3] || '');
+      return /_lernpunkt$/i.test(k) ? 'lernpunkt' : 'base';
+    }catch(_){
+      return 'base';
+    }
+  }
+
   function getUiLang(){
     const s = (A.settings && (A.settings.lang || A.settings.uiLang)) || 'ru';
     return (String(s).toLowerCase()==='uk') ? 'uk' : 'ru';
   }
   function t(){
     const uk = getUiLang()==='uk';
+    const ok = isArticlesMode()
+      ? (uk ? 'Вивчати артиклі' : 'Учить артикли')
+      : (uk ? 'Вчити слова' : 'Учить слова');
     return uk
-      ? { title:'Мої помилки', lang:'Мова словника', name:'Назва', words:'Слів', preview:'Перегляд', empty:'На данний момент помилок немає', ok:'Ок' }
-      : { title:'Мои ошибки',  lang:'Язык словаря',  name:'Название', words:'Слов', preview:'Предпросмотр', empty:'В данный момент ошибок нет', ok:'Ок' };
+      ? { title:'Мої помилки', lang:'Мова словника', name:'Назва', words:'Слів', preview:'Перегляд', empty:'На данний момент помилок немає', ok: ok }
+      : { title:'Мои ошибки',  lang:'Язык словаря',  name:'Название', words:'Слов', preview:'Предпросмотр', empty:'В данный момент ошибок нет', ok: ok };
   }
 
   const FLAG = { en:'🇬🇧', de:'🇩🇪', fr:'🇫🇷', es:'🇪🇸', it:'🇮🇹', ru:'🇷🇺', uk:'🇺🇦', pl:'🇵🇱', sr:'🇷🇸' };
 
+  function currentTrainLang(){
+    try{
+      const s = (A.settings && (A.settings.lang || A.settings.uiLang)) || 'ru';
+      return (String(s).toLowerCase()==='uk') ? 'uk' : 'ru';
+    }catch(_){ return 'ru'; }
+  }
+
   function gatherMistakeDecks(){
+    const TL = currentTrainLang();
+
+    // В режиме артиклей показываем ошибки артиклей (изолированный контур),
+    // визуально так же, как обычные ошибки.
+    if (isArticlesMode()){
+      const out = [];
+      try{
+        const decks = (window.decks && typeof window.decks==='object') ? window.decks : {};
+        let baseKeys = Object.keys(decks)
+          .filter(k => Array.isArray(decks[k]) && !/^favorites:|^mistakes:/i.test(k));
+
+        // Articles mode: do NOT mix base and LearnPunkt decks in lists (prevents "leak" illusion)
+        if (isArticlesMode()){
+          const grp = currentArticlesGroup();
+          baseKeys = baseKeys.filter(k => grp==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
+        }
+
+        for (const baseKey of baseKeys){
+          const mKey = `mistakes:${TL}:${baseKey}`;
+          const deck = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(mKey) || []) : [];
+          if (!deck.length) continue;
+          const name = (A.Decks && A.Decks.resolveNameByKey) ? A.Decks.resolveNameByKey(mKey) : mKey;
+          const baseLang = (A.Decks && (A.Decks.langOfMistakesKey||A.Decks.langOfKey))
+            ? (A.Decks.langOfMistakesKey ? A.Decks.langOfMistakesKey(mKey) : A.Decks.langOfKey(mKey))
+            : '';
+          const flag = (A.Decks && A.Decks.flagForKey) ? (A.Decks.flagForKey(mKey) || '🧩') : '🧩';
+          out.push({ key: mKey, baseKey: baseKey, trainLang: TL, name, count: deck.length, baseLang, flag });
+        }
+      }catch(_){ }
+      return out;
+    }
+
+    // Стандартные ошибки слов
     const rows = (A.Mistakes && A.Mistakes.listSummary ? A.Mistakes.listSummary() : []);
-    // преобразуем в «словарные» записи с ключом mistakes:<lang>:<baseKey>
     return rows.map(r=>{
       const mKey = r.mistakesKey;
       const name = (A.Decks && A.Decks.resolveNameByKey) ? A.Decks.resolveNameByKey(mKey) : mKey;
@@ -160,9 +220,17 @@
             const tr = del.closest('tr');
             if (!tr) return;
             const mKey = tr.dataset.key;
-            const p = A.Mistakes && A.Mistakes.parseKey && A.Mistakes.parseKey(mKey);
+            const Mist = isArticlesMode() ? (A.ArticlesMistakes || null) : (A.Mistakes || null);
+            const p = Mist && Mist.parseKey ? Mist.parseKey(mKey) : null;
             if (p){
-              try{ A.Mistakes.removeDeck(p.trainLang, p.baseDeckKey); }catch(_){}
+              try{
+                if (isArticlesMode()){
+                  // Только ручная очистка
+                  if (Mist && typeof Mist.clearForDeck === 'function') Mist.clearForDeck(p.trainLang, p.baseDeckKey);
+                } else {
+                  if (A.Mistakes && typeof A.Mistakes.removeDeck === 'function') A.Mistakes.removeDeck(p.trainLang, p.baseDeckKey);
+                }
+              }catch(_){ }
               // пересчитать и перерисовать заново
               render();
             }
@@ -190,9 +258,45 @@
             return;
           }
           saveSelected(key);
-          try { A.Trainer && A.Trainer.setDeckKey && A.Trainer.setDeckKey(key); } catch(_){}
-          // уходим на главную
-          try { A.Router && A.Router.routeTo && A.Router.routeTo('home'); } catch(_){}
+          // Запуск тренировки: в режиме артиклей остаёмся в articles-контуре.
+          if (isArticlesMode()) {
+            try { A.settings = A.settings || {}; A.settings.trainerKind = "articles"; } catch(_){ }
+            try {
+              A.settings = A.settings || {};
+              A.settings.lastDeckKey = key;
+              if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
+            } catch(_){ }
+            try { document.dispatchEvent(new CustomEvent('lexitron:deck-selected', { detail:{ key: key } })); } catch(_){ }
+            try { A.Router && A.Router.routeTo && A.Router.routeTo('home'); } catch(_){ }
+            return;
+          }
+
+          // Default words trainer
+          try { A.settings = A.settings || {}; A.settings.trainerKind = "words"; } catch(_){ }
+          try {
+            A.settings = A.settings || {};
+            // Auto-grouping: base vs LearnPunkt для words mistakes
+            try{
+              if (!isArticlesMode()){
+                const s = String(key||'');
+                const m = s.match(/^(mistakes):(ru|uk):(.+)$/i);
+                if (m){
+                  const tl = String(m[2]).toLowerCase()==='uk' ? 'uk' : 'ru';
+                  const tail = String(m[3]||'');
+                  if (!/^(base|lernpunkt)$/i.test(tail)){
+                    const grp = /_lernpunkt$/i.test(tail) ? 'lernpunkt' : 'base';
+                    key = `mistakes:${tl}:${grp}`;
+                  }
+                }
+              }
+            }catch(_){}
+
+            A.settings.lastDeckKey = key;
+            if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
+          } catch(_){ }
+          try { document.dispatchEvent(new CustomEvent('lexitron:deck-selected', { detail:{ key: key } })); } catch(_){ }
+          try { A.Trainer && A.Trainer.setDeckKey && A.Trainer.setDeckKey(key); } catch(_){ }
+          try { A.Router && A.Router.routeTo && A.Router.routeTo('home'); } catch(_){ }
         };
       }
     }
@@ -243,6 +347,6 @@
     wrap.querySelector('.mmodal__close').onclick = close;
   }
 
-  A.ViewMistakes = { mount: render };
+  A.ViewMistakes = { mount: function(){ try{ if (A.stopAllTrainers) A.stopAllTrainers('view:mistakes'); }catch(_){} return render(); } };
 })();
 /* ========================= Конец файла: view.mistakes.js ========================= */
