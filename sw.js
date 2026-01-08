@@ -3,14 +3,14 @@
  * Файл: sw.js
  * Назначение: Service Worker (PWA, офлайн, обновления)
  * Версия SW: 1.0.1
- * Обновлено: 2026-01-06
+ * Обновлено: 2026-01-08
  * ========================================================== */
 
 'use strict';
 
 // Текущая версия SW / кэша
-const SW_VERSION = '1.0.0';
-const CACHE_NAME = 'moyamova-cache-v1.0.0';
+const SW_VERSION = '1.0.1';
+const CACHE_NAME = 'moyamova-cache-v1.0.1';
 
 // Преобразуем относительные пути в абсолютные URL на основе scope SW
 const toUrl = (path) => new URL(path, self.registration.scope).toString();
@@ -72,7 +72,44 @@ const APP_SHELL = [
   'js/updates.js',
   'js/ga.consent.js',
   'js/analytics.js',
-  'js/legal.js'
+  'js/legal.js',
+  // Словари (деки) – обязательно для первого офлайн-запуска
+  'js/deck.de.js',
+  'js/deck.de.lernpunkt.js',
+  'js/deck.en.js',
+  'js/deck.es.js',
+  'js/deck.fr.js',
+  'js/deck.sr.js',
+
+  // Тренер артиклей (логика/прогресс/избранное/ошибки/статистика)
+  'js/articles.card.shell.js',
+  'js/articles.trainer.logic.js',
+  'js/articles.progress.js',
+  'js/articles.stats.js',
+  'js/articles.favorites.js',
+  'js/articles.mistakes.js',
+
+  // Инфраструктура/хелперы, используемые новыми фичами
+  'js/ui.bus.js',
+  'js/ui.notify.js',
+  'js/ui.examples.highlight.de.js',
+  'js/ui.examples.highlight.en.js',
+  'js/app.decks.bridge.js',
+  'js/app.backup.js',
+  'js/pro.js',
+
+  // Иконки приложения (для стабильного офлайн и установки)
+  'img/android-chrome-192x192.png',
+  'img/android-chrome-512x512.png',
+  'img/apple-touch-icon-120x120.png',
+  'img/apple-touch-icon-152x152.png',
+  'img/apple-touch-icon-180x180.png',
+  'img/apple-touch-icon-76x76.png',
+  'img/favicon.ico',
+  'img/logo_32.png',
+  'img/logo_64.png',
+  'img/logo_128.png',
+  'img/logo_512.png'
 ].map(toUrl);
 
 // ========================================
@@ -215,7 +252,4 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
-
-
-
 

@@ -124,6 +124,14 @@
       if (keys.indexOf(preferred) !== -1) return preferred;
       return keys[0] || null;
     }
+    function preferredDeckKeyForLang(lang) {
+      var code = (lang || '').toLowerCase();
+      if (!code) return null;
+      // На первом запуске словари могут быть ещё не подгружены (особенно большие DE-деки),
+      // поэтому возвращаем стабильный "целевой" ключ без проверки наличия.
+      return code + '_verbs';
+    }
+
 
     function firstNonEmptyForLang(lang) {
       var pref = (lang || '').toLowerCase() + '_';
@@ -187,6 +195,12 @@
       }
 
       if (studyLang) {
+        // Предпочитаем базовые глаголы (например de_verbs), даже если на момент запуска
+        // конкретные деки ещё не успели подгрузиться. Это устраняет ситуацию, когда
+        // setup выбирает lernpunkt-деки просто потому, что они загрузились раньше.
+        var preferred = preferredDeckKeyForLang(studyLang);
+        if (preferred) return { uiLang: uiLang, studyLang: studyLang, deckKey: preferred };
+
         var first = firstForLang(studyLang);
         if (first) return { uiLang: uiLang, studyLang: studyLang, deckKey: first };
       }

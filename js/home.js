@@ -12,7 +12,26 @@
 
   /* ----------------------------- Константы ----------------------------- */
   const ACTIVE_KEY_FALLBACK = 'de_verbs';
-  const SET_SIZE = (A.Config && A.Config.setSizeDefault) || 40;
+  // IMPORTANT:
+  // Set size is not global: Lernpunkt must be split by 10, base dictionaries by 40.
+  // Home screen previously used a single fixed set size, which caused incorrect
+  // set counts, stats, and "done" marking for *_lernpunkt decks.
+  const SET_SIZE_DEFAULT = (A.Config && A.Config.setSizeDefault) || 40;
+
+  function getSetSizeForKey(key){
+    const k = String(key || '').toLowerCase();
+    try {
+      // Prefer canonical logic from the trainer (it already supports virtual keys).
+      if (A.Trainer && typeof A.Trainer.getSetSize === 'function') {
+        const n = Number(A.Trainer.getSetSize(key));
+        if (Number.isFinite(n) && n > 0) return n;
+      }
+    } catch(_){ }
+
+    // Fallback for early boot / safe usage.
+    if (k.endsWith('_lernpunkt')) return 10;
+    return SET_SIZE_DEFAULT;
+  }
 
   /* ---------------------------- Вспомогательное ожидание ---------------------------- */
   function waitForDecksReady(maxWaitMs = 2000) {
@@ -351,8 +370,9 @@ function activeDeckKey() {
       ? (A.Decks.resolveDeckByKey(key) || [])
       : [];
     const idx  = getActiveBatchIndex();
-    const from = idx * SET_SIZE;
-    const to   = Math.min(deck.length, (idx + 1) * SET_SIZE);
+    const SZ   = getSetSizeForKey(key);
+    const from = idx * SZ;
+    const to   = Math.min(deck.length, (idx + 1) * SZ);
     return deck.slice(from, to).map(w => w && w.id).filter(Boolean);
   }
 
@@ -469,7 +489,8 @@ function activeDeckKey() {
     const statsEl = document.getElementById('setStats');
     if (!grid) return;
 
-    const totalSets = Math.ceil(deck.length / SET_SIZE);
+    const SZ = getSetSizeForKey(key);
+    const totalSets = Math.ceil(deck.length / SZ);
     const activeIdx = getActiveBatchIndex();
     grid.innerHTML = '';
 
@@ -478,8 +499,8 @@ function activeDeckKey() {
     const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
 
     for (let i = 0; i < totalSets; i++) {
-      const from = i * SET_SIZE;
-      const to   = Math.min(deck.length, (i + 1) * SET_SIZE);
+      const from = i * SZ;
+      const to   = Math.min(deck.length, (i + 1) * SZ);
       const sub  = deck.slice(from, to);
       const done = sub.length > 0 && sub.every(w => {
         if (isArticles) {
@@ -509,7 +530,7 @@ function activeDeckKey() {
     }
 
     const i = getActiveBatchIndex();
-    const from = i * SET_SIZE, to = Math.min(deck.length, (i + 1) * SET_SIZE);
+    const from = i * SZ, to = Math.min(deck.length, (i + 1) * SZ);
     const words = deck.slice(from, to);
 
     const starsMax2 = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
@@ -618,10 +639,19 @@ function activeDeckKey() {
       const c = candidates[i];
       if (!picked.some(p => String(p.id) === String(c.id))) picked.push(c);
     }
-    // Добор из колоды, если вдруг не хватает
-    while (picked.length < SIZE && deck.length) {
-      const r = deck[Math.floor(Math.random() * deck.length)];
-      if (r && String(r.id) !== String(word.id) && !picked.some(p => String(p.id) === String(r.id))) picked.push(r);
+    // Добор из колоды, если вдруг не хватает.
+    // IMPORTANT: never use an unbounded `while` here.
+    // If the deck is too small (e.g. 1-3 words) and all candidates are filtered out,
+    // the old loop could run forever and freeze the UI.
+    if (picked.length < SIZE && deck.length) {
+      const MAX_TRIES = Math.max(20, deck.length * 5);
+      for (let tries = 0; tries < MAX_TRIES && picked.length < SIZE; tries++) {
+        const r = deck[Math.floor(Math.random() * deck.length)];
+        if (!r) continue;
+        if (String(r.id) === String(word.id)) continue;
+        if (picked.some(p => String(p.id) === String(r.id))) continue;
+        picked.push(r);
+      }
     }
 
     // Теперь делаем копии объектов и гарантируем уникальность отображаемых подписей

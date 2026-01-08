@@ -24,7 +24,7 @@
       title: (i && i.statsTitle) || (uk ? 'Статистика' : 'Статистика'),
       coreTitle: uk ? 'Основні частини мови' : 'Основные части речи',
       otherTitle: uk ? 'Інші частини мови' : 'Другие части речи',
-      splitTitle: uk ? 'Час: слова vs артиклі' : 'Время: слова vs артикли',
+      splitTitle: uk ? 'Вивчено: переклади vs артиклі' : 'Выучено: переводы vs артикли',
       activityTitle: uk ? 'Активність' : 'Активность',
       activityNoData: uk
         ? 'Ще немає даних про активність — продовжуйте тренуватися, і тут з’являться кола за днями.'
@@ -179,6 +179,38 @@
     }
   }
 
+  function countLearnedWordsByLang(langCode) {
+    // Считаем «выучено слов с переводами» — это прогресс обычного тренера слов.
+    // Важно: используем тот же контекст base vs lernpunkt, чтобы не смешивать данные.
+    try {
+      if (!A.Decks || typeof A.Decks.builtinKeys !== 'function') return 0;
+      var decksApi = A.Decks;
+      var group = currentDeckGroup();
+      var cnt = 0;
+      var keys = decksApi.builtinKeys() || [];
+      keys = (keys || []).filter(function (k) {
+        return group === 'lernpunkt' ? isLernpunktKey(k) : !isLernpunktKey(k);
+      });
+
+      keys.forEach(function (deckKey) {
+        var lk = null;
+        try { lk = decksApi.langOfKey(deckKey) || null; } catch (_) { lk = null; }
+        if (!lk || lk !== langCode) return;
+
+        var words = decksApi.resolveDeckByKey(deckKey) || [];
+        if (!words.length) return;
+
+        words.forEach(function (w) {
+          if (isWordLearned(w, deckKey)) cnt += 1;
+        });
+      });
+
+      return cnt;
+    } catch (_) {
+      return 0;
+    }
+  }
+
   function formatMinutes(seconds) {
     seconds = Number(seconds || 0);
     if (!seconds || seconds <= 0) return '0 мин';
@@ -187,17 +219,24 @@
   }
 
   function renderTimeSplitSet(langCode, texts) {
+    // Диаграмма на этой странице должна показывать не время,
+    // а сравнение «выучено переводов слов» vs «выучено слов с артиклями».
     var split = sumSplitSecondsByLang(langCode);
-    var total = split.words + split.articles;
-    if (!total) total = 1;
+    var learnedArticles = countLearnedArticlesByLang(langCode);
+    var learnedWords = countLearnedWordsByLang(langCode);
 
-    var pArticles = Math.round((split.articles / total) * 100);
+    var totalLearned = learnedWords + learnedArticles;
+    if (!totalLearned) totalLearned = 1;
+
+    var pArticles = Math.round((learnedArticles / totalLearned) * 100);
     var pWords = 100 - pArticles;
+
+    var uk = getUiLang() === 'uk';
 
     // Используем тот же "кольцевой" визуал 1:1 (layers + legend), только 2 сегмента.
     var buckets = [
-      { key: 'words', label: (getUiLang() === 'uk' ? 'Слова' : 'Слова'), seconds: split.words, percent: pWords, color: 'var(--stats-color-verbs, #0ea5e9)' },
-      { key: 'articles', label: (getUiLang() === 'uk' ? 'Артиклі' : 'Артикли'), seconds: split.articles, percent: pArticles, color: 'var(--stats-color-nouns, #6366f1)' }
+      { key: 'words', label: uk ? 'Переклади' : 'Переводы', value: learnedWords, percent: pWords, color: 'var(--stats-color-verbs, #0ea5e9)' },
+      { key: 'articles', label: uk ? 'Артиклі' : 'Артикли', value: learnedArticles, percent: pArticles, color: 'var(--stats-color-nouns, #6366f1)' }
     ];
 
     var layersHtml = buckets.map(function (b, idx) {
@@ -215,24 +254,33 @@
         '<div class="stats-ring-legend__item" style="--ring-color:' + b.color + ';">' +
           '<span class="stats-ring-legend__dot"></span>' +
           '<span class="stats-ring-legend__label">' + b.label + '</span>' +
-          '<span class="stats-ring-legend__value">' + formatMinutes(b.seconds) + '</span>' +
+          '<span class="stats-ring-legend__value">' + b.value + '</span>' +
         '</div>'
       );
     }).join('');
 
-    var learnedArticles = countLearnedArticlesByLang(langCode);
-    var uk = getUiLang() === 'uk';
+    // Метрики под легендой: две строки (артикли / переводы) и две колонки (выучено / время).
     var extraHtml =
-      '<div class="stats-ring-legend" style="margin-top:10px;">' +
-        '<div class="stats-ring-legend__item" style="--ring-color:transparent;">' +
-          '<span class="stats-ring-legend__dot" style="opacity:0;"></span>' +
-          '<span class="stats-ring-legend__label">' + (uk ? 'Вивчено артиклів:' : 'Выучено артиклей:') + '</span>' +
-          '<span class="stats-ring-legend__value">' + learnedArticles + '</span>' +
+      '<div class="stats-split-metrics">' +
+        '<div class="stats-split-metrics__row">' +
+          '<div class="stats-split-metrics__cell">' +
+            '<div class="stats-split-metrics__label">' + (uk ? 'Вивчено слів з артиклями' : 'Выучено слов с артиклями') + '</div>' +
+            '<div class="stats-split-metrics__value">' + learnedArticles + '</div>' +
+          '</div>' +
+          '<div class="stats-split-metrics__cell">' +
+            '<div class="stats-split-metrics__label">' + (uk ? 'Час у тренері артиклів' : 'Время в тренере артиклей') + '</div>' +
+            '<div class="stats-split-metrics__value">' + formatMinutes(split.articles) + '</div>' +
+          '</div>' +
         '</div>' +
-        '<div class="stats-ring-legend__item" style="--ring-color:transparent;">' +
-          '<span class="stats-ring-legend__dot" style="opacity:0;"></span>' +
-          '<span class="stats-ring-legend__label">' + (uk ? 'Час на артиклі:' : 'Время на артикли:') + '</span>' +
-          '<span class="stats-ring-legend__value">' + formatMinutes(split.articles) + '</span>' +
+        '<div class="stats-split-metrics__row">' +
+          '<div class="stats-split-metrics__cell">' +
+            '<div class="stats-split-metrics__label">' + (uk ? 'Вивчено слів з перекладами' : 'Выучено слов с переводами') + '</div>' +
+            '<div class="stats-split-metrics__value">' + learnedWords + '</div>' +
+          '</div>' +
+          '<div class="stats-split-metrics__cell">' +
+            '<div class="stats-split-metrics__label">' + (uk ? 'Час у тренері перекладів' : 'Время в тренере переводов') + '</div>' +
+            '<div class="stats-split-metrics__value">' + formatMinutes(split.words) + '</div>' +
+          '</div>' +
         '</div>' +
       '</div>';
 
