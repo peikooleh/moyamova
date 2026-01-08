@@ -295,26 +295,46 @@ function setUiLang(code){
   // starKey (единственное определение)
   const starKey = (typeof A.starKey === 'function') ? A.starKey : (id, key) => `${key}:${id}`;
 
-  function setDictStatsText(statsEl, deckKey){
-    try{
-      if (!statsEl) return;
-      const full = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') ? (A.Decks.resolveDeckByKey(deckKey) || []) : [];
-      const starsMax = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
+function setDictStatsText(statsEl, deckKey){
+  try{
+    if (!statsEl) return;
+    const full = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') ? (A.Decks.resolveDeckByKey(deckKey) || []) : [];
+    const starsMax = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
 
-      const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
+    const isArticles = !!(A.settings && A.settings.trainerKind === 'articles');
+    const uk = getUiLang() === 'uk';
 
-      const learnedWords = full.filter(w => ((A.state && A.state.stars && A.state.stars[starKey(w.id, deckKey)]) || 0) >= starsMax).length;
-      const uk = getUiLang() === 'uk';
-      if (isArticles) {
-        const learnedA = countLearnedArticles(full, deckKey);
-        statsEl.style.display = '';
-        statsEl.textContent = uk ? `Всього слів: ${full.length} / Вивчено: ${learnedA}`
-                               : `Всего слов: ${full.length} / Выучено: ${learnedA}`;
-      } else {
-        statsEl.style.display = '';
-        statsEl.textContent = uk ? `Всього слів: ${full.length} / Вивчено: ${learnedWords}`
-                               : `Всего слов: ${full.length} / Выучено: ${learnedWords}`;
-      }
+    if (isArticles) {
+      // In articles trainer we must exclude words without (der/die/das),
+      // otherwise set count and "total words" become inconsistent and can lead to empty sets / freeze.
+      let trainable = full;
+      try{
+        if (A.ArticlesTrainer && typeof A.ArticlesTrainer._filterWithArticles === 'function') {
+          trainable = A.ArticlesTrainer._filterWithArticles(full);
+        } else {
+          // fallback: prefix check
+          trainable = (full || []).filter(w => {
+            const raw = String((w && (w.word || w.term || w.de)) || '').trim().toLowerCase();
+            return raw.startsWith('der ') || raw.startsWith('die ') || raw.startsWith('das ');
+          });
+        }
+      }catch(_){}
+
+      const learnedA = countLearnedArticles(trainable, deckKey);
+      statsEl.style.display = '';
+      statsEl.textContent = uk
+        ? `Всього слів: ${trainable.length} / Вивчено: ${learnedA}`
+        : `Всего слов: ${trainable.length} / Выучено: ${learnedA}`;
+      return;
+    }
+
+    const learnedWords = full.filter(w => ((A.state && A.state.stars && A.state.stars[starKey(w.id, deckKey)]) || 0) >= starsMax).length;
+    statsEl.style.display = '';
+    statsEl.textContent = uk
+      ? `Всього слів: ${full.length} / Вивчено: ${learnedWords}`
+      : `Всего слов: ${full.length} / Выучено: ${learnedWords}`;
+  }catch(_){}
+}
     }catch(_){}
   }
 
