@@ -145,16 +145,6 @@
     return [];
   }
 
-// Deck filtered to words that actually have an article (der/die/das).
-// This is critical for Lernpunkt noun decks where some entries may not have articles:
-// we must keep set sizing, rendering and statistics consistent with the real trainable count.
-function getDeckWithArticles() {
-  var deck = getDeckWithArticles();
-  if (!deck || !deck.length) return [];
-  try { return deck.filter(hasValidArticle); } catch (e) { return []; }
-}
-
-
   // Progress for articles is tracked per base deck (e.g. de_nouns),
   // regardless of whether the training is launched from a virtual deck
   // like favorites:ru:de_nouns or mistakes:uk:de_nouns.
@@ -240,7 +230,7 @@ function getDeckWithArticles() {
   }
 
   function getArticlesSlice(dk) {
-    var deck = getDeckWithArticles();
+    var deck = getDeck();
     if (!deck || !deck.length) return [];
     var setSize = getSetSize(dk);
     totalSets = Math.max(1, Math.ceil(deck.length / setSize));
@@ -409,18 +399,21 @@ function getDeckWithArticles() {
   }
 
   function getDeckStats(dk) {
-    var deck = getDeckWithArticles();
-    if (!deck || !deck.length) return { withArticles: 0, learned: 0 };
+    var deck = getDeck();
+    var withA = 0;
     var learned = 0;
     var progKey = baseKeyForProgress(dk);
-    for (var i = 0; i < deck.length; i++) {
-      if (isLearned(progKey, deck[i].id)) learned++;
+    for (var i = 0; i < (deck ? deck.length : 0); i++) {
+      var w = deck[i];
+      if (!hasValidArticle(w)) continue;
+      withA++;
+      if (isLearned(progKey, w.id)) learned++;
     }
-    return { withArticles: deck.length, learned: learned };
+    return { withArticles: withA, learned: learned };
   }
 
   function getSetStats(dk) {
-    var deck = getDeckWithArticles();
+    var deck = getDeck();
     if (!deck || !deck.length) return { withArticles: 0, learned: 0, setIndex: 0, totalSets: 1 };
     var progKey = baseKeyForProgress(dk);
     var setSize = getSetSize(dk);
@@ -597,8 +590,6 @@ A.ArticlesTrainer = {
     getSetStats: getSetStats,
     // helpers (можно использовать из UI)
     _stripArticle: stripArticle,
-    _parseArticle: parseArticle,
-    _hasValidArticle: hasValidArticle,
-    _filterWithArticles: function(arr){ try{ return (arr||[]).filter(hasValidArticle); }catch(e){ return []; } }
+    _parseArticle: parseArticle
   };
 })();
