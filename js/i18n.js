@@ -43,6 +43,17 @@
       legalTerms: "Условия",
       legalPrivacy: "Конфиденциальность",
       legalImpressum: "Юридическая информация",
+      // === filters ===
+      filtersBtn: "Фильтры",
+      filtersTitle: "Фильтры",
+      filtersLevels: "Уровни",
+      filtersTopics: "Темы",
+      filtersNoFilter: "Без фильтра",
+      filtersReset: "Сбросить",
+      filtersApply: "Применить",
+      filtersEmpty: "По выбранным фильтрам нет слов.",
+      filtersOpen: "Открыть фильтры",
+
     },
     uk: {
       // === auto: donate ===
@@ -74,7 +85,18 @@
       legalTerms: "Умови",
       legalPrivacy: "Конфіденційність",
       legalImpressum: "Юридична інформація",
-    }
+    
+      // === filters ===
+      filtersBtn: "Фільтри",
+      filtersTitle: "Фільтри",
+      filtersLevels: "Рівні",
+      filtersTopics: "Теми",
+      filtersNoFilter: "Без фільтра",
+      filtersReset: "Скинути",
+      filtersApply: "Застосувати",
+      filtersEmpty: "За вибраними фільтрами немає слів.",
+      filtersOpen: "Відкрити фільтри",
+}
   };
 
   // ------------------------------------------------------------

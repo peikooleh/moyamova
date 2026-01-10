@@ -242,58 +242,86 @@ function getDeckWithArticles() {
   function getArticlesSlice(dk) {
     var deck = getDeckWithArticles();
     if (!deck || !deck.length) return [];
+
     var setSize = getSetSize(dk);
     totalSets = Math.max(1, Math.ceil(deck.length / setSize));
+
     currentSetIndex = getBatchIndex(dk);
     if (currentSetIndex >= totalSets) currentSetIndex = totalSets - 1;
-
-    // Автопереход, если текущий сет полностью выучен по артиклям.
-    var start = currentSetIndex * setSize;
-    var end = Math.min(deck.length, start + setSize);
-    var slice = deck.slice(start, end);
-    if (isCurrentSetComplete(dk, slice)) {
-      currentSetIndex = (currentSetIndex + 1) % totalSets;
-      setBatchIndex(currentSetIndex, dk);
-      start = currentSetIndex * setSize;
-      end = Math.min(deck.length, start + setSize);
-      slice = deck.slice(start, end);
-    }
-
-    // Фильтрация по артиклям.
-    var withArticles = slice.filter(hasValidArticle);
 
     // Прогресс артиклей ведём по базовой деке.
     var progKey = baseKeyForProgress(dk);
 
     // Исключение выученных (с мягким повтором через learnedRepeat).
     var eps = getLearnedEpsilon();
-    var eligible = [];
-    for (var i = 0; i < withArticles.length; i++) {
-      var w = withArticles[i];
-      var learned = isLearned(progKey, w.id);
-      if (!learned) eligible.push(w);
-      else if (eps > 0 && Math.random() < eps) eligible.push(w);
-    }
-    if (eligible.length) return eligible;
 
-    // Если всё выучено в сете — пробуем следующий сет. Если весь deck выучен — возвращаем текущий сет.
-    if (isWholeDeckLearned(dk, deck)) return withArticles;
-
-    var nextIdx = (currentSetIndex + 1) % totalSets;
-    setBatchIndex(nextIdx, dk);
-    currentSetIndex = nextIdx;
-    start = currentSetIndex * setSize;
-    end = Math.min(deck.length, start + setSize);
-    var nSlice = deck.slice(start, end);
-    var nWithA = nSlice.filter(hasValidArticle);
-    var nEligible = [];
-    for (var j = 0; j < nWithA.length; j++) {
-      var ww = nWithA[j];
-      if (!isLearned(progKey, ww.id)) nEligible.push(ww);
-      else if (eps > 0 && Math.random() < eps) nEligible.push(ww);
+    function eligibleFromSlice(slice) {
+      var eligible = [];
+      for (var i = 0; i < slice.length; i++) {
+        var w = slice[i];
+        var learned = isLearned(progKey, w.id);
+        if (!learned) eligible.push(w);
+        else if (eps > 0 && Math.random() < eps) eligible.push(w);
+      }
+      return eligible;
     }
-    return nEligible.length ? nEligible : nWithA;
+
+    // Если все слова (с валидными артиклями) выучены — начинаем заново с первого сета.
+    if (isWholeDeckLearned(dk, deck)) {
+      currentSetIndex = 0;
+      setBatchIndex(0, dk);
+      var fs = deck.slice(0, Math.min(deck.length, setSize));
+      var fse = eligibleFromSlice(fs);
+      return fse.length ? fse : fs;
+    }
+
+    // Ищем по кругу первый сет, где есть хоть что-то для тренировки.
+    // Это гарантирует, что приложение никогда не "залипнет" на последнем слове последнего сета.
+    for (var step = 0; step < totalSets; step++) {
+      var idx = (currentSetIndex + step) % totalSets;
+      var start = idx * setSize;
+      var end = Math.min(deck.length, start + setSize);
+      var slice = deck.slice(start, end);
+      if (!slice.length) continue;
+
+      // Если текущий сет полностью выучен — пропускаем его (автопереход).
+      if (isCurrentSetComplete(dk, slice)) continue;
+
+      var eligible = eligibleFromSlice(slice);
+      if (eligible.length) {
+        // Если сет маленький/неполный и после фильтрации кандидатов осталось мало,
+        // подмешиваем слова из следующих сетов (по кругу), чтобы тренировка не "пустела".
+        var target = Math.min(setSize, 6); // 6 достаточно для непрерывного UX
+        if (eligible.length < target && totalSets > 1) {
+          var pool = eligible.slice();
+          for (var step2 = 1; step2 < totalSets && pool.length < target; step2++) {
+            var idx2 = (idx + step2) % totalSets;
+            var start2 = idx2 * setSize;
+            var end2 = Math.min(deck.length, start2 + setSize);
+            var slice2 = deck.slice(start2, end2);
+            if (!slice2.length) continue;
+            if (isCurrentSetComplete(dk, slice2)) continue;
+            var el2 = eligibleFromSlice(slice2);
+            for (var k = 0; k < el2.length && pool.length < target; k++) pool.push(el2[k]);
+          }
+          eligible = pool;
+        }
+
+        if (idx !== currentSetIndex) setBatchIndex(idx, dk);
+        currentSetIndex = idx;
+        return eligible;
+      }
+    }
+
+    // Фоллбек: если по какой-то причине не нашли eligible, начинаем с первого сета.
+    // (Например, при пограничных состояниях прогресса/миграциях.)
+    currentSetIndex = 0;
+    setBatchIndex(0, dk);
+    var slice0 = deck.slice(0, Math.min(deck.length, setSize));
+    var eligible0 = eligibleFromSlice(slice0);
+    return eligible0.length ? eligible0 : slice0;
   }
+
 
   function tTranslation(w) {
     // В каркасе просто используем ту же логику, что и базовый тренер,
@@ -361,7 +389,25 @@ function getDeckWithArticles() {
     // - learnedRepeat применяем из App.settings.learnedRepeat
     // - recency хранится отдельно (ArticlesProgress.ts)
     var slice = getArticlesSlice(deckKey);
-    if (!slice || !slice.length) return null;
+    if (!slice || !slice.length) {
+      // Абсолютный фоллбек: даже если по какой-то причине slice пуст,
+      // пытаемся взять слова из всей колоды с валидными артиклями.
+      var deckAll = getDeckWithArticles();
+      if (!deckAll || !deckAll.length) return null;
+
+      var eps0 = getLearnedEpsilon();
+      var progKey0 = baseKeyForProgress(deckKey);
+
+      var pool0 = [];
+      for (var i0 = 0; i0 < deckAll.length; i0++) {
+        var w0 = deckAll[i0];
+        var learned0 = isLearned(progKey0, w0.id);
+        if (!learned0) pool0.push(w0);
+        else if (eps0 > 0 && Math.random() < eps0) pool0.push(w0);
+      }
+      // Если даже так пусто (например, eps=0 и все выучено) — начинаем заново с первой записи.
+      slice = pool0.length ? pool0 : [deckAll[0]];
+    }
 
     var tries = 24;
     while (tries-- > 0) {

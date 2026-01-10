@@ -14,13 +14,14 @@
   <title>MOYAMOVA — офлайн-тренажёр немецкого и английского | 2500+ слов</title>
   <meta name="description" content="MOYAMOVA — офлайн-тренажёр немецкого и английского. 2500+ слов для каждого языка с примерами, синонимами и антонимами. Карточки слов, прогресс без рекламы и регистрации.">
   <meta name="robots" content="index,follow">
-    <meta name="googlebot" content="index,follow">
-<meta name="theme-color" content="#ffffff">
+  <meta name="googlebot" content="index,follow">
+  <meta name="theme-color" content="#ffffff">
 
-    <meta name="application-name" content="MOYAMOVA">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <meta name="application-name" content="MOYAMOVA">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/theme.light.css">
   <link rel="stylesheet" href="./css/theme.dark.css">
+  <link rel="stylesheet" href="./css/ui.filters.css">
   <link rel="stylesheet" href="./css/overrides.css">
   
   <link rel="stylesheet" href="./css/view.stats.css">
@@ -80,7 +81,7 @@
     },
     "url": "https://moyamova.online/",
     "inLanguage": ["ru", "uk", "de", "en" ],
-    "description": "MOYAMOVA — офлайн-тренажёр немецкого и английского. 2500+ слов для каждого языка с примерами, синонимами и антонимами. Карточки слов, прогресс без рекламы и регистрации",
+    "description": "MOYAMOVA — офлайн-тренажёр немецкого и английского | 2500+ слов.",
     "publisher": {
       "@type": "Organization",
       "name": "MOYAMOVA"
@@ -125,14 +126,10 @@
   <script src="./js/dicts.js" defer></script>
 
   <!-- === ДАННЫЕ СЛОВАРЕЙ === -->
-  <script src="./js/deck.de.js" defer></script>
-  <script src="./js/deck.en.js" defer></script>
-  <script src="./js/deck.de.lernpunkt.js" defer></script>
+  <script src="./dicts/deck.de.js" defer></script>
+  <script src="./dicts/deck.en.js" defer></script>
+  <script src="./dicts/deck.de.lernpunkt.js" defer></script>
   
- <!--   <script src="./js/deck.fr.js" defer></script>
-        <script src="./js/deck.sr.js" defer></script>
-        <script src="./js/deck.es.js" defer></script> -->
-
   <!-- === ЛОГИКА (ядро) === -->
   <script src="./js/app.decks.js" defer></script>
   <script src="./js/app.trainer.js" defer></script>
@@ -141,7 +138,7 @@
 
   <!-- === Мост виртуальных словарей (ошибки / избранное) === -->
   <script src="./js/app.decks.bridge.js" defer></script>
-
+  <script src="./js/app.filters.js" defer></script>
   <!-- === UI надстройки === -->
   <script src="./js/ui.bus.js" defer></script>
   <script src="./js/ui.legal.modal.js"></script>

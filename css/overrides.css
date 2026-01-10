@@ -367,7 +367,7 @@ html[data-theme="dark"] .stats-lang-card__body{
  * ========================================================== */
 html[data-runmode="pwa"] #app.content {
   box-sizing: border-box;
-  padding-top: 36px; /* подкорректируй по вкусу */
+  padding-top:12px; /* подкорректируй по вкусу */
 }
 
 /* ==========================================================
