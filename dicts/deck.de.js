@@ -10754,7 +10754,7 @@ window.decks.de_nouns = [
   id: 513,
   word: "der Ordner",
   ru: "папка",
-  uk: "тека",
+  uk: "папка",
   level: "A2",
   topics: ["it", "data"],
   deSynonyms: ["das Verzeichnis", "der Folder"],
@@ -10767,7 +10767,7 @@ window.decks.de_nouns = [
     {
       L2: "Lege die Bilder in einem neuen Ordner ab.",
       ru: "Помести изображения в новую папку.",
-      uk: "Помісти зображення в нову теку."
+      uk: "Помісти зображення в нову папку."
     }
   ]
 },
@@ -11999,28 +11999,6 @@ window.decks.de_nouns = [
       L2: "Klicke auf die Schaltfläche, um fortzufahren.",
       ru: "Нажми на кнопку, чтобы продолжить.",
       uk: "Натисни на кнопку, щоб продовжити."
-    }
-  ]
-},
-
-{
-  id: 570,
-  word: "die Schaltfläche OK",
-  ru: "кнопка OK",
-  uk: "кнопка OK",
-  level: "A2",
-  topics: ["ui"],
-  deSynonyms: ["der OK-Button", "die Bestätigungsschaltfläche"],
-  ruSynonyms: ["кнопка OK", "кнопка подтверждения"],
-  ukSynonyms: ["кнопка OK", "кнопка підтвердження"],
-  deAntonyms: ["die Abbrechen-Schaltfläche", "die Zurück-Schaltfläche"],
-  ruAntonyms: ["кнопка Отмена", "кнопка Назад"],
-  ukAntonyms: ["кнопка Скасувати", "кнопка Назад"],
-  examples: [
-    {
-      L2: "Bestätige die Auswahl mit der Schaltfläche OK.",
-      ru: "Подтверди выбор кнопкой OK.",
-      uk: "Підтверди вибір кнопкою OK."
     }
   ]
 },
@@ -22318,7 +22296,7 @@ window.decks.de_nouns = [
   level: "B2",
   topics: ["health"],
   deSynonyms: ["die Heilung"],
-  ruSynonyms: [],
+  ruSynonyms: ["выздоровление"],
   ukSynonyms: [],
   deAntonyms: [],
   ruAntonyms: [],
@@ -23849,28 +23827,6 @@ window.decks.de_nouns = [
 },
 
 {
-  id: 1109,
-  word: "die Bandbreitebegrenzung",
-  ru: "ограничение пропускной способности",
-  uk: "обмеження пропускної здатності",
-  level: "C1",
-  topics: ["it"],
-  deSynonyms: ["das Bandbreitenlimit"],
-  ruSynonyms: ["ограничение пропускной способности", "лимит скорости"],
-  ukSynonyms: ["обмеження пропускної здатності", "ліміт швидкості"],
-  deAntonyms: ["die Flatrate", "die unbegrenzte Bandbreite"],
-  ruAntonyms: ["безлимитный тариф"],
-  ukAntonyms: ["безлімітний тариф"],
-  examples: [
-    {
-      L2: "Die Bandbreitebegrenzung kann zu langsamem Streaming führen.",
-      ru: "Ограничение пропускной способности может привести к медленному стримингу.",
-      uk: "Обмеження пропускної здатності може призвести до повільного стрімінгу."
-    }
-  ]
-},
-
-{
   id: 1110,
   word: "die Schnittstellenbeschreibung",
   ru: "описание интерфейса",
@@ -24791,27 +24747,7 @@ window.decks.de_nouns = [
     }
   ]
 },
-{
-  id: 1152,
-  word: "die Datenschutzgrundverordnung",
-  ru: "общий регламент по защите данных",
-  uk: "загальний регламент захисту даних",
-  level: "C1",
-  topics: ["law", "it"],
-  deSynonyms: ["die DSGVO", "die EU-Datenschutzverordnung"],
-  ruSynonyms: ["GDPR", "регламент ЕС по защите данных"],
-  ukSynonyms: ["GDPR", "регламент ЄС із захисту даних"],
-  deAntonyms: [],
-  ruAntonyms: [],
-  ukAntonyms: [],
-  examples: [
-    {
-      L2: "Unternehmen müssen die Datenschutzgrundverordnung einhalten.",
-      ru: "Компании обязаны соблюдать Общий регламент по защите данных.",
-      uk: "Компанії мають дотримуватися Загального регламенту захисту даних."
-    }
-  ]
-},
+
 {
   id: 1153,
   word: "die Einwilligungserklärung",
@@ -24875,27 +24811,7 @@ window.decks.de_nouns = [
     }
   ]
 },
-{
-  id: 1156,
-  word: "die Zustellungsvollmacht",
-  ru: "полномочие на вручение",
-  uk: "повноваження на вручення",
-  level: "C1",
-  topics: ["law"],
-  deSynonyms: ["die Empfangsvollmacht", "die Vollmacht zur Zustellung"],
-  ruSynonyms: ["доверенность на получение корреспонденции"],
-  ukSynonyms: ["довіреність на отримання кореспонденції"],
-  deAntonyms: [],
-  ruAntonyms: [],
-  ukAntonyms: [],
-  examples: [
-    {
-      L2: "Mit der Zustellungsvollmacht kann der Anwalt alle Briefe entgegennehmen.",
-      ru: "С доверенностью на вручение адвокат может получать всю корреспонденцию.",
-      uk: "З повноваженням на вручення адвокат може отримувати всю кореспонденцію."
-    }
-  ]
-},
+
 {
   id: 1157,
   word: "die Verjährung",
@@ -25151,13 +25067,13 @@ window.decks.de_nouns = [
 {
   id: 1169,
   word: "der Gebäudeausweis",
-  ru: "энергетический сертификат здания",
-  uk: "енергетичний сертифікат будівлі",
+  ru: "сертификат здания",
+  uk: "сертифікат будівлі",
   level: "C1",
   topics: ["energy", "housing"],
-  deSynonyms: ["der Energieausweis", "der Gebäudepass (Energie)"],
-  ruSynonyms: ["энергетический паспорт здания"],
-  ukSynonyms: ["енергетичний паспорт будівлі"],
+  deSynonyms: ["der Energieausweis", "der Gebäudepass"],
+  ruSynonyms: ["паспорт здания"],
+  ukSynonyms: ["паспорт будівлі"],
   deAntonyms: [],
   ruAntonyms: [],
   ukAntonyms: [],
@@ -27667,8 +27583,6 @@ window.decks.de_nouns = [
   ]
 },
 
-// --- продолжаю список ---
-
 {
   id: 1291,
   word: "die Umgestaltung",
@@ -28204,7 +28118,7 @@ window.decks.de_verbs = [
     id: 10,
     word: "sollen",
     ru: "следует",
-    uk: "слід",
+    uk: "повинен",
     level: "A2",
     topics: ["daily", "health"],
     deSynonyms: ["empfohlen sein", "angebracht sein"],
@@ -28217,7 +28131,7 @@ window.decks.de_verbs = [
       {
         L2: "mehr schlafen sollen",
         ru: "следует больше спать",
-        uk: "слід більше спати"
+        uk: "ти повинен більше спати"
       },
       {
         L2: "nicht so viel arbeiten sollen",
@@ -30445,8 +30359,8 @@ window.decks.de_verbs = [
   {
     id: 69,
     word: "schaffen",
-    ru: "создавать",
-    uk: "створювати",
+    ru: "справиться",
+    uk: "впоратися",
     level: "B1",
     topics: ["work", "abstract"],
     deSynonyms: ["bewältigen", "hervorbringen"],
@@ -35536,8 +35450,8 @@ window.decks.de_verbs = [
   {
     id: 216,
     word: "schmelzen",
-    ru: "таять",
-    uk: "танути",
+    ru: "расплавляться, таять",
+    uk: "плавитися, танути",
     level: "B1",
     topics: ["nature"],
     deSynonyms: ["auftauen"],
@@ -42827,12 +42741,12 @@ window.decks.de_verbs = [
   id: 421,
   word: "unternehmen",
   ru: "предпринимать",
-  uk: "підприємати",
+  uk: "щось робити",
   level: "B1",
   topics: ["leisure", "work"],
   deSynonyms: ["machen", "tun", "aktiv werden"],
   ruSynonyms: ["предпринимать", "делать что-то"],
-  ukSynonyms: ["підприємати", "щось робити"],
+  ukSynonyms: ["щось робити"],
   deAntonyms: ["nichts tun", "unterlassen"],
   ruAntonyms: ["ничего не делать", "воздержаться"],
   ukAntonyms: ["нічого не робити", "утриматися"],
@@ -44384,13 +44298,13 @@ window.decks.de_verbs = [
 {
   id: 462,
   word: "zunehmen",
-  ru: "прибавлять",
-  uk: "набiрати",
+  ru: "прибавлять в весе",
+  uk: "набирати вагу",
   level: "B1",
   topics: ["health"],
   deSynonyms: ["schwerer werden", "an Gewicht zulegen"],
-  ruSynonyms: ["прибавлять в весе", "толстеть"],
-  ukSynonyms: ["набирати вагу", "повніти"],
+  ruSynonyms: ["толстеть"],
+  ukSynonyms: ["повніти"],
   deAntonyms: ["abnehmen", "Gewicht verlieren"],
   ruAntonyms: ["худеть", "сбрасывать вес"],
   ukAntonyms: ["худіти", "скидати вагу"],

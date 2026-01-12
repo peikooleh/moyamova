@@ -62,7 +62,7 @@ window.decks.de_nouns_lernpunkt = [
     ruAntonyms: [],
     ukAntonyms: [],
     examples: [
-      { L2: "Ich brauche Kleber für das Projekt.", ru: "Мне нужен клей для проекта.", uk: "Мені потрібен клей для проєкту." }
+      { L2: "Ich brauche Leim für das Projekt.", ru: "Мне нужен клей для проекта.", uk: "Мені потрібен клей для проєкту." }
     ]
   },
   {
@@ -102,7 +102,7 @@ window.decks.de_nouns_lernpunkt = [
   {
     id: 6,
     word: "das Blatt",
-    ru: "лист (бумаги)",
+    ru: "лист",
     uk: "аркуш",
     level: "A1",
     topics: ["school", "paper"],
@@ -154,7 +154,7 @@ window.decks.de_nouns_lernpunkt = [
     id: 9,
     word: "der Ordner",
     ru: "папка",
-    uk: "тека",
+    uk: "папка",
     level: "A1",
     topics: ["school", "office"],
     deSynonyms: ["die Mappe"],
@@ -164,7 +164,7 @@ window.decks.de_nouns_lernpunkt = [
     ruAntonyms: [],
     ukAntonyms: [],
     examples: [
-      { L2: "Der Ordner liegt auf dem Tisch.", ru: "Папка лежит на столе.", uk: "Тека лежить на столі." }
+      { L2: "Der Ordner liegt auf dem Tisch.", ru: "Папка лежит на столе.", uk: "Папка лежить на столі." }
     ]
   },
   {
@@ -202,7 +202,7 @@ window.decks.de_nouns_lernpunkt = [
   {
     id: 12,
     word: "der Vorname",
-    ru: "имя (собственное)",
+    ru: "имя",
     uk: "ім’я",
     level: "A1",
     topics: ["personal","forms"],
@@ -503,7 +503,7 @@ window.decks.de_nouns_lernpunkt = [
     id: 32,
     word: "der Spitzer",
     ru: "точилка",
-    uk: "точилка",
+    uk: "стругачка",
     level: "A1",
     topics: ["school","objects"],
     deSynonyms: [],
@@ -512,7 +512,7 @@ window.decks.de_nouns_lernpunkt = [
     deAntonyms: [],
     ruAntonyms: [],
     ukAntonyms: [],
-    examples: [{ L2: "Der Spitzer ist klein.", ru: "Точилка маленькая.", uk: "Точилка маленька." }]
+    examples: [{ L2: "Der Spitzer ist klein.", ru: "Точилка маленькая.", uk: "Стругачка маленька." }]
   },
   {
     id: 33,
@@ -1423,8 +1423,8 @@ window.decks.de_verbs_lernpunkt = [
   {
     id: 23,
     word: "lernen",
-    ru: "учить / учиться",
-    uk: "вчити / вчитися",
+    ru: "учить",
+    uk: "вчити",
     level: "A1",
     topics: ["education"],
     deSynonyms: [],

@@ -24599,27 +24599,7 @@ window.decks.en_nouns = [
       }
     ]
   },
-  {
-    "id": 1109,
-    "word": "bandwidth limit",
-    "ru": "ограничение пропускной способности",
-    "uk": "обмеження пропускної здатності",
-    "level": "C1",
-    "topics": ["it"],
-    "enSynonyms": ["throughput cap"],
-    "ruSynonyms": ["лимит пропускной способности"],
-    "ukSynonyms": ["ліміт пропускної здатності"],
-    "enAntonyms": ["unlimited bandwidth"],
-    "ruAntonyms": ["неограниченная пропускная способность"],
-    "ukAntonyms": ["необмежена пропускна здатність"],
-    "examples": [
-      {
-        "L2": "A bandwidth limit can slow down data transfer.",
-        "ru": "Ограничение пропускной способности может замедлить передачу данных.",
-        "uk": "Обмеження пропускної здатності може уповільнити передачу даних."
-      }
-    ]
-  },
+  
   {
     "id": 1110,
     "word": "interface description",
