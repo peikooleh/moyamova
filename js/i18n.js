@@ -51,8 +51,6 @@
       filtersNoFilter: "Без фильтра",
       filtersReset: "Сбросить",
       filtersApply: "Применить",
-      filtersVirtualTitle: "Фильтры недоступны",
-      filtersVirtualText: "В Избранном и Моих ошибках тренируются все сохранённые слова. Дополнительные фильтры не применяются.",
       filtersEmpty: "По выбранным фильтрам нет слов.",
       filtersOpen: "Открыть фильтры",
 
@@ -96,8 +94,6 @@
       filtersNoFilter: "Без фільтра",
       filtersReset: "Скинути",
       filtersApply: "Застосувати",
-      filtersVirtualTitle: "Фільтри недоступні",
-      filtersVirtualText: "В Обраному та Моїх помилках тренуються всі збережені слова. Додаткові фільтри не застосовуються.",
       filtersEmpty: "За вибраними фільтрами немає слів.",
       filtersOpen: "Відкрити фільтри",
 }
