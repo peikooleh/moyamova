@@ -258,52 +258,11 @@ body.menu-open .oc-panel{ transform:translateX(0);}
 /* футер на нуле — твоё идеальное текущее поведение в браузерах */}
 /* 2) PWA (display-mode: standalone) — прижимаем кнопки НА САМЫЙ НИЗ, без дублей safe-area */
 @media all and (display-mode:standalone){
-  /* ======================= MOYAMOVA PWA/TWA FOOTER PATCH =======================
-     Цель: как в нативных iOS-приложениях (OLX/Google/EarFun)
-     - Кнопки остаются ВЫШЕ home-indicator (НЕ в safe-area)
-     - Safe-area снизу закрываем ТОЛЬКО фоном футера
-     - В PWA/TWA делаем футер чуть тоньше (−14px) и слегка опускаем иконки
-     ========================================================================== */
-
-  :root{
-    --footer-h-pwa: calc(var(--footer-h) - 14px); /* было: var(--footer-h), стало: на 10–20px тоньше */
-  }
-
   .app-footer{
-    bottom:0;
-    height:var(--footer-h-pwa);   /* высота панели с кнопками (без safe-area) */
-    padding-bottom:10;             /* кнопки над home-indicator */
-    border-bottom:0;              /* нижняя линия в PWA обычно мешает у края */
-    position:relative;            /* якорь для ::after */
-    overflow:visible;             /* разрешаем "хвост" фона уйти вниз */
-  }
-
-  /* Лёгкий "nudge" вниз: визуально ближе к нативным таб-барам, но без ухода в системную зону жестов */
-  .app-footer .nav-btn{
-    transform:translateY(calc(var(--safe-bottom) * 0.1));
-  }
-
-  /* Дорисовываем фон футера в safe-area (под home-indicator) */
-  .app-footer::after{
-    content:"";
-    position:absolute;
-    left:0; right:0;
-    bottom:calc(-1 * var(--safe-bottom));
-    height:var(--safe-bottom);
-    background:var(--footer-bg);
-    pointer-events:none;
-  }
-
-  /* Контент в PWA/TWA не должен дополнительно учитывать safe-bottom,
-     иначе появляется «пустота» над футером */
-  .content{
-    padding-bottom:calc(var(--footer-h-pwa) + 10px);
-  }
-
-  /* ===================== END MOYAMOVA PWA/TWA FOOTER PATCH ==================== */
-}
-
-
+    bottom:0;                    /* футер ровно у нижней кромки окна */
+    height:var(--footer-h);      /* высота БЕЗ safe-area (раньше здесь была сумма, получался двойной учёт) */
+    padding-bottom:0;            /* убрали нижний внутренний отступ (safe-area) — не нужен для полной «прилипки» */
+    border-bottom:0;             /* нижняя линия футера в PWA не нужна (часто визуально мешает у самого края) */}}
 /* ========================================================================== */
 /*  ДОП. НАСТРОЙКИ ДЛЯ iOS (SAFE-AREAS)                                       */
 /*  ВАЖНО: разбиваем на две ветки, чтобы НЕ дублировать safe-area в PWA.      */
