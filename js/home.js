@@ -186,6 +186,15 @@ function setUiLang(code){
 
   function getTrainableDeckForKey(deckKey){
     const mode = isArticlesModeForKey(deckKey) ? 'articles' : 'words';
+
+    // MOYAMOVA: virtual decks → ignore filters completely
+    if (isVirtualDeckKey(deckKey)) {
+      try {
+        return (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') ? (A.Decks.resolveDeckByKey(deckKey) || []) : [];
+      } catch(_){}
+      return [];
+    }
+
     try {
       if (A.Filters && typeof A.Filters.getTrainableDeck === 'function') {
         return A.Filters.getTrainableDeck(deckKey, { mode }) || [];
@@ -196,6 +205,117 @@ function setUiLang(code){
     } catch(_){}
     return [];
   }
+
+  // ------------------------ Guards: filters vs trainer options ------------------------
+  // Prevent cases where applying filters during training leaves too few options:
+  // - Word trainer requires 4 answer buttons (1 correct + 3 distractors)
+  // - Articles trainer requires presence of der/die/das in the filtered pool
+  const __lastValidFilterStateByStudyLang = Object.create(null);
+
+  function __normLabel(s){
+    return String(s || '').trim().replace(/\s+/g,' ').toLowerCase();
+  }
+
+  function __getAnswerLabelForOption(w){
+    // Same source as buttons: tWord(w) -> ru/uk translation shown to user
+    try { return String(tWord(w) || '').trim(); } catch(_){ return ''; }
+  }
+
+  function __parseArticleFromWord(w){
+    let raw = '';
+    try { raw = (w && (w.word || w.term || w.de || '')) || ''; } catch(_){ raw = ''; }
+    raw = String(raw || '').trim().toLowerCase();
+    const first = raw.split(/\s+/)[0] || '';
+    if (first === 'der' || first === 'die' || first === 'das') return first;
+    return '';
+  }
+
+  function __eligibleWordCountForOptions(deck){
+    // We can disambiguate duplicate labels (adding (term) / (#n)), so we only need
+    // enough distinct WORDS with non-empty base label.
+    try{
+      const seen = new Set();
+      let n = 0;
+      for (const w of (deck || [])){
+        if (!w || w.id == null) continue;
+        const id = String(w.id);
+        if (seen.has(id)) continue;
+        const base = __getAnswerLabelForOption(w);
+        if (!base) continue;
+        seen.add(id);
+        n++;
+        if (n >= 4) break;
+      }
+      return n;
+    }catch(_){
+      return 0;
+    }
+  }
+
+  function __validateTrainingFeasibilityForKey(deckKey){
+    const key = deckKey;
+    const isArticles = isArticlesModeForKey(key);
+    const deck = getTrainableDeckForKey(key) || [];
+    const ui = (typeof getUiLang === 'function') ? getUiLang() : 'ru';
+
+    if (isArticles) {
+      const s = new Set();
+      for (const w of deck){
+        const a = __parseArticleFromWord(w);
+        if (a) s.add(a);
+        if (s.size >= 3) break;
+      }
+      if (s.size >= 3) return { ok:true };
+
+      const msg = (ui === 'uk')
+        ? 'Недостатньо слів з різними артиклями для тренування (потрібно der/die/das). Оберіть інші фільтри.'
+        : 'Недостаточно слов с разными артиклями для тренировки (нужно der/die/das). Выберите другие фильтры.';
+      return { ok:false, reason:'articles', msg };
+    }
+
+    const eligible = __eligibleWordCountForOptions(deck);
+    if (eligible >= 4) return { ok:true };
+
+    const msg = (ui === 'uk')
+      ? `Недостатньо слів для тренування: потрібно мінімум 4 варіанти відповіді (зараз ${eligible}). Оберіть інші фільтри.`
+      : `Недостаточно слов для тренировки: нужно минимум 4 варианта ответа (сейчас ${eligible}). Выберите другие фильтры.`;
+    return { ok:false, reason:'words', msg, count: eligible };
+  }
+
+  function __rememberLastValidFilterState(studyLang){
+    try {
+      if (A.Filters && typeof A.Filters.getState === 'function') {
+        const st = A.Filters.getState(studyLang || 'xx');
+        __lastValidFilterStateByStudyLang[String(studyLang||'xx').toLowerCase()] = {
+          enabled: !!(st && st.enabled),
+          selected: (st && st.selected) ? st.selected.slice() : []
+        };
+      }
+    } catch(_){}
+  }
+
+  function __restoreFilterState(studyLang, st){
+    try {
+      if (!A.Filters || typeof A.Filters.setLevels !== 'function') return;
+      const sel = (st && st.selected) ? st.selected.slice() : [];
+      A.Filters.setLevels(studyLang, sel);
+    } catch(_){}
+  }
+
+  function __syncFiltersSheetCheckboxes(studyLang){
+    const list = document.getElementById('filtersLevelsList');
+    if (!list) return;
+    let st = null;
+    try { st = (A.Filters && A.Filters.getState) ? A.Filters.getState(studyLang || 'xx') : null; } catch(_){ st = null; }
+    const selected = new Set((st && st.selected) ? st.selected : []);
+    const cbs = Array.from(list.querySelectorAll('input[type="checkbox"][data-level]'));
+    for (const cb of cbs){
+      const lv = String(cb.getAttribute('data-level') || '').trim();
+      if (!lv) continue;
+      cb.checked = selected.has(lv);
+    }
+  }
+
 
   function getTrainableSliceForKey(deckKey){
     const deck = getTrainableDeckForKey(deckKey);
@@ -315,6 +435,42 @@ function setUiLang(code){
 
     const key = activeDeckKey();
     const studyLang = getStudyLangForKey(key) || 'xx';
+
+    // MOYAMOVA: virtual decks → filters unavailable (read-only info state)
+    try {
+      const applyBtn = document.getElementById('filtersApply');
+      const resetBtn = document.getElementById('filtersReset');
+      // reset to defaults for normal decks; virtual decks will disable below
+      if (applyBtn) applyBtn.disabled = false;
+      if (resetBtn) resetBtn.disabled = false;
+    } catch(_){}
+
+    if (isVirtualDeckKey(key)) {
+      // Replace pills with an informational block (RU/UK only)
+      const title = (window.I18N_t ? window.I18N_t('filtersVirtualTitle') : 'Фильтры недоступны');
+      const text  = (window.I18N_t ? window.I18N_t('filtersVirtualText')  : 'В Избранном и Моих ошибках тренируются все сохранённые слова. Дополнительные фильтры не применяются.');
+      list.innerHTML = `
+        <div class="filters-virtual-note">
+          <div class="title">${title}</div>
+          <div class="text">${text}</div>
+        </div>
+      `;
+
+      try {
+        const applyBtn = document.getElementById('filtersApply');
+        const resetBtn = document.getElementById('filtersReset');
+        if (applyBtn) applyBtn.disabled = true;
+        if (resetBtn) resetBtn.disabled = true;
+      } catch(_){}
+
+      try { overlay.classList.remove('filters-hidden'); } catch(_){}
+      try { sheet.classList.remove('filters-hidden'); } catch(_){}
+      try { overlay.setAttribute('aria-hidden', 'false'); } catch(_){ }
+      try { sheet.setAttribute('aria-hidden', 'false'); } catch(_){ }
+      try { lockBodyScrollForFilters(sheet); } catch(_){ }
+
+      return;
+    }
     const st = (A.Filters && A.Filters.getState) ? A.Filters.getState(studyLang) : { enabled:false, selected:[] };
     const selected = new Set((st && st.selected) ? st.selected : []);
 
@@ -345,10 +501,10 @@ function setUiLang(code){
     try { sheet.setAttribute('aria-hidden', 'false'); } catch(_){ }
     try { lockBodyScrollForFilters(sheet); } catch(_){ }
 
-    // Focus close for accessibility (best-effort)
+    // Focus Apply for accessibility (best-effort)
     try {
-      const closeBtn = document.getElementById('filtersClose');
-      if (closeBtn && closeBtn.focus) closeBtn.focus();
+      const applyBtn = document.getElementById('filtersApply');
+      if (applyBtn && applyBtn.focus) applyBtn.focus();
     } catch(_){ }
   }
 
@@ -363,22 +519,87 @@ function setUiLang(code){
     try { unlockBodyScrollForFilters(); } catch(_){ }
   }
 
-  function applyFiltersFromSheet(){
-    const key = activeDeckKey();
-    const studyLang = getStudyLangForKey(key) || 'xx';
+  function __readDraftLevelsFromSheet(){
     const list = document.getElementById('filtersLevelsList');
-    if (!list) return;
-
-    const checked = Array.from(list.querySelectorAll('input[type="checkbox"][data-level]'))
+    if (!list) return [];
+    return Array.from(list.querySelectorAll('input[type="checkbox"][data-level]'))
       .filter(cb => cb && cb.checked)
       .map(cb => String(cb.getAttribute('data-level') || '').trim())
       .filter(Boolean);
+  }
 
+  function __setFiltersHint(text){
+    const el = document.getElementById('filtersHint');
+    if (!el) return;
+    const t = String(text || '').trim();
+    if (!t) {
+      el.textContent = '';
+      el.style.display = 'none';
+      return;
+    }
+    el.textContent = t;
+    el.style.display = 'block';
+  }
+
+  function __setApplyEnabled(enabled){
+    const btn = document.getElementById('filtersApply');
+    if (!btn) return;
+    btn.disabled = !enabled;
+  }
+
+  function __validateDraftSelectionForKey(key, draftLevels){
+    const studyLang = getStudyLangForKey(key) || 'xx';
+    let prevState = null;
+    try {
+      if (A.Filters && typeof A.Filters.getState === 'function') {
+        prevState = A.Filters.getState(studyLang);
+      }
+    } catch(_){ prevState = null; }
+
+    // Temporarily apply draft levels to evaluate feasibility, then restore.
     try {
       if (A.Filters && typeof A.Filters.setLevels === 'function') {
-        A.Filters.setLevels(studyLang, checked);
+        A.Filters.setLevels(studyLang, draftLevels || []);
       }
     } catch(_){}
+
+    let v = null;
+    try {
+      v = __validateTrainingFeasibilityForKey(key);
+    } catch(_){ v = null; }
+
+    try {
+      if (prevState) __restoreFilterState(studyLang, prevState);
+      else if (A.Filters && typeof A.Filters.reset === 'function') A.Filters.reset(studyLang);
+    } catch(_){}
+
+    return v;
+  }
+
+
+  function applyFiltersFromSheet(){
+    const key = activeDeckKey();
+    const studyLang = getStudyLangForKey(key) || 'xx';
+
+    const draftLevels = __readDraftLevelsFromSheet();
+
+    // Validate without committing: if invalid, keep the sheet open and allow user to adjust.
+    const v = __validateDraftSelectionForKey(key, draftLevels);
+    if (v && v.ok === false) {
+      try { __setFiltersHint(v.msg || 'Недостаточно слов для тренировки. Добавьте ещё уровни.'); } catch(_){}
+      try { __setApplyEnabled(false); } catch(_){}
+      try { if (A.Msg && typeof A.Msg.toast === 'function') A.Msg.toast(v.msg || 'Недостаточно слов для тренировки. Добавьте ещё уровни.', 2800); } catch(_){}
+      return;
+    }
+
+    // Commit selected levels
+    try {
+      if (A.Filters && typeof A.Filters.setLevels === 'function') {
+        A.Filters.setLevels(studyLang, draftLevels);
+      }
+    } catch(_){}
+
+    try { __rememberLastValidFilterState(studyLang); } catch(_){}
 
     // Re-normalize set index to avoid empty sets
     try {
@@ -399,8 +620,13 @@ function setUiLang(code){
       }
     } catch(_){}
 
+    try { __setFiltersHint(''); } catch(_){}
+    try { __setApplyEnabled(true); } catch(_){}
+
     try { window.dispatchEvent(new CustomEvent('lexitron:filters:changed')); } catch(_){}
+    try { closeFiltersSheet(); } catch(_){}
   }
+
 
 
 
@@ -432,15 +658,23 @@ function setUiLang(code){
     if (A.__filtersDelegationBound) return;
     A.__filtersDelegationBound = true;
 
-    // Live-apply: apply immediately when user toggles a chip.
-    // We debounce a bit to avoid heavy re-renders on rapid taps.
-    let __applyT = null;
-    function scheduleLiveApply(){
-      try { if (__applyT) clearTimeout(__applyT); } catch(_){}
-      __applyT = setTimeout(function(){
-        try { applyFiltersFromSheet(); } catch(_){}
-        try { window.dispatchEvent(new CustomEvent('lexitron:filters:changed')); } catch(_){}
-      }, 80);
+    let __draftT = null;
+    function scheduleDraftValidation(){
+      try { if (__draftT) clearTimeout(__draftT); } catch(_){}
+      __draftT = setTimeout(function(){
+        try {
+          const key = activeDeckKey();
+          const draftLevels = __readDraftLevelsFromSheet();
+          const v = __validateDraftSelectionForKey(key, draftLevels);
+          if (v && v.ok === false) {
+            __setApplyEnabled(false);
+            __setFiltersHint(v.msg || 'Недостаточно слов для тренировки. Добавьте ещё уровни.');
+          } else {
+            __setApplyEnabled(true);
+            __setFiltersHint('');
+          }
+        } catch(_){}
+      }, 60);
     }
 
     document.addEventListener('click', function(e){
@@ -448,30 +682,49 @@ function setUiLang(code){
         const t = e.target;
         if (!t) return;
 
-        if (t.closest && t.closest('#filtersBtn')) { openFiltersSheet(); return; }
-        if (t.closest && (t.closest('#filtersOverlay') || t.closest('#filtersClose'))) { closeFiltersSheet(); return; }
-        if (t.closest && t.closest('#filtersReset')) {
-          const key = activeDeckKey();
-          const studyLang = getStudyLangForKey(key) || 'xx';
-          try { if (A.Filters && typeof A.Filters.resetAll === 'function') A.Filters.resetAll(studyLang); else if (A.Filters && typeof A.Filters.reset === 'function') A.Filters.reset(studyLang); } catch(_){}
-          try { window.dispatchEvent(new CustomEvent('lexitron:filters:changed')); } catch(_){}
-          // Keep sheet open; user can immediately pick new chips
-          try { openFiltersSheet(); } catch(_){}
+        // If filters sheet is open, any click outside the sheet closes it.
+        // This prevents the backdrop from "stealing" clicks on the footer/navigation.
+        try {
+          const ov = document.getElementById('filtersOverlay');
+          const sh = document.getElementById('filtersSheet');
+          const isOpen = !!(ov && !ov.classList.contains('filters-hidden'));
+          if (isOpen) {
+            const insideSheet = !!(t.closest && sh && t.closest('#filtersSheet'));
+            if (!insideSheet) { closeFiltersSheet(); return; }
+          }
+        } catch(_){}
+
+        if (t.closest && t.closest('#filtersBtn')) { openFiltersSheet(); scheduleDraftValidation(); return; }
+        if (t.closest && t.closest('#filtersOverlay')) { closeFiltersSheet(); return; }
+
+        if (t.closest && t.closest('#filtersApply')) {
+          try { applyFiltersFromSheet(); } catch(_){}
           return;
         }
-        if (t.closest && t.closest('#filtersOpenFromEmpty')) { openFiltersSheet(); return; }
+
+        if (t.closest && t.closest('#filtersReset')) {
+          // Reset draft only (no apply until user taps Apply)
+          try {
+            const list = document.getElementById('filtersLevelsList');
+            if (list) list.querySelectorAll('input[type="checkbox"][data-level]').forEach(cb => { cb.checked = false; });
+          } catch(_){}
+          scheduleDraftValidation();
+          return;
+        }
+
+        if (t.closest && t.closest('#filtersOpenFromEmpty')) { openFiltersSheet(); scheduleDraftValidation(); return; }
       } catch(_){}
     }, true);
+
     document.addEventListener('change', function(e){
       try {
         const t = e.target;
         if (!t) return;
         if (t.matches && t.matches('#filtersLevelsList input[type="checkbox"][data-level]')) {
-          scheduleLiveApply();
+          scheduleDraftValidation();
         }
       } catch(_){}
     }, true);
-
 
     try {
       window.addEventListener('lexitron:filters:changed', () => {
@@ -481,6 +734,7 @@ function setUiLang(code){
       });
     } catch(_){}
   }
+
 
 
   /* ---------------------------- Сложность (глобально) ---------------------------- */
@@ -620,6 +874,12 @@ function setUiLang(code){
 
   // starKey (единственное определение)
   const starKey = (typeof A.starKey === 'function') ? A.starKey : (id, key) => `${key}:${id}`;
+
+  // MOYAMOVA: virtual decks (favorites / mistakes)
+  function isVirtualDeckKey(key){
+    return /^(favorites|mistakes):(ru|uk):/i.test(String(key||''));
+  }
+
 
   function setDictStatsText(statsEl, deckKey){
     try{
@@ -821,13 +1081,14 @@ function activeDeckKey() {
             <div class="filters-title">${(window.I18N_t ? window.I18N_t('filtersTitle') : 'Фильтры')}</div>
             <div class="filters-head-actions">
               <button class="filters-reset" id="filtersReset" type="button">${(window.I18N_t ? window.I18N_t('filtersReset') : 'Сбросить')}</button>
-              <button class="filters-close" id="filtersClose" type="button">✕</button>
+              <button class="filters-apply" id="filtersApply" type="button" disabled>${(window.I18N_t ? window.I18N_t('filtersApply') : 'Применить')}</button>
             </div>
           </div>
 
           <div class="filters-section">
             <h4>${(window.I18N_t ? window.I18N_t('filtersLevels') : 'Уровни')}</h4>
             <div class="filters-list" id="filtersLevelsList"></div>
+            <div class="filters-hint" id="filtersHint" aria-live="polite"></div>
           </div>
 
           <div class="filters-section" aria-disabled="true" style="opacity:.55;pointer-events:none;">
@@ -1102,8 +1363,26 @@ function activeDeckKey() {
       && String(baseKeyForArticles || '').toLowerCase().startsWith('de_nouns')
       && (A.ArticlesTrainer && A.ArticlesCard);
 
-    if (wantArticles) {
-      // Ensure the articles card is mounted into the standard home trainer container.
+
+if (wantArticles) {
+  // Safety guard: prevent articles training when filters leave fewer than der/die/das in the pool.
+  // Virtual decks (favorites/mistakes) ignore filters and must not be blocked by this guard.
+  if (!isVirtualDeckKey(key)) {
+    try {
+    const studyLang = getStudyLangForKey(key) || 'xx';
+    const v = __validateTrainingFeasibilityForKey(key);
+    if (v && v.ok === false) {
+      const last = __lastValidFilterStateByStudyLang[String(studyLang||'xx').toLowerCase()] || null;
+      if (last) __restoreFilterState(studyLang, last);
+      else if (A.Filters && typeof A.Filters.reset === 'function') A.Filters.reset(studyLang);
+      try { if (A.Msg && typeof A.Msg.toast === 'function') A.Msg.toast(v.msg, 3400); } catch(_){}
+      try { window.dispatchEvent(new CustomEvent('lexitron:filters:changed')); } catch(_){}
+      return;
+    }
+    } catch(_){ }
+  }
+
+  // Ensure the articles card is mounted into the standard home trainer container.
       try { if (A.ArticlesCard && typeof A.ArticlesCard.mount === 'function') A.ArticlesCard.mount(document.querySelector('.home-trainer')); } catch (_){ }
 
       // Start if needed (mode mirrors the default trainer's difficulty).
@@ -1262,8 +1541,26 @@ function activeDeckKey() {
     wordEl.textContent = term;
     renderStarsFor(word);
 
-    const opts = buildOptions(word);
-    answers.innerHTML = '';
+
+const opts = buildOptions(word);
+
+// Safety guard: if options cannot reach required size (4), revert invalid filters (e.g. after reload)
+if (!opts || opts.length < 4) {
+  try {
+    const studyLang = getStudyLangForKey(key) || 'xx';
+    const v = __validateTrainingFeasibilityForKey(key);
+    if (v && v.ok === false) {
+      const last = __lastValidFilterStateByStudyLang[String(studyLang||'xx').toLowerCase()] || null;
+      if (last) __restoreFilterState(studyLang, last);
+      else if (A.Filters && typeof A.Filters.reset === 'function') A.Filters.reset(studyLang);
+      try { if (A.Msg && typeof A.Msg.toast === 'function') A.Msg.toast(v.msg, 3400); } catch(_){}
+      try { window.dispatchEvent(new CustomEvent('lexitron:filters:changed')); } catch(_){}
+      return;
+    }
+  } catch(_){}
+}
+
+answers.innerHTML = '';
 
     let penalized = false;
     let solved = false;
