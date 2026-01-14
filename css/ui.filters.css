@@ -153,6 +153,7 @@ body.theme-light {
 }
 
 .filters-reset,
+.filters-apply,
 .filters-close {
   border: 1px solid var(--mm-filters-border);
   background: var(--mm-filters-surface-2);
@@ -174,6 +175,34 @@ body.theme-light {
 
 .filters-reset{
   opacity:0.9;
+}
+
+.filters-apply{
+  opacity: 0.95;
+}
+
+.filters-apply:disabled{
+  opacity: 0.45;
+}
+
+
+/* Apply button: brand color when enabled (disabled stays muted) */
+.filters-apply:not(:disabled),
+#filtersApply.filters-apply:not(:disabled) {
+  background: var(--mm-filters-accent);
+  border-color: var(--mm-filters-accent);
+  color: #fff;
+  opacity: 1;
+}
+
+
+
+.filters-hint{
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.8;
+  text-align: center;
+  display: none;
 }
 
 /* ---------- Sections ---------- */
@@ -239,7 +268,7 @@ body.theme-light {
 
 /* Body scroll lock for filters sheet */
 body.mm-modal-open {
-  position: fixed;
+ /* position: fixed;*/
   width: 100%;
   overflow: hidden;
 }
@@ -329,4 +358,30 @@ body.theme-light .filters-item input:checked + span {
   border-color: var(--mm-filters-accent);
   background: color-mix(in srgb, var(--mm-filters-accent) 6%, rgba(255,255,255,1));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--mm-filters-accent) 10%, transparent) inset;
+}
+
+
+/* Override: Apply in actions uses full brand when enabled */
+.filters-actions #filtersApply:not(:disabled) {
+  background: var(--mm-filters-accent);
+  border-color: var(--mm-filters-accent);
+  color: #fff;
+}
+
+
+/* MOYAMOVA: virtual decks filters info */
+.filters-virtual-note{
+  padding:14px;
+  border-radius:12px;
+  background:var(--card-bg, rgba(0,0,0,.04));
+}
+
+.filters-virtual-note .title{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.filters-virtual-note .text{
+  opacity:.8;
+  line-height:1.4;
 }
