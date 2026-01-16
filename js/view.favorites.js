@@ -100,13 +100,13 @@
         : 'Список избранных слов временно недоступен.';
 
       app.innerHTML =
-        `<div class="home">
-          <section class="card dicts-card favorites-card">
+        `<div class="home home--fixed-card">
+          <section class="card dicts-card favorites-card dicts-card--fixed">
             <div class="dicts-header">
               <h3>${title}</h3>
             </div>
-            <div class="dicts-body" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">
-              <p style="margin-bottom:10px;">${body}</p>
+            <div class="dicts-scroll" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">
+              <p style="margin:0;">${body}</p>
             </div>
           </section>
         </div>`;
@@ -115,7 +115,17 @@
 
     const all = gatherFavoriteDecks();
     if (!all.length){
-      app.innerHTML = `<div class="home"><section class="card"><h3 style="margin:0 0 6px;">${T.title}</h3><p style="opacity:.7;margin:0;">${T.empty}</p></section></div>`;
+      app.innerHTML = `
+        <div class="home home--fixed-card">
+          <section class="card dicts-card dicts-card--fixed">
+            <div class="dicts-header">
+              <h3 style="margin:0;">${T.title}</h3>
+            </div>
+            <div class="dicts-scroll">
+              <p style="opacity:.7;margin:0;">${T.empty}</p>
+            </div>
+          </section>
+        </div>`;
       return;
     }
 
@@ -170,15 +180,19 @@
       </tr>`).join('');
 
     app.innerHTML = `
-      <div class="home">
-        <section class="card dicts-card">
+      <div class="home home--fixed-card">
+        <section class="card dicts-card dicts-card--fixed">
           <div class="dicts-header">
             <h3>${T.title}</h3>
             <div id="fav-flags" class="dicts-flags"></div>
           </div>
-          <table class="dicts-table"><tbody>${rows}</tbody></table>
-          <div class="dicts-actions">
-            <button type="button" class="btn-primary" id="fav-apply" disabled>${T.ok}</button>
+          <div class="dicts-scroll">
+            <table class="dicts-table"><tbody>${rows}</tbody></table>
+          </div>
+          <div class="dicts-footer">
+            <div class="dicts-actions">
+              <button type="button" class="btn-primary" id="fav-apply" disabled>${T.ok}</button>
+            </div>
           </div>
         </section>
       </div>`;

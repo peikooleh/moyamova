@@ -50,7 +50,17 @@
 
     const allKeys = (A.Decks?.builtinKeys?.() || []);
     if (!allKeys.length){
-      app.innerHTML = `<div class="home"><section class="card"><h3>${T.title}</h3><p>${T.empty}</p></section></div>`;
+      app.innerHTML = `
+        <div class="home home--fixed-card">
+          <section class="card dicts-card dicts-card--fixed">
+            <div class="dicts-header">
+              <h3>${T.title}</h3>
+            </div>
+            <div class="dicts-scroll">
+              <p style="opacity:.7;margin:0;">${T.empty}</p>
+            </div>
+          </section>
+        </div>`;
       return;
     }
 
@@ -63,7 +73,17 @@
     }, {});
     const langs = Object.keys(byLang);
     if (!langs.length){
-      app.innerHTML = `<div class="home"><section class="card"><h3>${T.title}</h3><p>${T.empty}</p></section></div>`;
+      app.innerHTML = `
+        <div class="home home--fixed-card">
+          <section class="card dicts-card dicts-card--fixed">
+            <div class="dicts-header">
+              <h3>${T.title}</h3>
+            </div>
+            <div class="dicts-scroll">
+              <p style="opacity:.7;margin:0;">${T.empty}</p>
+            </div>
+          </section>
+        </div>`;
       return;
     }
 
@@ -179,20 +199,24 @@
 
         const rows = rowsFor(keysAll, selectedKey);
         app.innerHTML = `
-          <div class="home">
-            <section class="card dicts-card">
+          <div class="home home--fixed-card">
+            <section class="card dicts-card dicts-card--fixed">
               <div class="dicts-header">
                 <h3>${T.title}</h3>
                 <div id="dicts-flags" class="dicts-flags"></div>
               </div>
 
-              <table class="dicts-table">
-                <tbody>${rows}</tbody>
-              </table>
+              <div class="dicts-scroll">
+                <table class="dicts-table">
+                  <tbody>${rows}</tbody>
+                </table>
+              </div>
 
-              <div class="dicts-actions">
-                <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
-                <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+              <div class="dicts-footer">
+                <div class="dicts-actions">
+                  <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
+                  <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+                </div>
               </div>
             </section>
           </div>`;
@@ -203,13 +227,14 @@
         const rows1 = lpKeys.length   ? rowsFor(lpKeys,   selectedLP)   : '';
 
         app.innerHTML = `
-          <div class="home">
-            <section class="card dicts-card">
+          <div class="home home--fixed-card">
+            <section class="card dicts-card dicts-card--fixed">
               <div class="dicts-header">
                 <h3>${T.title}</h3>
                 <div id="dicts-flags" class="dicts-flags"></div>
               </div>
 
+              <div class="dicts-scroll">
               <div class="stats-pages">
                 <div class="stats-page${activePage===0?' is-active':''}" data-page="0">
                   <table class="dicts-table" data-scope="de-main">
@@ -229,14 +254,18 @@
                 </div>
               </div>
 
-              <div class="stats-pages-dots" style="margin-top:12px;">
-                <button type="button" class="stats-page-dot${activePage===0?' is-active':''}" data-page="0" aria-label="Page 1"></button>
-                <button type="button" class="stats-page-dot${activePage===1?' is-active':''}" data-page="1" aria-label="Page 2"></button>
               </div>
 
-              <div class="dicts-actions">
-                <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
-                <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+              <div class="dicts-footer">
+                <div class="stats-pages-dots">
+                  <button type="button" class="stats-page-dot${activePage===0?' is-active':''}" data-page="0" aria-label="Page 1"></button>
+                  <button type="button" class="stats-page-dot${activePage===1?' is-active':''}" data-page="1" aria-label="Page 2"></button>
+                </div>
+
+                <div class="dicts-actions">
+                  <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
+                  <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+                </div>
               </div>
             </section>
           </div>`;

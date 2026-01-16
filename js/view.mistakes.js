@@ -103,7 +103,17 @@
 
     const all = gatherMistakeDecks();
     if (!all.length){
-      app.innerHTML = `<div class="home"><section class="card"><h3 style="margin:0 0 6px;">${T.title}</h3><p style="opacity:.7; margin:0;">${T.empty}</p></section></div>`;
+      app.innerHTML = `
+        <div class="home home--fixed-card">
+          <section class="card dicts-card dicts-card--fixed">
+            <div class="dicts-header">
+              <h3 style="margin:0;">${T.title}</h3>
+            </div>
+            <div class="dicts-scroll">
+              <p style="opacity:.7;margin:0;">${T.empty}</p>
+            </div>
+          </section>
+        </div>`;
       return;
     }
 
@@ -163,7 +173,17 @@
     function renderTable(){
       const data = byLang[activeLang] || [];
       if (!data.length){
-        app.innerHTML = `<div class="home"><section class="card"><h3>${T.title}</h3><p>${T.empty}</p></section></div>`;
+        app.innerHTML = `
+          <div class="home home--fixed-card">
+            <section class="card dicts-card dicts-card--fixed">
+              <div class="dicts-header">
+                <h3>${T.title}</h3>
+              </div>
+              <div class="dicts-scroll">
+                <p style="opacity:.7;margin:0;">${T.empty}</p>
+              </div>
+            </section>
+          </div>`;
         return;
       }
 
@@ -184,19 +204,21 @@
       }).join('');
 
       app.innerHTML = `
-        <div class="home">
-          <section class="card dicts-card">
+        <div class="home home--fixed-card">
+          <section class="card dicts-card dicts-card--fixed">
             <div class="dicts-header">
               <h3>${T.title}</h3>
               <div id="mistakes-flags" class="dicts-flags"></div>
             </div>
-            <table class="dicts-table">
-              
-              <tbody>${rows}</tbody>
-              
-            </table>
-            <div class="dicts-actions">
-              <button type="button" class="btn-primary" id="mistakes-apply">${T.ok}</button>
+            <div class="dicts-scroll">
+              <table class="dicts-table">
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
+            <div class="dicts-footer">
+              <div class="dicts-actions">
+                <button type="button" class="btn-primary" id="mistakes-apply">${T.ok}</button>
+              </div>
             </div>
           </section>
         </div>`;

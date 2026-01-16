@@ -940,8 +940,10 @@
           '</div>' +
           '</header>' +
           '<div class="stats-lang-card__body">' +
-          pagesHtml +
-          dotsHtml +
+            pagesHtml +
+          '</div>' +
+          '<div class="stats-lang-card__footer">' +
+            dotsHtml +
           '</div>' +
           '</article>'
         );
@@ -1088,7 +1090,8 @@
       if (!body) return;
 
       var pages = body.querySelectorAll('.stats-page');
-      var dots  = body.querySelectorAll('.stats-page-dot');
+      // dots moved to footer (fixed). Keep selection at card-level.
+      var dots  = card.querySelectorAll('.stats-page-dot');
       if (!pages.length || !dots.length) return;
 
       var current = 0;
@@ -1148,6 +1151,9 @@
           goTo(p);
         });
       });
+
+      // Initial state: ensure active page classes are synced on mount.
+      goTo(0);
     });
   }
 
@@ -1162,15 +1168,18 @@
     const cardsHtml = renderLangCards(stats.byLang, texts, activeLang);
 
     const html =
-      '<div class="home">' +
-      '<section class="card dicts-card stats-card">' +
+      '<div class="home home--fixed-card">' +
+      '<section class="card dicts-card stats-card dicts-card--fixed">' +
       '<div class="dicts-header">' +
       '<h3>' +
       texts.title +
       '</h3>' +
       '<div id="stats-flags" class="dicts-flags"></div>' +
       '</div>' +
+      '<div class="dicts-scroll">' +
       cardsHtml +
+      '</div>' +
+      '<div class="dicts-footer"></div>' +
       '</section>' +
       // renderPlaceholderSection(texts) +
       '</div>';
