@@ -2,15 +2,15 @@
  * Проект: MOYAMOVA
  * Файл: sw.js
  * Назначение: Service Worker (PWA, офлайн, обновления)
- * Версия SW: 1.2.4
+ * Версия SW: 1.2.3
  * Обновлено: 2026-01-08
  * ========================================================== */
 
 'use strict';
 
 // Текущая версия SW / кэша
-const SW_VERSION = '1.2.4';
-const CACHE_NAME = 'moyamova-cache-v1.2.4';
+const SW_VERSION = '1.2.3';
+const CACHE_NAME = 'moyamova-cache-v1.2.3';
 
 // Преобразуем относительные пути в абсолютные URL на основе scope SW
 const toUrl = (path) => new URL(path, self.registration.scope).toString();
@@ -27,12 +27,18 @@ const APP_SHELL = [
   'index.html',
   'manifest.webmanifest',
 
+  // SEO + ассеты для TWA
+  'robots.txt',
+  'sitemap.xml',
+  '.well-known/assetlinks.json',
+
   // CSS – темы, оверрайды, статистика, модальное окно сетапа
   'css/theme.light.css',
   'css/theme.dark.css',
   'css/overrides.css',
   'css/view.stats.css',
   'css/ui.setup.modal.css',
+  'css/ui.filters.css',
 
   // Базовое ядро приложения
   'js/app.core.js',
@@ -44,6 +50,7 @@ const APP_SHELL = [
   'js/app.trainer.js',
   'js/app.favorites.js',
   'js/app.mistakes.js',
+  'js/app.filters.js',
 
   // Важные UI-модули и жизненный цикл
   'js/ui.lifecycle.js',
@@ -74,12 +81,10 @@ const APP_SHELL = [
   'js/analytics.js',
   'js/legal.js',
   // Словари (деки) – обязательно для первого офлайн-запуска
-  'js/deck.de.js',
-  'js/deck.de.lernpunkt.js',
-  'js/deck.en.js',
-  'js/deck.es.js',
-  'js/deck.fr.js',
-  'js/deck.sr.js',
+  'dicts/deck.de.js',
+  'dicts/deck.de.lernpunkt.js',
+  'dicts/deck.en.js',
+  'dicts/deck.sr.js',
 
   // Тренер артиклей (логика/прогресс/избранное/ошибки/статистика)
   'js/articles.card.shell.js',
@@ -109,7 +114,37 @@ const APP_SHELL = [
   'img/logo_32.png',
   'img/logo_64.png',
   'img/logo_128.png',
-  'img/logo_512.png'
+  'img/logo_512.png',
+
+  // UI-иконки и open-graph
+  'img/book.svg',
+  'img/book_active.svg',
+  'img/book_dark.svg',
+  'img/book_hover.svg',
+  'img/home.svg',
+  'img/home_active.svg',
+  'img/home_dark.svg',
+  'img/home_hover.svg',
+  'img/star.svg',
+  'img/star_active.svg',
+  'img/star_dark.svg',
+  'img/star_hover.svg',
+  'img/stats.svg',
+  'img/stats_active.svg',
+  'img/stats_dark.svg',
+  'img/stats_hover.svg',
+  'img/warning.svg',
+  'img/warning_active.svg',
+  'img/warning_dark.svg',
+  'img/warning_hover.svg',
+  'img/favicon-16x16.png',
+  'img/favicon-32x32.png',
+  'img/favicon-48x48.png',
+  'img/favicon-128x128.png',
+  'img/favicon-192x192.png',
+  'img/favicon-256x256.png',
+  'img/favicon-512x512.png',
+  'img/og-cover.PNG'
 ].map(toUrl);
 
 // ========================================
