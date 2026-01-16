@@ -249,6 +249,19 @@ function getDeckWithArticles() {
     currentSetIndex = getBatchIndex(dk);
     if (currentSetIndex >= totalSets) currentSetIndex = totalSets - 1;
 
+    // 1:1 с базовым тренером слов: если текущий сет уже завершён,
+    // делаем круговой шаг на следующий сет ОДИН РАЗ на каждый новый вопрос.
+    // Это даёт то самое визуальное поведение "шагаем по сетам" при 100% изучении,
+    // и, главное, не допускает аварийного сброса на сет 1.
+    var start0 = currentSetIndex * setSize;
+    var end0 = Math.min(deck.length, start0 + setSize);
+    var slice0 = deck.slice(start0, end0);
+    if (slice0.length && isCurrentSetComplete(dk, slice0) && totalSets > 1) {
+      var nextIdx = (currentSetIndex + 1) % totalSets;
+      setBatchIndex(nextIdx, dk);
+      currentSetIndex = nextIdx;
+    }
+
     // Прогресс артиклей ведём по базовой деке.
     var progKey = baseKeyForProgress(dk);
 
@@ -266,13 +279,14 @@ function getDeckWithArticles() {
       return eligible;
     }
 
-    // Если все слова (с валидными артиклями) выучены — начинаем заново с первого сета.
+    // Симметрия с базовым тренером слов:
+    // если весь словарь выучен, возвращаем текущий сет целиком (режим повторения),
+    // даже если eps=0. Индекс при этом НЕ сбрасываем.
     if (isWholeDeckLearned(dk, deck)) {
-      currentSetIndex = 0;
-      setBatchIndex(0, dk);
-      var fs = deck.slice(0, Math.min(deck.length, setSize));
-      var fse = eligibleFromSlice(fs);
-      return fse.length ? fse : fs;
+      var startAll = currentSetIndex * setSize;
+      var endAll = Math.min(deck.length, startAll + setSize);
+      var sliceAll = deck.slice(startAll, endAll);
+      return sliceAll.length ? sliceAll : deck;
     }
 
     // Ищем по кругу первый сет, где есть хоть что-то для тренировки.
@@ -313,13 +327,15 @@ function getDeckWithArticles() {
       }
     }
 
-    // Фоллбек: если по какой-то причине не нашли eligible, начинаем с первого сета.
-    // (Например, при пограничных состояниях прогресса/миграциях.)
-    currentSetIndex = 0;
-    setBatchIndex(0, dk);
-    var slice0 = deck.slice(0, Math.min(deck.length, setSize));
-    var eligible0 = eligibleFromSlice(slice0);
-    return eligible0.length ? eligible0 : slice0;
+    // Фоллбек (симметрия с word-trainer): если eligible не найден (например, из-за
+    // пограничных состояний прогресса, миграций, eps=0 и т.п.), мы НЕ делаем
+    // принудительный сброс на первый сет. Возвращаем текущий сет (или всю деку),
+    // чтобы избежать "запирания" в сете 1 и сохранить предсказуемое поведение.
+    var startF = currentSetIndex * setSize;
+    var endF = Math.min(deck.length, startF + setSize);
+    var sliceF = deck.slice(startF, endF);
+    var eligibleF = eligibleFromSlice(sliceF);
+    return eligibleF.length ? eligibleF : (sliceF.length ? sliceF : deck);
   }
 
 
