@@ -11,9 +11,19 @@
   margin-top: 0px;
 }
 
+/* When stats uses the fixed-card layout (same as Dicts),
+   disable scrolling on the middle wrapper and scroll inside the active lang card.
+   This keeps page dots stable at the bottom. */
+.stats-card.dicts-card--fixed .dicts-scroll{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Список языков (карточки) */
 .stats-lang-list {
   margin-top: 4px;
+  height: 100%;
 }
 
 /* Одна карточка языка */
@@ -22,7 +32,10 @@
 }
 
 .stats-lang-card.is-active {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0; /* critical for iOS: allow inner overflow */
 }
 
 /* Шапка карточки (Выучено N из M / Словарей: ...) */
@@ -51,7 +64,19 @@
   padding: 8px 10px 12px;
   display: flex;
   flex-direction: column;
-  min-height: 420px;
+  flex: 1 1 auto;
+  min-height: 0; /* allow inner scroll */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Footer with page dots: stays visible (does not scroll with content) */
+.stats-lang-card__footer {
+  flex: 0 0 auto;
+  padding: 6px 0 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Контейнер для двух наборов колец */
@@ -527,13 +552,11 @@
   gap: 6px;
   margin-top: 8px;
 } */
-/* центрируем индикаторы страниц в статистике:
-   берём ПОСЛЕДНИЙ блок в теле карточки (там лежат точки) */
-.stats-lang-card__body > div:last-child {
+/* центрируем индикаторы страниц в статистике */
+.stats-pages-dots {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
-  margin-top: 8px;
 }
 /* ========================= Конец файла: view.stats.css ========================= */

@@ -431,3 +431,38 @@ html[data-runmode="pwa"] .home-hints .hints-body{
 .dicts-card .stats-pages-dots + .dicts-actions{
   margin-top: 8px;
 }
+
+/* ==========================================================
+ * Fixed-height cards (Dicts / Favorites / Mistakes)
+ * Goal: stable header + stable buttons, scroll only in the middle.
+ * ========================================================== */
+
+/* Apply only on screens where we explicitly add home--fixed-card */
+.home.home--fixed-card{
+  height: 100%;
+}
+
+/* Card becomes a vertical layout container */
+.dicts-card.dicts-card--fixed{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0; /* critical for iOS: allow inner overflow to work */
+}
+
+/* Middle zone: scrollable content */
+.dicts-card.dicts-card--fixed .dicts-scroll{
+  flex: 1 1 auto;
+  min-height: 0; /* critical for iOS */
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Footer zone: dots + buttons are always visible */
+.dicts-card.dicts-card--fixed .dicts-footer{
+  flex: 0 0 auto;
+}
+/* Fixed cards: cap height (height is ignored under flex:1; use max-height) */
+.home--fixed-card .dicts-card--fixed {
+  max-height: calc(100% - 30px) !important;
+}
