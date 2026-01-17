@@ -466,3 +466,15 @@ html[data-runmode="pwa"] .home-hints .hints-body{
 .home--fixed-card .dicts-card--fixed {
   max-height: calc(100% - 30px) !important;
 }
+/* Standalone (PWA/TWA): card reaches tabbar area, but keeps safe gap above it */
+@media (display-mode: standalone) {
+  /* убираем лишний резерв контейнера */
+  #app.content {
+    padding-bottom: 0 !important;
+  }
+
+  /* возвращаем safe-gap для карточки */
+  .home--fixed-card .dicts-card--fixed {
+    max-height: calc(100% - 30px) !important;
+  }
+}
