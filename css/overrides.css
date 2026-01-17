@@ -478,3 +478,97 @@ html[data-runmode="pwa"] .home-hints .hints-body{
     max-height: calc(100% - 30px) !important;
   }
 }
+
+/* ==========================================================
+ * Burger: PWA/TWA extra settings (compact)
+ * ========================================================== */
+
+/* Wrapper for the new preference blocks (handy hook for light-theme background later) */
+.mm-prefs-wrap{ display: block; }
+
+.mm-prefs{ margin-top: 6px; }
+
+/* Make these sections visually secondary */
+.mm-prefs-title{
+  font-size: 15px;
+  opacity: .85;
+}
+
+.mm-prefs-grid{ display: grid; gap: 8px 12px; }
+.mm-prefs-grid-2{ grid-template-columns: 1fr 1fr; }
+
+.mm-prefs-row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.mm-prefs-left{
+  font-size: 13px;
+  opacity: .85;
+}
+
+/* Checkbox style: smaller than main toggles */
+.mm-check{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  opacity: .9;
+  user-select: none;
+}
+.mm-check input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+}
+.mm-check-compact{ justify-self: end; }
+
+/* Focus (visual): blur blocks */
+body.mm-focus-hide-sets .home-sets{
+  filter: blur(7px);
+  opacity: .35;
+}
+body.mm-focus-hide-context .home-hints{
+  filter: blur(7px);
+  opacity: .35;
+}
+
+/* Optional: reduce accidental interactions when blurred */
+body.mm-focus-hide-sets .home-sets,
+body.mm-focus-hide-context .home-hints{
+  pointer-events: none;
+}
+
+/* Burger: prefs group background ONLY in light theme */
+html:not([data-theme="dark"]) .mm-prefs-wrap{
+  background: #F4F6FA;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 10px;
+
+  /* compact: no extra top/bottom spacing */
+  margin: 0;               /* <-- убрали сверху/снизу */
+  padding: 0px 10px;       /* <-- компактнее, чтобы всё влезало */
+}
+
+/* Dark theme: group prefs card (same idea as light, but dark "glass") */
+html[data-theme="dark"] .mm-prefs-wrap{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+
+  margin: 0;
+  padding: 0px 10px;  /* сохраняем твою компактность по вертикали */
+}
+
+/* Dark theme: remove separators inside the grouped block (so it looks like one card) */
+html[data-theme="dark"] .mm-prefs-wrap > *{
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Burger: remove divider ABOVE prefs card (dark theme only) */
+html[data-theme="dark"] 
+.menu-item:has(+ .mm-prefs-wrap){
+  border-bottom: none !important;
+}
