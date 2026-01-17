@@ -970,6 +970,33 @@ function activeDeckKey() {
       : (w.ru || w.translation_ru || w.trans_ru))
       || w.translation || w.trans || w.meaning || '';
   }
+
+  /* ----------------------- Режим обратного перевода ----------------------- */
+  // По умолчанию (checkbox отсутствует или снят) тренер работает как раньше:
+  // показываем терм (DE), а на кнопках — перевод (RU/UK).
+  // При включении "Обратный" показываем перевод как вопрос, а на кнопках — терм.
+  function isReverseTraining() {
+    try {
+      const el = document.getElementById('trainReverse');
+      return !!(el && el.checked);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function termOf(w){
+    return String(w && (w.word || w.term || w.de || w.src || '')) .trim();
+  }
+
+  function reversePromptText() {
+    const uk = getUiLang() === 'uk';
+    return uk ? 'Оберіть слово' : 'Выберите слово';
+  }
+
+  function forwardPromptText() {
+    const uk = getUiLang() === 'uk';
+    return uk ? 'Оберіть переклад' : 'Выберите перевод';
+  }
   function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
   function uniqueById(arr) { const s = new Set(); return arr.filter(x => { const id = String(x.id); if (s.has(id)) return false; s.add(id); return true; }); }
 
@@ -1229,6 +1256,7 @@ function activeDeckKey() {
   /* ------------------------------ Варианты ------------------------------ */
   function buildOptions(word) {
     const key = activeDeckKey();
+    const reverse = isReverseTraining();
 
     // Требование UX: НИКОГДА не показывать одинаковые подписи на кнопках.
     // Причина дублей: разные слова (id) могут иметь одинаковый перевод (ru/uk).
@@ -1254,11 +1282,7 @@ function activeDeckKey() {
     }
 
     function baseLabel(w){
-      return String(tWord(w) || '').trim();
-    }
-
-    function termOf(w){
-      return String(w && (w.word || w.term || w.de || w.src || '')) .trim();
+      return String((reverse ? termOf(w) : tWord(w)) || '').trim();
     }
 
     // Собираем кандидатов без текущего слова и без дублей по id
@@ -1303,8 +1327,11 @@ function activeDeckKey() {
       // Коллизия: добавляем уточнение по исходному термину (DE/term),
       // чтобы подписи гарантированно отличались.
       if (used.has(norm(label))) {
-        const t = termOf(copy);
-        if (t) label = `${base} (${t})`;
+        // Коллизия: добавляем уточнение второй стороной
+        // forward: перевод коллизит -> добавляем терм
+        // reverse: терм коллизит -> добавляем перевод
+        const hint = reverse ? String(tWord(copy) || '').trim() : termOf(copy);
+        if (hint) label = `${base} (${hint})`;
       }
       // Если всё ещё коллизия — добавляем безопасный суффикс
       let n = 2;
@@ -1333,8 +1360,8 @@ function activeDeckKey() {
 
         let label = base;
         if (used.has(norm(label))) {
-          const t = termOf(copy);
-          if (t) label = `${base} (${t})`;
+          const hint = reverse ? String(tWord(copy) || '').trim() : termOf(copy);
+          if (hint) label = `${base} (${hint})`;
         }
         let n = 2;
         while (used.has(norm(label))) label = `${base} (#${n++})`;
@@ -1351,6 +1378,18 @@ function activeDeckKey() {
 
 
   /* ------------------------------- Тренер ------------------------------- */
+
+  // Reverse-translation toggle is meaningful only for the word trainer.
+  // When the Articles trainer is active we silently disable the checkbox
+  // (no toasts / messages) to avoid confusion.
+  function syncReverseToggleAvailability(isArticlesActive){
+    try {
+      const el = document.getElementById('trainReverse');
+      if (!el) return;
+      el.disabled = !!isArticlesActive;
+      // Keep the user's choice intact; just prevent interaction while articles trainer is active.
+    } catch (_){ }
+  }
   function renderTrainer() {
     const key   = activeDeckKey();
 
@@ -1362,6 +1401,9 @@ function activeDeckKey() {
     const wantArticles = !!(A.settings && A.settings.trainerKind === 'articles')
       && String(baseKeyForArticles || '').toLowerCase().startsWith('de_nouns')
       && (A.ArticlesTrainer && A.ArticlesCard);
+
+    // UI: Reverse toggle is not applicable to articles.
+    syncReverseToggleAvailability(wantArticles);
 
 
 if (wantArticles) {
@@ -1478,6 +1520,7 @@ if (wantArticles) {
 
     const answers = document.querySelector('.answers-grid');
     const wordEl  = document.querySelector('.trainer-word');
+    const subEl   = document.querySelector('.trainer-subtitle');
     const favBtn  = document.getElementById('favBtn');
     const idkBtn  = document.querySelector('.idk-btn');
     const stats   = document.getElementById('dictStats');
@@ -1537,8 +1580,19 @@ if (wantArticles) {
       };
     }
 
-    const term = word.word || word.term || '';
-    wordEl.textContent = term;
+    const reverse = isReverseTraining();
+
+    // Вопрос (верхняя строка):
+    // - forward: терм (DE)
+    // - reverse: перевод (RU/UK)
+    const term = termOf(word);
+    const trans = String(tWord(word) || '').trim();
+    wordEl.textContent = reverse ? (trans || term) : (term || trans);
+
+    // Подзаголовок
+    if (subEl) {
+      subEl.textContent = reverse ? reversePromptText() : forwardPromptText();
+    }
     renderStarsFor(word);
 
 
@@ -1701,6 +1755,32 @@ answers.innerHTML = '';
       drawStarsTwoPhase(box, have, max);
     } catch(_){}
   }
+
+  // Переключатель "Перевод: Прямой/Обратный" — только для word-trainer.
+  // При смене режима перерисовываем текущую карточку и варианты,
+  // НЕ затрагивая articles-trainer.
+  function hookReverseToggle(){
+    try {
+      document.addEventListener('change', function(e){
+        const t = e && e.target;
+        if (!t || t.id !== 'trainReverse') return;
+
+        // If articles trainer is active / requested — ignore (reverse doesn't apply).
+        try {
+          const key = activeDeckKey();
+          const baseKeyForArticles = extractBaseFromVirtual(key) || key;
+          const wantArticles = !!(A.settings && A.settings.trainerKind === 'articles')
+            && String(baseKeyForArticles || '').toLowerCase().startsWith('de_nouns')
+            && (A.ArticlesTrainer && A.ArticlesCard);
+          if (wantArticles) return;
+        } catch (_){ }
+
+        // Re-render question/options in-place.
+        try { renderTrainer(); } catch (_){ }
+      }, { passive: true });
+    } catch (_){ }
+  }
+  hookReverseToggle();
 
   /* ------------------------ Роутер и старт ------------------------ */
   const Router = {

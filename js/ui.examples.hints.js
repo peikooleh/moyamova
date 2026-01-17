@@ -27,6 +27,22 @@
  return (v === 'uk') ? 'uk' : 'ru';
  }
 
+ // Reverse training toggle (word-trainer only).
+ // In reverse mode:
+ //  - before answer: show L1 (RU/UK)
+ //  - after answer: reveal L2 (DE)
+ // In forward mode (legacy):
+ //  - before answer: show L2 (DE)
+ //  - after answer: reveal L1 (RU/UK)
+ function isReverseTraining(){
+  try {
+   var el = document.getElementById('trainReverse');
+   return !!(el && el.checked);
+  } catch(_){
+   return false;
+  }
+ }
+
  function escapeHtml(str) {
  return String(str || '').replace(/[&<>"']/g, function (m) {
  return ({
@@ -294,10 +310,19 @@
  const deHtml = highlightSentence(de, word, deckKey);
  const trHtml = escapeHtml(tr);
 
+ // Reverse mode: show L1 first, reveal L2 after answer.
+ // Forward mode (legacy): show L2 first, reveal L1 after answer.
+ const reverse = isReverseTraining();
+
+ // "hint-de" is always the visible line (before answer).
+ // "hint-tr" is the revealed line (after answer), shown via showTranslation().
+ const beforeHtml = reverse ? trHtml : deHtml;
+ const afterHtml  = reverse ? deHtml : trHtml;
+
  body.innerHTML =
  '<div class="hint-example">' +
- '<p class="hint-de">' + deHtml + '</p>' +
- (trHtml ? '<p class="hint-tr">' + trHtml + '</p>' : '') +
+ (beforeHtml ? '<p class="hint-de">' + beforeHtml + '</p>' : '') +
+ (afterHtml  ? '<p class="hint-tr">' + afterHtml  + '</p>' : '') +
  '</div>';
  }
 
@@ -340,10 +365,29 @@
  const top = de.join(', ');
  const bottom = l1.join(', ');
 
+ const reverse = isReverseTraining();
+
+ // Reverse mode: show L1 first, reveal DE after answer.
+ // Forward mode: show DE first, reveal L1 after answer.
+ const beforeText = reverse ? bottom : top;
+ const afterText  = reverse ? top : bottom;
+
+ // If the "before" side is missing in reverse, show the same RU/UK placeholder as today.
+ // (Requested: keep RU/UK placeholders for now.)
+ if (reverse && !beforeText) {
+   body.innerHTML =
+   '<div class="hint-example">' +
+   '<p class="hint-tr is-visible">' +
+   escapeHtml(getNoDataText('synonyms')) +
+   '</p>' +
+   '</div>';
+   return;
+ }
+
  body.innerHTML =
  '<div class="hint-example">' +
- (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
- (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+ (beforeText ? '<p class="hint-de">' + escapeHtml(beforeText) + '</p>' : '') +
+ (afterText  ? '<p class="hint-tr">' + escapeHtml(afterText)  + '</p>' : '') +
  '</div>';
 }
 
@@ -386,10 +430,29 @@
  const top = de.join(', ');
  const bottom = l1.join(', ');
 
+ const reverse = isReverseTraining();
+
+ // Reverse mode: show L1 first, reveal DE after answer.
+ // Forward mode: show DE first, reveal L1 after answer.
+ const beforeText = reverse ? bottom : top;
+ const afterText  = reverse ? top : bottom;
+
+ // If the "before" side is missing in reverse, show the same RU/UK placeholder as today.
+ // (Requested: keep RU/UK placeholders for now.)
+ if (reverse && !beforeText) {
+   body.innerHTML =
+   '<div class="hint-example">' +
+   '<p class="hint-tr is-visible">' +
+   escapeHtml(getNoDataText('antonyms')) +
+   '</p>' +
+   '</div>';
+   return;
+ }
+
  body.innerHTML =
  '<div class="hint-example">' +
- (top ? '<p class="hint-de">' + escapeHtml(top) + '</p>' : '') +
- (bottom ? '<p class="hint-tr">' + escapeHtml(bottom) + '</p>' : '') +
+ (beforeText ? '<p class="hint-de">' + escapeHtml(beforeText) + '</p>' : '') +
+ (afterText  ? '<p class="hint-tr">' + escapeHtml(afterText)  + '</p>' : '') +
  '</div>';
 }
 

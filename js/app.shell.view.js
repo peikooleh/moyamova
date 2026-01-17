@@ -25,6 +25,56 @@
     ? ''
     : '<button class="action-btn" data-action="donate"  aria-label="Поддержать проект">💰</button>';
 
+  // Показываем расширенные настройки только в установленном режиме (PWA/TWA).
+  // В браузере места меньше, и UX становится хрупким.
+  function isPwaOrTwaRunmode(){
+    // Android TWA: start_url adds ?twa=1
+    if (isTwa) return true;
+    try {
+      // Современный способ
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+    } catch(_){ }
+    try {
+      // iOS-специфика (старые версии)
+      if (typeof window.navigator !== 'undefined' && window.navigator.standalone === true) return true;
+    } catch(_){ }
+    try {
+      // Фолбэк: если ядро уже проставило атрибут
+      var rm = String(document.documentElement.getAttribute('data-runmode') || document.documentElement.dataset.runmode || '').toLowerCase();
+      if (rm === 'pwa') return true;
+    } catch(_){ }
+    return false;
+  }
+
+  var showPwaMenuTools = isPwaOrTwaRunmode();
+
+  var pwaMenuHtml = showPwaMenuTools ? (
+    '' +
+    '<div class="mm-prefs-wrap">' +
+    '<div class="menu-item mm-prefs mm-prefs-focus">' +
+      '<div class="menu-label mm-prefs-title" data-i18n="menuFocus">Концентрация</div>' +
+      '<div class="mm-prefs-grid mm-prefs-grid-2">' +
+        '<label class="mm-check"><input type="checkbox" id="focusSets"><span data-i18n="focusSets">Сеты</span></label>' +
+        '<label class="mm-check"><input type="checkbox" id="focusContext"><span data-i18n="focusContext">Контекст</span></label>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="menu-item mm-prefs mm-prefs-training">' +
+      '<div class="menu-label mm-prefs-title" data-i18n="menuTrainingMode">Режим тренировки</div>' +
+      '<div class="mm-prefs-grid">' +
+        '<div class="mm-prefs-row">' +
+          '<div class="mm-prefs-left" data-i18n="trainTranslate">Перевод</div>' +
+          '<label class="mm-check mm-check-compact"><input type="checkbox" id="trainReverse"><span data-i18n="trainReverse">Обратный</span></label>' +
+        '</div>' +
+        '<div class="mm-prefs-row">' +
+          '<div class="mm-prefs-left" data-i18n="trainSetsNav">Переход по сетам</div>' +
+          '<label class="mm-check mm-check-compact"><input type="checkbox" id="trainAutostep"><span data-i18n="trainAuto">Авто</span></label>' +
+        '</div>' +
+      '</div>' +
+	    '</div>' +
+	    '</div>'
+  ) : '';
+
   root.innerHTML =
     '<header class="header">' +
       '<div class="brand">' +
@@ -84,6 +134,8 @@
               '<span class="level-label right" role="img" aria-label="Сложный уровень">🦅</span>' +
             '</div>' +
           '</div>' +
+
+          pwaMenuHtml +
 
           '<div class="menu-item backup-tools">' +
             '<div class="menu-label" data-i18n="menuBackup">Резервное копирование</div>' +

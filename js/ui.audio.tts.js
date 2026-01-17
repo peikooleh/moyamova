@@ -24,6 +24,15 @@
     try { return A.settings && A.settings.trainerKind === 'articles'; } catch (e) { return false; }
   }
 
+  function isReverseMode() {
+    try {
+      var el = document.getElementById('trainReverse');
+      return !!(el && el.checked);
+    } catch (e) {
+      return false;
+    }
+  }
+
   // запоминаем, какое слово было озвучено автоматически, чтобы не дублировать
   var lastAutoSpokenWord = '';
 
@@ -156,9 +165,10 @@
 
     updateButtonIcon(btn);
 
-    // Автоозвучка нового слова — только для обычного тренера (words).
-    // В articles-режиме автоозвучку отключаем, чтобы не ломать механику обучения.
-    if (!isArticlesMode()) {
+    // Автоозвучка нового слова — только для word-trainer в прямом режиме.
+    // В articles-режиме и в режиме обратного перевода автоозвучку отключаем,
+    // чтобы звук не превращался в подсказку.
+    if (!isArticlesMode() && !isReverseMode()) {
       var word = getCurrentWord();
       if (word && audioEnabled && word !== lastAutoSpokenWord) {
         lastAutoSpokenWord = word;
@@ -257,12 +267,17 @@
       var btn = document.querySelector('.trainer-audio-btn');
       if (btn) updateButtonIcon(btn);
     };
-
-    // Для тренера артиклей: озвучить текущее слово после верного ответа
+    // Озвучка после верного ответа:
+    // - articles trainer: всегда
+    // - word trainer: только в режиме обратного перевода (чтобы не было подсказки при показе вопроса)
     A.AudioTTS.onCorrect = function () {
-      if (!isArticlesMode()) return;
+      if (!isArticlesMode() && !isReverseMode()) return;
       if (!A.isPro || !A.isPro()) return;
       if (!audioEnabled) return;
+      try {
+        var w = getCurrentWord();
+        if (w) lastAutoSpokenWord = w;
+      } catch (_e) {}
       speakCurrentWord();
     };
   }

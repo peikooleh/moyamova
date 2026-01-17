@@ -2,31 +2,40 @@
  * Проект: MOYAMOVA
  * Файл: app.core.js
  * Назначение: Ядро приложения и общие настройки
- * Версия: 1.2.6
+ * Версия: 1.2.3
  * Обновлено: 2025-11-17
  * ========================================================== */
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.2.6';
+  App.APP_VER = '1.2.3';
 
     // Детектируем запуск как PWA (standalone) и помечаем root
   (function detectRunmodePwa(){
     try {
+      // We use a stricter runmode detection because iOS Safari can report
+      // (display-mode: standalone) inconsistently when the app has PWA meta.
+      // Rules:
+      // - iOS: rely on navigator.standalone === true
+      // - other platforms: rely on matchMedia('(display-mode: standalone)')
+      // - Android TWA: start_url uses ?twa=1 (handled elsewhere)
+      var ua = String(navigator.userAgent || '');
+      var isIos = /iPad|iPhone|iPod/i.test(ua);
       var isPwa = false;
 
-      // Современный способ
-      if (window.matchMedia) {
-        isPwa = window.matchMedia('(display-mode: standalone)').matches;
-      }
-
-      // iOS-специфика (старые версии)
-      if (!isPwa && typeof window.navigator !== 'undefined' && window.navigator.standalone === true) {
-        isPwa = true;
+      if (isIos) {
+        isPwa = (typeof navigator !== 'undefined' && navigator.standalone === true);
+      } else {
+        if (window.matchMedia) {
+          isPwa = window.matchMedia('(display-mode: standalone)').matches;
+        }
       }
 
       if (isPwa) {
         document.documentElement.setAttribute('data-runmode', 'pwa');
+      } else {
+        // ensure we don't keep stale attribute after hot reload / cache
+        document.documentElement.removeAttribute('data-runmode');
       }
     } catch (e) {
       // молча игнорируем

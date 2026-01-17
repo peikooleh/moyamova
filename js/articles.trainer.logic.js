@@ -239,6 +239,14 @@ function getDeckWithArticles() {
     return countLearnedWithArticles(deck, dk) >= withA;
   }
 
+  function isSetAutostepEnabled(){
+    try{
+      var el = document.getElementById("trainAutostep");
+      if (el && el.type === "checkbox") return !!el.checked;
+    }catch(_){ }
+    return true;
+  }
+
   function getArticlesSlice(dk) {
     var deck = getDeckWithArticles();
     if (!deck || !deck.length) return [];
@@ -256,7 +264,7 @@ function getDeckWithArticles() {
     var start0 = currentSetIndex * setSize;
     var end0 = Math.min(deck.length, start0 + setSize);
     var slice0 = deck.slice(start0, end0);
-    if (slice0.length && isCurrentSetComplete(dk, slice0) && totalSets > 1) {
+    if (isSetAutostepEnabled() && slice0.length && isCurrentSetComplete(dk, slice0) && totalSets > 1) {
       var nextIdx = (currentSetIndex + 1) % totalSets;
       setBatchIndex(nextIdx, dk);
       currentSetIndex = nextIdx;
@@ -299,7 +307,7 @@ function getDeckWithArticles() {
       if (!slice.length) continue;
 
       // Если текущий сет полностью выучен — пропускаем его (автопереход).
-      if (isCurrentSetComplete(dk, slice)) continue;
+      if (isSetAutostepEnabled() && isCurrentSetComplete(dk, slice)) continue;
 
       var eligible = eligibleFromSlice(slice);
       if (eligible.length) {
@@ -314,7 +322,7 @@ function getDeckWithArticles() {
             var end2 = Math.min(deck.length, start2 + setSize);
             var slice2 = deck.slice(start2, end2);
             if (!slice2.length) continue;
-            if (isCurrentSetComplete(dk, slice2)) continue;
+            if (isSetAutostepEnabled() && isCurrentSetComplete(dk, slice2)) continue;
             var el2 = eligibleFromSlice(slice2);
             for (var k = 0; k < el2.length && pool.length < target; k++) pool.push(el2[k]);
           }

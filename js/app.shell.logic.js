@@ -182,6 +182,81 @@
     });
   }
 
+  // ------------------------------------------------------------
+  // PWA/TWA: компактные настройки в бургер-меню
+  // ------------------------------------------------------------
+  // Эти элементы добавляются в DOM только в standalone режиме.
+  // В браузере они отсутствуют и логика не активируется.
+  (function initPwaMenuPrefs(){
+    const elFocusSets    = document.getElementById('focusSets');
+    const elFocusContext = document.getElementById('focusContext');
+    const elTrainReverse = document.getElementById('trainReverse');
+    const elTrainAutostep= document.getElementById('trainAutostep');
+
+    // Ничего не делаем, если секция не отрисована.
+    if (!elFocusSets && !elFocusContext && !elTrainReverse && !elTrainAutostep) return;
+
+    const LS = {
+      focusSets: 'mm.focus.hideSets',
+      focusContext: 'mm.focus.hideContext',
+      trainReverse: 'mm.train.reverse',
+      trainAutostep: 'mm.train.autostep'
+    };
+
+    function readBool(key, fallback){
+      try {
+        const v = window.localStorage.getItem(key);
+        if (v === null || v === undefined || v === '') return !!fallback;
+        return v === '1' || v === 'true';
+      } catch(_) {
+        return !!fallback;
+      }
+    }
+    function writeBool(key, val){
+      try { window.localStorage.setItem(key, val ? '1' : '0'); } catch(_) {}
+    }
+
+    // Инициализация (дефолты под текущий UX: без скрытий)
+    const sHideSets    = readBool(LS.focusSets, false);
+    const sHideContext = readBool(LS.focusContext, false);
+    const sReverse     = readBool(LS.trainReverse, false);
+    const sAutostep    = readBool(LS.trainAutostep, true);
+
+    if (elFocusSets)    elFocusSets.checked    = sHideSets;
+    if (elFocusContext) elFocusContext.checked = sHideContext;
+    if (elTrainReverse) elTrainReverse.checked = sReverse;
+    if (elTrainAutostep)elTrainAutostep.checked= sAutostep;
+
+    document.body.classList.toggle('mm-focus-hide-sets', sHideSets);
+    document.body.classList.toggle('mm-focus-hide-context', sHideContext);
+
+    // Реакция на изменения
+    if (elFocusSets) {
+      elFocusSets.addEventListener('change', (e)=>{
+        const on = !!e.target.checked;
+        writeBool(LS.focusSets, on);
+        document.body.classList.toggle('mm-focus-hide-sets', on);
+      });
+    }
+    if (elFocusContext) {
+      elFocusContext.addEventListener('change', (e)=>{
+        const on = !!e.target.checked;
+        writeBool(LS.focusContext, on);
+        document.body.classList.toggle('mm-focus-hide-context', on);
+      });
+    }
+    if (elTrainReverse) {
+      elTrainReverse.addEventListener('change', (e)=>{
+        writeBool(LS.trainReverse, !!e.target.checked);
+      });
+    }
+    if (elTrainAutostep) {
+      elTrainAutostep.addEventListener('change', (e)=>{
+        writeBool(LS.trainAutostep, !!e.target.checked);
+      });
+    }
+  })();
+
   
   // Кнопка PRO/донат внизу меню
   function applyProButtonState(){

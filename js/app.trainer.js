@@ -353,13 +353,22 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
 
   /* ----------------------------- срез колоды --------------------------- */
 
+  function isSetAutostepEnabled(){
+    try{
+      var el = document.getElementById("trainAutostep");
+      if (el && el.type === "checkbox") return !!el.checked;
+    }catch(_){ }
+    // In browser mode (no toggle rendered) keep legacy behavior (auto)
+    return true;
+  }
+
   function getDeckSlice(deckKey) {
     const key = currentDeckKey(deckKey);
     const deck = resolveDeckByKey(key);
     const setSize = getSetSize(key);
     const total = Math.max(1, Math.ceil(deck.length / setSize));
 
-    if (isCurrentSetComplete(key)) advanceSetCircular(key);
+    if (isSetAutostepEnabled() && isCurrentSetComplete(key)) advanceSetCircular(key);
 
     const idx = getBatchIndex(key, total);
     const start = idx * setSize;
@@ -372,6 +381,7 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
     if (isWholeDeckLearned(key)) return slice;
 
     if (slice.length) {
+      if (!isSetAutostepEnabled()) return slice;
       const nextIdx = (idx + 1) % total;
       setBatchIndex(nextIdx, key);
       const nStart = nextIdx * setSize;
