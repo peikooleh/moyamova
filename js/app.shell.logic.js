@@ -216,14 +216,17 @@
       try { window.localStorage.setItem(key, val ? '1' : '0'); } catch(_) {}
     }
 
-    // Инициализация (дефолты под текущий UX: без скрытий)
+    // Инициализация (дефолт: блоки "Сеты" и "Контекст" видимы).
+    // Важно: чекбоксы отражают состояние "ПОКАЗЫВАТЬ" (checked = показывать),
+    // а в localStorage храним hide-флаги для обратной совместимости.
     const sHideSets    = readBool(LS.focusSets, false);
     const sHideContext = readBool(LS.focusContext, false);
     const sReverse     = readBool(LS.trainReverse, false);
     const sAutostep    = readBool(LS.trainAutostep, true);
 
-    if (elFocusSets)    elFocusSets.checked    = sHideSets;
-    if (elFocusContext) elFocusContext.checked = sHideContext;
+    // UI семантика: checked = показывать (hide = !checked)
+    if (elFocusSets)    elFocusSets.checked    = !sHideSets;
+    if (elFocusContext) elFocusContext.checked = !sHideContext;
     if (elTrainReverse) elTrainReverse.checked = sReverse;
     if (elTrainAutostep)elTrainAutostep.checked= sAutostep;
 
@@ -233,16 +236,18 @@
     // Реакция на изменения
     if (elFocusSets) {
       elFocusSets.addEventListener('change', (e)=>{
-        const on = !!e.target.checked;
-        writeBool(LS.focusSets, on);
-        document.body.classList.toggle('mm-focus-hide-sets', on);
+        const show = !!e.target.checked;
+        const hide = !show;
+        writeBool(LS.focusSets, hide);
+        document.body.classList.toggle('mm-focus-hide-sets', hide);
       });
     }
     if (elFocusContext) {
       elFocusContext.addEventListener('change', (e)=>{
-        const on = !!e.target.checked;
-        writeBool(LS.focusContext, on);
-        document.body.classList.toggle('mm-focus-hide-context', on);
+        const show = !!e.target.checked;
+        const hide = !show;
+        writeBool(LS.focusContext, hide);
+        document.body.classList.toggle('mm-focus-hide-context', hide);
       });
     }
     if (elTrainReverse) {
