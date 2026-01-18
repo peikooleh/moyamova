@@ -187,7 +187,11 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
       const recency = Math.min(elapsedMin / 3, 5);
 
       if (s >= sMax) {
-        if (isWholeDeckLearned(deckKey)) {
+        // If the whole deck is learned we keep a small repeating weight.
+        // Additionally, in manual set mode (autostep OFF) we must NOT
+        // collapse weights to 0 when the current set is complete; otherwise
+        // the weighted sampler degenerates to a single word (index 0).
+        if (isWholeDeckLearned(deckKey) || (!isSetAutostepEnabled() && isCurrentSetComplete(deckKey))) {
           return 1 + recency * 0.2;
         }
         const eps = getLearnedEpsilon();
@@ -354,12 +358,15 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
   /* ----------------------------- срез колоды --------------------------- */
 
   function isSetAutostepEnabled(){
-    try{
-      var el = document.getElementById("trainAutostep");
-      if (el && el.type === "checkbox") return !!el.checked;
-    }catch(_){ }
-    // In browser mode (no toggle rendered) keep legacy behavior (auto)
-    return true;
+    // Single source of truth: localStorage (set by burger prefs).
+    // Default = true (legacy behavior, and browser mode without the UI).
+    try {
+      var v = window.localStorage.getItem('mm.train.autostep');
+      if (v === null || v === undefined || v === '') return true;
+      return (v === '1' || v === 'true');
+    } catch (_) {
+      return true;
+    }
   }
 
   function getDeckSlice(deckKey) {

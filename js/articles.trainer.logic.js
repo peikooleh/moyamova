@@ -240,11 +240,15 @@ function getDeckWithArticles() {
   }
 
   function isSetAutostepEnabled(){
-    try{
-      var el = document.getElementById("trainAutostep");
-      if (el && el.type === "checkbox") return !!el.checked;
-    }catch(_){ }
-    return true;
+    // Single source of truth: localStorage (set by burger prefs).
+    // Default = true (legacy behavior, and browser mode without the UI).
+    try {
+      var v = window.localStorage.getItem('mm.train.autostep');
+      if (v === null || v === undefined || v === '') return true;
+      return (v === '1' || v === 'true');
+    } catch (_) {
+      return true;
+    }
   }
 
   function getArticlesSlice(dk) {
@@ -264,7 +268,16 @@ function getDeckWithArticles() {
     var start0 = currentSetIndex * setSize;
     var end0 = Math.min(deck.length, start0 + setSize);
     var slice0 = deck.slice(start0, end0);
-    if (isSetAutostepEnabled() && slice0.length && isCurrentSetComplete(dk, slice0) && totalSets > 1) {
+
+    var autostepEnabled = isSetAutostepEnabled();
+
+    // If autostep is OFF and the current set is complete, stay in this set and repeat it
+    // (prevents "ignored checkbox" behavior when eps=0 and all words are learned).
+    if (!autostepEnabled && slice0.length && isCurrentSetComplete(dk, slice0)) {
+      return slice0;
+    }
+
+    if (autostepEnabled && slice0.length && isCurrentSetComplete(dk, slice0) && totalSets > 1) {
       var nextIdx = (currentSetIndex + 1) % totalSets;
       setBatchIndex(nextIdx, dk);
       currentSetIndex = nextIdx;
