@@ -324,7 +324,7 @@ body.menu-open .oc-panel{ transform:translateX(0);}
    БУРГЕР → ПУНКТ "ТЕМА" (ТОГЛ)
    ========================= */
 .menu-item.theme-toggle{
-  padding:14px 12px;
+  padding:0px 12px;
   display:flex;
   flex-direction:column;
   gap:8px;}
