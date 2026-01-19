@@ -85,9 +85,10 @@
     return String(raw || '').trim();
   }
 
-  function speakText(text) {
+  // force=true используется для ручной озвучки по кнопке (работает всегда).
+  function speakText(text, force) {
     if (!A.isPro || !A.isPro()) return; // озвучка только в PRO
-    if (!audioEnabled) return;          // звук выключен пользователем
+    if (!force && !audioEnabled) return; // авто-озвучка зависит от переключателя
     if (!hasTTS()) return;
     if (!text) return;
 
@@ -103,9 +104,9 @@
     }
   }
 
-  function speakCurrentWord() {
+  function speakCurrentWord(force) {
     var w = getCurrentWord();
-    if (w) speakText(w);
+    if (w) speakText(w, !!force);
   }
 
   /* ========================================================== */
@@ -147,8 +148,8 @@
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         if (!A.isPro || !A.isPro()) return;
-        if (!audioEnabled) return;
-        speakCurrentWord();
+        // Ручная озвучка работает всегда, независимо от состояния авто-озвучки.
+        speakCurrentWord(true);
       });
 
       // двойной клик — вкл/выкл звук
@@ -173,7 +174,7 @@
       if (word && audioEnabled && word !== lastAutoSpokenWord) {
         lastAutoSpokenWord = word;
         setTimeout(function () {
-          speakText(word);
+          speakText(word, false);
         }, 120);
       }
     }
@@ -278,7 +279,7 @@
         var w = getCurrentWord();
         if (w) lastAutoSpokenWord = w;
       } catch (_e) {}
-      speakCurrentWord();
+      speakCurrentWord(false);
     };
   }
 

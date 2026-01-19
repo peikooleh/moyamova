@@ -1648,6 +1648,10 @@ answers.innerHTML = '';
           try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(key, word.id, true); } catch (_){}
           try { renderStarsFor(word); } catch(_){}
 
+          // TTS: in reverse mode auto-speaks after correct answer (manual speaks always)
+          try { if (!(A.settings && A.settings.trainerKind==='articles') && A.AudioTTS && A.AudioTTS.onCorrect) A.AudioTTS.onCorrect(); } catch(_eTTS) {}
+
+
           // аналитика: ответ в тренере
           try {
             if (A.Analytics && typeof A.Analytics.trainingAnswer === 'function') {
