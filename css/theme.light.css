@@ -691,6 +691,7 @@ body.landscape .app-footer{
   min-height:0;                 /* Safari fix для переполнения */
   overflow:hidden;              /* скролл полностью отключён по требованию */
   -webkit-overflow-scrolling:auto;
+   padding: 0 12px; /* сбрасываем двойной отступ */
   padding-bottom:var(--footer-h, 60px); /* запас под нижний ряд кнопок бургера */}
 /* Прибиваем нижние служебные пункты к низу тела */
 .oc-body > .menu-item.backup-tools{
