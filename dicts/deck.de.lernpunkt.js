@@ -1736,6 +1736,310 @@ window.decks.de_nouns_lernpunkt = [
     ukAntonyms: [],
     examples: [{ L2: "Das Schulheft ist voll.", ru: "Тетрадь заполнена.", uk: "Зошит заповнений." }]
   }
+,
+{
+    id: 131,
+    word: "die Ecke",
+    ru: "угол",
+    uk: "кут",
+    level: "A1",
+    topics: ["home", "space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Die Katze sitzt in der Ecke.",
+        ru: "Кошка сидит в углу.",
+        uk: "Кішка сидить у куті."
+    }]
+}
+,
+{
+    id: 132,
+    word: "der Boden",
+    ru: "пол",
+    uk: "підлога",
+    level: "A1",
+    topics: ["home"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Boden ist sauber.",
+        ru: "Пол чистый.",
+        uk: "Підлога чиста."
+    }]
+}
+,
+{
+    id: 133,
+    word: "die Decke",
+    ru: "потолок",
+    uk: "стеля",
+    level: "A1",
+    topics: ["home"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Die Lampe hängt an der Decke.",
+        ru: "Лампа висит на потолке.",
+        uk: "Лампа висить на стелі."
+    }]
+}
+,
+{
+    id: 134,
+    word: "die Wand",
+    ru: "стена",
+    uk: "стіна",
+    level: "A1",
+    topics: ["home"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Das Bild hängt an der Wand.",
+        ru: "Картина висит на стене.",
+        uk: "Картина висить на стіні."
+    }]
+}
+,
+{
+    id: 135,
+    word: "die Steckdose",
+    ru: "розетка",
+    uk: "розетка",
+    level: "A1",
+    topics: ["home", "technology"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Die Steckdose ist hier.",
+        ru: "Розетка здесь.",
+        uk: "Розетка тут."
+    }]
+}
+,
+{
+    id: 136,
+    word: "der Schalter",
+    ru: "выключатель",
+    uk: "вимикач",
+    level: "A1",
+    topics: ["home", "technology"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Schalter ist an der Wand.",
+        ru: "Выключатель на стене.",
+        uk: "Вимикач на стіні."
+    }]
+}
+,
+{
+    id: 137,
+    word: "der Lautsprecher",
+    ru: "динамик",
+    uk: "динамік",
+    level: "A1",
+    topics: ["technology"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Lautsprecher ist laut.",
+        ru: "Динамик громкий.",
+        uk: "Динамік гучний."
+    }]
+}
+,
+{
+    id: 138,
+    word: "der Schmerz",
+    ru: "боль",
+    uk: "біль",
+    level: "A1",
+    topics: ["health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Schmerz ist stark.",
+        ru: "Боль сильная.",
+        uk: "Біль сильний."
+    }]
+}
+,
+{
+    id: 139,
+    word: "das Fieber",
+    ru: "жар, температура",
+    uk: "температура",
+    level: "A1",
+    topics: ["health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Das Fieber ist hoch.",
+        ru: "Температура высокая.",
+        uk: "Температура висока."
+    }]
+}
+,
+{
+    id: 140,
+    word: "der Husten",
+    ru: "кашель",
+    uk: "кашель",
+    level: "A1",
+    topics: ["health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Husten ist schlimm.",
+        ru: "Кашель сильный.",
+        uk: "Кашель сильний."
+    }]
+}
+,
+{
+    id: 141,
+    word: "der Schnupfen",
+    ru: "насморк",
+    uk: "нежить",
+    level: "A1",
+    topics: ["health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Schnupfen ist lästig.",
+        ru: "Насморк неприятный.",
+        uk: "Нежить неприємний."
+    }]
+}
+,
+{
+    id: 142,
+    word: "der Arzt",
+    ru: "врач",
+    uk: "лікар",
+    level: "A1",
+    topics: ["health", "people"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Arzt hilft mir.",
+        ru: "Врач помогает мне.",
+        uk: "Лікар допомагає мені."
+    }]
+}
+,
+{
+    id: 143,
+    word: "das Krankenhaus",
+    ru: "больница",
+    uk: "лікарня",
+    level: "A1",
+    topics: ["health", "places"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Das Krankenhaus ist groß.",
+        ru: "Больница большая.",
+        uk: "Лікарня велика."
+    }]
+}
+,
+{
+    id: 144,
+    word: "der Hals",
+    ru: "шея, горло",
+    uk: "шия, горло",
+    level: "A1",
+    topics: ["body", "health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Mein Hals tut weh.",
+        ru: "У меня болит горло.",
+        uk: "У мене болить горло."
+    }]
+}
+,
+{
+    id: 145,
+    word: "der Zahn",
+    ru: "зуб",
+    uk: "зуб",
+    level: "A1",
+    topics: ["body", "health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Zahn tut weh.",
+        ru: "Зуб болит.",
+        uk: "Зуб болить."
+    }]
+}
+,
+{
+    id: 146,
+    word: "der Finger",
+    ru: "палец",
+    uk: "палець",
+    level: "A1",
+    topics: ["body"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Finger ist verletzt.",
+        ru: "Палец травмирован.",
+        uk: "Палець травмований."
+    }]
+}
 ];
 
 window.decks.de_verbs_lernpunkt = [
@@ -2339,6 +2643,63 @@ window.decks.de_verbs_lernpunkt = [
     ukAntonyms: [],
     examples: [{ L2: "Wir addieren zwei Zahlen.", ru: "Мы складываем числа.", uk: "Ми додаємо числа." }]
   }
+,
+{
+    id: 124,
+    word: "abwischen",
+    ru: "вытирать",
+    uk: "витирати",
+    level: "A1",
+    topics: ["school", "daily_routine"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Ich wische die Tafel ab.",
+        ru: "Я вытираю доску.",
+        uk: "Я витираю дошку."
+    }]
+}
+,
+{
+    id: 125,
+    word: "suchen",
+    ru: "искать",
+    uk: "шукати",
+    level: "A1",
+    topics: ["daily_routine"],
+    ukAntonyms: [ "знаходити" ],
+    ruAntonyms: [ "находить" ],
+    deAntonyms: [ "finden" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Ich suche meine Brille.",
+        ru: "Я ищу свои очки.",
+        uk: "Я шукаю свої окуляри."
+    }]
+}
+,
+{
+    id: 126,
+    word: "finden",
+    ru: "находить",
+    uk: "знаходити",
+    level: "A1",
+    topics: ["daily_routine"],
+    ukAntonyms: [ "шукати" ],
+    ruAntonyms: [ "искать" ],
+    deAntonyms: [ "suchen" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Ich finde den Schlüssel.",
+        ru: "Я нахожу ключ.",
+        uk: "Я знаходжу ключ."
+    }]
+}
 ];
 
 window.decks.de_adjectives_lernpunkt = [
@@ -2522,6 +2883,101 @@ window.decks.de_adjectives_lernpunkt = [
     ukAntonyms: [],
     examples: [{ L2: "Das Buch ist spannend.", ru: "Книга захватывающая.", uk: "Книга захоплива." }]
   }
+,
+{
+    id: 116,
+    word: "kalt",
+    ru: "холодный",
+    uk: "холодний",
+    level: "A1",
+    topics: ["food", "weather"],
+    ukAntonyms: [ "гарячий" ],
+    ruAntonyms: [ "горячий" ],
+    deAntonyms: [ "heiß" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Das Wasser ist kalt.",
+        ru: "Вода холодная.",
+        uk: "Вода холодна."
+    }]
+}
+,
+{
+    id: 117,
+    word: "heiß",
+    ru: "горячий",
+    uk: "гарячий",
+    level: "A1",
+    topics: ["food", "weather"],
+    ukAntonyms: [ "холодний" ],
+    ruAntonyms: [ "холодный" ],
+    deAntonyms: [ "kalt" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Der Tee ist heiß.",
+        ru: "Чай горячий.",
+        uk: "Чай гарячий."
+    }]
+}
+,
+{
+    id: 118,
+    word: "teuer",
+    ru: "дорогой",
+    uk: "дорогий",
+    level: "A1",
+    topics: ["shopping"],
+    ukAntonyms: [ "доступний" ],
+    ruAntonyms: [ "доступный" ],
+    deAntonyms: [ "günstig" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Das Auto ist teuer.",
+        ru: "Машина дорогая.",
+        uk: "Машина дорога."
+    }]
+}
+,
+{
+    id: 119,
+    word: "günstig",
+    ru: "доступный",
+    uk: "доступний",
+    level: "A1",
+    topics: ["shopping"],
+    ukAntonyms: [ "дорогий" ],
+    ruAntonyms: [ "дорогой" ],
+    deAntonyms: [ "teuer" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Das Angebot ist günstig.",
+        ru: "Предложение выгодное.",
+        uk: "Пропозиція вигідна."
+    }]
+}
+,
+{
+    id: 120,
+    word: "glücklich",
+    ru: "счастливый",
+    uk: "щасливий",
+    level: "A1",
+    topics: ["emotions"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{ L2: "Ich bin glücklich.",
+        ru: "Я счастлив.",
+        uk: "Я щасливий."
+    }]
+}
 ];
 
 window.decks.de_adverbs_lernpunkt = [
