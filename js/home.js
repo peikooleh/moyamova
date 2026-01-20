@@ -355,6 +355,62 @@ function setUiLang(code){
   let __filtersScrollY = 0;
   let __filtersTouchMoveBound = false;
 
+  /* ---------------------------- iOS PWA/TWA: global rubber-band lock ---------------------------- */
+  // iOS PWA/TWA may render a small "bounce" area at the bottom after the first pull gesture.
+  // This is not a normal layout bug: it's iOS overscroll (rubber-band) on the root scroll context.
+  // We emulate native tabbar apps by preventing default touchmove on the HOME screen,
+  // while still allowing scroll inside explicit scrollable panels (burger, sheets, etc.).
+  let __globalRubberLockBound = false;
+  let __globalRubberLockEnabled = false;
+
+  function __isStandaloneRunmode(){
+    try {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+    } catch(_){ }
+    try {
+      const rm = String(document.documentElement.getAttribute('data-runmode') || document.documentElement.dataset.runmode || '').toLowerCase();
+      if (rm === 'pwa') return true;
+    } catch(_){ }
+    try {
+      if (/(?:\?|&)twa=1(?:&|$)/.test(String(window.location.search || ''))) return true;
+    } catch(_){ }
+    return false;
+  }
+
+  function __bindGlobalRubberLock(){
+    if (__globalRubberLockBound) return;
+    __globalRubberLockBound = true;
+    document.addEventListener('touchmove', function(e){
+      try {
+        if (!__globalRubberLockEnabled) return;
+
+        // Allow scrolling inside explicit scroll containers.
+        const t = e && e.target;
+        if (t && t.closest) {
+          const allow = t.closest(
+            '.oc-body,' +
+            '.dicts-scroll,' +
+            '#filtersSheet,' +
+            '#filtersOverlay,' +
+            '.sheet,' +
+            '.modal,' +
+            '.legal-sheet,' +
+            '.donate-sheet'
+          );
+          if (allow) return;
+        }
+
+        // If menu is open, we still lock the background; .oc-body scroll is allowed above.
+        e.preventDefault();
+      } catch(_){ }
+    }, { passive:false, capture:true });
+  }
+
+  function setHomeRubberBandLock(enabled){
+    try { __bindGlobalRubberLock(); } catch(_){ }
+    __globalRubberLockEnabled = !!enabled;
+  }
+
   function lockBodyScrollForFilters(sheetEl){
     try {
       __filtersScrollY = window.scrollY || window.pageYOffset || 0;
@@ -1794,6 +1850,13 @@ answers.innerHTML = '';
       this.current = action;
       const app = document.getElementById('app');
       if (!app) return;
+
+      // iOS PWA/TWA: prevent rubber-band overscroll on HOME (native-like behavior).
+      // Keep other screens scrollable (dicts, favorites, etc.).
+      try {
+        const wantLock = __isStandaloneRunmode() && String(action || 'home') === 'home';
+        setHomeRubberBandLock(wantLock);
+      } catch(_){ }
 
       // аналитика: виртуальные экраны (вся навигация идёт через Router)
       try {
