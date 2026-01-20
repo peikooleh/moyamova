@@ -2040,6 +2040,426 @@ window.decks.de_nouns_lernpunkt = [
         uk: "Палець травмований."
     }]
 }
+,
+{
+    id: 147,
+    word: "der Norden",
+    ru: "север",
+    uk: "північ",
+    level: "A1",
+    topics: ["geography", "directions"],
+    ukAntonyms: [ "південь" ],
+    ruAntonyms: [ "юг" ],
+    deAntonyms: [ "der Süden" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Norden ist kalt.",
+        ru: "На севере холодно.",
+        uk: "На півночі холодно."
+    }]
+}
+,
+{
+    id: 148,
+    word: "der Süden",
+    ru: "юг",
+    uk: "південь",
+    level: "A1",
+    topics: ["geography", "directions"],
+    ukAntonyms: [ "північ" ],
+    ruAntonyms: [ "север" ],
+    deAntonyms: [ "der Norden" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Süden ist warm.",
+        ru: "На юге тепло.",
+        uk: "На півдні тепло."
+    }]
+}
+,
+{
+    id: 149,
+    word: "der Westen",
+    ru: "запад",
+    uk: "захід",
+    level: "A1",
+    topics: ["geography", "directions"],
+    ukAntonyms: [ "схід" ],
+    ruAntonyms: [ "восток" ],
+    deAntonyms: [ "der Osten" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Wir fahren in den Westen.",
+        ru: "Мы едем на запад.",
+        uk: "Ми їдемо на захід."
+    }]
+}
+,
+{
+    id: 150,
+    word: "der Osten",
+    ru: "восток",
+    uk: "схід",
+    level: "A1",
+    topics: ["geography", "directions"],
+    ukAntonyms: [ "захід" ],
+    ruAntonyms: [ "запад" ],
+    deAntonyms: [ "der Westen" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Osten ist weit.",
+        ru: "Восток далеко.",
+        uk: "Схід далеко."
+    }]
+}
+,
+{
+    id: 151,
+    word: "der Fluss",
+    ru: "река",
+    uk: "річка",
+    level: "A1",
+    topics: ["nature", "geography"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Fluss ist lang.",
+        ru: "Река длинная.",
+        uk: "Річка довга."
+    }]
+}
+,
+{
+    id: 152,
+    word: "der Berg",
+    ru: "гора",
+    uk: "гора",
+    level: "A1",
+    topics: ["nature", "geography"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Berg ist hoch.",
+        ru: "Гора высокая.",
+        uk: "Гора висока."
+    }]
+}
+,
+{
+    id: 153,
+    word: "der See",
+    ru: "озеро",
+    uk: "озеро",
+    level: "A1",
+    topics: ["nature"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der See ist schön.",
+        ru: "Озеро красивое.",
+        uk: "Озеро гарне."
+    }]
+}
+,
+{
+    id: 154,
+    word: "das Meer",
+    ru: "море",
+    uk: "море",
+    level: "A1",
+    topics: ["nature"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Meer ist blau.",
+        ru: "Море синее.",
+        uk: "Море синє."
+    }]
+}
+,
+{
+    id: 155,
+    word: "die Insel",
+    ru: "остров",
+    uk: "острів",
+    level: "A1",
+    topics: ["geography"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Insel ist klein.",
+        ru: "Остров маленький.",
+        uk: "Острів малий."
+    }]
+}
+,
+{
+    id: 156,
+    word: "die Wolke",
+    ru: "облако",
+    uk: "хмара",
+    level: "A1",
+    topics: ["weather"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Wolke ist grau.",
+        ru: "Облако серое.",
+        uk: "Хмара сіра."
+    }]
+}
+,
+{
+    id: 157,
+    word: "der Nebel",
+    ru: "туман",
+    uk: "туман",
+    level: "A1",
+    topics: ["weather"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Heute ist viel Nebel.",
+        ru: "Сегодня много тумана.",
+        uk: "Сьогодні багато туману."
+    }]
+}
+,
+{
+    id: 158,
+    word: "der Schnee",
+    ru: "снег",
+    uk: "сніг",
+    level: "A1",
+    topics: ["weather"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Schnee ist kalt.",
+        ru: "Снег холодный.",
+        uk: "Сніг холодний."
+    }]
+}
+,
+{
+    id: 159,
+    word: "der Regen",
+    ru: "дождь",
+    uk: "дощ",
+    level: "A1",
+    topics: ["weather"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Regen ist stark.",
+        ru: "Дождь сильный.",
+        uk: "Дощ сильний."
+    }]
+}
+,
+{
+    id: 160,
+    word: "die Hauptstadt",
+    ru: "столица",
+    uk: "столиця",
+    level: "A1",
+    topics: ["geography", "city"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Berlin ist die Hauptstadt.",
+        ru: "Берлин — столица.",
+        uk: "Берлін — столиця."
+    }]
+}
+,
+{
+    id: 161,
+    word: "der Teil",
+    ru: "часть",
+    uk: "частина",
+    level: "A1",
+    topics: ["general"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das ist ein Teil vom Buch.",
+        ru: "Это часть книги.",
+        uk: "Це частина книги."
+    }]
+}
+,
+{
+    id: 162,
+    word: "der Bezirk",
+    ru: "район",
+    uk: "район",
+    level: "A1",
+    topics: ["city"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich wohne in diesem Bezirk.",
+        ru: "Я живу в этом районе.",
+        uk: "Я живу в цьому районі."
+    }]
+}
+,
+{
+    id: 163,
+    word: "die Mitte",
+    ru: "середина",
+    uk: "середина",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "In der Mitte steht ein Tisch.",
+        ru: "В середине стоит стол.",
+        uk: "Посередині стоїть стіл."
+    }]
+}
+,
+{
+    id: 164,
+    word: "die Hälfte",
+    ru: "половина",
+    uk: "половина",
+    level: "A1",
+    topics: ["quantity"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich esse die Hälfte.",
+        ru: "Я ем половину.",
+        uk: "Я їм половину."
+    }]
+}
+,
+{
+    id: 165,
+    word: "das Viertel",
+    ru: "четверть",
+    uk: "чверть",
+    level: "A1",
+    topics: ["quantity"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ein Viertel ist genug.",
+        ru: "Четверти достаточно.",
+        uk: "Чверті достатньо."
+    }]
+}
+,
+{
+    id: 166,
+    word: "das Team",
+    ru: "команда",
+    uk: "команда",
+    level: "A1",
+    topics: ["people", "work"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Team arbeitet zusammen.",
+        ru: "Команда работает вместе.",
+        uk: "Команда працює разом."
+    }]
+}
+,
+{
+    id: 167,
+    word: "die Heimat",
+    ru: "родина",
+    uk: "батьківщина",
+    level: "A1",
+    topics: ["culture"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das ist meine Heimat.",
+        ru: "Это моя родина.",
+        uk: "Це моя батьківщина."
+    }]
+}
 ];
 
 window.decks.de_verbs_lernpunkt = [
@@ -2700,6 +3120,26 @@ window.decks.de_verbs_lernpunkt = [
         uk: "Я знаходжу ключ."
     }]
 }
+,
+{
+    id: 127,
+    word: "regnen",
+    ru: "идти (о дожде)",
+    uk: "йти (про дощ)",
+    level: "A1",
+    topics: ["weather"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Heute regnet es.",
+        ru: "Сегодня идёт дождь.",
+        uk: "Сьогодні йде дощ."
+    }]
+}
 ];
 
 window.decks.de_adjectives_lernpunkt = [
@@ -2976,6 +3416,86 @@ window.decks.de_adjectives_lernpunkt = [
     examples: [{ L2: "Ich bin glücklich.",
         ru: "Я счастлив.",
         uk: "Я щасливий."
+    }]
+}
+,
+{
+    id: 121,
+    word: "weit",
+    ru: "далеко",
+    uk: "далеко",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [ "близько" ],
+    ruAntonyms: [ "близко" ],
+    deAntonyms: [ "nah" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Schule ist weit.",
+        ru: "Школа далеко.",
+        uk: "Школа далеко."
+    }]
+}
+,
+{
+    id: 122,
+    word: "nah",
+    ru: "близко",
+    uk: "близько",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [ "далеко" ],
+    ruAntonyms: [ "далеко" ],
+    deAntonyms: [ "weit" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Park ist nah.",
+        ru: "Парк близко.",
+        uk: "Парк близько."
+    }]
+}
+,
+{
+    id: 123,
+    word: "ganz",
+    ru: "целый",
+    uk: "цілий",
+    level: "A1",
+    topics: ["quantity"],
+    ukAntonyms: [ "частково" ],
+    ruAntonyms: [ "частично" ],
+    deAntonyms: [ "teilweise" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Apfel ist ganz.",
+        ru: "Яблоко целое.",
+        uk: "Яблуко ціле."
+    }]
+}
+,
+{
+    id: 124,
+    word: "teilweise",
+    ru: "частично",
+    uk: "частково",
+    level: "A1",
+    topics: ["quantity"],
+    ukAntonyms: [ "цілий" ],
+    ruAntonyms: [ "целый" ],
+    deAntonyms: [ "ganz" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Straße ist teilweise offen.",
+        ru: "Дорога частично открыта.",
+        uk: "Дорога частково відкрита."
     }]
 }
 ];
@@ -3422,6 +3942,126 @@ window.decks.de_prepositions_lernpunkt = [
     ukAntonyms: [],
     examples: [{ L2: "Kommst du mit?", ru: "Ты идёшь со мной?", uk: "Ти йдеш зі мною?" }]
   }
+,
+{
+    id: 6,
+    word: "neben",
+    ru: "рядом с",
+    uk: "поруч з",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Haus ist neben dem Park.",
+        ru: "Дом рядом с парком.",
+        uk: "Будинок поруч із парком."
+    }]
+}
+,
+{
+    id: 7,
+    word: "im Zentrum",
+    ru: "в центре",
+    uk: "у центрі",
+    level: "A1",
+    topics: ["city"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Café ist im Zentrum.",
+        ru: "Кафе в центре.",
+        uk: "Кафе у центрі."
+    }]
+}
+,
+{
+    id: 8,
+    word: "nicht weit von",
+    ru: "недалеко от",
+    uk: "недалеко від",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Hotel ist nicht weit von hier.",
+        ru: "Отель недалеко отсюда.",
+        uk: "Готель недалеко звідси."
+    }]
+}
+,
+{
+    id: 9,
+    word: "im",
+    ru: "в (сокр.)",
+    uk: "у (скор.)",
+    level: "A1",
+    topics: ["grammar"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Er ist im Haus.",
+        ru: "Он в доме.",
+        uk: "Він у будинку."
+    }]
+}
+,
+{
+    id: 10,
+    word: "zwischen",
+    ru: "между",
+    uk: "між",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Stuhl steht zwischen den Tischen.",
+        ru: "Стул стоит между столами.",
+        uk: "Стілець стоїть між столами."
+    }]
+}
+,
+{
+    id: 11,
+    word: "während",
+    ru: "в течение",
+    uk: "протягом",
+    level: "A1",
+    topics: ["time"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Während des Tages arbeite ich.",
+        ru: "В течение дня я работаю.",
+        uk: "Протягом дня я працюю."
+    }]
+}
 ];
 
 window.decks.de_numbers_lernpunkt = [
@@ -4188,9 +4828,9 @@ window.decks.de_particles_lernpunkt = [
     deSynonyms: [],
     ruSynonyms: [],
     ukSynonyms: [],
-    deAntonyms: [],
-    ruAntonyms: [],
-    ukAntonyms: [],
+    deAntonyms: [ "teilweise" ],
+    ruAntonyms: [ "частично" ],
+    ukAntonyms: [ "частково" ],
     examples: [{ L2: "Das Glas ist ganz voll.", ru: "Стакан полностью полный.", uk: "Склянка повністю повна." }]
   }
 ];
