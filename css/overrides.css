@@ -741,7 +741,7 @@ html[data-theme="dark"]
       /* Hints: slightly smaller and a bit shorter */
       .home-hints .hints-title{ margin: 0 0 4px !important; font-size: 13px !important; }
       .home-hints .hints-body{
-        height: 2.7em !important;
+        height: 2.9em !important;
         font-size: 14px !important;
         line-height: 1.35 !important;
       }
