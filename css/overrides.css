@@ -607,7 +607,7 @@ html[data-theme="dark"]
   @media all and (display-mode: standalone){
 
     /* -------- STEP 1 (slightly compact) -------- */
-    @media (max-height: 9999px){
+    @media (max-height: 840px){
 
       /* menu items (exclude checkbox blocks) */
       .oc-panel .menu-item:not(.mm-prefs){
@@ -641,7 +641,7 @@ html[data-theme="dark"]
     }
 
     /* -------- STEP 2 (more compact) -------- */
-    @media (max-height: 9999px ){
+    @media (max-height: 840px ){
 
       .oc-panel .menu-item:not(.mm-prefs){
         padding: 10px 12px !important;
@@ -670,7 +670,7 @@ html[data-theme="dark"]
     }
 
     /* -------- STEP 3 (maximum compact) -------- */
-    @media (max-height: 9999px){
+    @media (max-height: 780px){
 
       .oc-panel .menu-item:not(.mm-prefs){
         padding: 9px 12px !important;
