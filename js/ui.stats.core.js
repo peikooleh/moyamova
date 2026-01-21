@@ -134,6 +134,45 @@
   };
 
   /**
+   * Получить массив активности по дням по ВСЕМ языкам (агрегация).
+   * Возвращает массив вида:
+   *   [{ date: '2025-11-10', learned: N, reviewed: M, seconds: S }, ...]
+   * options.days — ограничение по количеству последних дней (по умолчанию 30)
+   */
+  Stats.getDailyActivityAll = function(options) {
+    var store = (App.state && App.state.activity) || {};
+    var days  = (options && options.days) || 30;
+    var totalsByDate = {};
+
+    try {
+      Object.keys(store).forEach(function(lang){
+        var langMap = store[lang];
+        if (!langMap) return;
+        Object.keys(langMap).forEach(function(dateKey){
+          var d = langMap[dateKey] || {};
+          if (!totalsByDate[dateKey]) totalsByDate[dateKey] = { learned:0, reviewed:0, seconds:0 };
+          totalsByDate[dateKey].learned  += (d.learned  || 0);
+          totalsByDate[dateKey].reviewed += (d.reviewed || 0);
+          totalsByDate[dateKey].seconds  += (d.seconds  || 0);
+        });
+      });
+    } catch(_) {}
+
+    var keys = Object.keys(totalsByDate).sort();
+    if (!keys.length) return [];
+
+    // Берём последние N дней
+    if (days > 0 && keys.length > days) {
+      keys = keys.slice(keys.length - days);
+    }
+
+    return keys.map(function(k){
+      var t = totalsByDate[k] || { learned:0, reviewed:0, seconds:0 };
+      return { date: k, learned: t.learned||0, reviewed: t.reviewed||0, seconds: t.seconds||0 };
+    });
+  };
+
+  /**
    * Унифицированный триггер пересчёта/перерисовки статистики.
    * Используется после импорта бэкапа и при жизненном цикле приложения.
    */

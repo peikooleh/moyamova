@@ -22,8 +22,9 @@
   }
 
   var donateBtnHtml = isTwa
-    ? ''
-    : '<button class="action-btn" data-action="donate"  aria-label="Поддержать проект">💰</button>';
+   var donateBtnHtml = isTwa
+  ? '<button class="action-btn action-btn--stub" type="button" disabled aria-label="🙂">🙂</button>'
+  : '<button class="action-btn" data-action="donate" aria-label="Поддержать проект">💰</button>';
 
   // Показываем расширенные настройки только в установленном режиме (PWA/TWA).
   // В браузере места меньше, и UX становится хрупким.

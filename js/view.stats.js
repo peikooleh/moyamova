@@ -26,6 +26,7 @@
       otherTitle: uk ? 'Інші частини мови' : 'Другие части речи',
       splitTitle: uk ? 'Вивчено: переклади vs артиклі' : 'Выучено: переводы vs артикли',
       activityTitle: uk ? 'Активність' : 'Активность',
+      activityTitleAll: uk ? 'Активність (усі мови)' : 'Активность (все языки)',
       activityNoData: uk
         ? 'Ще немає даних про активність — продовжуйте тренуватися, і тут з’являться кола за днями.'
         : 'Пока нет данных об активности — продолжайте тренироваться, и здесь появятся кружки по дням.',
@@ -581,7 +582,15 @@
 
   function getDailyActivitySeries(langCode) {
     try {
-      if (A.Stats && typeof A.Stats.getDailyActivity === 'function') {
+      if (!A || !A.Stats) return [];
+
+      // Special mode: aggregated activity across all languages
+      if (langCode === '__all__' && typeof A.Stats.getDailyActivityAll === 'function') {
+        var allArr = A.Stats.getDailyActivityAll() || [];
+        if (Array.isArray(allArr)) return allArr;
+      }
+
+      if (typeof A.Stats.getDailyActivity === 'function') {
         var arr = A.Stats.getDailyActivity(langCode) || [];
         if (Array.isArray(arr)) return arr;
       }
@@ -594,7 +603,7 @@
     if (!raw.length) {
       return (
         '<section class="stats-section stats-section--activity">' +
-          '<h2 class="stats-subtitle">' + texts.activityTitle + '</h2>' +
+          '<h2 class="stats-subtitle">' + (langCode === "__all__" ? (texts.activityTitleAll || texts.activityTitle) : texts.activityTitle) + '</h2>' +
           '<p class="stats-placeholder stats-placeholder--activity">' +
             texts.activityNoData +
           '</p>' +
@@ -848,7 +857,7 @@
 
     return (
       '<section class="stats-section stats-section--activity">' +
-        '<h2 class="stats-subtitle">' + texts.activityTitle + '</h2>' +
+        '<h2 class="stats-subtitle">' + (langCode === '__all__' ? (texts.activityTitleAll || texts.activityTitle) : texts.activityTitle) + '</h2>' +
         weekdaysHtml +
         '<div class="stats-activity-grid">' + cellsHtml + '</div>' +
         legendHtml +
@@ -885,7 +894,8 @@
         const otherSetHtml = renderRingSet(split.other, texts, 'other');
         const isGerman = langCode === 'de';
         const splitTimeHtml = isGerman ? renderTimeSplitSet(langCode, texts) : '';
-        const activityHtml = renderActivitySection(langCode, texts);
+        const activityKey = (langStats.length > 1) ? '__all__' : langCode;
+        const activityHtml = renderActivitySection(activityKey, texts);
 
         // Страница "Время: слова vs артикли" показывается только для немецкого языка (de).
         // Пейджер и PRO-гейт должны работать независимо от количества страниц.
