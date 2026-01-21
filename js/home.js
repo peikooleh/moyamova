@@ -389,6 +389,10 @@ function setUiLang(code){
         if (t && t.closest) {
           const allow = t.closest(
             '.oc-body,' +
+            '#setsViewport,' +
+            '#hintsBody,' +
+            '.sets-viewport,' +
+            '.hints-body,' +
             '.dicts-scroll,' +
             '#filtersSheet,' +
             '#filtersOverlay,' +
