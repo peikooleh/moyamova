@@ -701,11 +701,96 @@ html[data-theme="dark"]
   }
 }
 
-
 .actions-row-bottom .action-btn--stub{
   opacity:.7;
   cursor:default;
 }
 .actions-row-bottom .action-btn--stub:active{
   transform:none;
+}
+
+/* ==========================================================
+   HOME compact mode (short Android screens, standalone only)
+   Purpose: keep Home blocks (sets/hints/trainer/filters bar) above fixed footer
+            when page scroll is locked (native-like).
+   Scope: ONLY Home (.home*) + Filters sheet (.filters-*)
+   ========================================================== */
+
+@supports not (-webkit-touch-callout: none){
+  @media all and (display-mode: standalone){
+
+    /* STEP 1: mild compact (covers Redmi 7 class) */
+    @media (max-height: 820px){
+
+      /* tighter vertical rhythm on Home */
+      .home{
+        gap: 6px !important;
+        padding: 0 10px !important;
+      }
+
+      .home > .card,
+      .home section.card{
+        padding: 6px 6px !important;
+      }
+
+      /* Sets */
+      .home-sets .sets-grid{ --sets-gap: 6px !important; }
+      .home-sets .sets-header{ margin-bottom: 4px !important; }
+      .home-sets .sets-stats{ margin-top: 2px !important; font-size: 13px !important; }
+
+      /* Hints: slightly smaller and a bit shorter */
+      .home-hints .hints-title{ margin: 0 0 4px !important; font-size: 13px !important; }
+      .home-hints .hints-body{
+        height: 2.9em !important;
+        font-size: 14px !important;
+        line-height: 1.35 !important;
+      }
+
+      /* Trainer */
+      .home-trainer.card{ row-gap: 6px !important; }
+      .home-trainer .trainer-word{ font-size: 26px !important; margin: 2px 0 2px !important; }
+      .home-trainer .trainer-subtitle{ margin: 2px 0 6px !important; font-size: 13px !important; }
+      .home-trainer .answers-grid{ gap: 6px !important; margin-bottom: 6px !important; }
+      .answer-btn{ height: 42px !important; font-size: 14px !important; }
+      .btn-ghost.idk-btn{ height: 36px !important; }
+
+      /* Filters bar (the problem area on Redmi) */
+      .home-filters{
+        margin: 8px 10px 6px !important;
+        padding: 6px 8px !important;
+        gap: 8px !important;
+      }
+      .filters-btn{
+        padding: 5px 8px !important;
+        font-size: 12.5px !important;
+      }
+      .filters-summary{
+        font-size: 12.5px !important;
+      }
+
+      /* Filters bottom-sheet: keep it clearly ABOVE tabbar and allow internal scroll */
+      .filters-sheet{
+        /* slightly reduce max-height so footer buttons never get visually cramped */
+        max-height: min(72vh, calc(100vh - 110px - var(--mm-filters-bottom-offset, 0px))) !important;
+      }
+    }
+
+    /* STEP 2: stronger compact (very short cases) */
+    @media (max-height: 780px){
+
+      .home{ gap: 5px !important; }
+
+      .home-trainer .trainer-word{ font-size: 24px !important; }
+      .answer-btn{ height: 40px !important; }
+
+      .home-filters{
+        margin: 6px 10px 6px !important;
+        padding: 6px 8px !important;
+      }
+
+      .filters-sheet{
+        max-height: min(68vh, calc(100vh - 100px - var(--mm-filters-bottom-offset, 0px))) !important;
+      }
+    }
+  }
 }
