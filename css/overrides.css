@@ -794,3 +794,6 @@ html[data-theme="dark"]
     }
   }
 }
+html[data-theme="dark"] .oc-panel .menu-item.app-version{
+  border-bottom: none !important;
+}
