@@ -2460,6 +2460,746 @@ window.decks.de_nouns_lernpunkt = [
         uk: "Це моя батьківщина."
     }]
 }
+,
+{
+    id: 168,
+    word: "die Angst",
+    ru: "страх",
+    uk: "страх",
+    level: "A1",
+    topics: ["feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich habe Angst im Dunkeln.",
+        ru: "Мне страшно в темноте.",
+        uk: "Мені страшно в темряві."
+    }]
+}
+,
+{
+    id: 169,
+    word: "die Eier",
+    ru: "яйца",
+    uk: "яйця",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich kaufe Eier.",
+        ru: "Я покупаю яйца.",
+        uk: "Я купую яйця."
+    }]
+}
+,
+{
+    id: 170,
+    word: "die Schokolade",
+    ru: "шоколад",
+    uk: "шоколад",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich mag dunkle Schokolade.",
+        ru: "Я люблю тёмный шоколад.",
+        uk: "Я люблю чорний шоколад."
+    }]
+}
+,
+{
+    id: 171,
+    word: "das Mehl",
+    ru: "мука",
+    uk: "борошно",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Für den Kuchen brauche ich Mehl.",
+        ru: "Для пирога мне нужна мука.",
+        uk: "Для пирога мені потрібне борошно."
+    }]
+}
+,
+{
+    id: 172,
+    word: "der Käse",
+    ru: "сыр",
+    uk: "сир",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Käse ist im Kühlschrank.",
+        ru: "Сыр в холодильнике.",
+        uk: "Сир у холодильнику."
+    }]
+}
+,
+{
+    id: 173,
+    word: "der Honig",
+    ru: "мёд",
+    uk: "мед",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich trinke Tee mit Honig.",
+        ru: "Я пью чай с мёдом.",
+        uk: "Я п’ю чай з медом."
+    }]
+}
+,
+{
+    id: 174,
+    word: "die saure Sahne",
+    ru: "сметана",
+    uk: "сметана",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich esse Suppe mit saurer Sahne.",
+        ru: "Я ем суп со сметаной.",
+        uk: "Я їм суп зі сметаною."
+    }]
+}
+,
+{
+    id: 175,
+    word: "die Sahne",
+    ru: "сливки",
+    uk: "вершки",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "In den Kaffee kommt Sahne.",
+        ru: "В кофе идут сливки.",
+        uk: "У каву додаю вершки."
+    }]
+}
+,
+{
+    id: 176,
+    word: "die Creme",
+    ru: "крем",
+    uk: "крем",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Creme ist süß.",
+        ru: "Крем сладкий.",
+        uk: "Крем солодкий."
+    }]
+}
+,
+{
+    id: 177,
+    word: "die Soße",
+    ru: "соус",
+    uk: "соус",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Soße ist scharf.",
+        ru: "Соус острый.",
+        uk: "Соус гострий."
+    }]
+}
+,
+{
+    id: 178,
+    word: "die Nudeln",
+    ru: "макароны/лапша",
+    uk: "макарони/локшина",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich koche Nudeln.",
+        ru: "Я варю макароны.",
+        uk: "Я варю макарони."
+    }]
+}
+,
+{
+    id: 179,
+    word: "die Gewürze",
+    ru: "специи",
+    uk: "спеції",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Gewürze stehen im Schrank.",
+        ru: "Специи стоят в шкафу.",
+        uk: "Спеції стоять у шафі."
+    }]
+}
+,
+{
+    id: 180,
+    word: "der Ketchup",
+    ru: "кетчуп",
+    uk: "кетчуп",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich esse Pommes mit Ketchup.",
+        ru: "Я ем фри с кетчупом.",
+        uk: "Я їм фрі з кетчупом."
+    }]
+}
+,
+{
+    id: 181,
+    word: "die Mayonnaise",
+    ru: "майонез",
+    uk: "майонез",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Bitte ohne Mayonnaise.",
+        ru: "Пожалуйста, без майонеза.",
+        uk: "Будь ласка, без майонезу."
+    }]
+}
+,
+{
+    id: 182,
+    word: "das Mineralwasser",
+    ru: "минеральная вода",
+    uk: "мінеральна вода",
+    level: "A1",
+    topics: ["drinks"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich nehme Mineralwasser ohne Gas.",
+        ru: "Я возьму минералку без газа.",
+        uk: "Я візьму мінералку без газу."
+    }]
+}
+,
+{
+    id: 183,
+    word: "das Bier",
+    ru: "пиво",
+    uk: "пиво",
+    level: "A1",
+    topics: ["drinks"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ein Bier, bitte.",
+        ru: "Одно пиво, пожалуйста.",
+        uk: "Одне пиво, будь ласка."
+    }]
+}
+,
+{
+    id: 184,
+    word: "die Limonade",
+    ru: "лимонад",
+    uk: "лимонад",
+    level: "A1",
+    topics: ["drinks"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Limonade ist kalt.",
+        ru: "Лимонад холодный.",
+        uk: "Лимонад холодний."
+    }]
+}
+,
+{
+    id: 185,
+    word: "die Ananas",
+    ru: "ананас",
+    uk: "ананас",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Ananas ist süß.",
+        ru: "Ананас сладкий.",
+        uk: "Ананас солодкий."
+    }]
+}
+,
+{
+    id: 186,
+    word: "die Paprika",
+    ru: "паприка/сладкий перец",
+    uk: "паприка/перець",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich schneide die Paprika.",
+        ru: "Я режу перец.",
+        uk: "Я ріжу перець."
+    }]
+}
+,
+{
+    id: 187,
+    word: "die Trauben",
+    ru: "виноград",
+    uk: "виноград",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Trauben sind frisch.",
+        ru: "Виноград свежий.",
+        uk: "Виноград свіжий."
+    }]
+}
+,
+{
+    id: 188,
+    word: "die Kirsche",
+    ru: "вишня/черешня",
+    uk: "вишня/черешня",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich esse Kirschen.",
+        ru: "Я ем вишню/черешню.",
+        uk: "Я їм вишні/черешні."
+    }]
+}
+,
+{
+    id: 189,
+    word: "die Süßkirsche",
+    ru: "черешня",
+    uk: "черешня",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Süßkirschen sind sehr süß.",
+        ru: "Черешня очень сладкая.",
+        uk: "Черешня дуже солодка."
+    }]
+}
+,
+{
+    id: 190,
+    word: "die Rote Bete",
+    ru: "свёкла",
+    uk: "буряк",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Rote Bete ist gesund.",
+        ru: "Свёкла полезная.",
+        uk: "Буряк корисний."
+    }]
+}
+,
+{
+    id: 191,
+    word: "der Kürbis",
+    ru: "тыква",
+    uk: "гарбуз",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Wir machen Kürbissuppe.",
+        ru: "Мы делаем тыквенный суп.",
+        uk: "Ми робимо гарбузовий суп."
+    }]
+}
+,
+{
+    id: 192,
+    word: "der Brokkoli",
+    ru: "брокколи",
+    uk: "броколі",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Brokkoli ist fertig.",
+        ru: "Брокколи готова.",
+        uk: "Броколі готові."
+    }]
+}
+,
+{
+    id: 193,
+    word: "das Hähnchen",
+    ru: "курятина",
+    uk: "курятина",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich esse heute Hähnchen.",
+        ru: "Я сегодня ем курицу.",
+        uk: "Я сьогодні їм курятину."
+    }]
+}
+,
+{
+    id: 194,
+    word: "das Schweinefleisch",
+    ru: "свинина",
+    uk: "свинина",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Schweinefleisch esse ich selten.",
+        ru: "Свинину я ем редко.",
+        uk: "Свинину я їм рідко."
+    }]
+}
+,
+{
+    id: 195,
+    word: "das Rindfleisch",
+    ru: "говядина",
+    uk: "яловичина",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Rindfleisch ist teuer.",
+        ru: "Говядина дорогая.",
+        uk: "Яловичина дорога."
+    }]
+}
+,
+{
+    id: 196,
+    word: "das Lammfleisch",
+    ru: "баранина",
+    uk: "баранина",
+    level: "A1",
+    topics: ["food"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Lammfleisch ist sehr weich.",
+        ru: "Баранина очень мягкая.",
+        uk: "Баранина дуже м’яка."
+    }]
+}
+,
+{
+    id: 197,
+    word: "das Glas",
+    ru: "банка/стеклянная ёмкость",
+    uk: "банка/скляна ємність",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Glas ist leer.",
+        ru: "Банка пустая.",
+        uk: "Банка порожня."
+    }]
+}
+,
+{
+    id: 198,
+    word: "die Pfanne",
+    ru: "сковородка",
+    uk: "пательня",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Pfanne ist heiß.",
+        ru: "Сковорода горячая.",
+        uk: "Пательня гаряча."
+    }]
+}
+,
+{
+    id: 199,
+    word: "der Topf",
+    ru: "кастрюля",
+    uk: "каструля",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Topf steht auf dem Herd.",
+        ru: "Кастрюля стоит на плите.",
+        uk: "Каструля стоїть на плиті."
+    }]
+}
+,
+{
+    id: 200,
+    word: "der Deckel",
+    ru: "крышка",
+    uk: "кришка",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Mach den Deckel zu.",
+        ru: "Закрой крышку.",
+        uk: "Закрий кришку."
+    }]
+}
+,
+{
+    id: 201,
+    word: "der Kühlschrank",
+    ru: "холодильник",
+    uk: "холодильник",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Die Milch ist im Kühlschrank.",
+        ru: "Молоко в холодильнике.",
+        uk: "Молоко в холодильнику."
+    }]
+}
+,
+{
+    id: 202,
+    word: "der Herd",
+    ru: "плита",
+    uk: "плита",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Herd ist aus.",
+        ru: "Плита выключена.",
+        uk: "Плита вимкнена."
+    }]
+}
+,
+{
+    id: 203,
+    word: "der Backofen",
+    ru: "духовка",
+    uk: "духовка",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Kuchen ist im Backofen.",
+        ru: "Пирог в духовке.",
+        uk: "Пиріг у духовці."
+    }]
+}
+,
+{
+    id: 204,
+    word: "die Mikrowelle",
+    ru: "микроволновка",
+    uk: "мікрохвильовка",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich benutze die Mikrowelle.",
+        ru: "Я пользуюсь микроволновкой.",
+        uk: "Я користуюся мікрохвильовкою."
+    }]
+}
 ];
 
 window.decks.de_verbs_lernpunkt = [
@@ -3140,6 +3880,106 @@ window.decks.de_verbs_lernpunkt = [
         uk: "Сьогодні йде дощ."
     }]
 }
+,
+{
+    id: 128,
+    word: "kochen",
+    ru: "готовить/варить",
+    uk: "готувати/варити",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich koche eine Suppe.",
+        ru: "Я варю суп.",
+        uk: "Я варю суп."
+    }]
+}
+,
+{
+    id: 129,
+    word: "braten",
+    ru: "жарить",
+    uk: "смажити",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich brate Eier.",
+        ru: "Я жарю яйца.",
+        uk: "Я смажу яйця."
+    }]
+}
+,
+{
+    id: 130,
+    word: "backen",
+    ru: "печь",
+    uk: "пекти",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Wir backen Brot.",
+        ru: "Мы печём хлеб.",
+        uk: "Ми печемо хліб."
+    }]
+}
+,
+{
+    id: 131,
+    word: "aufwärmen",
+    ru: "подогревать",
+    uk: "підігрівати",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [ "охолоджувати" ],
+    ruAntonyms: [ "остужать" ],
+    deAntonyms: [ "abkühlen" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich wärme das Essen auf.",
+        ru: "Я разогреваю еду.",
+        uk: "Я підігріваю їжу."
+    }]
+}
+,
+{
+    id: 132,
+    word: "abkühlen",
+    ru: "остужать/остывать",
+    uk: "охолоджувати/охолоджуватися",
+    level: "A1",
+    topics: ["kitchen"],
+    ukAntonyms: [ "підігрівати" ],
+    ruAntonyms: [ "подогревать" ],
+    deAntonyms: [ "aufwärmen" ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Lass den Tee abkühlen.",
+        ru: "Дай чаю остыть.",
+        uk: "Дай чаю охолонути."
+    }]
+}
 ];
 
 window.decks.de_adjectives_lernpunkt = [
@@ -3496,6 +4336,146 @@ window.decks.de_adjectives_lernpunkt = [
         L2: "Die Straße ist teilweise offen.",
         ru: "Дорога частично открыта.",
         uk: "Дорога частково відкрита."
+    }]
+}
+,
+{
+    id: 125,
+    word: "warm",
+    ru: "тёплый",
+    uk: "теплий",
+    level: "A1",
+    topics: ["weather", "feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Im Zimmer ist es warm.",
+        ru: "В комнате тепло.",
+        uk: "У кімнаті тепло."
+    }]
+}
+,
+{
+    id: 126,
+    word: "müde",
+    ru: "уставший",
+    uk: "втомлений",
+    level: "A1",
+    topics: ["feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich bin heute müde.",
+        ru: "Я сегодня устал.",
+        uk: "Я сьогодні втомився."
+    }]
+}
+,
+{
+    id: 127,
+    word: "böse",
+    ru: "злой",
+    uk: "злий",
+    level: "A1",
+    topics: ["feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Bitte sei nicht böse.",
+        ru: "Пожалуйста, не злись.",
+        uk: "Будь ласка, не сердься."
+    }]
+}
+,
+{
+    id: 128,
+    word: "traurig",
+    ru: "грустный",
+    uk: "сумний",
+    level: "A1",
+    topics: ["feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Warum bist du traurig?",
+        ru: "Почему ты грустный?",
+        uk: "Чому ти сумний?"
+    }]
+}
+,
+{
+    id: 129,
+    word: "verliebt",
+    ru: "влюблённый",
+    uk: "закоханий",
+    level: "A1",
+    topics: ["feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Sie ist verliebt.",
+        ru: "Она влюблена.",
+        uk: "Вона закохана."
+    }]
+}
+,
+{
+    id: 130,
+    word: "krank",
+    ru: "больной",
+    uk: "хворий",
+    level: "A1",
+    topics: ["health"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Ich bin krank und bleibe zu Hause.",
+        ru: "Я болен и остаюсь дома.",
+        uk: "Я хворий і залишаюся вдома."
+    }]
+}
+,
+{
+    id: 131,
+    word: "nervös",
+    ru: "нервный",
+    uk: "нервовий",
+    level: "A1",
+    topics: ["feelings"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Vor der Prüfung bin ich nervös.",
+        ru: "Перед экзаменом я нервничаю.",
+        uk: "Перед іспитом я нервую."
     }]
 }
 ];
