@@ -797,3 +797,41 @@ html[data-theme="dark"]
 html[data-theme="dark"] .oc-panel .menu-item.app-version{
   border-bottom: none !important;
 }
+
+
+/* ========================= Prepositions trainer ========================= */
+.home-trainer.home-trainer--preps .trainer-word{
+  white-space: normal;
+  line-height: 1.25;
+  font-size: 18px;
+  /* Резервируем место под 2 строки, чтобы после вставки верного предлога
+     карточка не меняла высоту и не создавала эффект "прыжка" */
+  min-height: 2.5em;
+}
+.home-trainer.home-trainer--preps .trainer-subtitle{
+  margin-top: 6px;
+}
+
+/* keep answers comfortably spaced for short labels */
+.home-trainer.home-trainer--preps .answers-grid{
+  gap: 10px;
+}
+
+/* Плейсхолдер вместо блока подсказок/контекста в тренере предлогов.
+   Держим карточку тренера на привычном месте, оставляя сверху "пустое" пространство. */
+.mm-context-gap{
+  height: clamp(72px, 10vh, 132px);
+}
+
+/* Preview tables: allow wrapping (esp. long preposition patterns) */
+.dict-preview-table td,
+.dict-preview-table th{
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Prepositions: inserted correct preposition highlight (brand color) */
+.mm-prep-filled{
+  color: var(--accent, var(--brand, #35b6ff));
+  font-weight: 700;
+}
