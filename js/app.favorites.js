@@ -312,6 +312,26 @@
           var w = full[i];
           if (A.Favorites.has && A.Favorites.has(p.baseDeckKey, w.id)) out.push(w);
         }
+        // Prepositions trainer uses an expanded deck where the same pattern id is repeated
+        // across multiple variants. Favorites are stored by pattern id, so we must dedupe.
+        try{
+          var isPreps = (A.Prepositions && typeof A.Prepositions.isAnyPrepositionsKey === 'function')
+            ? A.Prepositions.isAnyPrepositionsKey(p.baseDeckKey)
+            : (String(p.baseDeckKey||'') === 'en_prepositions_trainer');
+
+          if (isPreps && out.length > 1){
+            var seen = {};
+            var uniq = [];
+            for (var j=0;j<out.length;j++){
+              var id = String(out[j] && out[j].id);
+              if (seen[id]) continue;
+              seen[id] = 1;
+              uniq.push(out[j]);
+            }
+            out = uniq;
+          }
+        }catch(_){ /* ignore */ }
+
         return out;
       }catch(_){ return []; }
     };

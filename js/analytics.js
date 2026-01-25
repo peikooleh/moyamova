@@ -281,11 +281,12 @@
     // локальная статистика времени тренировки (3-й экран)
     try {
       if (window.App && window.App.Stats && typeof window.App.Stats.bump === 'function') {
-        // Разделяем активность: слова vs артикли (на базе trainerKind).
+        // Разделяем активность: слова / артикли / предлоги (на базе trainerKind).
         var kind = 'words';
         try {
-          var tk = window.App && window.App.settings && window.App.settings.trainerKind;
-          if (String(tk || '').toLowerCase() === 'articles') kind = 'articles';
+          var tk = String(window.App && window.App.settings && window.App.settings.trainerKind || '').toLowerCase();
+          if (tk === 'articles') kind = 'articles';
+          else if (tk === 'prepositions') kind = 'prepositions';
         } catch (_e) {}
         window.App.Stats.bump({
           lang: trainingState.learnLang || null,

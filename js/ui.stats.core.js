@@ -90,6 +90,10 @@
         row.articlesSeconds = Number(row.articlesSeconds || 0) + seconds;
       } else if (kind === 'words') {
         row.wordsSeconds = Number(row.wordsSeconds || 0) + seconds;
+      } else if (kind === 'prepositions') {
+        row.prepositionsSeconds = Number(row.prepositionsSeconds || 0) + seconds;
+      } else if (kind === 'prepositions') {
+        row.prepositionsSeconds = Number(row.prepositionsSeconds || 0) + seconds;
       }
     }
 

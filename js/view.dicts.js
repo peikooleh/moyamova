@@ -24,10 +24,13 @@
       empty:   uk ? 'Словників не знайдено' : 'Словари не найдены',
       word:    uk ? 'Слово' : 'Слово',
       trans:   uk ? 'Переклад' : 'Перевод',
+      pattern: uk ? 'Патерн' : 'Паттерн',
+      prep:    uk ? 'Прийменник' : 'Предлог',
       close:   uk ? 'Закрити' : 'Закрыть',
       // This button starts the default word trainer
       ok:      uk ? 'Вчити слова' : 'Учить слова',
-      articles: uk ? 'Вчити артиклі' : 'Учить артикли'
+      articles: uk ? 'Вчити артиклі' : 'Учить артикли',
+      preps:   uk ? 'Вчити прийменники' : 'Учить предлоги'
     };
   }
 
@@ -216,6 +219,7 @@
                 <div class="dicts-actions">
                   <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
                   <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+                  <button type="button" class="btn-primary" id="dicts-prepositions" style="display:none">${T.preps}</button>
                 </div>
               </div>
             </section>
@@ -265,6 +269,7 @@
                 <div class="dicts-actions">
                   <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
                   <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+                  <button type="button" class="btn-primary" id="dicts-prepositions" style="display:none">${T.preps}</button>
                 </div>
               </div>
             </section>
@@ -326,6 +331,9 @@
           } catch(_){ }
 
           updateArticlesButton();
+
+
+          updatePrepositionsButton();
         }, { passive:true });
       });
 
@@ -355,6 +363,8 @@
             dots.forEach(dd=>dd.classList.toggle('is-active', (dd.getAttribute('data-page')|0) === activePage));
             selectedKey = (activePage === 1 ? selectedLP : selectedMain) || selectedKey;
             updateArticlesButton();
+
+            updatePrepositionsButton();
           }, { passive:true });
         });
       }
@@ -369,8 +379,26 @@
         }catch(_){}
       }
 
-      // primary sync
+      
+      function updatePrepositionsButton(){
+        try{
+          const b = document.getElementById('dicts-prepositions');
+          if (!b) return;
+          // Показываем кнопку пока ТОЛЬКО для английского
+          const lang = (A.Decks && typeof A.Decks.langOfKey === 'function') ? (A.Decks.langOfKey(selectedKey) || null) : null;
+          const isPrepsDeck = (window.A && A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function')
+            ? !!A.Prepositions.isPrepositionsDeckKey(selectedKey)
+            : /_prepositions$/i.test(String(selectedKey||''));
+          // Показываем кнопку "Учить предлоги" ТОЛЬКО когда выбрана дека предлогов (en_prepositions).
+          const show = (String(lang||'').toLowerCase() === 'en') && isPrepsDeck;
+          b.style.display = show ? '' : 'none';
+        }catch(_){}
+      }
+
+// primary sync
       updateArticlesButton();
+
+      updatePrepositionsButton();
 
       const ok = document.getElementById('dicts-apply');
       if (ok){
@@ -426,6 +454,37 @@
         };
       }
 
+      const prepsBtn = document.getElementById('dicts-prepositions');
+      if (prepsBtn){
+        prepsBtn.onclick = ()=>{
+          // аналитика: запуск тренера предлогов из экрана словарей
+          try {
+            if (A.Analytics && typeof A.Analytics.track === 'function') {
+              A.Analytics.track('dict_apply', {
+                kind: 'prepositions',
+                deck_key: String(selectedKey || ''),
+                ui_lang: getUiLang(),
+                learn_lang: (A.Decks && typeof A.Decks.langOfKey === 'function') ? (A.Decks.langOfKey(selectedKey) || null) : null
+              });
+            }
+          } catch(_){ }
+
+          // ВАЖНО: тренер предлогов работает через виртуальную колоду en_prepositions,
+          // чтобы прогресс/звёзды/ошибки не смешивались с обычными словарями.
+          try { A.settings = A.settings || {}; A.settings.trainerKind = "prepositions"; } catch(_){ }
+          try {
+            A.settings = A.settings || {};
+            // запоминаем реальный выбранный словарь для возврата/экрана словарей
+            A.settings.preferredReturnKey = selectedKey;
+            // активный ключ для тренера
+            A.settings.lastDeckKey = 'en_prepositions';
+            if (typeof A.saveSettings === "function") { A.saveSettings(A.settings); }
+          } catch(_){ }
+          try { document.dispatchEvent(new CustomEvent("lexitron:deck-selected", { detail:{ key: 'en_prepositions' } })); } catch(_){ }
+          goHome();
+        };
+      }
+
       renderFlagsUI();
     }
 
@@ -475,13 +534,37 @@
     const flag = A.Decks.flagForKey(key);
     const lang = getUiLang();
 
-    const rows = deck.map((w,i)=>`
-      <tr>
-        <td>${i+1}</td>
-        <td>${w.word || w.term || ''}</td>
-        <td>${lang === 'uk' ? (w.uk || w.translation_uk || '') 
-                             : (w.ru || w.translation_ru || '')}</td>
-      </tr>`).join('');
+    const isPreps = (deck || []).some(w => w && typeof w === 'object' && ('_prepCorrect' in w));
+
+    // Для предлогов показываем 5 паттернов (1 пример на паттерн): «паттерн → верный предлог»
+    const previewDeck = (() => {
+      // For prepositions we want to show the whole expanded deck (all sentence variants),
+      // because it feels "empty" otherwise and users may want to scroll it.
+      if (isPreps) return deck || [];
+      // For words/articles/etc keep the classic preview (first N items).
+      return (deck || []).slice(0, 200);
+    })();
+
+    const rows = (previewDeck || []).map((w,i)=>{
+      if (isPreps) {
+        const pattern = (w && (w.de || w.pattern || w.sentence)) ? (w.de || w.pattern || w.sentence) : '';
+        const prep = (w && (w._prepCorrect || w.prep || w.answer)) ? (w._prepCorrect || w.prep || w.answer) : '';
+        return `
+          <tr>
+            <td>${i+1}</td>
+            <td style="white-space:normal;word-break:break-word;">${pattern}</td>
+            <td style="white-space:normal;word-break:break-word;">${prep}</td>
+          </tr>`;
+      }
+
+      return `
+        <tr>
+          <td>${i+1}</td>
+          <td>${w.word || w.term || ''}</td>
+          <td>${lang === 'uk' ? (w.uk || w.translation_uk || '') 
+                               : (w.ru || w.translation_ru || '')}</td>
+        </tr>`;
+    }).join('');
 
     const wrap = document.createElement('div');
     wrap.className = 'mmodal is-open';
@@ -494,7 +577,7 @@
         </div>
         <div class="mmodal__body">
           <table class="dict-table">
-            <thead><tr><th>#</th><th>${T.word}</th><th>${T.trans}</th></tr></thead>
+            <thead><tr><th>#</th><th>${isPreps ? T.pattern : T.word}</th><th>${isPreps ? T.prep : T.trans}</th></tr></thead>
             <tbody>${rows || `<tr><td colspan="3" style="opacity:.6">${T.empty}</td></tr>`}</tbody>
           </table>
         </div>

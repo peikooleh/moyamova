@@ -158,11 +158,38 @@
     try{
       if (isVirtual(key)) return resolveVirtualDeck(key) || [];
     }catch(_){}
+
+    // Prepositions trainer: for keys like "en_prepositions"
+    // IMPORTANT: in "words" mode the deck must behave as a normal dictionary deck.
+    // Only in prepositions-trainer mode we swap the deck to the expanded patterns deck.
+    try{
+      const kind = (A.settings && A.settings.trainerKind) ? String(A.settings.trainerKind) : 'words';
+      const isPrepsKey = (() => {
+        try {
+          if (A.Prepositions && typeof A.Prepositions.isAnyPrepositionsKey === 'function') return !!A.Prepositions.isAnyPrepositionsKey(key);
+          if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) return true;
+          return /^([a-z]{2})_prepositions$/i.test(String(key||'').trim());
+        } catch(_){ return false; }
+      })();
+
+      if (kind === 'prepositions'
+        && A.Prepositions
+        && isPrepsKey
+        && typeof A.Prepositions.getDeckForKey === 'function') {
+        return A.Prepositions.getDeckForKey(key) || [];
+      }
+    }catch(_){}
+
     return _resolve ? (_resolve(key) || []) : [];
   };
 
   A.Decks.resolveNameByKey = function(key){
     try{
+      // Prepositions trainer decks
+      if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
+        return 'Prepositions';
+      }
+
       const p = parseVirtualKey(key);
       if (p){
         // Групповые ключи: показываем понятное имя
@@ -181,6 +208,11 @@
 
   A.Decks.flagForKey = function(key){
     try{
+      // Prepositions trainer decks
+      if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
+        return '🧩';
+      }
+
       const p = parseVirtualKey(key);
       if (p){
         if (p.group){
@@ -192,7 +224,18 @@
     return _flag ? _flag(key) : '🏷️';
   };
 
-  // Язык базового словаря — удобно для группировки на экранах
+    A.Decks.langOfKey = function(key){
+    try{
+      if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
+        if (typeof A.Prepositions.langOfPrepositionsKey === 'function') return A.Prepositions.langOfPrepositionsKey(key);
+        var m = String(key||'').trim().match(/^([a-z]{2})_prepositions$/i);
+        return m ? m[1].toLowerCase() : null;
+      }
+    }catch(_){ }
+    return _langOf ? _langOf(key) : null;
+  };
+
+// Язык базового словаря — удобно для группировки на экранах
   A.Decks.langOfMistakesKey = function(key){
     try { const p = parseVirtualKey(key); if (!p || p.kind!=='mistakes') return null; return _langOf ? _langOf(p.baseDeckKey) : null; } catch(_){ return null; }
   };

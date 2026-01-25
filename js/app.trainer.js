@@ -526,6 +526,9 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
   }
   function _loadSaved() {
     try {
+      const kind = (A.settings && A.settings.trainerKind) ? String(A.settings.trainerKind) : 'words';
+      if (kind === 'articles') return (A.settings && A.settings.lastArticlesDeckKey) || (A.settings && A.settings.lastDeckKey) || '';
+      if (kind === 'prepositions') return (A.settings && A.settings.lastPrepositionsDeckKey) || (A.settings && A.settings.lastDeckKey) || '';
       return (A.settings && A.settings.lastDeckKey) || '';
     } catch (_) {
       return '';
@@ -534,11 +537,28 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
   function _save(key) {
   try {
     A.settings = A.settings || {};
+    const kind = (A.settings && A.settings.trainerKind) ? String(A.settings.trainerKind) : 'words';
+
+    if (kind === 'articles') {
+      if (A.settings.lastArticlesDeckKey !== key) {
+        A.settings.lastArticlesDeckKey = key;
+        if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
+      }
+      return;
+    }
+
+    if (kind === 'prepositions') {
+      if (A.settings.lastPrepositionsDeckKey !== key) {
+        A.settings.lastPrepositionsDeckKey = key;
+        if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
+      }
+      return;
+    }
+
+    // default: words
     if (A.settings.lastDeckKey !== key) {
       A.settings.lastDeckKey = key;
-      if (typeof A.saveSettings === 'function') {
-        A.saveSettings(A.settings);
-      }
+      if (typeof A.saveSettings === 'function') A.saveSettings(A.settings);
     }
   } catch (_) {}
 }

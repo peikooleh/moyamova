@@ -413,8 +413,9 @@
               if (App.saveSettings) App.saveSettings();
             }catch(_){}
             try{
-              if (App.saveState) App.saveState();
-            }catch(_){}
+              if (typeof App._saveStateNow === 'function') App._saveStateNow();
+              else if (App.saveState) App.saveState();
+            }catch(_){ }
             try{
               if (App.saveDictRegistry) App.saveDictRegistry();
             }catch(_){}
@@ -465,6 +466,10 @@
                     else if (window.App && App.UI && typeof App.UI.toast==='function') App.UI.toast(dict.reloading);
                   }catch(_){}
                   setTimeout(function(){
+                    // Ensure state is flushed before reload (iOS/PWA can drop scheduled saves)
+                    try{
+                      if (typeof App._saveStateNow === 'function') App._saveStateNow();
+                    }catch(_){ }
                     try{ location.reload(); }catch(_){}
                   }, 600);
                 }, 60);

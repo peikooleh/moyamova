@@ -293,8 +293,23 @@
             return;
           }
 
-          // Default words trainer
-          try { A.settings = A.settings || {}; A.settings.trainerKind = "words"; } catch(_){ }
+          // Detect prepositions decks (incl. virtual mistakes:* keys) and route to the correct trainer.
+          try{
+            const s0 = String(key||'');
+            let baseKey = s0;
+            const vm = s0.match(/^(mistakes):(ru|uk):(.+)$/i);
+            if (vm){
+              const tail = String(vm[3]||'');
+              if (tail && !/^(base|lernpunkt)$/i.test(tail)) baseKey = tail;
+            }
+            if (A.Prepositions && typeof A.Prepositions.isAnyPrepositionsKey === 'function' && A.Prepositions.isAnyPrepositionsKey(baseKey)){
+              A.settings = A.settings || {};
+              A.settings.trainerKind = "prepositions";
+            } else {
+              // Default words trainer
+              A.settings = A.settings || {}; A.settings.trainerKind = "words";
+            }
+          } catch(_){ try { A.settings = A.settings || {}; A.settings.trainerKind = "words"; } catch(__){} }
           try {
             A.settings = A.settings || {};
             // Auto-grouping: base vs LearnPunkt для words mistakes
@@ -339,13 +354,33 @@
     const flag = (A.Decks && A.Decks.flagForKey) ? A.Decks.flagForKey(key) : '🧩';
     const T = t();
 
-    const rows = deck.map((w,i)=>`
-      <tr>
-        <td>${i+1}</td>
-        <td>${w.word || w.term || ''}</td>
-        <td>${tWord(w)}</td>
-      </tr>
-    `).join('');
+    const isPreps = deck.some(w => w && (w._prepCorrect || w.prepCorrect));
+    const ui = getUiLang();
+    const LBL_WORD = ui === 'uk' ? 'Слово' : 'Слово';
+    const LBL_TRANS = ui === 'uk' ? 'Переклад' : 'Перевод';
+    const LBL_PATTERN = ui === 'uk' ? 'Патерн' : 'Паттерн';
+    const LBL_PREP = ui === 'uk' ? 'Прийменник' : 'Предлог';
+
+    const seen = new Set();
+    const list = isPreps
+      ? deck.filter(w => {
+          const id = (w && (w.id || w._id || w.patternId)) || '';
+          if (!id || seen.has(id)) return false;
+          seen.add(id);
+          return true;
+        }).slice(0,5)
+      : deck;
+
+    const rows = list.map((w,i)=>{
+      const left = isPreps ? (w.de || w.pattern || '') : (w.word || w.term || '');
+      const right = isPreps ? (w._prepCorrect || w.prepCorrect || '') : tWord(w);
+      return `
+        <tr>
+          <td>${i+1}</td>
+          <td>${left}</td>
+          <td>${right}</td>
+        </tr>`;
+    }).join('');
 
     const wrap = document.createElement('div');
     wrap.className = 'mmodal is-open';
@@ -358,7 +393,7 @@
         </div>
         <div class="mmodal__body">
           <table class="dict-table">
-            <thead><tr><th>#</th><th>Word</th><th>Translation</th></tr></thead>
+            <thead><tr><th>#</th><th>${isPreps ? LBL_PATTERN : LBL_WORD}</th><th>${isPreps ? LBL_PREP : LBL_TRANS}</th></tr></thead>
             <tbody>${rows || `<tr><td colspan="3" style="opacity:.6">${T.empty}</td></tr>`}</tbody>
           </table>
         </div>

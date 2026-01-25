@@ -1,16 +1,16 @@
 /* ==========================================================
  * Проект: MOYAMOVA
  * Файл: view.guide.js
- * Назначение: Экран инструкции/гайда
- * Версия: 1.0
- * Обновлено: 2025-11-17
+ * Назначение: Экран инструкции/гайда (fixed-card layout как в Статистике)
+ * Версия: 2.0
+ * Обновлено: 2026-01-25
  * ========================================================== */
 
 (function (root) {
   'use strict';
 
-  let sheet, scroller, styleTag;
-  let swX0 = 0, swY0 = 0, swMoved = false;
+  // В iOS PWA/TWA fixed overlay (position:fixed + overflow:auto) может терять вертикальный скролл.
+  // Поэтому инструкцию рендерим как обычный экран в #app с fixed-card разметкой (как "Статистика").
 
   // -------------------------
   // LANG
@@ -275,39 +275,15 @@
   }
 
   // -------------------------
-  // SHEET + STYLES
-  // -------------------------
-  function ensureSheet() {
-    if (sheet) return;
 
-    const css = `
-      .guide-sheet{
-        position:fixed;
-        left:0; right:0;
-        top:var(--header-h-actual);
-        bottom:var(--footer-h-actual);
-        z-index:1200;
-        display:none;
-        flex-direction:column;
-        background:var(--surface-1, #ffffff);
-        font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-      }
-      .guide-top{
-        display:flex;
-        align-items:center;
-        justify-content:flex-start;
-        padding:10px 12px;
-        border-bottom:1px solid var(--border, #e5e7eb);
-      }
-      .guide-title{
-        font-weight:700;
-        font-size:18px;
-      }
-      .guide-content{
-        position:relative;
-        flex:1 1 auto;
-        overflow:auto;
-        -webkit-overflow-scrolling:touch;
+  // -------------------------
+  // STYLES (минимально, без fixed-sheet)
+  // -------------------------
+  function ensureStyles() {
+    if (document.getElementById('guide-view-styles')) return;
+
+    var css = `
+      .guide-card .dicts-scroll{
         padding:14px 12px 18px;
         color:var(--text, #111111);
       }
@@ -317,188 +293,123 @@
         font-size:14px;
         line-height:1.6;
       }
-      .guide-section + .guide-section{
-        margin-top:14px;
-      }
-      .guide-heading{
-        font-size:15px;
-        font-weight:600;
-        margin:0 0 6px;
-      }
-      .guide-text{
-        margin:0 0 6px;
-      }
-      .guide-list{
-        margin:4px 0 0;
-        padding-left:18px;
-      }
-      .guide-list li{
-        margin-bottom:4px;
-      }
-      body.guide-open{
-        overflow:hidden;
-      }
+      .guide-section + .guide-section{ margin-top:14px; }
+      .guide-heading{ font-size:15px; font-weight:600; margin:0 0 6px; }
+      .guide-text{ margin:0 0 6px; }
+      .guide-list{ margin:4px 0 0; padding-left:18px; }
+      .guide-list li{ margin-bottom:4px; }
       @media (max-width:360px){
-        .guide-content{ padding:10px 10px 14px; }
-        .guide-title{ font-size:17px; }
+        .guide-card .dicts-scroll{ padding:10px 10px 14px; }
+        .guide-root{ font-size:13.5px; }
       }
     `;
 
-    styleTag = document.createElement('style');
-    styleTag.id = 'guide-sheet-styles';
-    styleTag.textContent = css;
-    document.head.appendChild(styleTag);
-
-    sheet = document.createElement('section');
-    sheet.className = 'guide-sheet';
-    sheet.setAttribute('role', 'dialog');
-    sheet.style.display = 'none';
-
-    const top = document.createElement('div');
-    top.className = 'guide-top';
-    top.innerHTML = '<div class="guide-title"></div>';
-
-    scroller = document.createElement('div');
-    scroller.className = 'guide-content';
-
-    sheet.appendChild(top);
-    sheet.appendChild(scroller);
-    document.body.appendChild(sheet);
-
-    // свайп вправо — закрытие
-    sheet.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) return;
-      swX0 = e.touches[0].clientX;
-      swY0 = e.touches[0].clientY;
-      swMoved = false;
-    }, { passive: true });
-
-    sheet.addEventListener('touchmove', function (e) {
-      if (e.touches.length !== 1) return;
-      const dx = e.touches[0].clientX - swX0;
-      const dy = e.touches[0].clientY - swY0;
-      if (Math.abs(dx) > 6 || Math.abs(dy) > 6) swMoved = true;
-    }, { passive: true });
-
-    sheet.addEventListener('touchend', function (e) {
-      if (!swMoved) return;
-      const t = (e.changedTouches && e.changedTouches[0]) || (e.touches && e.touches[0]);
-      if (!t) return;
-      const dx = t.clientX - swX0;
-      const dy = t.clientY - swY0;
-      const ady = Math.abs(dy);
-      const MIN_RIGHT = 80, MAX_UPDOWN = 48;
-      if (dx > MIN_RIGHT && ady <= MAX_UPDOWN) {
-        try { e.preventDefault(); } catch (_) {}
-        close();
-      }
-    }, { passive: false });
-
-    // Esc — закрыть
-    document.addEventListener('keydown', function (e) {
-      if (!sheet || sheet.style.display === 'none') return;
-      if (e.key === 'Escape' || e.key === 'Esc') {
-        close();
-      }
-    }, { capture: true });
-
-    // если сменили язык, пока лист открыт — перерисуем
-    try {
-      document.addEventListener('lexitron:ui-lang-changed', function () {
-        if (!sheet || sheet.style.display === 'none') return;
-        renderContent();
-      });
-    } catch (_) {}
+    var st = document.createElement('style');
+    st.id = 'guide-view-styles';
+    st.textContent = css;
+    document.head.appendChild(st);
   }
 
   // -------------------------
   // RENDER
   // -------------------------
-  function renderContent() {
-    if (!sheet || !scroller) return;
-    const t = strings();
+  function renderBlocksHtml(t) {
+    var html = '<div class="guide-root">';
 
-    const titleEl = sheet.querySelector('.guide-title');
-    if (titleEl) titleEl.textContent = t.title;
-    sheet.setAttribute('aria-label', t.title);
-
-    let html = '<div class="guide-root">';
-    t.blocks.forEach(block => {
+    (t.blocks || []).forEach(function (block) {
       html += '<section class="guide-section">';
-      if (block.h) {
+
+      if (block && block.h) {
         html += '<h2 class="guide-heading">' + block.h + '</h2>';
       }
-      if (block.p && block.p.length) {
-        block.p.forEach(text => {
+
+      if (block && block.p && block.p.length) {
+        block.p.forEach(function (text) {
           html += '<p class="guide-text">' + text + '</p>';
         });
       }
-      if (block.ul && block.ul.length) {
+
+      if (block && block.ul && block.ul.length) {
         html += '<ul class="guide-list">';
-        block.ul.forEach(item => {
+        block.ul.forEach(function (item) {
           html += '<li>' + item + '</li>';
         });
         html += '</ul>';
       }
+
       html += '</section>';
     });
-    html += '</div>';
 
-    scroller.innerHTML = html;
-    scroller.scrollTop = 0;
+    html += '</div>';
+    return html;
   }
 
-  // -------------------------
-  // OPEN / CLOSE
-  // -------------------------
-  function open() {
-    try { if (root.App && root.App.stopAllTrainers) root.App.stopAllTrainers('guide:open'); } catch(_){ }
-    ensureSheet();
+  function mount() {
+    try { if (root.App && root.App.stopAllTrainers) root.App.stopAllTrainers('view:guide'); } catch(_){ }
 
     // если открыт бургер — закрываем его (как у donate/legal)
     try {
       if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
-        const ocRoot = document.querySelector('.oc-root');
+        var ocRoot = document.querySelector('.oc-root');
         if (ocRoot) ocRoot.setAttribute('aria-hidden', 'true');
       }
     } catch (_) {}
 
-    renderContent();
-    sheet.style.display = 'flex';
-    document.body.classList.add('guide-open');
+    ensureStyles();
+
+    var app = document.getElementById('app');
+    if (!app) return;
+
+    var t = strings();
+
+    var html =
+      '<div class="home home--fixed-card">' +
+        '<section class="card dicts-card dicts-card--fixed guide-card">' +
+          '<div class="dicts-header">' +
+            '<h3>' + t.title + '</h3>' +
+          '</div>' +
+          '<div class="dicts-scroll guide-scroll" data-scroll-allow="1">' +
+            renderBlocksHtml(t) +
+          '</div>' +
+          '<div class="dicts-footer"></div>' +
+        '</section>' +
+      '</div>';
+
+    app.innerHTML = html;
+
+    // Сбрасываем прокрутку скролл-контейнера в начало
+    try {
+      var sc = app.querySelector('.guide-card .dicts-scroll');
+      if (sc) sc.scrollTop = 0;
+    } catch (_) {}
   }
 
-  function close() {
-    if (!sheet) return;
-    sheet.style.display = 'none';
-    document.body.classList.remove('guide-open');
-  }
-
-  // -------------------------
-  // FOOTER INTERCEPT
-  // -------------------------
-  document.addEventListener('click', function (e) {
-    const btn = e.target.closest('.app-footer .nav-btn');
-    if (!btn) return;
-    if (!sheet || sheet.style.display === 'none') return;
-
-    const target = btn.getAttribute('data-action');
-    if (!target) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    close();
-    routeTo(target);
-  }, true);
+  // Если сменили язык, когда экран инструкции открыт — перерисуем
+  (function bindLangRerenderOnce(){
+    if (root.__moyaGuideLangBind) return;
+    root.__moyaGuideLangBind = true;
+    try {
+      document.addEventListener('lexitron:ui-lang-changed', function () {
+        var app = document.getElementById('app');
+        if (!app) return;
+        if (!app.querySelector('.guide-card')) return;
+        mount();
+      });
+    } catch (_) {}
+  })();
 
   // -------------------------
   // EXPORT
   // -------------------------
+  // Сохраняем совместимость: menu action вызывает Guide.open().
   root.Guide = {
-    open: open,
-    close: close
+    open: mount
+  };
+
+  // Также — единый стиль для роутера (если позже добавим Router.routeTo('guide')).
+  A.ViewGuide = {
+    mount: mount
   };
 
 })(window);
-/* ========================= Конец файла: view.guide.js ========================= */
