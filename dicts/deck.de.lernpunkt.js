@@ -2748,12 +2748,12 @@ window.decks.de_nouns_lernpunkt = [
     uk: "мінеральна вода",
     level: "A1",
     topics: ["drinks"],
-    ukAntonyms: [  ],
-    ruAntonyms: [  ],
-    deAntonyms: [  ],
-    ukSynonyms: [  ],
-    ruSynonyms: [  ],
     deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
     examples: [{
         L2: "Ich nehme Mineralwasser ohne Gas.",
         ru: "Я возьму минералку без газа.",
@@ -2768,12 +2768,12 @@ window.decks.de_nouns_lernpunkt = [
     uk: "пиво",
     level: "A1",
     topics: ["drinks"],
-    ukAntonyms: [  ],
-    ruAntonyms: [  ],
-    deAntonyms: [  ],
-    ukSynonyms: [  ],
-    ruSynonyms: [  ],
     deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
     examples: [{
         L2: "Ein Bier, bitte.",
         ru: "Одно пиво, пожалуйста.",
@@ -3008,12 +3008,12 @@ window.decks.de_nouns_lernpunkt = [
     uk: "яловичина",
     level: "A1",
     topics: ["food"],
-    ukAntonyms: [  ],
-    ruAntonyms: [  ],
-    deAntonyms: [  ],
-    ukSynonyms: [  ],
-    ruSynonyms: [  ],
     deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
     examples: [{
         L2: "Rindfleisch ist teuer.",
         ru: "Говядина дорогая.",
@@ -3128,12 +3128,12 @@ window.decks.de_nouns_lernpunkt = [
     uk: "холодильник",
     level: "A1",
     topics: ["kitchen"],
-    ukAntonyms: [  ],
-    ruAntonyms: [  ],
-    deAntonyms: [  ],
-    ukSynonyms: [  ],
-    ruSynonyms: [  ],
     deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
     examples: [{
         L2: "Die Milch ist im Kühlschrank.",
         ru: "Молоко в холодильнике.",
@@ -3148,12 +3148,12 @@ window.decks.de_nouns_lernpunkt = [
     uk: "плита",
     level: "A1",
     topics: ["kitchen"],
-    ukAntonyms: [  ],
-    ruAntonyms: [  ],
-    deAntonyms: [  ],
-    ukSynonyms: [  ],
-    ruSynonyms: [  ],
     deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
     examples: [{
         L2: "Der Herd ist aus.",
         ru: "Плита выключена.",
@@ -3200,7 +3200,558 @@ window.decks.de_nouns_lernpunkt = [
         uk: "Я користуюся мікрохвильовкою."
     }]
 }
-];
+,
+{
+    id: 205,
+    word: "der Wein",
+    ru: "вино",
+    uk: "вино",
+    level: "A1",
+    topics: ["drinks"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Wein ist trocken.",
+        ru: "Вино сухое.",
+        uk: "Вино сухе."
+    }]
+},
+{
+    id: 206,
+    word: "das Hackfleisch",
+    ru: "фарш",
+    uk: "фарш",
+    level: "A1",
+    topics: ["food"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich kaufe Hackfleisch für das Essen.",
+        ru: "Я покупаю фарш для еды.",
+        uk: "Я купую фарш для їжі."
+    }]
+},
+{
+    id: 207,
+    word: "die Kiwi",
+    ru: "киви",
+    uk: "ківі",
+    level: "A1",
+    topics: ["food"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Die Kiwi schmeckt süß.",
+        ru: "Киви сладкая.",
+        uk: "Ківі солодка."
+    }]
+},
+{
+    id: 208,
+    word: "der Liter",
+    ru: "литр",
+    uk: "літр",
+    level: "A1",
+    topics: ["quantity"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich brauche einen Liter Wasser.",
+        ru: "Мне нужен литр воды.",
+        uk: "Мені потрібен літр води."
+    }]
+},
+{
+    id: 209,
+    word: "die Flasche",
+    ru: "бутылка",
+    uk: "пляшка",
+    level: "A1",
+    topics: ["food"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Die Flasche steht im Kühlschrank.",
+        ru: "Бутылка стоит в холодильнике.",
+        uk: "Пляшка стоїть у холодильнику."
+    }]
+},
+{
+    id: 210,
+    word: "die Dose",
+    ru: "банка",
+    uk: "банка",
+    level: "A1",
+    topics: ["food"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Die Dose ist offen.",
+        ru: "Банка открыта.",
+        uk: "Банка відкрита."
+    }]
+},
+{
+    id: 211,
+    word: "der Becher",
+    ru: "стаканчик",
+    uk: "стаканчик",
+    level: "A1",
+    topics: ["food"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich nehme einen Becher Joghurt.",
+        ru: "Я беру стаканчик йогурта.",
+        uk: "Я беру стаканчик йогурту."
+    }]
+},
+{
+    id: 212,
+    word: "der Rahm",
+    ru: "сливки",
+    uk: "вершки",
+    level: "A1",
+    topics: ["food"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Rahm ist frisch.",
+        ru: "Сливки свежие.",
+        uk: "Вершки свіжі."
+    }]
+},
+{
+    id: 213,
+    word: "das Pfund",
+    ru: "фунт",
+    uk: "фунт",
+    level: "A1",
+    topics: ["quantity"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ein Pfund Kartoffeln, bitte.",
+        ru: "Фунт картофеля, пожалуйста.",
+        uk: "Фунт картоплі, будь ласка."
+    }]
+},
+{
+    id: 214,
+    word: "das Gramm",
+    ru: "грамм",
+    uk: "грам",
+    level: "A1",
+    topics: ["quantity"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Hundert Gramm Käse.",
+        ru: "Сто граммов сыра.",
+        uk: "Сто грамів сиру."
+    }]
+},
+{
+    id: 215,
+    word: "der Zentimeter",
+    ru: "сантиметр",
+    uk: "сантиметр",
+    level: "A1",
+    topics: ["size"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Tisch ist achtzig Zentimeter breit.",
+        ru: "Стол шириной 80 сантиметров.",
+        uk: "Стіл завширшки 80 сантиметрів."
+    }]
+},
+{
+    id: 216,
+    word: "der Meter",
+    ru: "метр",
+    uk: "метр",
+    level: "A1",
+    topics: ["size"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Raum ist fünf Meter lang.",
+        ru: "Комната длиной пять метров.",
+        uk: "Кімната завдовжки п’ять метрів."
+    }]
+},
+{
+    id: 217,
+    word: "das Schlafzimmer",
+    ru: "спальня",
+    uk: "спальня",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Das Schlafzimmer ist ruhig.",
+        ru: "Спальня тихая.",
+        uk: "Спальня тиха."
+    }]
+},
+{
+    id: 218,
+    word: "das Wohnzimmer",
+    ru: "гостиная",
+    uk: "вітальня",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Wir sitzen im Wohnzimmer.",
+        ru: "Мы сидим в гостиной.",
+        uk: "Ми сидимо у вітальні."
+    }]
+},
+{
+    id: 219,
+    word: "der Balkon",
+    ru: "балкон",
+    uk: "балкон",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Balkon ist klein.",
+        ru: "Балкон маленький.",
+        uk: "Балкон маленький."
+    }]
+},
+{
+    id: 220,
+    word: "der Gang",
+    ru: "коридор",
+    uk: "коридор",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Gang ist hell.",
+        ru: "Коридор светлый.",
+        uk: "Коридор світлий."
+    }]
+},
+{
+    id: 221,
+    word: "das Apartment",
+    ru: "апартаменты",
+    uk: "апартаменти",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [ "die Wohnung" ],
+    ruSynonyms: [ "квартира" ],
+    ukSynonyms: [ "квартира" ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Das Apartment ist modern.",
+        ru: "Апартаменты современные.",
+        uk: "Апартаменти сучасні."
+    }]
+},
+{
+    id: 222,
+    word: "der Raum",
+    ru: "помещение",
+    uk: "приміщення",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [ "das Zimmer" ],
+    ruSynonyms: [ "комната" ],
+    ukSynonyms: [ "кімната" ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Raum ist groß.",
+        ru: "Помещение большое.",
+        uk: "Приміщення велике."
+    }]
+},
+{
+    id: 223,
+    word: "der Stock",
+    ru: "этаж",
+    uk: "поверх",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [ "die Etage" ],
+    ruSynonyms: [ "этаж" ],
+    ukSynonyms: [ "поверх" ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich wohne im zweiten Stock.",
+        ru: "Я живу на втором этаже.",
+        uk: "Я живу на другому поверсі."
+    }]
+},
+{
+    id: 224,
+    word: "die Dusche",
+    ru: "душ",
+    uk: "душ",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich gehe unter die Dusche.",
+        ru: "Я иду в душ.",
+        uk: "Я йду в душ."
+    }]
+},
+{
+    id: 225,
+    word: "die Badewanne",
+    ru: "ванна",
+    uk: "ванна",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Die Badewanne ist voll.",
+        ru: "Ванна полная.",
+        uk: "Ванна повна."
+    }]
+},
+{
+    id: 226,
+    word: "der Sessel",
+    ru: "кресло",
+    uk: "крісло",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich sitze im Sessel.",
+        ru: "Я сижу в кресле.",
+        uk: "Я сиджу в кріслі."
+    }]
+},
+{
+    id: 227,
+    word: "die Möbel",
+    ru: "мебель",
+    uk: "меблі",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Die Möbel sind neu.",
+        ru: "Мебель новая.",
+        uk: "Меблі нові."
+    }]
+},
+{
+    id: 228,
+    word: "das Gerät",
+    ru: "прибор, устройство",
+    uk: "пристрій",
+    level: "A1",
+    topics: ["home"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Das Gerät funktioniert gut.",
+        ru: "Прибор хорошо работает.",
+        uk: "Пристрій добре працює."
+    }]
+},
+{
+    id: 229,
+    word: "der Verkäufer",
+    ru: "продавец",
+    uk: "продавець",
+    level: "A1",
+    topics: ["shopping"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Verkäufer hilft mir.",
+        ru: "Продавец мне помогает.",
+        uk: "Продавець мені допомагає."
+    }]
+},
+{
+    id: 230,
+    word: "der Kunde",
+    ru: "покупатель",
+    uk: "покупець",
+    level: "A1",
+    topics: ["shopping"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Der Kunde wartet.",
+        ru: "Покупатель ждёт.",
+        uk: "Покупець чекає."
+    }]
+},
+{
+    id: 231,
+    word: "das Ehepaar",
+    ru: "супружеская пара",
+    uk: "подружжя",
+    level: "A1",
+    topics: ["people"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Das Ehepaar wohnt hier.",
+        ru: "Супружеская пара живёт здесь.",
+        uk: "Подружжя живе тут."
+    }]
+},
+{
+    id: 232,
+    word: "das Inserat",
+    ru: "объявление",
+    uk: "оголошення",
+    level: "A1",
+    topics: ["media"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Ich lese ein Inserat.",
+        ru: "Я читаю объявление.",
+        uk: "Я читаю оголошення."
+    }]
+},
+{
+    id: 233,
+    word: "das Büro",
+    ru: "офис",
+    uk: "офіс",
+    level: "A1",
+    topics: ["work"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [  ],
+    ruAntonyms: [  ],
+    ukAntonyms: [  ],
+    examples: [{
+        L2: "Das Büro ist offen.",
+        ru: "Офис открыт.",
+        uk: "Офіс відкритий."
+    }]
+}];
 
 window.decks.de_verbs_lernpunkt = [
   {
@@ -4478,7 +5029,83 @@ window.decks.de_adjectives_lernpunkt = [
         uk: "Перед іспитом я нервую."
     }]
 }
-];
+,
+{
+    id: 132,
+    word: "breit",
+    ru: "широкий",
+    uk: "широкий",
+    level: "A1",
+    topics: ["size"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [ "schmal" ],
+    ruAntonyms: [ "узкий" ],
+    ukAntonyms: [ "вузький" ],
+    examples: [{
+        L2: "Die Straße ist breit.",
+        ru: "Улица широкая.",
+        uk: "Вулиця широка."
+    }]
+},
+{
+    id: 133,
+    word: "schmal",
+    ru: "узкий",
+    uk: "вузький",
+    level: "A1",
+    topics: ["size"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [ "breit" ],
+    ruAntonyms: [ "широкий" ],
+    ukAntonyms: [ "широкий" ],
+    examples: [{
+        L2: "Der Weg ist schmal.",
+        ru: "Дорога узкая.",
+        uk: "Доріжка вузька."
+    }]
+},
+{
+    id: 134,
+    word: "modern",
+    ru: "современный",
+    uk: "сучасний",
+    level: "A1",
+    topics: ["description"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [ "alt" ],
+    ruAntonyms: [ "старый" ],
+    ukAntonyms: [ "старий" ],
+    examples: [{
+        L2: "Das Haus ist modern.",
+        ru: "Дом современный.",
+        uk: "Будинок сучасний."
+    }]
+},
+{
+    id: 135,
+    word: "hässlich",
+    ru: "некрасивый",
+    uk: "негарний",
+    level: "A1",
+    topics: ["description"],
+    deSynonyms: [  ],
+    ruSynonyms: [  ],
+    ukSynonyms: [  ],
+    deAntonyms: [ "schön" ],
+    ruAntonyms: [ "красивый" ],
+    ukAntonyms: [ "гарний" ],
+    examples: [{
+        L2: "Das Bild ist hässlich.",
+        ru: "Картина некрасивая.",
+        uk: "Картина негарна."
+    }]
+}];
 
 window.decks.de_adverbs_lernpunkt = [
   {
