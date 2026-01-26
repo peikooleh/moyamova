@@ -1,7 +1,7 @@
 /* ==========================================================
  * Project: MOYAMOVA
  * File: deck.en.js
- * Purpose: словарь приложения (JS)
+ * Purpose: словарь приложения
  * Version: 1.0
  * Last modified: 2025-10-19
 */
@@ -2488,7 +2488,7 @@ window.decks.en_nouns = [
   {
     "id": 82,
     "word": "female doctor",
-    "ru": "врач (женщина)",
+    "ru": "врач",
     "uk": "лікарка",
     "level": "B1",
     "topics": [
@@ -7433,7 +7433,7 @@ window.decks.en_nouns = [
     ],
     "ruSynonyms": [
       "день рождения",
-      "день рождения (вечеринка)"
+      "день рождения"
     ],
     "ukSynonyms": [
       "день народження",
@@ -16399,11 +16399,11 @@ window.decks.en_nouns = [
       "table cell"
     ],
     "ruSynonyms": [
-      "клетка (таблицы)",
+      "клетка",
       "ячейка таблицы"
     ],
     "ukSynonyms": [
-      "комірка (таблиці)",
+      "комірка",
       "комірка таблиці"
     ],
     "enAntonyms": [],
@@ -17627,11 +17627,11 @@ window.decks.en_nouns = [
       "control"
     ],
     "ruSynonyms": [
-      "клавиша (кнопка)",
+      "клавиша",
       "контроль"
     ],
     "ukSynonyms": [
-      "клавіша (кнопка)",
+      "клавіша",
       "контроль"
     ],
     "enAntonyms": [],
@@ -18064,7 +18064,7 @@ window.decks.en_nouns = [
       "general"
     ],
     "enSynonyms": [
-      "scalability (by features)",
+      "scalability",
       "expandability"
     ],
     "ruSynonyms": [
@@ -20248,7 +20248,7 @@ window.decks.en_nouns = [
   {
     "id": 714,
     "word": "female lawyer",
-    "ru": "адвокат (жен.)",
+    "ru": "адвокат",
     "uk": "адвокатка",
     "level": "B1",
     "topics": [
@@ -20442,7 +20442,7 @@ window.decks.en_nouns = [
   {
     "id": 725,
     "word": "bathroom",
-    "ru": "ванная (комната)",
+    "ru": "ванная",
     "uk": "ванна кімната",
     "level": "A1",
     "topics": [
@@ -22734,7 +22734,7 @@ window.decks.en_nouns = [
   },
   {
     "id": 833,
-    "word": "singer (female)",
+    "word": "singer",
     "ru": "певица",
     "uk": "співачка",
     "level": "A2",
@@ -30078,10 +30078,10 @@ window.decks.en_nouns = [
       "volatile memory"
     ],
     "ruAntonyms": [
-      "энергонезависимая память (противоположность отсутствует)"
+      "энергонезависимая память"
     ],
     "ukAntonyms": [
-      "енергонезалежна пам’ять (протилежність відсутня)"
+      "енергонезалежна пам’ять"
     ],
     "examples": [
       {
@@ -39456,8 +39456,8 @@ window.decks.en_adjectives = [
   {
     "id": 131,
     "word": "spicy",
-    "ru": "острый (о еде), пряный",
-    "uk": "гострий (про їжу), пряний",
+    "ru": "острый, пряный",
+    "uk": "гострий, пряний",
     "level": "A2",
     "topics": [
       "food",
@@ -42763,7 +42763,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 37,
-    "word": "to know (someone/something)",
+    "word": "to know",
     "ru": "знать",
     "uk": "знати",
     "level": "A2",
@@ -43033,7 +43033,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 45,
-    "word": "to consist (of)",
+    "word": "to consist",
     "ru": "состоять",
     "uk": "складатися",
     "level": "B1",
@@ -43400,7 +43400,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 55,
-    "word": "to correspond (to)",
+    "word": "to correspond",
     "ru": "соответствовать",
     "uk": "відповідати",
     "level": "B1",
@@ -43873,10 +43873,10 @@ window.decks.en_verbs = [
       "to take off"
     ],
     "ruAntonyms": [
-      "снимать (одежду)"
+      "снимать"
     ],
     "ukAntonyms": [
-      "знімати (одяг)"
+      "знімати"
     ],
     "examples": [
       {
@@ -43939,7 +43939,7 @@ window.decks.en_verbs = [
       "free_time"
     ],
     "enSynonyms": [
-      "to study (a text)"
+      "to study"
     ],
     "ruSynonyms": [
       "прочитывать"
@@ -44082,7 +44082,7 @@ window.decks.en_verbs = [
     ],
     "ruSynonyms": [
       "разрабатывать",
-      "эволюционировать (что-то)",
+      "эволюционировать",
       "развиваться"
     ],
     "ukSynonyms": [
@@ -44192,11 +44192,11 @@ window.decks.en_verbs = [
     ],
     "ruSynonyms": [
       "появляться",
-      "выходить (в свет)"
+      "выходить"
     ],
     "ukSynonyms": [
       "з’являтися",
-      "виходити (у світ)"
+      "виходити"
     ],
     "enAntonyms": [
       "to disappear"
@@ -44288,7 +44288,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 81,
-    "word": "to live (somewhere)",
+    "word": "to live",
     "ru": "жить",
     "uk": "жити",
     "level": "A1",
@@ -45510,7 +45510,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 119,
-    "word": "to save (money)",
+    "word": "to save",
     "ru": "экономить",
     "uk": "заощаджувати",
     "level": "A2",
@@ -46208,7 +46208,7 @@ window.decks.en_verbs = [
       "abstract"
     ],
     "enSynonyms": [
-      "to return (something)"
+      "to return"
     ],
     "ruSynonyms": [
       "возвращать"
@@ -47523,7 +47523,7 @@ window.decks.en_verbs = [
       "money"
     ],
     "enSynonyms": [
-      "to transfer (money)"
+      "to transfer"
     ],
     "ruSynonyms": [
       "делать перевод"
@@ -47550,7 +47550,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 184,
-    "word": "to move (house)",
+    "word": "to move",
     "ru": "переезжать",
     "uk": "переїжджати",
     "level": "A2",
@@ -47648,7 +47648,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 187,
-    "word": "to spend (time)",
+    "word": "to spend",
     "ru": "проводить",
     "uk": "проводити",
     "level": "A2",
@@ -47659,10 +47659,10 @@ window.decks.en_verbs = [
       "to spend time"
     ],
     "ruSynonyms": [
-      "проводить (время)"
+      "проводить"
     ],
     "ukSynonyms": [
-      "проводити (час)"
+      "проводити"
     ],
     "enAntonyms": [],
     "ruAntonyms": [],
@@ -47716,7 +47716,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 189,
-    "word": "to ask (for)",
+    "word": "to ask",
     "ru": "просить",
     "uk": "просити",
     "level": "A2",
@@ -48494,7 +48494,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 211,
-    "word": "to ride (a horse)",
+    "word": "to ride",
     "ru": "ездить верхом",
     "uk": "їздити верхи",
     "level": "A2",
@@ -48533,7 +48533,7 @@ window.decks.en_verbs = [
     ],
     "enSynonyms": [
       "to shove",
-      "to roll (by pushing)"
+      "to roll"
     ],
     "ruSynonyms": [
       "перемещать",
@@ -48910,7 +48910,7 @@ window.decks.en_verbs = [
       "home"
     ],
     "enSynonyms": [
-      "to paint (walls)"
+      "to paint"
     ],
     "ruSynonyms": [
       "покрасить"
@@ -49644,7 +49644,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 244,
-    "word": "to listen (to someone)",
+    "word": "to listen",
     "ru": "слушать",
     "uk": "прислухатися",
     "level": "A2",
@@ -49764,7 +49764,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 248,
-    "word": "to put on (clothes)",
+    "word": "to put on",
     "ru": "надевать",
     "uk": "одягати",
     "level": "A1",
@@ -49784,13 +49784,13 @@ window.decks.en_verbs = [
       "одягати"
     ],
     "enAntonyms": [
-      "to take off (clothes)"
+      "to take off"
     ],
     "ruAntonyms": [
-      "снимать (одежду)"
+      "снимать"
     ],
     "ukAntonyms": [
-      "знімати (одяг)"
+      "знімати"
     ],
     "examples": [
       {
@@ -49802,7 +49802,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 249,
-    "word": "to take off (clothes)",
+    "word": "to take off",
     "ru": "снимать",
     "uk": "роздягати",
     "level": "A1",
@@ -49822,7 +49822,7 @@ window.decks.en_verbs = [
       "роздягатися"
     ],
     "enAntonyms": [
-      "to put on (clothes)"
+      "to put on"
     ],
     "ruAntonyms": [
       "надевать"
@@ -49990,7 +49990,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 257,
-    "word": "to get on (transport)",
+    "word": "to get on",
     "ru": "садиться",
     "uk": "сідати",
     "level": "A1",
@@ -50001,13 +50001,13 @@ window.decks.en_verbs = [
       "to board"
     ],
     "ruSynonyms": [
-      "садиться (в транспорт)"
+      "садиться"
     ],
     "ukSynonyms": [
-      "сідати (в транспорт)"
+      "сідати"
     ],
     "enAntonyms": [
-      "to get off (transport)"
+      "to get off"
     ],
     "ruAntonyms": [
       "выходить"
@@ -50025,7 +50025,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 258,
-    "word": "to get off (transport)",
+    "word": "to get off",
     "ru": "выходить",
     "uk": "виходити",
     "level": "A1",
@@ -50036,19 +50036,19 @@ window.decks.en_verbs = [
       "to get out"
     ],
     "ruSynonyms": [
-      "выходить (из транспорта)"
+      "выходить"
     ],
     "ukSynonyms": [
-      "виходити (з транспорту)"
+      "виходити"
     ],
     "enAntonyms": [
-      "to get on (transport)"
+      "to get on"
     ],
     "ruAntonyms": [
-      "садиться (в транспорт)"
+      "садиться"
     ],
     "ukAntonyms": [
-      "сідати (в транспорт)"
+      "сідати"
     ],
     "examples": [
       {
@@ -50068,8 +50068,8 @@ window.decks.en_verbs = [
       "travel"
     ],
     "enSynonyms": [
-      "to transfer (to another train)",
-      "to change (trains)"
+      "to transfer",
+      "to change"
     ],
     "ruSynonyms": [
       "пересаживаться",
@@ -50726,7 +50726,7 @@ window.decks.en_verbs = [
       "service"
     ],
     "enSynonyms": [
-      "to operate (a machine)"
+      "to operate"
     ],
     "ruSynonyms": [
       "обслуживать"
@@ -51276,10 +51276,10 @@ window.decks.en_verbs = [
       "to brew beer"
     ],
     "ruSynonyms": [
-      "варить (пиво)"
+      "варить"
     ],
     "ukSynonyms": [
-      "варити (пиво)"
+      "варити"
     ],
     "enAntonyms": [],
     "ruAntonyms": [],
@@ -51861,12 +51861,12 @@ window.decks.en_verbs = [
     "ruAntonyms": [
       "уменьшать",
       "снижать",
-      "уменьшать(ся)"
+      "уменьшать"
     ],
     "ukAntonyms": [
       "зменшувати",
       "знижувати",
-      "зменшувати(ся)"
+      "зменшувати"
     ],
     "examples": [
       {
@@ -52030,11 +52030,11 @@ window.decks.en_verbs = [
       "to attain"
     ],
     "ruSynonyms": [
-      "достигать (выполнить)",
+      "достигать",
       "достигать"
     ],
     "ukSynonyms": [
-      "досягати (виконати)",
+      "досягати",
       "досягати"
     ],
     "enAntonyms": [
@@ -53683,8 +53683,8 @@ window.decks.en_verbs = [
   {
     "id": 409,
     "word": "to study",
-    "ru": "изучать, учиться (в вузе)",
-    "uk": "вивчати, навчатися (в університеті)",
+    "ru": "изучать, учиться",
+    "uk": "вивчати, навчатися",
     "level": "A2",
     "topics": [
       "education"
@@ -53928,9 +53928,9 @@ window.decks.en_verbs = [
   },
   {
     "id": 419,
-    "word": "to exchange (a product)",
-    "ru": "обменивать (товар)",
-    "uk": "обмінювати (товар)",
+    "word": "to exchange",
+    "ru": "обменивать",
+    "uk": "обмінювати",
     "level": "A2",
     "topics": [
       "shopping"
@@ -54339,8 +54339,8 @@ window.decks.en_verbs = [
   {
     "id": 436,
     "word": "to represent",
-    "ru": "представлять (интересы), замещать",
-    "uk": "представляти (інтереси), заміщати",
+    "ru": "представлять, замещать",
+    "uk": "представляти, заміщати",
     "level": "B1",
     "topics": [
       "work"
@@ -54513,7 +54513,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 442,
-    "word": "to show (for inspection)",
+    "word": "to show",
     "ru": "показывать, предъявлять",
     "uk": "показувати, пред’являти",
     "level": "A2",
@@ -54989,7 +54989,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 461,
-    "word": "to listen (to)",
+    "word": "to listen",
     "ru": "слушать, внимать",
     "uk": "слухати, уважно слухати",
     "level": "A2",
@@ -55258,7 +55258,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 472,
-    "word": "to lie to (someone)",
+    "word": "to lie to",
     "ru": "обманывать, лгать кому-то",
     "uk": "обманювати, брехати комусь",
     "level": "B2",
@@ -55305,7 +55305,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 474,
-    "word": "to calm (down)",
+    "word": "to calm",
     "ru": "успокаивать, утихомиривать",
     "uk": "заспокоювати, втихомирювати",
     "level": "B1",
@@ -55742,7 +55742,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 493,
-    "word": "to warm (up)",
+    "word": "to warm",
     "ru": "нагревать, согревать",
     "uk": "нагрівати, зігрівати",
     "level": "B1",
@@ -55943,12 +55943,12 @@ window.decks.en_verbs = [
     ],
     "ruSynonyms": [
       "принимать",
-      "соглашаться (принять)",
+      "соглашаться",
       "принять"
     ],
     "ukSynonyms": [
       "приймати",
-      "погоджуватися (прийняти)",
+      "погоджуватися",
       "прийняти"
     ],
     "enAntonyms": [
@@ -57566,7 +57566,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 579,
-    "word": "to run (a business)",
+    "word": "to run",
     "ru": "заниматься",
     "uk": "займатися",
     "level": "B2",
@@ -57612,7 +57612,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 581,
-    "word": "to apply (for a job)",
+    "word": "to apply",
     "ru": "подаваться",
     "uk": "подаватися",
     "level": "B1",
@@ -58005,7 +58005,7 @@ window.decks.en_verbs = [
   },
   {
     "id": 599,
-    "word": "to address (a point)",
+    "word": "to address",
     "ru": "останавливаться на",
     "uk": "зупинятися на",
     "level": "B2",
@@ -58792,15 +58792,15 @@ window.decks.en_verbs = [
     ],
     "enSynonyms": [
       "to go on",
-      "to keep (doing)"
+      "to keep"
     ],
     "ruSynonyms": [
       "продолжать",
-      "продолжать (делать)"
+      "продолжать"
     ],
     "ukSynonyms": [
       "продовжувати",
-      "продовжувати (робити)"
+      "продовжувати"
     ],
     "enAntonyms": [
       "to stop",
@@ -59370,8 +59370,8 @@ window.decks.en_verbs = [
   {
     "id": 660,
     "word": "to look up",
-    "ru": "смотреть (в словаре)",
-    "uk": "дивитися (в словнику)",
+    "ru": "смотреть",
+    "uk": "дивитися",
     "level": "B1",
     "topics": [
       "abstract"
@@ -59845,10 +59845,10 @@ window.decks.en_verbs = [
       "to be able to pay"
     ],
     "ruSynonyms": [
-      "позволить себе (по деньгам)"
+      "позволить себе"
     ],
     "ukSynonyms": [
-      "дозволити собі (за грошима)"
+      "дозволити собі"
     ],
     "enAntonyms": [
       "to be unable to afford"
@@ -60170,7 +60170,7 @@ window.decks.en_verbs = [
   {
     "id": 697,
     "word": "to get through",
-    "ru": "переживать (период)",
+    "ru": "переживать",
     "uk": "переживати",
     "level": "B1",
     "topics": [
@@ -60287,8 +60287,8 @@ window.decks.en_verbs = [
   {
     "id": 703,
     "word": "to deal with",
-    "ru": "справляться (с чем-то)",
-    "uk": "справлятися (з чимось)",
+    "ru": "справляться",
+    "uk": "справлятися",
     "level": "B1",
     "topics": [
       "social"
@@ -60403,8 +60403,8 @@ window.decks.en_verbs = [
   {
     "id": 709,
     "word": "to go down",
-    "ru": "заходить (о солнце)",
-    "uk": "заходити (про сонце)",
+    "ru": "заходить",
+    "uk": "заходити",
     "level": "B2",
     "topics": [
       "nature",
@@ -60581,7 +60581,7 @@ window.decks.en_verbs = [
   {
     "id": 716,
     "word": "to adopt",
-    "ru": "принимать (закон)",
+    "ru": "принимать",
     "uk": "ухвалювати",
     "level": "B2",
     "topics": [
@@ -61099,8 +61099,8 @@ window.decks.en_verbs = [
   {
     "id": 741,
     "word": "to give up",
-    "ru": "отказываться (от чего-то)",
-    "uk": "відмовлятися (від чогось)",
+    "ru": "отказываться",
+    "uk": "відмовлятися",
     "level": "B1",
     "topics": [
       "abstract"
@@ -61235,7 +61235,7 @@ window.decks.en_verbs = [
   {
     "id": 747,
     "word": "to require",
-    "ru": "предполагать (как условие)",
+    "ru": "предполагать",
     "uk": "передбачати",
     "level": "B2",
     "topics": [
@@ -66605,7 +66605,7 @@ window.decks.en_pronouns = [
   },
   {
     "id": 13,
-    "word": "your (plural, informal)",
+    "word": "your",
     "ru": "ваш",
     "uk": "ваш",
     "level": "B1",
@@ -66651,7 +66651,7 @@ window.decks.en_pronouns = [
   },
   {
     "id": 15,
-    "word": "you (plural)",
+    "word": "you",
     "ru": "вы",
     "uk": "ви",
     "level": "B1",
@@ -66720,7 +66720,7 @@ window.decks.en_pronouns = [
   },
   {
     "id": 18,
-    "word": "that (formal)",
+    "word": "that",
     "ru": "тот",
     "uk": "той",
     "level": "B1",
@@ -67230,7 +67230,7 @@ window.decks.en_prepositions = [
  
   {
     "id": 1,
-    "word": "from (time)",
+    "word": "from",
     "ru": "с, начиная с",
     "uk": "від, починаючи з",
     "level": "B1",
@@ -67239,7 +67239,7 @@ window.decks.en_prepositions = [
     ],
     "enSynonyms": [
       "starting from",
-      "beginning (on)"
+      "beginning"
     ],
     "ruSynonyms": [
       "начиная с",
@@ -67350,7 +67350,7 @@ window.decks.en_prepositions = [
   },
   {
     "id": 4,
-    "word": "less (after deducting)",
+    "word": "less",
     "ru": "за вычетом, минус",
     "uk": "за вирахуванням, мінус",
     "level": "B2",
@@ -67392,8 +67392,8 @@ window.decks.en_prepositions = [
   {
     "id": 5,
     "word": "at",
-    "ru": "у, при, в (в конкретном месте/время)",
-    "uk": "біля, у, о (в час)",
+    "ru": "у, при, в",
+    "uk": "біля, у, о",
     "level": "A1",
     "topics": [
       "place",
@@ -67456,24 +67456,24 @@ window.decks.en_prepositions = [
   },
   {
     "id": 7,
-    "word": "in place of (someone)",
-    "ru": "вместо (кого-то)",
-    "uk": "замість (когось)",
+    "word": "in place of",
+    "ru": "вместо",
+    "uk": "замість",
     "level": "B2",
     "topics": [
       "abstract"
     ],
     "enSynonyms": [
-      "instead of (someone)",
+      "instead of",
       "in someone's place"
     ],
     "ruSynonyms": [
       "вместо",
-      "на месте (кого-то)"
+      "на месте"
     ],
     "ukSynonyms": [
       "замість",
-      "на місці (когось)"
+      "на місці"
     ],
     "enAntonyms": [],
     "ruAntonyms": [],
@@ -67617,8 +67617,8 @@ window.decks.en_prepositions = [
   {
     "id": 12,
     "word": "on",
-    "ru": "на (поверхности), в (день/дату)",
-    "uk": "на (поверхні), у/в (день/дату)",
+    "ru": "на, в",
+    "uk": "на, у/в",
     "level": "A1",
     "topics": [
       "place"
@@ -67677,7 +67677,7 @@ window.decks.en_prepositions = [
   },
   {
     "id": 14,
-    "word": "from (origin)",
+    "word": "from",
     "ru": "из, родом из",
     "uk": "з, родом з",
     "level": "B1",
@@ -67822,9 +67822,9 @@ window.decks.en_prepositions = [
   },
   {
     "id": 18,
-    "word": "at (someone's place)",
-    "ru": "у (кого-то), дома у",
-    "uk": "у (когось), у гостях у",
+    "word": "at",
+    "ru": "у, дома у",
+    "uk": "у, у гостях у",
     "level": "B2",
     "topics": [
       "abstract"
@@ -67855,8 +67855,8 @@ window.decks.en_prepositions = [
   {
     "id": 19,
     "word": "on both sides of",
-    "ru": "по обе стороны (от)",
-    "uk": "по обидва боки (від)",
+    "ru": "по обе стороны",
+    "uk": "по обидва боки",
     "level": "B1",
     "topics": [
       "abstract"
@@ -67988,7 +67988,7 @@ window.decks.en_prepositions = [
   },
   {
     "id": 23,
-    "word": "against (formal)",
+    "word": "against",
     "ru": "против",
     "uk": "проти",
     "level": "B1",
@@ -68034,7 +68034,7 @@ window.decks.en_prepositions = [
       "abstract"
     ],
     "enSynonyms": [
-      "due to (positive)",
+      "due to",
       "owing to"
     ],
     "ruSynonyms": [
@@ -68059,8 +68059,8 @@ window.decks.en_prepositions = [
   {
     "id": 25,
     "word": "on this side of",
-    "ru": "по эту сторону (от)",
-    "uk": "по цей бік (від)",
+    "ru": "по эту сторону",
+    "uk": "по цей бік",
     "level": "B1",
     "topics": [
       "abstract"
@@ -68280,9 +68280,9 @@ window.decks.en_prepositions = [
   },
   {
     "id": 31,
-    "word": "excluding (tax)",
-    "ru": "без учёта (налога), за вычетом",
-    "uk": "без урахування (податку), за винятком",
+    "word": "excluding",
+    "ru": "без учёта, за вычетом",
+    "uk": "без урахування, за винятком",
     "level": "B1",
     "topics": [
       "abstract"
@@ -68300,15 +68300,15 @@ window.decks.en_prepositions = [
       "за винятком"
     ],
     "enAntonyms": [
-      "including (tax)",
+      "including",
       "tax included"
     ],
     "ruAntonyms": [
-      "с учётом (налога)",
+      "с учётом",
       "налог включён"
     ],
     "ukAntonyms": [
-      "з урахуванням (податку)",
+      "з урахуванням",
       "податок включено"
     ],
     "examples": [
@@ -71297,7 +71297,7 @@ window.decks.en_conjunctions = [
       "abstract"
     ],
     "enSynonyms": [
-      "provided (that)"
+      "provided"
     ],
     "ruSynonyms": [
       "если"
