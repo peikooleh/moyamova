@@ -641,24 +641,23 @@ function getAntonyms(word, deckKey) {
  document.addEventListener('click', function (evt) {
  const target = evt.target;
 
- // 1) Клик по немецкому примеру — показать/скрыть перевод вручную
- const deEl = target.closest('.hint-de');
- if (deEl) {
- const root = deEl.closest('.hint-example');
- if (!root) return;
+ // 1) Тап по блоку подсказки — показать/скрыть "вторую строку" (перевод/обратную сторону)
+ // Почему так: у синонимов/антонимов строка часто короткая и попасть точно в текст сложнее.
+ // Поэтому расширяем зону тапа до всего блока .hint-example (кроме пагинатора/кнопок).
+ const hintRoot = target.closest('.hint-example');
+ if (hintRoot && !target.closest('.hint-pager') && !target.closest('button')) {
+  const trEl = hintRoot.querySelector('.hint-tr');
+  if (trEl) {
+   const willShow = !trEl.classList.contains('is-visible');
 
- const trEl = root.querySelector('.hint-tr');
- if (!trEl) return;
+   trEl.classList.toggle('is-visible');
 
- const willShow = !trEl.classList.contains('is-visible');
-
- trEl.classList.toggle('is-visible');
-
- // Если перевод только что показали — следим, чтобы он не спрятался под скролл
- if (willShow) {
- ensureTranslationVisible(trEl);
- }
- return;
+   // Если перевод только что показали — следим, чтобы он не спрятался под скролл
+   if (willShow) {
+    ensureTranslationVisible(trEl);
+   }
+   return;
+  }
  }
 
  // 2) Клик по вариантам ответов / "Не знаю"
