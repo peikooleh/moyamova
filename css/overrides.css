@@ -835,3 +835,45 @@ html[data-theme="dark"] .oc-panel .menu-item.app-version{
   color: var(--accent, var(--brand, #35b6ff));
   font-weight: 700;
 }
+
+/* =========================
+   EXTRA (Syn/Ant) – final
+   ========================= */
+
+/* Row layout + wrapping */
+.hints-body .hint-example.hint-extra-row .hint-de{
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+
+/* Label: normal text color */
+.hints-body .hint-example.hint-extra-row .hint-label{
+  color: inherit;
+  font-weight: 600;
+}
+
+/* L2 terms (syn/ant): brand highlight */
+.hints-body .hint-example.hint-extra-row .hint-l2{
+  color: var(--brand, var(--accent, #1fa8ff));
+  font-weight: 700;
+}
+
+/* Translation: hidden by default; revealed after answer via .is-visible */
+.hints-body .hint-example.hint-extra-row .hint-tr.hint-tr-inline{
+  display: none;
+  white-space: nowrap;
+  margin-left: 8px;
+  opacity: 0.78;
+  font-size: 0.95em;
+}
+.hints-body .hint-example.hint-extra-row .hint-tr.hint-tr-inline.is-visible{
+  display: inline-block;
+}
+
+/* Space between Syn and Ant rows */
+.hints-body .hint-example.hint-extra-row + .hint-example.hint-extra-row{
+  margin-top: 10px;
+}
