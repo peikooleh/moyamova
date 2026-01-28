@@ -192,30 +192,45 @@
  }
 
  // Синонимы по L2 и L1 (ru/uk)
- function getSynonyms(word) {
- if (!word) return { de: [], l1: [] };
+// L2 определяется по активной деке (de_* / en_* / ...).
+function getSynonyms(word, deckKey) {
+ if (!word) return { l2: [], l1: [] };
 
  const uiLang = getUiLang();
- const de = Array.isArray(word.deSynonyms) ? word.deSynonyms : [];
+
+ // L2 (язык деки)
+ const lang = detectLangFromDeckKey(deckKey) || 'de';
+ const l2Key = lang + 'Synonyms';
+ const l2 = Array.isArray(word[l2Key]) ? word[l2Key] : [];
+
+ // L1 (язык интерфейса)
  const ru = Array.isArray(word.ruSynonyms) ? word.ruSynonyms : [];
  const uk = Array.isArray(word.ukSynonyms) ? word.ukSynonyms : [];
 
  const l1 = (uiLang === 'uk') ? uk : ru;
- return { de: de, l1: l1 };
- }
+ return { l2: l2, l1: l1 };
+}
 
- // Антонимы по L2 и L1 (ru/uk)
- function getAntonyms(word) {
- if (!word) return { de: [], l1: [] };
+// Антонимы по L2 и L1 (ru/uk)
+// L2 определяется по активной деке (de_* / en_* / ...).
+function getAntonyms(word, deckKey) {
+ if (!word) return { l2: [], l1: [] };
 
  const uiLang = getUiLang();
- const de = Array.isArray(word.deAntonyms) ? word.deAntonyms : [];
+
+ // L2 (язык деки)
+ const lang = detectLangFromDeckKey(deckKey) || 'de';
+ const l2Key = lang + 'Antonyms';
+ const l2 = Array.isArray(word[l2Key]) ? word[l2Key] : [];
+
+ // L1 (язык интерфейса)
  const ru = Array.isArray(word.ruAntonyms) ? word.ruAntonyms : [];
  const uk = Array.isArray(word.ukAntonyms) ? word.ukAntonyms : [];
 
  const l1 = (uiLang === 'uk') ? uk : ru;
- return { de: de, l1: l1 };
- }
+ return { l2: l2, l1: l1 };
+}
+
 
  /* ----------------------------- Заголовок и вкладки ----------------------------- */
 
@@ -347,12 +362,19 @@
  '</div>';
  return;
  }
- const syn = getSynonyms(word);
- const de = (syn.de || []).filter(Boolean);
+ let deckKey = null;
+ try {
+  if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
+   deckKey = A.Trainer.getDeckKey();
+  }
+ } catch (_) {}
+
+ const syn = getSynonyms(word, deckKey);
+ const l2 = (syn.l2 || []).filter(Boolean);
  const l1 = (syn.l1 || []).filter(Boolean);
 
- // ВРЕМЕННО: если нет немецких синонимов — считаем, что синонимов нет вообще
- if (!de.length) {
+ // Если нет данных по L2 — считаем, что синонимов нет
+ if (!l2.length) {
  body.innerHTML =
  '<div class="hint-example">' +
  '<p class="hint-tr is-visible">' +
@@ -362,7 +384,7 @@
  return;
  }
 
- const top = de.join(', ');
+ const top = l2.join(', ');
  const bottom = l1.join(', ');
 
  const reverse = isReverseTraining();
@@ -412,12 +434,19 @@
  '</div>';
  return;
  }
- const ant = getAntonyms(word);
- const de = (ant.de || []).filter(Boolean);
+ let deckKey = null;
+ try {
+  if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
+   deckKey = A.Trainer.getDeckKey();
+  }
+ } catch (_) {}
+
+ const ant = getAntonyms(word, deckKey);
+ const l2 = (ant.l2 || []).filter(Boolean);
  const l1 = (ant.l1 || []).filter(Boolean);
 
- // ВРЕМЕННО: если нет немецких антонимов — считаем, что антонимов нет вообще
- if (!de.length) {
+ // Если нет данных по L2 — считаем, что антонимов нет
+ if (!l2.length) {
  body.innerHTML =
  '<div class="hint-example">' +
  '<p class="hint-tr is-visible">' +
@@ -427,7 +456,7 @@
  return;
  }
 
- const top = de.join(', ');
+ const top = l2.join(', ');
  const bottom = l1.join(', ');
 
  const reverse = isReverseTraining();
