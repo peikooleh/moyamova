@@ -37067,8 +37067,8 @@ window.decks.de_verbs = [
   {
     id: 35,
     word: "meinen",
-    ru: "считать",
-    uk: "вважати",
+    ru: "иметься ввиду",
+    uk: "матися на увазі",
     level: "A2",
     topics: [
       "abstract",
@@ -37214,8 +37214,8 @@ window.decks.de_verbs = [
   {
     id: 38,
     word: "gelten",
-    ru: "действовать",
-    uk: "діяти",
+    ru: "считаться, действовать",
+    uk: "вважатися, діяти",
     level: "B1",
     topics: [
       "abstract"

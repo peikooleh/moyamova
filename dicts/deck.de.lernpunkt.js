@@ -6680,36 +6680,7 @@ window.decks.de_nouns_lernpunkt = [
       }
     ]
   },
-  {
-    "id": 295,
-    "word": "die Bude",
-    "ru": "будочка",
-    "uk": "будка",
-    "level": "A1",
-    "topics": [
-      "city",
-      "shopping"
-    ],
-    "deSynonyms": [
-      "der Stand"
-    ],
-    "ruSynonyms": [
-      "киоск"
-    ],
-    "ukSynonyms": [
-      "кіоск"
-    ],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Die Bude ist an der Ecke.",
-        "ru": "Будочка на углу.",
-        "uk": "Будка на розі."
-      }
-    ]
-  },
+
   {
     "id": 296,
     "word": "die Bäckerei",
