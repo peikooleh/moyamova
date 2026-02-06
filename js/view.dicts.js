@@ -378,21 +378,45 @@
           b.style.display = show ? '' : 'none';
         }catch(_){}
       }
-
-      
       function updatePrepositionsButton(){
         try{
           const b = document.getElementById('dicts-prepositions');
           if (!b) return;
-          // Показываем кнопку пока ТОЛЬКО для английского
-          const lang = (A.Decks && typeof A.Decks.langOfKey === 'function') ? (A.Decks.langOfKey(selectedKey) || null) : null;
-          const isPrepsDeck = (window.A && A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function')
-            ? !!A.Prepositions.isPrepositionsDeckKey(selectedKey)
-            : /_prepositions$/i.test(String(selectedKey||''));
-          // Показываем кнопку "Учить предлоги" ТОЛЬКО когда выбрана дека предлогов (en_prepositions).
-          const show = (String(lang||'').toLowerCase() === 'en') && isPrepsDeck;
-          b.style.display = show ? '' : 'none';
-        }catch(_){}
+
+          function hasPrepsDataset(lang){
+            try {
+              const L = String(lang || '').toLowerCase();
+              const src = (typeof window !== 'undefined') ? (window.prepositionsTrainer && window.prepositionsTrainer[L]) : null;
+              if (!src) return false;
+              // Expected structure: { lang:'de', patterns:[...] }
+              if (Array.isArray(src.patterns)) return src.patterns.length > 0;
+              // Fallbacks (in case old format is used)
+              if (Array.isArray(src)) return src.length > 0;
+              if (typeof src === 'object') return Object.keys(src).length > 0;
+              return false;
+            } catch(_){
+              return false;
+            }
+          }
+
+          // Показываем кнопку, когда выбрана дека предлогов для любого языка (EN/DE сейчас).
+          // Ключ может быть как "реальный" xx_prepositions, так и "виртуальный" xx_prepositions_trainer.
+          const isPrepsDeck = (A.Prepositions && typeof A.Prepositions.isAnyPrepositionsKey === 'function')
+            ? !!A.Prepositions.isAnyPrepositionsKey(selectedKey)
+            : /_prepositions(_trainer)?$/i.test(String(selectedKey||''));
+
+          let lang = null;
+          try {
+            if (A.Prepositions && typeof A.Prepositions.langOfPrepositionsKey === 'function') lang = A.Prepositions.langOfPrepositionsKey(selectedKey);
+          } catch(_){ }
+          if (!lang) {
+            try { if (A.Decks && typeof A.Decks.langOfKey === 'function') lang = A.Decks.langOfKey(selectedKey) || null; } catch(_){ }
+          }
+          lang = String(lang || '').toLowerCase();
+          const ok = !!(lang && hasPrepsDataset(lang));
+
+          b.style.display = (isPrepsDeck && ok) ? '' : 'none';
+        }catch(_){ }
       }
 
 // primary sync
@@ -469,18 +493,46 @@
             }
           } catch(_){ }
 
-          // ВАЖНО: тренер предлогов работает через виртуальную колоду en_prepositions,
-          // чтобы прогресс/звёзды/ошибки не смешивались с обычными словарями.
+          // Тренер предлогов: запускаем по языку выбранной деки (EN/DE).
+          // Источник: ключ вида xx_prepositions. Внутри home.js режим определяется по этому baseKey.
           try { A.settings = A.settings || {}; A.settings.trainerKind = "prepositions"; } catch(_){ }
           try {
             A.settings = A.settings || {};
             // запоминаем реальный выбранный словарь для возврата/экрана словарей
             A.settings.preferredReturnKey = selectedKey;
+
             // активный ключ для тренера
-            A.settings.lastDeckKey = 'en_prepositions';
+            let prepLang = null;
+            try {
+              if (A.Prepositions && typeof A.Prepositions.langOfPrepositionsKey === 'function') prepLang = A.Prepositions.langOfPrepositionsKey(selectedKey);
+            } catch(_){ }
+            if (!prepLang) {
+              try { if (A.Decks && typeof A.Decks.langOfKey === 'function') prepLang = A.Decks.langOfKey(selectedKey) || null; } catch(_){ }
+            }
+            prepLang = String(prepLang || 'en').toLowerCase();
+
+            // Показываем/запускаем тренер только если для языка реально загружен датасет.
+            // Сейчас в проде поддержаны EN и DE (и только те языки, для которых есть window.prepositionsTrainer[lang]).
+            const __src = (typeof window !== 'undefined') ? (window.prepositionsTrainer && window.prepositionsTrainer[prepLang]) : null;
+            const __has = !!(__src && (Array.isArray(__src.patterns) ? __src.patterns.length : (Array.isArray(__src) ? __src.length : (typeof __src === 'object' ? Object.keys(__src).length : 0))));
+            if (!__has) {
+              try { if (typeof A.toast === 'function') A.toast((getUiLang()==='uk') ? 'Немає датасету тренера прийменників для цієї мови.' : 'Нет датасета тренера предлогов для этого языка.'); } catch(_){ }
+              return;
+            }
+
+            const prepKey = prepLang + '_prepositions';
+
+            A.settings.lastDeckKey = prepKey;
             if (typeof A.saveSettings === "function") { A.saveSettings(A.settings); }
+
+            // аналитика: какой preps key реально запустили
+            try {
+              if (A.Analytics && typeof A.Analytics.track === 'function') {
+                A.Analytics.track('preps_launch', { ui_lang: getUiLang(), learn_lang: prepLang, deck_key: prepKey, source_key: String(selectedKey||'') });
+              }
+            } catch(_){ }
           } catch(_){ }
-          try { document.dispatchEvent(new CustomEvent("lexitron:deck-selected", { detail:{ key: 'en_prepositions' } })); } catch(_){ }
+          try { document.dispatchEvent(new CustomEvent("lexitron:deck-selected", { detail:{ key: (String((A.settings&&A.settings.lastDeckKey)||'') || 'en_prepositions') } })); } catch(_){ }
           goHome();
         };
       }

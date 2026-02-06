@@ -1691,9 +1691,17 @@ function renderTrainer() {
       && String(baseKeyForArticles || '').toLowerCase().startsWith('de_nouns')
       && (A.ArticlesTrainer && A.ArticlesCard);
 
+    const baseKeyForPreps = extractBaseFromVirtual(key) || key;
+
+    const __mPreps = String(baseKeyForPreps || '').trim().match(/^([a-z]{2})_prepositions$/i);
+    const __prepsLang = __mPreps ? String(__mPreps[1] || '').toLowerCase() : null;
+    const __prepsSrc = (__prepsLang && typeof window !== 'undefined') ? (window.prepositionsTrainer && window.prepositionsTrainer[__prepsLang]) : null;
+    const __hasPrepsDataset = !!(__prepsSrc && (Array.isArray(__prepsSrc.patterns) ? __prepsSrc.patterns.length : (Array.isArray(__prepsSrc) ? __prepsSrc.length : (typeof __prepsSrc === 'object' ? Object.keys(__prepsSrc).length : 0))));
+
     const wantPrepositions = !!(A.settings && A.settings.trainerKind === 'prepositions')
-      && /^en_prepositions$/i.test(String(extractBaseFromVirtual(key) || key || '').trim())
-      && (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function');
+      && !!__mPreps
+      && __hasPrepsDataset
+      && (A.Prepositions && typeof A.Prepositions.getDeckForKey === 'function');
 
 
     // UI: Reverse toggle is not applicable to articles.
