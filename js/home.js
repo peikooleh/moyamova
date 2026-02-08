@@ -984,16 +984,93 @@ function setUiLang(code){
 
   /* ------------------------------ Утилиты выбора ключа ------------------------------ */
 
-  function isValidDeckKey(key){
-    try {
-      if (!key) return false;
-      if (!A.Decks || typeof A.Decks.resolveDeckByKey !== 'function') return false;
-      const arr = A.Decks.resolveDeckByKey(key) || [];
-      return Array.isArray(arr) && arr.length > 0;
-    } catch(_){ return false; }
-  }
+  
+  
+// Hidden dictionaries gate (Cycle mode). By default hide:
+//  - Serbian decks: sr_*
+//  - LearnPunkt decks: *_lernpunkt
+// Visibility is controlled by flags:
+//  - localStorage.mm_sr = "1" to show Serbian
+//  - localStorage.mm_lp = "1" to show LearnPunkt
+function __mm_isSrEnabled(){
+  try { return localStorage.getItem('mm_sr') === '1'; } catch(_){ return false; }
+}
+function __mm_isLpEnabled(){
+  try { return localStorage.getItem('mm_lp') === '1'; } catch(_){ return false; }
+}
+function __mm_isSrDeckKey(k){
+  const key = String(k||'');
+  return /^sr_/i.test(key);
+}
+function __mm_isLpDeckKey(k){
+  const key = String(k||'');
+  return /_lernpunkt$/i.test(key);
+}
 
-  function firstAvailableBaseDeckKey(){
+// Legacy migration: if Serbian/LearnPunkt was already used before gating was introduced,
+// enable only the corresponding flag(s) automatically so the user doesn't "lose" access after update.
+function __mm_hasLegacySrUsage(){
+  try {
+    const last = (A.settings && A.settings.lastDeckKey) ? String(A.settings.lastDeckKey) : '';
+    if (__mm_isSrDeckKey(last)) return true;
+
+    if (typeof localStorage !== 'undefined' && localStorage) {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i) || '';
+        if (/\bsr_/i.test(k)) return true;
+        const v = String(localStorage.getItem(k) || '');
+        if (__mm_isSrDeckKey(v)) return true;
+      }
+    }
+  } catch(_){ }
+  return false;
+}
+
+function __mm_hasLegacyLpUsage(){
+  try {
+    const last = (A.settings && A.settings.lastDeckKey) ? String(A.settings.lastDeckKey) : '';
+    if (__mm_isLpDeckKey(last)) return true;
+
+    if (typeof localStorage !== 'undefined' && localStorage) {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i) || '';
+        if (/_lernpunkt/i.test(k)) return true;
+        const v = String(localStorage.getItem(k) || '');
+        if (__mm_isLpDeckKey(v)) return true;
+      }
+    }
+  } catch(_){ }
+  return false;
+}
+
+(function __mm_migrateLegacyHiddenFlags(){
+  try{
+    // Only migrate once for users who don't have the new flags yet.
+    const curSr = localStorage.getItem('mm_sr');
+    const curLp = localStorage.getItem('mm_lp');
+    const hasAny = (curSr !== null && curSr !== undefined && curSr !== '') ||
+                   (curLp !== null && curLp !== undefined && curLp !== '');
+
+    if (!hasAny){
+      localStorage.setItem('mm_sr', __mm_hasLegacySrUsage() ? '1' : '0');
+      localStorage.setItem('mm_lp', __mm_hasLegacyLpUsage() ? '1' : '0');
+    }
+  } catch(_){ }
+})();
+
+function isValidDeckKey(key){
+  try {
+    if (!key) return false;
+    if (__mm_isSrDeckKey(key) && !__mm_isSrEnabled()) return false;
+    if (__mm_isLpDeckKey(key) && !__mm_isLpEnabled()) return false;
+
+    if (!A.Decks || typeof A.Decks.resolveDeckByKey !== 'function') return false;
+    const arr = A.Decks.resolveDeckByKey(key) || [];
+    return Array.isArray(arr) && arr.length > 0;
+  } catch(_){ return false; }
+}
+
+function firstAvailableBaseDeckKey(){
     try {
       const decks = (window.decks && typeof window.decks === 'object') ? window.decks : {};
       const keys = Object.keys(decks).filter(k =>

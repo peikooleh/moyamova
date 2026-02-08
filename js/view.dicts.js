@@ -51,7 +51,11 @@
     if (!app) return;
     const T = t();
 
-    const allKeys = (A.Decks?.builtinKeys?.() || []);
+    
+    function isSrEnabled(){ try { return localStorage.getItem('mm_sr') === '1'; } catch(_) { return false; } }
+    function isLpEnabled(){ try { return localStorage.getItem('mm_lp') === '1'; } catch(_) { return false; } }
+    function isLpKey(k){ return String(k||'').toLowerCase().endsWith('_lernpunkt'); }
+const allKeys = (A.Decks?.builtinKeys?.() || []);
     if (!allKeys.length){
       app.innerHTML = `
         <div class="home home--fixed-card">
@@ -74,6 +78,11 @@
       (acc[lang] || (acc[lang] = [])).push(key);
       return acc;
     }, {});
+    // Hide SR language unless enabled
+    if (!isSrEnabled()) { delete byLang.sr; }
+    // Hide Lernpunkt decks from DE unless enabled (page will be removed below)
+    if (!isLpEnabled() && byLang.de) { byLang.de = byLang.de.filter(k=>!isLpKey(k)); }
+
     const langs = Object.keys(byLang);
     if (!langs.length){
       app.innerHTML = `
@@ -130,9 +139,10 @@
       const keysAll = byLang[lang] || [];
 
       // --- helpers for LearnPunkt split (only for DE) ---
-      const isLP = (k)=> String(k||'').toLowerCase().endsWith('_lernpunkt');
+      const isLP = isLpKey;
+      const lpEnabled = isLpEnabled();
       const mainKeys = (lang === 'de') ? keysAll.filter(k=>!isLP(k)) : keysAll;
-      const lpKeys   = (lang === 'de') ? keysAll.filter(isLP) : [];
+      const lpKeys   = (lang === 'de' && lpEnabled) ? keysAll.filter(isLP) : [];
 
       // selections
       function loadSelectedKeyScoped(scopeKeys, scopeName){
@@ -165,6 +175,11 @@
           const p = (A.settings && A.settings.dictsDePage);
           activePage = (p === 1) ? 1 : 0;
         } catch(_){}
+        // If LearnPunkt is disabled, force page 0
+        if (!lpEnabled) {
+          activePage = 0;
+          try { if (A.settings) A.settings.dictsDePage = 0; } catch(_){}
+        }
       }
 
       // selectedKey is what будет применяться кнопками
@@ -227,6 +242,33 @@
 
       } else {
         // DE: две страницы (обычные деки + LearnPunkt)
+        if (!lpEnabled){
+          const rows0 = mainKeys.length ? rowsFor(mainKeys, selectedMain) : '';
+          app.innerHTML = `
+            <div class="home home--fixed-card">
+              <section class="card dicts-card dicts-card--fixed">
+                <div class="dicts-header">
+                  <h3>${T.title}</h3>
+                  <div id="dicts-flags" class="dicts-flags"></div>
+                </div>
+
+                <div class="dicts-scroll">
+                  <table class="dicts-table" data-scope="de-main">
+                    <tbody>${rows0 || ''}</tbody>
+                  </table>
+                  ${mainKeys.length ? '' : `<p style="opacity:.85;margin:10px 0 0;">${T.empty}</p>`}
+                </div>
+
+                <div class="dicts-footer">
+                  <div class="dicts-actions">
+                    <button type="button" class="btn-primary" id="dicts-apply">${T.ok}</button>
+                    <button type="button" class="btn-primary" id="dicts-articles" style="display:none">${T.articles}</button>
+                    <button type="button" class="btn-primary" id="dicts-prepositions" style="display:none">${T.preps}</button>
+                  </div>
+                </div>
+              </section>
+            </div>`;
+        } else {
         const rows0 = mainKeys.length ? rowsFor(mainKeys, selectedMain) : '';
         const rows1 = lpKeys.length   ? rowsFor(lpKeys,   selectedLP)   : '';
 
@@ -274,6 +316,7 @@
               </div>
             </section>
           </div>`;
+      }
       }
 
       // --- handlers ---
