@@ -15,10 +15,64 @@
   var A = (window.App = window.App || {});
 
   var LS_KEY = 'mm.audioEnabled.v2';
+  var LS_TTS_WORDS = 'mm.tts.words';
+  var LS_TTS_EXAMPLES = 'mm.tts.examples';
   var wordObserver = null;
+
+  function isPwaOrTwaRunmode(){
+    try {
+      if (String(location.search||'').indexOf('twa=1') !== -1) return true;
+    } catch(_){}
+    try {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+    } catch(_){}
+    try {
+      if (typeof window.navigator !== 'undefined' && window.navigator.standalone === true) return true;
+    } catch(_){}
+    try {
+      var rm = String(document.documentElement.getAttribute('data-runmode') || document.documentElement.dataset.runmode || '').toLowerCase();
+      if (rm === 'pwa' || rm === 'twa') return true;
+    } catch(_){}
+    return false;
+  }
+
 
   // включён ли звук (по умолчанию: НЕТ, чтобы не пугать)
   var audioEnabled = loadAudioEnabled();
+
+  function _readBoolLS(key, fallback){
+    try {
+      var v = window.localStorage.getItem(key);
+      if (v === null || v === undefined || v === '') return (fallback===null? null : !!fallback);
+      return v === '1' || v === 'true';
+    } catch(e){
+      return (fallback===null? null : !!fallback);
+    }
+  }
+
+  // Migration from legacy mm.audioEnabled.v2:
+  // if legacy enabled, default to words=ON, examples=OFF (conservative).
+  (function _migrateLegacyTts(){
+    try {
+      var w = _readBoolLS(LS_TTS_WORDS, null);
+      var ex = _readBoolLS(LS_TTS_EXAMPLES, null);
+      if (w === null || ex === null) {
+        var legacy = window.localStorage.getItem(LS_KEY);
+        if (legacy === '1') {
+          window.localStorage.setItem(LS_TTS_WORDS, '1');
+          window.localStorage.setItem(LS_TTS_EXAMPLES, '0');
+        } else {
+          if (w === null) window.localStorage.setItem(LS_TTS_WORDS, '0');
+          if (ex === null) window.localStorage.setItem(LS_TTS_EXAMPLES, '0');
+        }
+      }
+    } catch(_e){}
+  })();
+
+  function ttsWordsEnabled(){ return !!_readBoolLS(LS_TTS_WORDS, false); }
+  function ttsExamplesEnabled(){ return !!_readBoolLS(LS_TTS_EXAMPLES, false); }
+  function ttsAnyEnabled(){ return ttsWordsEnabled() || ttsExamplesEnabled(); }
+
 
   function isArticlesMode() {
     try { return A.settings && A.settings.trainerKind === 'articles'; } catch (e) { return false; }
@@ -266,7 +320,13 @@
   
 function speakText(text, force, opts) {
     if (!A.isPro || !A.isPro()) return null; // озвучка только в PRO
-    if (!force && !audioEnabled) return null; // авто-озвучка зависит от переключателя
+    // Gate by pills.
+    if (!force) {
+      var isEx = !!(opts && opts.isExample);
+      if (isEx && !ttsExamplesEnabled()) return null;
+      if (!isEx && !ttsWordsEnabled()) return null;
+    }
+    // Manual calls (force=true) are additionally gated by caller (respect pills).
     if (!hasTTS()) return null;
 
     try {
@@ -410,9 +470,9 @@ function speakText(text, force, opts) {
       return;
     }
 
-    if (audioEnabled) {
+    if (ttsAnyEnabled()) {
       btn.textContent = '🔊';
-      btn.setAttribute('aria-label', 'Озвучить слово');
+      btn.setAttribute('aria-label', 'Озвучить');
     } else {
       btn.textContent = '🔇';
       btn.setAttribute('aria-label', 'Озвучка выключена');
@@ -450,17 +510,28 @@ function speakText(text, force, opts) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         if (!A.isPro || !A.isPro()) return;
-        // Ручная озвучка работает всегда, независимо от состояния авто-озвучки.
-        speakCurrentWord(true);
-      });
-
-      // двойной клик — вкл/выкл звук
-      btn.addEventListener('dblclick', function (e) {
-        e.preventDefault();
-        if (!A.isPro || !A.isPro()) return;
-        audioEnabled = !audioEnabled;
-        saveAudioEnabled();
-        updateButtonIcon(btn);
+        // Ручная озвучка уважает пилюли.
+        try {
+          var wOn = ttsWordsEnabled();
+          var eOn = ttsExamplesEnabled();
+          if (!wOn && !eOn) {
+            // WEB: prefs card hidden, user cannot enable sound — show a hint.
+            if (!isPwaOrTwaRunmode()) {
+              try { if (A.Msg && A.Msg.toast) A.Msg.toast('tts.web.install'); } catch(_){}
+            }
+            return;
+          }
+          if (wOn) speakText(getCurrentWord(), true);
+          if (eOn) {
+            var cw = A.__currentWord || null;
+            var ex = (cw && cw.examples && cw.examples[0] && (cw.examples[0].L2 || cw.examples[0].de || cw.examples[0].en || cw.examples[0].text)) || '';
+            var exText = String(ex||'').trim();
+            if (exText) {
+              // for examples use noVoice for iOS stability
+              speakText(exText, true, { noVoice: true, isExample: true });
+            }
+          }
+        } catch(_e){ /* noop */ }
       });
 
       hostEl.appendChild(btn);
@@ -473,7 +544,7 @@ function speakText(text, force, opts) {
     // чтобы звук не превращался в подсказку.
     if (!isArticlesMode() && !isReverseMode() && !isPrepositionsMode()) {
       var word = getCurrentWord();
-      if (word && audioEnabled && word !== lastAutoSpokenWord) {
+      if (word && ttsWordsEnabled() && word !== lastAutoSpokenWord) {
         lastAutoSpokenWord = word;
         setTimeout(function () {
           speakText(word, false);
@@ -576,6 +647,7 @@ function speakText(text, force, opts) {
 
     // хук для ручного обновления, если понадобится
     (A.AudioTTS = A.AudioTTS || {}).refresh = renderAudioButton;
+    A.AudioTTS.refreshIndicators = function(){ try { var b=document.querySelector('.trainer-audio-btn'); if (b) updateButtonIcon(b); } catch(_e){} };
     // публичный хелпер: озвучить произвольный текст и дождаться завершения
     A.AudioTTS.speakText = function (text, force, opts) {
       return speakText(text, !!force, opts);
@@ -584,9 +656,10 @@ function speakText(text, force, opts) {
     A.AudioTTS.waitUntilIdle = function (timeoutMs) {
       return waitUntilIdle(timeoutMs);
     };
-    A.AudioTTS.setEnabled = function (flag) {
-      audioEnabled = !!flag;
-      saveAudioEnabled();
+    A.AudioTTS.setEnabled = function(flag){
+      // legacy hook: map to words pill
+      try { window.localStorage.setItem(LS_TTS_WORDS, flag? '1':'0'); } catch(_){}
+      try { window.localStorage.setItem(LS_TTS_EXAMPLES, '0'); } catch(_){}
       var btn = document.querySelector('.trainer-audio-btn');
       if (btn) updateButtonIcon(btn);
     };
@@ -596,7 +669,7 @@ function speakText(text, force, opts) {
     A.AudioTTS.onCorrect = function () {
       if (!isArticlesMode() && !isReverseMode() && !isPrepositionsMode()) return;
       if (!A.isPro || !A.isPro()) return;
-      if (!audioEnabled) return;
+      if (!ttsWordsEnabled()) return;
       try {
         var w = getCurrentWord();
         if (w) lastAutoSpokenWord = w;

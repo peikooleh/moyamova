@@ -23,6 +23,9 @@
       // Ошибки / системные
       'error.no_decks': 'Нет словарей для старта тренировки.',
 
+      // TTS / WEB
+      'tts.web.install': '🔊 Озвучка доступна в приложении. Установите на главный экран, чтобы включить.',
+
       // Общие кнопки
       'common.ok': 'ОК',
       'common.cancel': 'Отмена'
@@ -36,6 +39,9 @@
 
       'error.no_decks': 'Немає словників для старту тренування.',
 
+      // TTS / WEB
+      'tts.web.install': '🔊 Озвучення доступне в застосунку. Встановіть на головний екран, щоб увімкнути.',
+
       'common.ok': 'OK',
       'common.cancel': 'Скасувати'
     },
@@ -47,6 +53,9 @@
       'legal.reset_confirm': 'Reset data and start over?',
 
       'error.no_decks': 'No decks available to start training.',
+
+      // TTS / WEB
+      'tts.web.install': '🔊 Voice is available in the app. Install to your home screen to enable.',
 
       'common.ok': 'OK',
       'common.cancel': 'Cancel'

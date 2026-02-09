@@ -192,6 +192,9 @@
     const elFocusContext = document.getElementById('focusContext');
     const elTrainReverse = document.getElementById('trainReverse');
     const elTrainAutostep= document.getElementById('trainAutostep');
+    const elTtsOff      = document.getElementById('ttsOff');
+    const elTtsWords    = document.getElementById('ttsWords');
+    const elTtsExamples = document.getElementById('ttsExamples');
 
     // Ничего не делаем, если секция не отрисована.
     if (!elFocusSets && !elFocusContext && !elTrainReverse && !elTrainAutostep) return;
@@ -200,16 +203,19 @@
       focusSets: 'mm.focus.hideSets',
       focusContext: 'mm.focus.hideContext',
       trainReverse: 'mm.train.reverse',
-      trainAutostep: 'mm.train.autostep'
+      trainAutostep: 'mm.train.autostep',
+      ttsWords: 'mm.tts.words',
+      ttsExamples: 'mm.tts.examples',
+      ttsLegacy: 'mm.audioEnabled.v2'
     };
 
     function readBool(key, fallback){
       try {
         const v = window.localStorage.getItem(key);
-        if (v === null || v === undefined || v === '') return !!fallback;
+        if (v === null || v === undefined || v === '') return (fallback===null? null : !!fallback);
         return v === '1' || v === 'true';
       } catch(_) {
-        return !!fallback;
+        return (fallback===null? null : !!fallback);
       }
     }
     function writeBool(key, val){
@@ -224,11 +230,48 @@
     const sReverse     = readBool(LS.trainReverse, false);
     const sAutostep    = readBool(LS.trainAutostep, true);
 
+    // TTS pills (default: OFF/OFF).
+    // Legacy migration: if mm.audioEnabled.v2 == 1 → words=ON, examples=OFF
+    let ttsWords = readBool(LS.ttsWords, null);
+    let ttsExamples = readBool(LS.ttsExamples, null);
+    let legacy = null;
+    try { legacy = window.localStorage.getItem(LS.ttsLegacy); } catch(_) { legacy = null; }
+    if (ttsWords === null || ttsExamples === null) {
+      if (legacy === '1') { ttsWords = true; ttsExamples = false; }
+      else {
+        if (ttsWords === null) ttsWords = false;
+        if (ttsExamples === null) ttsExamples = false;
+      }
+      writeBool(LS.ttsWords, !!ttsWords);
+      writeBool(LS.ttsExamples, !!ttsExamples);
+    }
+
+
     // UI семантика: checked = показывать (hide = !checked)
     if (elFocusSets)    elFocusSets.checked    = !sHideSets;
     if (elFocusContext) elFocusContext.checked = !sHideContext;
     if (elTrainReverse) elTrainReverse.checked = sReverse;
     if (elTrainAutostep)elTrainAutostep.checked= sAutostep;
+
+    function applyTtsUi(){
+      const any = !!ttsWords || !!ttsExamples;
+      if (elTtsOff) {
+        elTtsOff.classList.toggle('is-active', !any);
+        elTtsOff.setAttribute('aria-pressed', (!any).toString());
+      }
+      if (elTtsWords) {
+        elTtsWords.classList.toggle('is-active', !!ttsWords);
+        elTtsWords.setAttribute('aria-pressed', (!!ttsWords).toString());
+      }
+      if (elTtsExamples) {
+        elTtsExamples.classList.toggle('is-active', !!ttsExamples);
+        elTtsExamples.setAttribute('aria-pressed', (!!ttsExamples).toString());
+      }
+      try { if (window.App && App.AudioTTS && typeof App.AudioTTS.refreshIndicators==='function') App.AudioTTS.refreshIndicators();
+            else if (window.App && App.AudioTTS && typeof App.AudioTTS.refresh==='function') App.AudioTTS.refresh(); } catch(_) {}
+    }
+
+    applyTtsUi();
 
     document.body.classList.toggle('mm-focus-hide-sets', sHideSets);
     document.body.classList.toggle('mm-focus-hide-context', sHideContext);
@@ -260,6 +303,18 @@
         writeBool(LS.trainAutostep, !!e.target.checked);
       });
     }
+
+    function setTts(words, examples){
+      ttsWords = !!words;
+      ttsExamples = !!examples;
+      writeBool(LS.ttsWords, ttsWords);
+      writeBool(LS.ttsExamples, ttsExamples);
+      applyTtsUi();
+    }
+
+    if (elTtsOff) elTtsOff.addEventListener('click', function(e){ e.preventDefault(); setTts(false,false); });
+    if (elTtsWords) elTtsWords.addEventListener('click', function(e){ e.preventDefault(); setTts(!ttsWords, ttsExamples); });
+    if (elTtsExamples) elTtsExamples.addEventListener('click', function(e){ e.preventDefault(); setTts(ttsWords, !ttsExamples); });
   })();
 
   
@@ -321,55 +376,6 @@
     } else {
       renderVersion();
     }
-  })();
-
-
-  // Hidden dictionaries toggle (7 taps on app version):
-  // OFF -> SR -> LP -> SR+LP -> OFF
-  (function(){
-    function getFlag(name){ try { return localStorage.getItem(name) === '1'; } catch(_) { return false; } }
-    function setFlag(name,val){ try { localStorage.setItem(name, val ? '1' : '0'); } catch(_) {} }
-
-    function nextState(){
-      var sr = getFlag('mm_sr');
-      var lp = getFlag('mm_lp');
-      // OFF -> SR
-      if (!sr && !lp) { setFlag('mm_sr', true);  setFlag('mm_lp', false); return; }
-      // SR -> LP
-      if (sr && !lp)  { setFlag('mm_sr', false); setFlag('mm_lp', true);  return; }
-      // LP -> SR+LP
-      if (!sr && lp)  { setFlag('mm_sr', true);  setFlag('mm_lp', true);  return; }
-      // SR+LP -> OFF
-      setFlag('mm_sr', false); setFlag('mm_lp', false);
-    }
-
-    var taps = 0;
-    var lastTs = 0;
-    var RESET_MS = 2000;
-
-    function onTap(){
-      var now = Date.now();
-      if (now - lastTs > RESET_MS) taps = 0;
-      lastTs = now;
-      taps++;
-      if (taps >= 7){
-        taps = 0;
-        nextState();
-        try { location.reload(); } catch(_) {}
-      }
-    }
-
-    function bind(){
-      // clickable area: whole "Версия приложения" item
-      var item = document.querySelector('.menu-item.app-version');
-      var value = document.getElementById('appVersion');
-      var target = item || value;
-      if (!target) return;
-      target.addEventListener('click', onTap);
-    }
-
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-    else bind();
   })();
 
   // Попробуем применить состояние кнопки сразу (если App уже инициализирован)

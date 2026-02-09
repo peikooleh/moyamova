@@ -2134,6 +2134,8 @@ answers.innerHTML = '';
               const ex = (word && word.examples && word.examples[0] && (word.examples[0].L2 || word.examples[0].de || word.examples[0].en || word.examples[0].text)) || '';
               const exText = String(ex || '').trim();
               if (exText && A.AudioTTS && typeof A.AudioTTS.speakText === 'function') {
+                var __exOn=false; try{__exOn=window.localStorage.getItem('mm.tts.examples')==='1';}catch(_e){}
+                if (!__exOn) { throw new Error('mm.tts.examples off'); }
                 const p = A.AudioTTS.speakText(exText, false, { noVoice: true, isExample: true });
                 if (p && typeof p.then === 'function') {
                   p.then(function () {
