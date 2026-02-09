@@ -877,3 +877,119 @@ html[data-theme="dark"] .oc-panel .menu-item.app-version{
 .hints-body .hint-example.hint-extra-row + .hint-example.hint-extra-row{
   margin-top: 10px;
 }
+
+
+/* =========================
+   TTS pills (burger sound)
+   ========================= */
+
+.mm-check.mm-check-nolabel span{display:none;}
+
+/* Sound row: label + pills inline (single line) */
+.mm-prefs-row.mm-prefs-row-sound{
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+/* Keep label from wrapping */
+.mm-prefs-row.mm-prefs-row-sound .mm-prefs-left{
+  white-space:nowrap;
+}
+
+/* Pills: force one line, compact */
+.mm-tts-pills{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:flex-end;
+  gap:5px;
+  margin:0;
+  padding:0;
+  flex-wrap:nowrap !important;
+  white-space:nowrap;
+}
+
+/* allow the pills group to shrink instead of wrapping */
+.mm-tts-pills{
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.mm-tts-pills .mm-pill{
+  font-size:10px;
+  line-height:1;
+  padding:3px 7px;
+  border-radius:999px;
+  border:1px solid rgba(127,127,127,0.32);
+  background:transparent;
+  color:inherit;
+  cursor:pointer;
+}
+
+.mm-tts-pills .mm-pill.is-active{
+  background:var(--brand, var(--accent, #1fa8ff));
+  border-color:var(--brand, var(--accent, #1fa8ff));
+  color:#fff;
+}
+
+.mm-tts-pills .mm-pill:active{transform:translateY(1px);}
+
+
+
+/* === PATCH: prefs card balance (checkbox zone) === */
+.mm-prefs-wrap{
+  background: rgba(0,0,0,0.04);
+  border-radius: 14px;
+  padding: 12px 12px 10px;
+  margin-top: 10px;
+}
+
+/* make items inside card look unified */
+.mm-prefs-wrap .menu-item{
+  background: transparent !important;
+  border: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* labels slightly stronger */
+.mm-prefs-wrap .menu-label,
+.mm-prefs-wrap .mm-prefs-left{
+  opacity: .9;
+}
+
+/* Sound row: keep label + pills on one line */
+.mm-prefs-wrap .mm-prefs-row-sound{
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.mm-prefs-wrap .mm-prefs-row-sound .mm-prefs-left{
+  white-space:nowrap;
+}
+.mm-prefs-wrap .mm-tts-pills{
+  flex-wrap:nowrap !important;
+}
+
+/* Pills: a bit bigger (less tiny), still compact */
+.mm-tts-pills .mm-pill{
+  font-size: 11px;
+  padding: 4px 9px;
+  border-width: 1px;
+}
+
+/* Backup/updates buttons: slightly smaller to balance */
+.mm-prefs-wrap .backup-tools button,
+.mm-prefs-wrap .updates-check button{
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+/* Version inside card: softer */
+.mm-prefs-wrap .app-version{
+  opacity: .7;
+  font-size: 12px;
+}
