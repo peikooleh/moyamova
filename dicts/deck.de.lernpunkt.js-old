@@ -11333,1725 +11333,569 @@ window.decks.de_adjectives_lernpunkt = [
   },
 ];
 
-// de_adverbs_lernpunkt
 window.decks.de_adverbs_lernpunkt = [
   {
-    "id": 1,
-    "word": "schon",
-    "ru": "уже",
-    "uk": "вже",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [
-      "bereits"
-    ],
-    "ruSynonyms": [
-      "уже"
-    ],
-    "ukSynonyms": [
-      "вже"
-    ],
-    "deAntonyms": [
-      "noch nicht"
-    ],
-    "ruAntonyms": [
-      "ещё нет"
-    ],
-    "ukAntonyms": [
-      "ще ні"
-    ],
-    "examples": [
-      {
-        "L2": "Ich bin schon da.",
-        "ru": "Я уже здесь.",
-        "uk": "Я вже тут."
-      }
-    ]
+    id: 1,
+    word: "schon",
+    ru: "уже",
+    uk: "вже",
+    level: "A1",
+    topics: [ "time" ],
+    deSynonyms: [ "bereits" ],
+    ruSynonyms: [ "уже" ],
+    ukSynonyms: [ "вже" ],
+    deAntonyms: [ "noch nicht" ],
+    ruAntonyms: [ "ещё нет" ],
+    ukAntonyms: [ "ще ні" ],
+    examples: [{ L2: "Ich bin schon da.", ru: "Я уже здесь.", uk: "Я вже тут." }]
   },
   {
-    "id": 2,
-    "word": "genau",
-    "ru": "точно",
-    "uk": "точно",
-    "level": "A1",
-    "topics": [
-      "quality"
-    ],
-    "deSynonyms": [
-      "exakt"
-    ],
-    "ruSynonyms": [
-      "точно"
-    ],
-    "ukSynonyms": [
-      "точно"
-    ],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Genau!",
-        "ru": "Точно!",
-        "uk": "Точно!"
-      }
-    ]
+    id: 2,
+    word: "genau",
+    ru: "точно",
+    uk: "точно",
+    level: "A1",
+    topics: [ "quality" ],
+    deSynonyms: [ "exakt" ],
+    ruSynonyms: [ "точно" ],
+    ukSynonyms: [ "точно" ],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Genau!", ru: "Точно!", uk: "Точно!" }]
   },
   {
-    "id": 3,
-    "word": "fast",
-    "ru": "почти",
-    "uk": "майже",
-    "level": "A1",
-    "topics": [
-      "quantity"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ganz"
-    ],
-    "ruAntonyms": [
-      "полностью"
-    ],
-    "ukAntonyms": [
-      "повністю"
-    ],
-    "examples": [
-      {
-        "L2": "Fast fertig.",
-        "ru": "Почти готово.",
-        "uk": "Майже готово."
-      }
-    ]
+    id: 3,
+    word: "fast",
+    ru: "почти",
+    uk: "майже",
+    level: "A1",
+    topics: [ "quantity" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [ "ganz" ],
+    ruAntonyms: [ "полностью" ],
+    ukAntonyms: [ "повністю" ],
+    examples: [{ L2: "Fast fertig.", ru: "Почти готово.", uk: "Майже готово." }]
   },
   {
-    "id": 4,
-    "word": "jetzt",
-    "ru": "сейчас",
-    "uk": "зараз",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich komme jetzt.",
-        "ru": "Я прихожу сейчас.",
-        "uk": "Я приходжу зараз."
-      }
-    ]
+    id: 4,
+    word: "jetzt",
+    ru: "сейчас",
+    uk: "зараз",
+    level: "A1",
+    topics: [ "time" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich komme jetzt.", ru: "Я прихожу сейчас.", uk: "Я приходжу зараз." }]
   },
   {
-    "id": 5,
-    "word": "später",
-    "ru": "потом",
-    "uk": "потім",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Später lernen wir.",
-        "ru": "Потом мы учимся.",
-        "uk": "Потім ми навчаємось."
-      }
-    ]
-  },
-  {
-    "id": 401,
-    "word": "abends",
-    "ru": "вечером",
-    "uk": "увечері",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Abends lese ich.",
-        "ru": "Вечером я читаю.",
-        "uk": "Увечері я читаю."
-      }
-    ]
-  },
-  {
-    "id": 402,
-    "word": "allein",
-    "ru": "один, в одиночку",
-    "uk": "сам, наодинці",
-    "level": "A1",
-    "topics": [
-      "people"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "zusammen"
-    ],
-    "ruAntonyms": [
-      "вместе"
-    ],
-    "ukAntonyms": [
-      "разом"
-    ],
-    "examples": [
-      {
-        "L2": "Ich wohne allein.",
-        "ru": "Я живу один.",
-        "uk": "Я живу сам."
-      }
-    ]
-  },
-  {
-    "id": 403,
-    "word": "bald",
-    "ru": "скоро",
-    "uk": "скоро",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Bis bald!",
-        "ru": "До скорого!",
-        "uk": "До скорого!"
-      }
-    ]
-  },
-  {
-    "id": 404,
-    "word": "besonders",
-    "ru": "особенно",
-    "uk": "особливо",
-    "level": "A2",
-    "topics": [
-      "general"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist besonders wichtig.",
-        "ru": "Это особенно важно.",
-        "uk": "Це особливо важливо."
-      }
-    ]
-  },
-  {
-    "id": 405,
-    "word": "damals",
-    "ru": "тогда (в прошлом)",
-    "uk": "тоді (в минулому)",
-    "level": "A2",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Damals war ich jung.",
-        "ru": "Тогда я был молод.",
-        "uk": "Тоді я був молодий."
-      }
-    ]
-  },
-  {
-    "id": 406,
-    "word": "danach",
-    "ru": "после этого",
-    "uk": "після цього",
-    "level": "A2",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Danach gehe ich nach Hause.",
-        "ru": "После этого я иду домой.",
-        "uk": "Після цього я йду додому."
-      }
-    ]
-  },
-  {
-    "id": 407,
-    "word": "dann",
-    "ru": "тогда, затем",
-    "uk": "тоді, потім",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Erst lerne ich, dann esse ich.",
-        "ru": "Сначала учусь, потом ем.",
-        "uk": "Спочатку вчуся, потім їм."
-      }
-    ]
-  },
-  {
-    "id": 408,
-    "word": "dort",
-    "ru": "там",
-    "uk": "там",
-    "level": "A1",
-    "topics": [
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "hier"
-    ],
-    "ruAntonyms": [
-      "здесь"
-    ],
-    "ukAntonyms": [
-      "тут"
-    ],
-    "examples": [
-      {
-        "L2": "Dort ist mein Haus.",
-        "ru": "Там мой дом.",
-        "uk": "Там мій дім."
-      }
-    ]
-  },
-  {
-    "id": 409,
-    "word": "drinnen",
-    "ru": "внутри",
-    "uk": "всередині",
-    "level": "A2",
-    "topics": [
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "draußen"
-    ],
-    "ruAntonyms": [
-      "снаружи"
-    ],
-    "ukAntonyms": [
-      "надворі"
-    ],
-    "examples": [
-      {
-        "L2": "Es ist warm drinnen.",
-        "ru": "Внутри тепло.",
-        "uk": "Всередині тепло."
-      }
-    ]
-  },
-  {
-    "id": 410,
-    "word": "draußen",
-    "ru": "снаружи",
-    "uk": "надворі",
-    "level": "A1",
-    "topics": [
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "drinnen"
-    ],
-    "ruAntonyms": [
-      "внутри"
-    ],
-    "ukAntonyms": [
-      "всередині"
-    ],
-    "examples": [
-      {
-        "L2": "Es ist kalt draußen.",
-        "ru": "Снаружи холодно.",
-        "uk": "Надворі холодно."
-      }
-    ]
-  },
-  {
-    "id": 411,
-    "word": "früher",
-    "ru": "раньше",
-    "uk": "раніше",
-    "level": "A2",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Früher war alles anders.",
-        "ru": "Раньше всё было иначе.",
-        "uk": "Раніше все було інакше."
-      }
-    ]
-  },
-  {
-    "id": 412,
-    "word": "gern",
-    "ru": "охотно",
-    "uk": "охоче",
-    "level": "A1",
-    "topics": [
-      "general"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "ungern"
-    ],
-    "ruAntonyms": [
-      "неохотно"
-    ],
-    "ukAntonyms": [
-      "неохоче"
-    ],
-    "examples": [
-      {
-        "L2": "Ich lese gern.",
-        "ru": "Я охотно читаю.",
-        "uk": "Я охоче читаю."
-      }
-    ]
-  },
-  {
-    "id": 413,
-    "word": "gestern",
-    "ru": "вчера",
-    "uk": "вчора",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Gestern war ich zu Hause.",
-        "ru": "Вчера я был дома.",
-        "uk": "Вчора я був удома."
-      }
-    ]
-  },
-  {
-    "id": 414,
-    "word": "gleich",
-    "ru": "сразу, сейчас",
-    "uk": "зараз, одразу",
-    "level": "A2",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich komme gleich.",
-        "ru": "Я сейчас приду.",
-        "uk": "Я зараз прийду."
-      }
-    ]
-  },
-  {
-    "id": 415,
-    "word": "heute",
-    "ru": "сегодня",
-    "uk": "сьогодні",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Heute lerne ich Deutsch.",
-        "ru": "Сегодня я учу немецкий.",
-        "uk": "Сьогодні я вчу німецьку."
-      }
-    ]
-  },
-  {
-    "id": 416,
-    "word": "hier",
-    "ru": "здесь",
-    "uk": "тут",
-    "level": "A1",
-    "topics": [
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "dort"
-    ],
-    "ruAntonyms": [
-      "там"
-    ],
-    "ukAntonyms": [
-      "там"
-    ],
-    "examples": [
-      {
-        "L2": "Ich bin hier.",
-        "ru": "Я здесь.",
-        "uk": "Я тут."
-      }
-    ]
-  },
-  {
-    "id": 417,
-    "word": "immer",
-    "ru": "всегда",
-    "uk": "завжди",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "nie"
-    ],
-    "ruAntonyms": [
-      "никогда"
-    ],
-    "ukAntonyms": [
-      "ніколи"
-    ],
-    "examples": [
-      {
-        "L2": "Er kommt immer pünktlich.",
-        "ru": "Он всегда приходит вовремя.",
-        "uk": "Він завжди приходить вчасно."
-      }
-    ]
-  },
-  {
-    "id": 418,
-    "word": "leider",
-    "ru": "к сожалению",
-    "uk": "на жаль",
-    "level": "A1",
-    "topics": [
-      "communication"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Leider habe ich keine Zeit.",
-        "ru": "К сожалению, у меня нет времени.",
-        "uk": "На жаль, у мене немає часу."
-      }
-    ]
-  },
-  {
-    "id": 419,
-    "word": "nie",
-    "ru": "никогда",
-    "uk": "ніколи",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "immer"
-    ],
-    "ruAntonyms": [
-      "всегда"
-    ],
-    "ukAntonyms": [
-      "завжди"
-    ],
-    "examples": [
-      {
-        "L2": "Ich komme nie zu spät.",
-        "ru": "Я никогда не опаздываю.",
-        "uk": "Я ніколи не запізнююся."
-      }
-    ]
-  },
-  {
-    "id": 420,
-    "word": "oft",
-    "ru": "часто",
-    "uk": "часто",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich lese oft.",
-        "ru": "Я часто читаю.",
-        "uk": "Я часто читаю."
-      }
-    ]
-  },
-  {
-    "id": 421,
-    "word": "plötzlich",
-    "ru": "вдруг",
-    "uk": "раптом",
-    "level": "A2",
-    "topics": [
-      "general"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Plötzlich beginnt es zu regnen.",
-        "ru": "Вдруг начинается дождь.",
-        "uk": "Раптом починається дощ."
-      }
-    ]
+    id: 5,
+    word: "später",
+    ru: "потом",
+    uk: "потім",
+    level: "A1",
+    topics: [ "time" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Später lernen wir.", ru: "Потом мы учимся.", uk: "Потім ми навчаємось." }]
   }
 ];
 
-
-// de_pronouns_lernpunkt
 window.decks.de_pronouns_lernpunkt = [
   {
-    "id": 1,
-    "word": "ich",
-    "ru": "я",
-    "uk": "я",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin hier.",
-        "ru": "Я здесь.",
-        "uk": "Я тут."
-      }
-    ]
+    id: 1,
+    word: "ich",
+    ru: "я",
+    uk: "я",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich bin hier.", ru: "Я здесь.", uk: "Я тут." }]
   },
   {
-    "id": 2,
-    "word": "du",
-    "ru": "ты",
-    "uk": "ти",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Du bist hier.",
-        "ru": "Ты здесь.",
-        "uk": "Ти тут."
-      }
-    ]
+    id: 2,
+    word: "du",
+    ru: "ты",
+    uk: "ти",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Du bist hier.", ru: "Ты здесь.", uk: "Ти тут." }]
   },
   {
-    "id": 3,
-    "word": "er",
-    "ru": "он",
-    "uk": "він",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er kommt jetzt.",
-        "ru": "Он приходит сейчас.",
-        "uk": "Він приходить зараз."
-      }
-    ]
+    id: 3,
+    word: "er",
+    ru: "он",
+    uk: "він",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Er kommt jetzt.", ru: "Он приходит сейчас.", uk: "Він приходить зараз." }]
   },
   {
-    "id": 4,
-    "word": "sie",
-    "ru": "она",
-    "uk": "вона",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie wohnt hier.",
-        "ru": "Она живёт здесь.",
-        "uk": "Вона живе тут."
-      }
-    ]
+    id: 4,
+    word: "sie",
+    ru: "она",
+    uk: "вона",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Sie wohnt hier.", ru: "Она живёт здесь.", uk: "Вона живе тут." }]
   },
   {
-    "id": 5,
-    "word": "es",
-    "ru": "оно",
-    "uk": "воно",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es ist gut.",
-        "ru": "Это хорошо.",
-        "uk": "Це добре."
-      }
-    ]
+    id: 5,
+    word: "es",
+    ru: "оно",
+    uk: "воно",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Es ist gut.", ru: "Это хорошо.", uk: "Це добре." }]
   },
   {
-    "id": 6,
-    "word": "wir",
-    "ru": "мы",
-    "uk": "ми",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir lernen.",
-        "ru": "Мы учимся.",
-        "uk": "Ми навчаємось."
-      }
-    ]
+    id: 6,
+    word: "wir",
+    ru: "мы",
+    uk: "ми",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wir lernen.", ru: "Мы учимся.", uk: "Ми навчаємось." }]
   },
   {
-    "id": 7,
-    "word": "ihr",
-    "ru": "вы (мн.)",
-    "uk": "ви",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ihr seid hier.",
-        "ru": "Вы здесь.",
-        "uk": "Ви тут."
-      }
-    ]
+    id: 7,
+    word: "ihr",
+    ru: "вы (мн.)",
+    uk: "ви",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ihr seid hier.", ru: "Вы здесь.", uk: "Ви тут." }]
   },
   {
-    "id": 8,
-    "word": "Sie",
-    "ru": "Вы (вежл.)",
-    "uk": "Ви (ввічл.)",
-    "level": "A1",
-    "topics": [
-      "grammar",
-      "polite"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wie heißen Sie?",
-        "ru": "Как Вас зовут?",
-        "uk": "Як Вас звати?"
-      }
-    ]
+    id: 8,
+    word: "Sie",
+    ru: "Вы (вежл.)",
+    uk: "Ви (ввічл.)",
+    level: "A1",
+    topics: [ "grammar", "polite" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wie heißen Sie?", ru: "Как Вас зовут?", uk: "Як Вас звати?" }]
   },
   {
-    "id": 9,
-    "word": "das",
-    "ru": "это",
-    "uk": "це",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist meine Adresse.",
-        "ru": "Это мой адрес.",
-        "uk": "Це моя адреса."
-      }
-    ]
+    id: 9,
+    word: "das",
+    ru: "это",
+    uk: "це",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist meine Adresse.", ru: "Это мой адрес.", uk: "Це моя адреса." }]
   },
   {
-    "id": 10,
-    "word": "mein",
-    "ru": "мой (притяж.)",
-    "uk": "мій",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist mein Name.",
-        "ru": "Это моё имя.",
-        "uk": "Це моє ім’я."
-      }
-    ]
+    id: 10,
+    word: "mein",
+    ru: "мой (притяж.)",
+    uk: "мій",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist mein Name.", ru: "Это моё имя.", uk: "Це моє ім’я." }]
   },
   {
-    "id": 11,
-    "word": "dein",
-    "ru": "твой (притяж.)",
-    "uk": "твій",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist dein Stift.",
-        "ru": "Это твоя ручка.",
-        "uk": "Це твоя ручка."
-      }
-    ]
+    id: 11,
+    word: "dein",
+    ru: "твой (притяж.)",
+    uk: "твій",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist dein Stift.", ru: "Это твоя ручка.", uk: "Це твоя ручка." }]
   },
   {
-    "id": 12,
-    "word": "sein",
-    "ru": "его (притяж.)",
-    "uk": "його",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist sein Schlüssel.",
-        "ru": "Это его ключ.",
-        "uk": "Це його ключ."
-      }
-    ]
+    id: 12,
+    word: "sein",
+    ru: "его (притяж.)",
+    uk: "його",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist sein Schlüssel.", ru: "Это его ключ.", uk: "Це його ключ." }]
   },
   {
-    "id": 13,
-    "word": "unser",
-    "ru": "наш (притяж.)",
-    "uk": "наш",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist unser Haus.",
-        "ru": "Это наш дом.",
-        "uk": "Це наш дім."
-      }
-    ]
+    id: 13,
+    word: "unser",
+    ru: "наш (притяж.)",
+    uk: "наш",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist unser Haus.", ru: "Это наш дом.", uk: "Це наш дім." }]
   },
   {
-    "id": 14,
-    "word": "euer",
-    "ru": "ваш (притяж.)",
-    "uk": "ваш",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist euer Tisch.",
-        "ru": "Это ваш стол.",
-        "uk": "Це ваш стіл."
-      }
-    ]
+    id: 14,
+    word: "euer",
+    ru: "ваш (притяж.)",
+    uk: "ваш",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist euer Tisch.", ru: "Это ваш стол.", uk: "Це ваш стіл." }]
   },
   {
-    "id": 15,
-    "word": "wie",
-    "ru": "как",
-    "uk": "як",
-    "level": "A1",
-    "topics": [
-      "questions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wie heißt du?",
-        "ru": "Как тебя зовут?",
-        "uk": "Як тебе звати?"
-      }
-    ]
+    id: 15,
+    word: "wie",
+    ru: "как",
+    uk: "як",
+    level: "A1",
+    topics: [ "questions" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wie heißt du?", ru: "Как тебя зовут?", uk: "Як тебе звати?" }]
   },
   {
-    "id": 16,
-    "word": "wer",
-    "ru": "кто",
-    "uk": "хто",
-    "level": "A1",
-    "topics": [
-      "questions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wer ist das?",
-        "ru": "Кто это?",
-        "uk": "Хто це?"
-      }
-    ]
+    id: 16,
+    word: "wer",
+    ru: "кто",
+    uk: "хто",
+    level: "A1",
+    topics: [ "questions" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wer ist das?", ru: "Кто это?", uk: "Хто це?" }]
   },
   {
-    "id": 17,
-    "word": "was",
-    "ru": "что",
-    "uk": "що",
-    "level": "A1",
-    "topics": [
-      "questions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Was ist das?",
-        "ru": "Что это?",
-        "uk": "Що це?"
-      }
-    ]
+    id: 17,
+    word: "was",
+    ru: "что",
+    uk: "що",
+    level: "A1",
+    topics: [ "questions" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Was ist das?", ru: "Что это?", uk: "Що це?" }]
   },
   {
-    "id": 18,
-    "word": "wann",
-    "ru": "когда",
-    "uk": "коли",
-    "level": "A1",
-    "topics": [
-      "questions",
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wann kommst du?",
-        "ru": "Когда ты придёшь?",
-        "uk": "Коли ти прийдеш?"
-      }
-    ]
+    id: 18,
+    word: "wann",
+    ru: "когда",
+    uk: "коли",
+    level: "A1",
+    topics: [ "questions", "time" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wann kommst du?", ru: "Когда ты придёшь?", uk: "Коли ти прийдеш?" }]
   },
   {
-    "id": 19,
-    "word": "wo",
-    "ru": "где",
-    "uk": "де",
-    "level": "A1",
-    "topics": [
-      "questions",
-      "place"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wo wohnst du?",
-        "ru": "Где ты живёшь?",
-        "uk": "Де ти живеш?"
-      }
-    ]
-  },
-  {
-    "id": 433,
-    "word": "mich",
-    "ru": "меня",
-    "uk": "мене",
-    "level": "A1",
-    "topics": [
-      "pronouns"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Er sieht mich.",
-        "ru": "Он видит меня.",
-        "uk": "Він бачить мене."
-      }
-    ]
-  },
-  {
-    "id": 434,
-    "word": "dich",
-    "ru": "тебя",
-    "uk": "тебе",
-    "level": "A1",
-    "topics": [
-      "pronouns"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich höre dich.",
-        "ru": "Я слышу тебя.",
-        "uk": "Я чую тебе."
-      }
-    ]
-  },
-  {
-    "id": 435,
-    "word": "ihn",
-    "ru": "его",
-    "uk": "його",
-    "level": "A1",
-    "topics": [
-      "pronouns"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Kennst du ihn?",
-        "ru": "Ты знаешь его?",
-        "uk": "Ти знаєш його?"
-      }
-    ]
-  },
-  {
-    "id": 436,
-    "word": "uns",
-    "ru": "нас",
-    "uk": "нас",
-    "level": "A1",
-    "topics": [
-      "pronouns"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Sie hilft uns.",
-        "ru": "Она помогает нам.",
-        "uk": "Вона допомагає нам."
-      }
-    ]
-  },
-  {
-    "id": 437,
-    "word": "man",
-    "ru": "кто-то, люди",
-    "uk": "хтось, люди",
-    "level": "A1",
-    "topics": [
-      "pronouns"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "In Deutschland sagt man oft „Hallo“.",
-        "ru": "В Германии часто говорят «Привет».",
-        "uk": "У Німеччині часто кажуть «Привіт»."
-      }
-    ]
+    id: 19,
+    word: "wo",
+    ru: "где",
+    uk: "де",
+    level: "A1",
+    topics: [ "questions", "place" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wo wohnst du?", ru: "Где ты живёшь?", uk: "Де ти живеш?" }]
   }
 ];
 
-
-// de_prepositions_lernpunkt
 window.decks.de_prepositions_lernpunkt = [
   {
-    "id": 1,
-    "word": "von",
-    "ru": "от, из",
-    "uk": "від, з",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist ein Geschenk von meiner Mutter.",
-        "ru": "Это подарок от моей мамы.",
-        "uk": "Це подарунок від моєї мами."
-      }
-    ]
+    id: 1,
+    word: "von",
+    ru: "от, из",
+    uk: "від, з",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das ist ein Geschenk von meiner Mutter.", ru: "Это подарок от моей мамы.", uk: "Це подарунок від моєї мами." }]
   },
   {
-    "id": 2,
-    "word": "in",
-    "ru": "в",
-    "uk": "у, в",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bin in der Schule.",
-        "ru": "Я в школе.",
-        "uk": "Я в школі."
-      }
-    ]
+    id: 2,
+    word: "in",
+    ru: "в",
+    uk: "у, в",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich bin in der Schule.", ru: "Я в школе.", uk: "Я в школі." }]
   },
   {
-    "id": 3,
-    "word": "bei",
-    "ru": "у, при",
-    "uk": "у, при",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich wohne bei meinen Eltern.",
-        "ru": "Я живу у родителей.",
-        "uk": "Я живу в батьків."
-      }
-    ]
+    id: 3,
+    word: "bei",
+    ru: "у, при",
+    uk: "у, при",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich wohne bei meinen Eltern.", ru: "Я живу у родителей.", uk: "Я живу в батьків." }]
   },
   {
-    "id": 4,
-    "word": "an",
-    "ru": "на, при",
-    "uk": "на, при",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Bild hängt an der Wand.",
-        "ru": "Картина висит на стене.",
-        "uk": "Картина висить на стіні."
-      }
-    ]
+    id: 4,
+    word: "an",
+    ru: "на, при",
+    uk: "на, при",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Das Bild hängt an der Wand.", ru: "Картина висит на стене.", uk: "Картина висить на стіні." }]
   },
   {
-    "id": 5,
-    "word": "mit",
-    "ru": "с",
-    "uk": "з",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Kommst du mit?",
-        "ru": "Ты идёшь со мной?",
-        "uk": "Ти йдеш зі мною?"
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "word": "neben",
-    "ru": "рядом с",
-    "uk": "поруч з",
-    "level": "A1",
-    "topics": [
-      "space"
-    ],
-    "ukAntonyms": [],
-    "ruAntonyms": [],
-    "deAntonyms": [],
-    "ukSynonyms": [],
-    "ruSynonyms": [],
-    "deSynonyms": [],
-    "examples": [
-      {
-        "L2": "Das Haus ist neben dem Park.",
-        "ru": "Дом рядом с парком.",
-        "uk": "Будинок поруч із парком."
-      }
-    ]
-  },
-  {
-    "id": 7,
-    "word": "im Zentrum",
-    "ru": "в центре",
-    "uk": "у центрі",
-    "level": "A1",
-    "topics": [
-      "city"
-    ],
-    "ukAntonyms": [],
-    "ruAntonyms": [],
-    "deAntonyms": [],
-    "ukSynonyms": [],
-    "ruSynonyms": [],
-    "deSynonyms": [],
-    "examples": [
-      {
-        "L2": "Das Café ist im Zentrum.",
-        "ru": "Кафе в центре.",
-        "uk": "Кафе у центрі."
-      }
-    ]
-  },
-  {
-    "id": 8,
-    "word": "nicht weit von",
-    "ru": "недалеко от",
-    "uk": "недалеко від",
-    "level": "A1",
-    "topics": [
-      "space"
-    ],
-    "ukAntonyms": [],
-    "ruAntonyms": [],
-    "deAntonyms": [],
-    "ukSynonyms": [],
-    "ruSynonyms": [],
-    "deSynonyms": [],
-    "examples": [
-      {
-        "L2": "Das Hotel ist nicht weit von hier.",
-        "ru": "Отель недалеко отсюда.",
-        "uk": "Готель недалеко звідси."
-      }
-    ]
-  },
-  {
-    "id": 9,
-    "word": "im",
-    "ru": "в (сокр.)",
-    "uk": "у (скор.)",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "ukAntonyms": [],
-    "ruAntonyms": [],
-    "deAntonyms": [],
-    "ukSynonyms": [],
-    "ruSynonyms": [],
-    "deSynonyms": [],
-    "examples": [
-      {
-        "L2": "Er ist im Haus.",
-        "ru": "Он в доме.",
-        "uk": "Він у будинку."
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "word": "zwischen",
-    "ru": "между",
-    "uk": "між",
-    "level": "A1",
-    "topics": [
-      "space"
-    ],
-    "ukAntonyms": [],
-    "ruAntonyms": [],
-    "deAntonyms": [],
-    "ukSynonyms": [],
-    "ruSynonyms": [],
-    "deSynonyms": [],
-    "examples": [
-      {
-        "L2": "Der Stuhl steht zwischen den Tischen.",
-        "ru": "Стул стоит между столами.",
-        "uk": "Стілець стоїть між столами."
-      }
-    ]
-  },
-  {
-    "id": 11,
-    "word": "während",
-    "ru": "в течение",
-    "uk": "протягом",
-    "level": "A1",
-    "topics": [
-      "time"
-    ],
-    "ukAntonyms": [],
-    "ruAntonyms": [],
-    "deAntonyms": [],
-    "ukSynonyms": [],
-    "ruSynonyms": [],
-    "deSynonyms": [],
-    "examples": [
-      {
-        "L2": "Während des Tages arbeite ich.",
-        "ru": "В течение дня я работаю.",
-        "uk": "Протягом дня я працюю."
-      }
-    ]
-  },
-  {
-    "id": 424,
-    "word": "auf",
-    "ru": "на",
-    "uk": "на",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das Buch liegt auf dem Tisch.",
-        "ru": "Книга лежит на столе.",
-        "uk": "Книга лежить на столі."
-      }
-    ]
-  },
-  {
-    "id": 425,
-    "word": "aus",
-    "ru": "из",
-    "uk": "з",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich komme aus der Schweiz.",
-        "ru": "Я из Швейцарии.",
-        "uk": "Я зі Швейцарії."
-      }
-    ]
-  },
-  {
-    "id": 426,
-    "word": "für",
-    "ru": "для",
-    "uk": "для",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Das ist für dich.",
-        "ru": "Это для тебя.",
-        "uk": "Це для тебе."
-      }
-    ]
-  },
-  {
-    "id": 427,
-    "word": "nach",
-    "ru": "после, в (направление)",
-    "uk": "після, до (напрямок)",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "vor"
-    ],
-    "ruAntonyms": [
-      "перед, до"
-    ],
-    "ukAntonyms": [
-      "перед, до"
-    ],
-    "examples": [
-      {
-        "L2": "Nach der Arbeit gehe ich nach Hause.",
-        "ru": "После работы я иду домой.",
-        "uk": "Після роботи я йду додому."
-      }
-    ]
-  },
-  {
-    "id": 428,
-    "word": "ohne",
-    "ru": "без",
-    "uk": "без",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "mit"
-    ],
-    "ruAntonyms": [
-      "с"
-    ],
-    "ukAntonyms": [
-      "з"
-    ],
-    "examples": [
-      {
-        "L2": "Ich trinke Kaffee ohne Zucker.",
-        "ru": "Я пью кофе без сахара.",
-        "uk": "Я п’ю каву без цукру."
-      }
-    ]
-  },
-  {
-    "id": 429,
-    "word": "um",
-    "ru": "в (время), вокруг",
-    "uk": "о (час), навколо",
-    "level": "A1",
-    "topics": [
-      "prepositions",
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir treffen uns um drei Uhr.",
-        "ru": "Мы встречаемся в три часа.",
-        "uk": "Ми зустрічаємося о третій годині."
-      }
-    ]
-  },
-  {
-    "id": 430,
-    "word": "vor",
-    "ru": "перед, до",
-    "uk": "перед, до",
-    "level": "A1",
-    "topics": [
-      "prepositions",
-      "time"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [
-      "nach"
-    ],
-    "ruAntonyms": [
-      "после"
-    ],
-    "ukAntonyms": [
-      "після"
-    ],
-    "examples": [
-      {
-        "L2": "Vor dem Essen wasche ich die Hände.",
-        "ru": "Перед едой я мою руки.",
-        "uk": "Перед їжею я мию руки."
-      }
-    ]
-  },
-  {
-    "id": 431,
-    "word": "zu",
-    "ru": "к, в",
-    "uk": "до, в",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich gehe zu meinem Freund.",
-        "ru": "Я иду к моему другу.",
-        "uk": "Я йду до мого друга."
-      }
-    ]
-  },
-  {
-    "id": 432,
-    "word": "über",
-    "ru": "над, о",
-    "uk": "над, про",
-    "level": "A1",
-    "topics": [
-      "prepositions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wir sprechen über das Wetter.",
-        "ru": "Мы говорим о погоде.",
-        "uk": "Ми говоримо про погоду."
-      }
-    ]
+    id: 5,
+    word: "mit",
+    ru: "с",
+    uk: "з",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Kommst du mit?", ru: "Ты идёшь со мной?", uk: "Ти йдеш зі мною?" }]
   }
+,
+{
+    id: 6,
+    word: "neben",
+    ru: "рядом с",
+    uk: "поруч з",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Haus ist neben dem Park.",
+        ru: "Дом рядом с парком.",
+        uk: "Будинок поруч із парком."
+    }]
+}
+,
+{
+    id: 7,
+    word: "im Zentrum",
+    ru: "в центре",
+    uk: "у центрі",
+    level: "A1",
+    topics: ["city"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Café ist im Zentrum.",
+        ru: "Кафе в центре.",
+        uk: "Кафе у центрі."
+    }]
+}
+,
+{
+    id: 8,
+    word: "nicht weit von",
+    ru: "недалеко от",
+    uk: "недалеко від",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Das Hotel ist nicht weit von hier.",
+        ru: "Отель недалеко отсюда.",
+        uk: "Готель недалеко звідси."
+    }]
+}
+,
+{
+    id: 9,
+    word: "im",
+    ru: "в (сокр.)",
+    uk: "у (скор.)",
+    level: "A1",
+    topics: ["grammar"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Er ist im Haus.",
+        ru: "Он в доме.",
+        uk: "Він у будинку."
+    }]
+}
+,
+{
+    id: 10,
+    word: "zwischen",
+    ru: "между",
+    uk: "між",
+    level: "A1",
+    topics: ["space"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Der Stuhl steht zwischen den Tischen.",
+        ru: "Стул стоит между столами.",
+        uk: "Стілець стоїть між столами."
+    }]
+}
+,
+{
+    id: 11,
+    word: "während",
+    ru: "в течение",
+    uk: "протягом",
+    level: "A1",
+    topics: ["time"],
+    ukAntonyms: [  ],
+    ruAntonyms: [  ],
+    deAntonyms: [  ],
+    ukSynonyms: [  ],
+    ruSynonyms: [  ],
+    deSynonyms: [  ],
+    examples: [{
+        L2: "Während des Tages arbeite ich.",
+        ru: "В течение дня я работаю.",
+        uk: "Протягом дня я працюю."
+    }]
+}
 ];
-
 
 window.decks.de_numbers_lernpunkt = [
   {
@@ -13443,292 +12287,158 @@ window.decks.de_numbers_lernpunkt = [
   },
 ];
 
-// de_conjunctions_lernpunkt
 window.decks.de_conjunctions_lernpunkt = [
   {
-    "id": 1,
-    "word": "und",
-    "ru": "и",
-    "uk": "і",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich trinke Tee und Wasser.",
-        "ru": "Я пью чай и воду.",
-        "uk": "Я п’ю чай і воду."
-      }
-    ]
+    id: 1,
+    word: "und",
+    ru: "и",
+    uk: "і",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich trinke Tee und Wasser.", ru: "Я пью чай и воду.", uk: "Я п’ю чай і воду." }]
   },
   {
-    "id": 2,
-    "word": "oder",
-    "ru": "или",
-    "uk": "або",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Möchtest du Tee oder Kaffee?",
-        "ru": "Ты хочешь чай или кофе?",
-        "uk": "Ти хочеш чай або каву?"
-      }
-    ]
+    id: 2,
+    word: "oder",
+    ru: "или",
+    uk: "або",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Möchtest du Tee oder Kaffee?", ru: "Ты хочешь чай или кофе?", uk: "Ти хочеш чай або каву?" }]
   },
   {
-    "id": 3,
-    "word": "aber",
-    "ru": "но",
-    "uk": "але",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich lerne Deutsch, aber ich spreche noch langsam.",
-        "ru": "Я учу немецкий, но пока говорю медленно.",
-        "uk": "Я вчу німецьку, але поки говорю повільно."
-      }
-    ]
+    id: 3,
+    word: "aber",
+    ru: "но",
+    uk: "але",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich lerne Deutsch, aber ich spreche noch langsam.", ru: "Я учу немецкий, но пока говорю медленно.", uk: "Я вчу німецьку, але поки говорю повільно." }]
   },
   {
-    "id": 4,
-    "word": "denn",
-    "ru": "потому что",
-    "uk": "бо",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich gehe zu Fuß, denn es ist nah.",
-        "ru": "Я иду пешком, потому что близко.",
-        "uk": "Я йду пішки, бо близько."
-      }
-    ]
+    id: 4,
+    word: "denn",
+    ru: "потому что",
+    uk: "бо",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich gehe zu Fuß, denn es ist nah.", ru: "Я иду пешком, потому что близко.", uk: "Я йду пішки, бо близько." }]
   },
   {
-    "id": 5,
-    "word": "weil",
-    "ru": "потому что",
-    "uk": "тому що",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bleibe zu Hause, weil ich krank bin.",
-        "ru": "Я остаюсь дома, потому что я болен.",
-        "uk": "Я залишаюся вдома, тому що я хворий."
-      }
-    ]
+    id: 5,
+    word: "weil",
+    ru: "потому что",
+    uk: "тому що",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich bleibe zu Hause, weil ich krank bin.", ru: "Я остаюсь дома, потому что я болен.", uk: "Я залишаюся вдома, тому що я хворий." }]
   },
   {
-    "id": 6,
-    "word": "wenn",
-    "ru": "если, когда",
-    "uk": "якщо, коли",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Wenn es regnet, nehme ich einen Schirm.",
-        "ru": "Если идет дождь, я беру зонт.",
-        "uk": "Якщо йде дощ, я беру парасолю."
-      }
-    ]
+    id: 6,
+    word: "wenn",
+    ru: "если, когда",
+    uk: "якщо, коли",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Wenn es regnet, nehme ich einen Schirm.", ru: "Если идет дождь, я беру зонт.", uk: "Якщо йде дощ, я беру парасолю." }]
   },
   {
-    "id": 7,
-    "word": "dass",
-    "ru": "что",
-    "uk": "що",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich weiß, dass du hier bist.",
-        "ru": "Я знаю, что ты здесь.",
-        "uk": "Я знаю, що ти тут."
-      }
-    ]
+    id: 7,
+    word: "dass",
+    ru: "что",
+    uk: "що",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich weiß, dass du hier bist.", ru: "Я знаю, что ты здесь.", uk: "Я знаю, що ти тут." }]
   },
   {
-    "id": 8,
-    "word": "sondern",
-    "ru": "а (а наоборот)",
-    "uk": "а (а навпаки)",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Nicht Tee, sondern Wasser.",
-        "ru": "Не чай, а вода.",
-        "uk": "Не чай, а вода."
-      }
-    ]
+    id: 8,
+    word: "sondern",
+    ru: "а (а наоборот)",
+    uk: "а (а навпаки)",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Nicht Tee, sondern Wasser.", ru: "Не чай, а вода.", uk: "Не чай, а вода." }]
   },
   {
-    "id": 9,
-    "word": "deshalb",
-    "ru": "поэтому",
-    "uk": "тому",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich habe keine Zeit, deshalb komme ich morgen.",
-        "ru": "У меня нет времени, поэтому я приду завтра.",
-        "uk": "У мене немає часу, тому я прийду завтра."
-      }
-    ]
+    id: 9,
+    word: "deshalb",
+    ru: "поэтому",
+    uk: "тому",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Ich habe keine Zeit, deshalb komme ich morgen.", ru: "У меня нет времени, поэтому я приду завтра.", uk: "У мене немає часу, тому я прийду завтра." }]
   },
   {
-    "id": 10,
-    "word": "trotzdem",
-    "ru": "всё равно, тем не менее",
-    "uk": "все одно, проте",
-    "level": "A1",
-    "topics": [
-      "grammar"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Es regnet, trotzdem gehe ich raus.",
-        "ru": "Идет дождь, но я всё равно выхожу.",
-        "uk": "Йде дощ, проте я все одно виходжу."
-      }
-    ]
-  },
-  {
-    "id": 422,
-    "word": "als",
-    "ru": "когда (в прошлом), как",
-    "uk": "коли (в минулому), як",
-    "level": "A1",
-    "topics": [
-      "conjunctions"
-    ],
-    "deSynonyms": [],
-    "ruSynonyms": [],
-    "ukSynonyms": [],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Als ich klein war, wohnte ich in Berlin.",
-        "ru": "Когда я был маленьким, я жил в Берлине.",
-        "uk": "Коли я був маленьким, я жив у Берліні."
-      }
-    ]
-  },
-  {
-    "id": 423,
-    "word": "da",
-    "ru": "так как, поскольку",
-    "uk": "бо, оскільки",
-    "level": "A1",
-    "topics": [
-      "conjunctions"
-    ],
-    "deSynonyms": [
-      "weil"
-    ],
-    "ruSynonyms": [
-      "потому что"
-    ],
-    "ukSynonyms": [
-      "тому що"
-    ],
-    "deAntonyms": [],
-    "ruAntonyms": [],
-    "ukAntonyms": [],
-    "examples": [
-      {
-        "L2": "Ich bleibe zu Hause, da ich krank bin.",
-        "ru": "Я остаюсь дома, так как я болен.",
-        "uk": "Я залишаюся вдома, бо я хворий."
-      }
-    ]
+    id: 10,
+    word: "trotzdem",
+    ru: "всё равно, тем не менее",
+    uk: "все одно, проте",
+    level: "A1",
+    topics: [ "grammar" ],
+    deSynonyms: [],
+    ruSynonyms: [],
+    ukSynonyms: [],
+    deAntonyms: [],
+    ruAntonyms: [],
+    ukAntonyms: [],
+    examples: [{ L2: "Es regnet, trotzdem gehe ich raus.", ru: "Идет дождь, но я всё равно выхожу.", uk: "Йде дощ, проте я все одно виходжу." }]
   }
 ];
-
 
 window.decks.de_particles_lernpunkt = [
   {
