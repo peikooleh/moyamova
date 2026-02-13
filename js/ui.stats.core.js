@@ -64,6 +64,9 @@
 
     var lang = options.lang || detectCurrentLang();
     if (!lang) {
+      try { if (App.settings && App.settings.studyLang) lang = App.settings.studyLang; } catch(_) {}
+    }
+    if (!lang) {
       lang = '_unknown';
     }
 
