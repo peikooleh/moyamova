@@ -686,6 +686,7 @@ function countLearnedWordsByLang(langCode) {
     // 1) Собираем баллы по датам (ключ: YYYY-MM-DD)
     var byDate = Object.create(null);
     var maxScore = 0;
+    var nonZeroCount = 0;
 
     raw.forEach(function (d) {
       var learned  = Number(d.learned  || 0);
@@ -693,6 +694,7 @@ function countLearnedWordsByLang(langCode) {
       var seconds  = Number(d.seconds  || 0);
       var score = learned * 4 + reviewed * 1 + seconds / 60;
 
+      if (score > 0) nonZeroCount++;
       var key = (d.date || '').slice(0, 10); // предполагаем YYYY-MM-DD
       if (!key) return;
 
@@ -754,11 +756,20 @@ function countLearnedWordsByLang(langCode) {
         var title = '';
 
         if (entry) {
-          var ratio = entry.score / maxScore;
-          if (ratio >= 0.75) lvl = 3;
-          else if (ratio >= 0.5) lvl = 2;
-          else if (ratio >= 0.25) lvl = 1;
-          else lvl = 0;
+          if (nonZeroCount < 5) {
+            // Мало данных: используем абсолютные пороги, чтобы 1 ответ не выглядел как "максимум"
+            var s = entry.score;
+            if (s >= 30) lvl = 3;
+            else if (s >= 15) lvl = 2;
+            else if (s >= 3) lvl = 1;
+            else lvl = 0;
+          } else {
+            var ratio = entry.score / maxScore;
+            if (ratio >= 0.75) lvl = 3;
+            else if (ratio >= 0.5) lvl = 2;
+            else if (ratio >= 0.25) lvl = 1;
+            else lvl = 0;
+          }
 
           var d = entry.data;
           title =

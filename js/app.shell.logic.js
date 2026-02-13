@@ -378,7 +378,59 @@
     }
   })();
 
-  // Попробуем применить состояние кнопки сразу (если App уже инициализирован)
+  
+  // Hidden dictionaries toggle (7 taps on app version):
+  // OFF -> SR -> LP -> SR+LP -> OFF
+  (function(){
+    function getFlag(name){ try { return localStorage.getItem(name) === '1'; } catch(_) { return false; } }
+    function setFlag(name,val){ try { localStorage.setItem(name, val ? '1' : '0'); } catch(_) {} }
+
+    function nextState(){
+      var sr = getFlag('mm_sr');
+      var lp = getFlag('mm_lp');
+      // OFF -> SR
+      if (!sr && !lp) { setFlag('mm_sr', true);  setFlag('mm_lp', false); return; }
+      // SR -> LP
+      if (sr && !lp)  { setFlag('mm_sr', false); setFlag('mm_lp', true);  return; }
+      // LP -> SR+LP
+      if (!sr && lp)  { setFlag('mm_sr', true);  setFlag('mm_lp', true);  return; }
+      // SR+LP -> OFF
+      setFlag('mm_sr', false); setFlag('mm_lp', false);
+    }
+
+    var taps = 0;
+    var lastTs = 0;
+    var RESET_MS = 2000;
+
+    function onTap(){
+      var now = Date.now();
+      if (now - lastTs > RESET_MS) taps = 0;
+      lastTs = now;
+      taps++;
+      if (taps >= 7){
+        taps = 0;
+        nextState();
+        try { location.reload(); } catch(_) {}
+      }
+    }
+
+    // Use event delegation because burger menu is re-rendered and DOM nodes are recreated.
+    function onDocClick(e){
+      try {
+        // Only inside opened burger panel
+        var panel = e.target && e.target.closest ? e.target.closest('.oc-panel') : null;
+        if (!panel) return;
+
+        var target = e.target.closest('.menu-item.app-version, #appVersion');
+        if (!target) return;
+        onTap();
+      } catch(_) {}
+    }
+
+    document.addEventListener('click', onDocClick, false);
+  })();
+
+// Попробуем применить состояние кнопки сразу (если App уже инициализирован)
   applyProButtonState();
 
   const actionsMap = {
