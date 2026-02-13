@@ -2202,24 +2202,6 @@ answers.innerHTML = '';
           }
         } catch (_) {}
 
-                // FIX: дневная активность должна считаться и для "Не знаю"
-        try {
-          if (A.Stats && typeof A.Stats.bump === 'function') {
-            var __lang = null;
-            try { __lang = (A.Decks && A.Decks.langOfKey) ? (A.Decks.langOfKey(key) || null) : null; } catch(_){}
-            try { if (!__lang && A.settings && A.settings.studyLang) __lang = A.settings.studyLang; } catch(_){}
-            var __kind = 'words';
-            try {
-              if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
-                __kind = 'prepositions';
-              } else if (String(key||'').indexOf('_prepositions_trainer') > -1) {
-                __kind = 'prepositions';
-              }
-            } catch(_){}
-            A.Stats.bump({ lang: __lang || undefined, reviewed: 1, learned: 0, kind: __kind });
-          }
-        } catch (_) {}
-
         setTimeout(() => { renderSets();
         if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === "function" && A.ArticlesTrainer.isActive()) {
           try { if (A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (_){}

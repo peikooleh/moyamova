@@ -612,9 +612,6 @@ function getDeckWithArticles() {
     }
 
     if (applied) {
-      // FIX: фиксируем состояние «выучено» до изменения прогресса
-      var __wasLearned = false;
-      try { if (A.ArticlesProgress && typeof A.ArticlesProgress.isLearned === 'function') __wasLearned = !!A.ArticlesProgress.isLearned(deckKey, currentWord.id); } catch(_){ }
       try {
         if (A.ArticlesProgress && typeof A.ArticlesProgress.onAnswer === 'function') {
           A.ArticlesProgress.onAnswer(deckKey, currentWord.id, ok, { mode: mode });
@@ -635,24 +632,7 @@ function getDeckWithArticles() {
           A.ArticlesStats.onAnswer(ok);
         }
       } catch (e) {}
-
-      // FIX: дневная активность (общая статистика приложения)
-      try {
-        if (A.Stats && typeof A.Stats.bump === 'function') {
-          var __langA = null;
-          try { __langA = (A.Decks && A.Decks.langOfKey) ? (A.Decks.langOfKey(deckKey) || null) : null; } catch(_){ }
-          try { if (!__langA && A.settings && A.settings.studyLang) __langA = A.settings.studyLang; } catch(_){ }
-
-          var __nowLearned = false;
-          try { if (A.ArticlesProgress && typeof A.ArticlesProgress.isLearned === 'function') __nowLearned = !!A.ArticlesProgress.isLearned(deckKey, currentWord.id); } catch(_){ }
-
-          var __learnedDelta = (!__wasLearned && __nowLearned) ? 1 : 0;
-          A.Stats.bump({ lang: __langA || undefined, reviewed: 1, learned: __learnedDelta, kind: 'articles' });
-        }
-      } catch(_){ }
-
     }
-
 
     // аналитика: фиксируем факт ответа (для воронок/отвалов)
     try {
@@ -684,16 +664,6 @@ function getDeckWithArticles() {
         A.Analytics.trainingPing({ reason: 'answer_idk' });
       }
     } catch (_aI) {}
-
-    // FIX: дневная активность должна считаться и для "Не знаю"
-    try {
-      if (A.Stats && typeof A.Stats.bump === 'function') {
-        var __langI = null;
-        try { __langI = (A.Decks && A.Decks.langOfKey) ? (A.Decks.langOfKey(deckKey) || null) : null; } catch(_){ }
-        try { if (!__langI && A.settings && A.settings.studyLang) __langI = A.settings.studyLang; } catch(_){ }
-        A.Stats.bump({ lang: __langI || undefined, reviewed: 1, learned: 0, kind: 'articles' });
-      }
-    } catch(_){}
 
     return { ok: false, correct: correct, applied: false, idk: true };
   }

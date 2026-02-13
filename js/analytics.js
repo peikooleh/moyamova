@@ -288,16 +288,11 @@
           if (tk === 'articles') kind = 'articles';
           else if (tk === 'prepositions') kind = 'prepositions';
         } catch (_e) {}
-        // FIX: не учитываем "активность", если тренировка не началась по сути (нет ни одного ответа)
-        var __answers = 0;
-        try { __answers = Number(trainingState.answeredTotal || 0) + Number(trainingState.dontKnow || 0); } catch(_e2) { __answers = 0; }
-        if (__answers > 0) {
-          window.App.Stats.bump({
-            lang: trainingState.learnLang || null,
-            seconds: durationSec,
-            kind: kind
-          });
-        }
+        window.App.Stats.bump({
+          lang: trainingState.learnLang || null,
+          seconds: durationSec,
+          kind: kind
+        });
       }
     } catch (_) {}
 
