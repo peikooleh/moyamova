@@ -516,6 +516,7 @@
   };
 
   // Также — единый стиль для роутера (если позже добавим Router.routeTo('guide')).
+  var A = root.App || (root.App = {});
   A.ViewGuide = {
     mount: mount
   };
