@@ -17,6 +17,15 @@
     return String(s).toLowerCase() === 'uk' ? 'uk' : 'ru';
   }
 
+  function isSerbianEnabled() {
+    try {
+      return localStorage.getItem('mm_sr') === '1';
+    } catch (_) {
+      return false;
+    }
+  }
+
+
   function t() {
     const uk = getUiLang() === 'uk';
     const i = (A.i18n && A.i18n()) || null;
@@ -473,6 +482,9 @@ function countLearnedWordsByLang(langCode) {
       }
       if (!lang) return;
 
+      // Gate: если сербский скрыт в приложении, не показываем его и в статистике
+      if (lang === 'sr' && !isSerbianEnabled()) return;
+
       const words = decksApi.resolveDeckByKey(deckKey) || [];
       if (!words.length) return;
 
@@ -756,20 +768,15 @@ function countLearnedWordsByLang(langCode) {
         var title = '';
 
         if (entry) {
-          if (nonZeroCount < 5) {
-            // Мало данных: используем абсолютные пороги, чтобы 1 ответ не выглядел как "максимум"
-            var s = entry.score;
-            if (s >= 30) lvl = 3;
-            else if (s >= 15) lvl = 2;
-            else if (s >= 3) lvl = 1;
-            else lvl = 0;
-          } else {
-            var ratio = entry.score / maxScore;
-            if (ratio >= 0.75) lvl = 3;
-            else if (ratio >= 0.5) lvl = 2;
-            else if (ratio >= 0.25) lvl = 1;
-            else lvl = 0;
-          }
+          // Пороги активности (абсолютные, завязаны на "баллы" дня):
+          // lvl 3: очень активно (≈ 3+ сета)
+          // lvl 2: стабильно (≈ 1–2 сета)
+          // lvl 1: лёгкий день (есть активность, но меньше 1 сета)
+          var s = entry.score;
+          if (s >= 90) lvl = 3;
+          else if (s >= 30) lvl = 2;
+          else if (s >= 3) lvl = 1;
+          else lvl = 0;
 
           var d = entry.data;
           title =
