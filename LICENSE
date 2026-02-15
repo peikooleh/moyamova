@@ -21,17 +21,30 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-------------------------------------------------------------------------
+  ---------------------------------------------
+  Trademark & Distribution Restriction Notice
+  ---------------------------------------------
 
-Trademark Notice
-
-“MoyaMova” and all associated logos, names, and branding elements are
+“MoyaMova”, its name, logo, branding elements, and visual identity are
 the exclusive property of Oleh Peiko.
 
-This license does NOT grant permission to use the MoyaMova name, logo,
-or branding for commercial or public distribution of modified versions
-without explicit written permission from the copyright holder.
+This license DOES NOT grant permission to:
+
+• Publish, distribute, or submit this software (original or modified) to
+any public application store or marketplace (including but not limited
+to Google Play, Apple App Store, Microsoft Store, Huawei AppGallery,
+etc.) under the name “MoyaMova”.
+
+• Use the MoyaMova name, logo, or branding in any commercial, public, or
+redistributed version of this software without explicit prior written
+permission from the copyright holder.
 
 You may fork, modify, and distribute the source code under the MIT
-License, but you must remove or replace all branding elements if
-creating a derivative public or commercial product.
+License, but any public or commercial derivative must:
+
+1.  Remove all MoyaMova branding elements.
+2.  Use a different name.
+3.  Not imply official affiliation with the original project.
+
+Unauthorized publication under the MoyaMova brand may constitute
+trademark infringement and unfair competition.
