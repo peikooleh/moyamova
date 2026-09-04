@@ -1,0 +1,284 @@
+/* MOYAMOVA 1.10.0 — Articles Trainer desktop redesign */
+@media (min-width:900px){
+  .trainer-desktop-shell:has(.home-trainer.is-articles){
+    background:linear-gradient(135deg,#06101c 0%,#081524 55%,#06111e 100%);
+  }
+  .trainer-desktop-main:has(.home-trainer.is-articles){
+    padding:22px 26px 28px;
+  }
+  .trainer-desktop-main:has(.home-trainer.is-articles)>.home{
+    width:100%;max-width:none;display:flex;flex-direction:column;gap:14px;
+  }
+
+  /* Old auxiliary zones stay in DOM for trainer/set logic, but do not clutter desktop UI. */
+  .trainer-desktop-main:has(.home-trainer.is-articles) .home-sets,
+  .trainer-desktop-main:has(.home-trainer.is-articles) .home-hints,
+  .trainer-desktop-main:has(.home-trainer.is-articles) .home-filters{
+    display:none!important;
+  }
+
+  .articles-desktop-head{display:flex;flex-direction:column;gap:14px}
+  .articles-desktop-titlebar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:2px 4px 0}
+  .articles-desktop-titlebar h1{margin:0;color:#edf5ff;font:800 23px/1.2 system-ui,sans-serif}
+  .articles-desktop-titlebar h1>b{color:#2b8cff}
+  .articles-desktop-titlebar h1>span{font-weight:800}
+  .articles-desktop-titlebar p{margin:5px 0 0 36px;color:#91a4b9;font-size:12px}
+  .articles-desktop-progress{width:280px;display:grid;grid-template-columns:1fr 42px;gap:6px 12px;align-items:center;color:#91a4b9;font-size:11px}
+  .articles-desktop-progress>span{grid-column:1/-1}
+  .articles-desktop-progress>div{height:7px;border-radius:99px;background:#182a3d;overflow:hidden}
+  .articles-desktop-progress>div>i{display:block;height:100%;border-radius:99px;background:#2b8cff}
+  .articles-desktop-progress>b{color:#edf5ff;font-size:13px}
+
+  .articles-desktop-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+  .articles-desktop-kpis article{
+    min-height:76px;border:1px solid #24394d;border-radius:13px;background:#101e2c;
+    display:grid;grid-template-columns:48px 1fr;grid-template-rows:1fr 1fr;column-gap:10px;align-items:center;padding:10px 14px;box-sizing:border-box
+  }
+  .articles-desktop-kpis article>i{grid-row:1/3;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:24px;background:#12324a;color:#2b8cff}
+  .articles-desktop-kpis article>i.ok{background:#0c3c31;color:#2bdc8a}
+  .articles-desktop-kpis article>i.bad{background:#47242a;color:#ff5059}
+  .articles-desktop-kpis article>i.streak{background:#49351d;color:#ff991f}
+  .articles-desktop-kpis article>i.time{background:#33235c;color:#a678ff}
+  .articles-desktop-kpis article>span{align-self:end;color:#b5c2d0;font-size:11px}
+  .articles-desktop-kpis article>strong{align-self:start;color:#f4f8fd;font-size:19px;line-height:1.1}
+
+  .trainer-desktop-main .home-trainer.is-articles{
+    flex:1;min-height:500px;margin:0!important;padding:28px 30px 34px!important;
+    border:1px solid #294158!important;border-radius:15px!important;background:linear-gradient(145deg,#0e1c2a,#0a1724)!important;
+    box-shadow:none!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:13px!important;position:relative
+  }
+  .trainer-desktop-main .home-trainer.is-articles .trainer-top{
+    position:absolute;inset:18px 20px auto 20px;min-height:28px
+  }
+  .trainer-desktop-main .home-trainer.is-articles .trainer-stars{opacity:.82}
+  .trainer-desktop-main .home-trainer.is-articles .heart{font-size:30px;color:#8ea3b7}
+  .trainer-desktop-main .home-trainer.is-articles .trainer-word{
+    margin:10px 0 0!important;color:#f5f8fc!important;font-size:34px!important;font-weight:800!important;line-height:1.1!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .trainer-translation{
+    margin:0!important;color:#93a4b7!important;font-size:14px!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .trainer-subtitle{
+    margin:18px 0 3px!important;color:#a8b7c7!important;font-size:13px!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid{
+    width:min(100%,850px)!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important;margin:14px auto 0!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn{
+    height:126px!important;min-height:126px!important;border:1px solid #2b4257!important;border-radius:14px!important;
+    background:#10202f!important;color:#f4f8fd!important;font-size:27px!important;font-weight:800!important;box-shadow:none!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn:hover:not(:disabled){
+    border-color:#3979b7!important;background:#12283b!important;transform:translateY(-1px)
+  }
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn.is-correct{
+    background:#123c31!important;border-color:#25c17e!important;color:#56e6a6!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn.is-wrong{
+    background:#48252b!important;border-color:#ff5059!important;color:#ff7b82!important
+  }
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn.is-dim{opacity:.42!important}
+
+  /* No extra bottom action panel. Existing IDK remains available to keyboard/logic but is visually removed on desktop. */
+  .trainer-desktop-main .home-trainer.is-articles .idk-btn,
+  .trainer-desktop-main .home-trainer.is-articles .dict-stats,
+  .trainer-desktop-main .home-trainer.is-articles .trainer-mode-indicator{display:none!important}
+
+  .trainer-side{position:relative}
+  .trainer-side-bottom{margin-top:auto;display:flex;flex-direction:column;gap:16px}
+  .trainer-side-lang{
+    width:100%;height:48px;padding:0 12px;border:1px solid #24394d;border-radius:11px;background:#0c1a28;color:#edf5ff;
+    display:grid;grid-template-columns:25px 1fr 18px;align-items:center;gap:9px;text-align:left;font:600 12px system-ui,sans-serif
+  }
+  .trainer-side-lang img{width:24px;height:16px;border-radius:3px;object-fit:cover}
+  .trainer-side-lang b{font-size:16px;color:#91a4b9;text-align:center}
+
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles{
+    background:#fff!important;border-color:#dce6f0!important
+  }
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .trainer-word{color:#182235!important}
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn{background:#f8fbff!important;color:#182235!important;border-color:#dce6f0!important}
+  html:not([data-theme="dark"]) .articles-desktop-titlebar h1,
+  html:not([data-theme="dark"]) .articles-desktop-kpis article>strong{color:#182235}
+  html:not([data-theme="dark"]) .articles-desktop-kpis article{background:#fff;border-color:#dce6f0}
+}
+@media(max-width:899px){.articles-desktop-head{display:none!important}}
+
+
+/* 1.10.1 — light answer states + article colors + desktop utility strip */
+@media (min-width:900px){
+  /* article school colors: der blue, die red, das green */
+  .trainer-desktop-main .home-trainer.is-articles .article-answer__choice{
+    display:block;font:800 27px/1.1 system-ui,sans-serif
+  }
+  .trainer-desktop-main .home-trainer.is-articles .article-answer__gender{
+    display:block;margin-top:16px;font:600 12px/1.2 system-ui,sans-serif
+  }
+  .trainer-desktop-main .home-trainer.is-articles .article-answer--der .article-answer__gender{color:#258cff}
+  .trainer-desktop-main .home-trainer.is-articles .article-answer--die .article-answer__gender{color:#ef4f62}
+  .trainer-desktop-main .home-trainer.is-articles .article-answer--das .article-answer__gender{color:#25bd72}
+
+  /* Explicit light-theme feedback wins over the neutral light button rule. */
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn.is-correct{
+    background:#e7f8ef!important;border-color:#24b86b!important;color:#127341!important;
+    box-shadow:0 0 0 2px rgba(36,184,107,.10)!important
+  }
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn.is-wrong{
+    background:#fff0f1!important;border-color:#ef4f62!important;color:#b82d3d!important;
+    box-shadow:0 0 0 2px rgba(239,79,98,.08)!important
+  }
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn.is-dim{
+    opacity:.45!important;background:#f8fbff!important;color:#617188!important
+  }
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answer-btn:active{
+    background:#eef4fb!important;color:#182235!important
+  }
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answer-btn.is-correct:active{
+    background:#e7f8ef!important;color:#127341!important
+  }
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles .answer-btn.is-wrong:active{
+    background:#fff0f1!important;color:#b82d3d!important
+  }
+
+  .articles-desktop-tools{
+    min-height:74px;display:grid;grid-template-columns:1fr 1.15fr 1.15fr;align-items:stretch;
+    border:1px solid #294158;border-radius:14px;background:#0e1c2a;overflow:hidden
+  }
+  .articles-tool{
+    position:relative;border:0;border-right:1px solid #294158;background:transparent;color:#edf5ff;
+    display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:10px;padding:12px 20px;text-align:left;cursor:pointer
+  }
+  .articles-tool:last-child{border-right:0}
+  .articles-tool>i{font-style:normal;font-size:22px;color:#8fa6bd;text-align:center}
+  .articles-tool>span{display:flex;flex-direction:column;gap:3px}
+  .articles-tool b{font-size:12px}.articles-tool small{font-size:9px;color:#8297ab;font-weight:500}
+  .articles-tool:hover{background:rgba(43,140,255,.06)}
+  .articles-tool--tts>em{
+    width:42px;height:23px;border-radius:99px;background:#26384a;position:relative;display:block
+  }
+  .articles-tool--tts>em:after{
+    content:"";position:absolute;left:3px;top:3px;width:17px;height:17px;border-radius:50%;background:#9aaaba;transition:.18s
+  }
+  .articles-tool--tts.is-active>i{color:#2b8cff}
+  .articles-tool--tts.is-active>em{background:#2b8cff}
+  .articles-tool--tts.is-active>em:after{left:22px;background:white}
+
+  /* Remove the transient language control entirely; keep only version/offline status. */
+  .trainer-side-lang{display:none!important}
+  .trainer-side-bottom{margin-top:auto}
+
+  html:not([data-theme="dark"]) .articles-desktop-tools{
+    background:#fff;border-color:#dce6f0;box-shadow:0 7px 24px rgba(31,51,73,.06)
+  }
+  html:not([data-theme="dark"]) .articles-tool{color:#182235;border-color:#e1e8f0}
+  html:not([data-theme="dark"]) .articles-tool small{color:#8291a4}
+  html:not([data-theme="dark"]) .articles-tool:hover{background:#f7faff}
+}
+
+
+/* 1.10.4 — light-theme answer hover must never mask feedback */
+@media (min-width:900px){
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn:hover:not(:disabled){
+    background:#eef5fc!important;
+    border-color:#9fc2e4!important;
+    color:#182235!important;
+    box-shadow:0 4px 14px rgba(31,51,73,.06)!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn.is-correct,
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn.is-correct:hover{
+    background:#e7f8ef!important;
+    border-color:#24b86b!important;
+    color:#127341!important;
+    box-shadow:0 0 0 2px rgba(36,184,107,.10)!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn.is-wrong,
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn.is-wrong:hover{
+    background:#fff0f1!important;
+    border-color:#ef4f62!important;
+    color:#b82d3d!important;
+    box-shadow:0 0 0 2px rgba(239,79,98,.08)!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn.is-dim,
+  html:not([data-theme="dark"]) .trainer-desktop-main .home-trainer.is-articles
+  .answers-grid .answer-btn.is-dim:hover{
+    background:#f8fbff!important;
+    border-color:#dce6f0!important;
+    color:#617188!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.10.5 — Articles lower panel + light hover final
+ * ========================================================== */
+@media (min-width:900px){
+  .articles-desktop-tools{
+    width:100%!important;
+    max-width:none!important;
+    height:74px!important;
+    min-height:74px!important;
+    margin:14px 0 0!important;
+    padding:0!important;
+    border-radius:14px!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+  }
+
+  .articles-desktop-tools .articles-tool{
+    height:72px!important;
+    min-height:72px!important;
+    margin:0!important;
+    border-radius:0!important;
+    box-sizing:border-box!important;
+  }
+
+  .trainer-desktop-main .home-trainer.is-articles .trainer-audio-btn{
+    display:none!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main
+  .home-trainer.is-articles .answers-grid .answer-btn:hover:not(:disabled):not(.is-correct):not(.is-wrong){
+    background:#eef5fc!important;
+    border-color:#9fc2e4!important;
+    color:#182235!important;
+    filter:none!important;
+    box-shadow:0 4px 14px rgba(31,51,73,.06)!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main
+  .home-trainer.is-articles .answers-grid .answer-btn.is-correct,
+  html:not([data-theme="dark"]) .trainer-desktop-main
+  .home-trainer.is-articles .answers-grid .answer-btn.is-correct:hover{
+    background:#e7f8ef!important;
+    border-color:#24b86b!important;
+    color:#127341!important;
+    filter:none!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main
+  .home-trainer.is-articles .answers-grid .answer-btn.is-wrong,
+  html:not([data-theme="dark"]) .trainer-desktop-main
+  .home-trainer.is-articles .answers-grid .answer-btn.is-wrong:hover{
+    background:#fff0f1!important;
+    border-color:#ef4f62!important;
+    color:#b82d3d!important;
+    filter:none!important;
+  }
+
+  html:not([data-theme="dark"]) .trainer-desktop-main
+  .home-trainer.is-articles .answers-grid .answer-btn.is-dim:hover{
+    background:#f8fbff!important;
+    border-color:#dce6f0!important;
+    color:#617188!important;
+    filter:none!important;
+  }
+}

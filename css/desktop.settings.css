@@ -1,0 +1,480 @@
+/* ==========================================================
+ * MOYAMOVA 1.8.3 — Desktop Settings + Favorites/Errors V2
+ * ========================================================== */
+@media (min-width:900px){
+  .desktop-settings-nav-sep{
+    height:1px;background:rgba(255,255,255,.10);margin:12px 8px 8px;
+  }
+
+  .desktop-settings{
+    width:100%;
+    color:var(--dt,#182235);
+  }
+  .desktop-settings__head{margin:0 0 18px}
+  .desktop-settings__eyebrow{
+    color:#1769e8;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase
+  }
+  .desktop-settings__head h2{
+    margin:3px 0 5px;font:700 27px/1.1 Montserrat,system-ui,sans-serif
+  }
+  .desktop-settings__head p{margin:0;color:#6d7788;font-size:13px}
+  .desktop-settings__grid{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
+  }
+  .desktop-settings__card{
+    background:#fff;border:1px solid #e4eaf3;border-radius:14px;padding:16px;
+    box-shadow:0 4px 18px rgba(20,40,80,.035)
+  }
+  .desktop-settings__section-title{
+    color:#1769e8;font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.06em;margin-bottom:13px
+  }
+  .desktop-settings__row{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:48px
+  }
+  .desktop-settings__row strong{font-size:14px}
+  .desktop-settings__row small{display:block;color:#6d7788;margin-top:5px}
+  .desktop-segment{
+    display:flex;gap:4px;padding:4px;border-radius:11px;background:#f3f6fa;border:1px solid #e4eaf3
+  }
+  .desktop-segment button{
+    border:0;background:transparent;min-height:36px;padding:0 11px;border-radius:8px;
+    display:flex;align-items:center;gap:7px;color:#5b6676;font-weight:700;cursor:pointer
+  }
+  .desktop-segment button.active{background:#fff;color:#1769e8;box-shadow:0 1px 5px rgba(20,40,80,.10)}
+  .desktop-segment img{width:24px;height:16px;object-fit:cover;border-radius:3px}
+  .desktop-settings__actions{display:flex;gap:8px}
+  .desktop-settings__button{
+    min-height:40px;border:1px solid #dbe4ef;border-radius:10px;background:#f8fafc;
+    padding:0 14px;font-weight:700;color:#263445;cursor:pointer
+  }
+  .desktop-settings__button:hover{border-color:#8fcaff;background:#fff}
+  .desktop-settings__button--primary{background:#1769e8;color:#fff;border-color:#1769e8}
+  .desktop-settings__button--primary:hover{background:#155fcf;border-color:#155fcf}
+
+  /* Favorites + Mistakes become the same card language as Dictionaries. */
+  .desktop-pages-main--mistakes .dicts-table tbody,
+  .desktop-pages-main--fav .dicts-table tbody{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important
+  }
+
+  .desktop-pages-main--mistakes .dicts-table tbody tr,
+  .desktop-pages-main--fav .dicts-table tbody tr{
+    display:grid!important;
+    grid-template-columns:36px minmax(0,1fr) auto 76px!important;
+    align-items:center!important;
+    min-width:0!important;min-height:74px!important;padding:10px 11px!important;
+    border:1px solid #e3eaf2!important;border-radius:13px!important;
+    background:#f7f9fc!important;box-sizing:border-box!important;
+    transition:border-color .15s ease,background-color .15s ease,box-shadow .15s ease!important
+  }
+  .desktop-pages-main--mistakes .dicts-table tbody tr:hover,
+  .desktop-pages-main--fav .dicts-table tbody tr:hover{
+    border-color:#8fcaff!important;background:#fff!important;box-shadow:0 5px 16px rgba(30,96,170,.07)!important
+  }
+  .desktop-pages-main--mistakes .dicts-table tbody tr.is-selected,
+  .desktop-pages-main--fav .dicts-table tbody tr.is-selected{
+    border-color:#1fb6ff!important;background:#f1faff!important;box-shadow:0 0 0 2px rgba(31,182,255,.10)!important
+  }
+  .desktop-pages-main--mistakes .dicts-table tbody td,
+  .desktop-pages-main--fav .dicts-table tbody td{
+    display:block!important;min-width:0!important;border:0!important;background:transparent!important;
+    padding:0 6px!important;box-sizing:border-box!important
+  }
+  .desktop-pages-main--mistakes .dicts-table tbody td:nth-child(2),
+  .desktop-pages-main--fav .dicts-table tbody td:nth-child(2){
+    font-family:Montserrat,system-ui,sans-serif!important;font-weight:700!important;font-size:13px!important;
+    overflow-wrap:anywhere
+  }
+  .desktop-pages-main--mistakes .dicts-table tbody td:nth-child(3),
+  .desktop-pages-main--fav .dicts-table tbody td:nth-child(3){
+    min-width:42px!important;padding:5px 8px!important;border-radius:999px!important;
+    background:#fff!important;color:#6b7280!important;font-size:11px!important;font-weight:800!important;text-align:center!important
+  }
+  .desktop-pages-main--mistakes .dicts-table tbody td:last-child,
+  .desktop-pages-main--fav .dicts-table tbody td:last-child{
+    display:flex!important;justify-content:flex-end!important;align-items:center!important;gap:5px!important;padding:0!important
+  }
+  .desktop-pages-main--mistakes .mistakes-preview,
+  .desktop-pages-main--mistakes .mistakes-delete,
+  .desktop-pages-main--fav .dicts-preview,
+  .desktop-pages-main--fav .dicts-delete{
+    margin-left:0!important;width:31px!important;height:31px!important;display:inline-flex!important;
+    align-items:center!important;justify-content:center!important;border:1px solid #dfe7f0!important;
+    border-radius:9px!important;background:#fff!important;cursor:pointer!important;font-size:15px!important
+  }
+  .desktop-pages-main--mistakes .mistakes-delete:hover,
+  .desktop-pages-main--fav .dicts-delete:hover{
+    border-color:#f2a7a9!important;background:#fff5f5!important
+  }
+}
+
+html[data-theme="dark"] .desktop-settings__card,.dark .desktop-settings__card{background:#121c28;border-color:#263447}
+html[data-theme="dark"] .desktop-segment,.dark .desktop-segment{background:#0e1722;border-color:#263447}
+html[data-theme="dark"] .desktop-segment button.active,.dark .desktop-segment button.active{background:#182434}
+html[data-theme="dark"] .desktop-pages-main--mistakes .dicts-table tbody tr,
+html[data-theme="dark"] .desktop-pages-main--fav .dicts-table tbody tr,
+.dark .desktop-pages-main--mistakes .dicts-table tbody tr,
+.dark .desktop-pages-main--fav .dicts-table tbody tr{background:#162231!important;border-color:#263447!important}
+
+
+/* 1.8.6 — Theme control and multi-row Interface card */
+@media (min-width:900px){
+  .desktop-settings__row--secondary{
+    margin-top:13px;
+    padding-top:13px;
+    border-top:1px solid #edf1f6;
+  }
+}
+html[data-theme="dark"] .desktop-settings__row--secondary,
+.dark .desktop-settings__row--secondary{
+  border-top-color:#263447;
+}
+
+
+/* ==========================================================
+ * 1.9.5 — Desktop service layer
+ * ========================================================== */
+@media (min-width:900px){
+  .desktop-settings__head--tools{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+  .desktop-settings__tools{display:flex;gap:7px}
+  .desktop-tool-btn{
+    width:42px;height:42px;border:1px solid #e0e8f1;border-radius:11px;background:#fff;
+    color:#1769e8;font-size:18px;font-weight:800;cursor:pointer
+  }
+  .desktop-tool-btn:hover{border-color:#8fcaff;background:#f7fbff}
+  .desktop-settings__popover{
+    margin:-6px 0 12px auto;width:min(340px,100%);padding:14px;border:1px solid #e4eaf3;
+    border-radius:13px;background:#fff;box-shadow:0 12px 28px rgba(20,40,80,.12)
+  }
+  .desktop-qr-popover,.desktop-viber-popover{display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center}
+  .desktop-qr-popover img{width:180px;height:180px;border-radius:9px;border:1px solid #edf1f6}
+  .desktop-qr-popover span,.desktop-viber-popover p{font-size:11px;color:#6d7788;overflow-wrap:anywhere}
+  .desktop-support-card{
+    margin-top:13px;padding:14px 16px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;
+    gap:13px;align-items:center;border:1px solid #e4eaf3;border-radius:14px;background:#fff
+  }
+  .desktop-support-card__paypal{
+    width:42px;height:42px;border-radius:10px;background:#edf5ff;color:#1769e8;display:grid;place-items:center;
+    font:900 24px/1 system-ui
+  }
+  .desktop-support-card__copy{display:flex;flex-direction:column;gap:3px}
+  .desktop-support-card__copy small{color:#1769e8;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+  .desktop-support-card__copy strong{font-size:13px;color:#182235}
+  .desktop-settings__button--paypal{background:#fff;border-color:#1769e8;color:#1769e8}
+  .desktop-settings__button--viber{background:#7360f2;border-color:#7360f2;color:#fff}
+
+  .desktop-about__hero{
+    display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:16px;border:1px solid #e4eaf3;
+    border-radius:14px;background:#fff
+  }
+  .desktop-about__mark{
+    width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,#1fb6ff,#1769e8);
+    color:#fff;display:grid;place-items:center;font:900 26px/1 system-ui
+  }
+  .desktop-about__hero div:last-child{display:flex;flex-direction:column;gap:4px}
+  .desktop-about__hero strong{font-size:18px;color:#182235}
+  .desktop-about__hero span{font-size:11px;color:#6d7788}
+  .desktop-about__guide{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:12px
+  }
+  .desktop-about__guide p{margin:5px 0 0;color:#6d7788;font-size:12px}
+  .desktop-about__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .desktop-service-card{
+    min-height:92px;border:1px solid #e4eaf3;border-radius:13px;background:#fff;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:8px;color:#263445;cursor:pointer
+  }
+  .desktop-service-card:hover{border-color:#8fcaff;background:#f8fbff}
+  .desktop-service-card span{width:32px;height:32px;border-radius:9px;background:#edf5ff;color:#1769e8;display:grid;place-items:center;font-weight:900}
+  .desktop-service-card strong{font-size:12px}
+}
+
+
+/* ==========================================================
+ * 1.9.6 — Settings consolidation
+ * No separate About page. Service actions are explicit.
+ * ========================================================== */
+@media (min-width:900px){
+  .desktop-settings__tools{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:8px;
+    max-width:480px;
+  }
+
+  .desktop-tool-btn{
+    width:auto!important;
+    min-width:118px;
+    height:42px;
+    padding:0 12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:8px;
+    border:1px solid #e0e8f1;
+    border-radius:11px;
+    background:#fff;
+    color:#263445;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+  }
+
+  .desktop-tool-btn__icon{
+    width:24px;
+    height:24px;
+    flex:0 0 24px;
+    display:grid;
+    place-items:center;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:900;
+  }
+
+  .desktop-tool-btn--share .desktop-tool-btn__icon{
+    background:#edf5ff;
+    color:#1769e8;
+  }
+
+  .desktop-tool-btn--viber{
+    border-color:#dcd7ff;
+  }
+  .desktop-tool-btn--viber .desktop-tool-btn__icon{
+    background:#7360f2;
+    color:#fff;
+    font-family:Arial,sans-serif;
+  }
+
+  .desktop-tool-btn--qr .desktop-tool-btn__icon{
+    background:#f0f3f7;
+    color:#334155;
+  }
+
+  .desktop-tool-btn:hover{
+    background:#f8fbff;
+    border-color:#8fcaff;
+  }
+
+  .desktop-guide-card{
+    margin-top:13px;
+    padding:14px 16px;
+    display:grid;
+    grid-template-columns:44px minmax(0,1fr) auto;
+    gap:13px;
+    align-items:center;
+    border:1px solid #e4eaf3;
+    border-radius:14px;
+    background:#fff;
+  }
+
+  .desktop-guide-card__icon{
+    width:42px;height:42px;
+    border-radius:10px;
+    background:#edf5ff;
+    color:#1769e8;
+    display:grid;
+    place-items:center;
+    font:900 20px/1 system-ui;
+  }
+
+  .desktop-guide-card__copy{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+
+  .desktop-guide-card__copy small{
+    color:#1769e8;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  .desktop-guide-card__copy strong{
+    font-size:13px;
+    color:#182235;
+  }
+
+  .desktop-guide-card__copy span{
+    font-size:10px;
+    color:#7b8797;
+  }
+
+  .desktop-support-card__paypal{
+    width:42px!important;
+    height:42px!important;
+    border-radius:10px!important;
+    background:#edf5ff!important;
+    color:#1769e8!important;
+    display:grid!important;
+    place-items:center!important;
+    font:900 12px/1 system-ui!important;
+  }
+
+  .desktop-settings__button--paypal{
+    min-width:190px;
+    font-weight:800;
+  }
+
+  /* Old About page styles remain harmless but no longer render. */
+}
+
+
+/* ==========================================================
+ * 1.9.7 — Desktop dark theme normalization
+ * Removes light-theme "islands" without changing geometry.
+ * ========================================================== */
+@media (min-width:900px){
+  body.theme-dark .desktop-settings__card,
+  body.dark .desktop-settings__card,
+  [data-theme="dark"] .desktop-settings__card,
+  body.theme-dark .desktop-guide-card,
+  body.dark .desktop-guide-card,
+  [data-theme="dark"] .desktop-guide-card,
+  body.theme-dark .desktop-support-card,
+  body.dark .desktop-support-card,
+  [data-theme="dark"] .desktop-support-card,
+  body.theme-dark .desktop-settings__popover,
+  body.dark .desktop-settings__popover,
+  [data-theme="dark"] .desktop-settings__popover,
+  body.theme-dark .desktop-about__hero,
+  body.dark .desktop-about__hero,
+  [data-theme="dark"] .desktop-about__hero,
+  body.theme-dark .desktop-service-card,
+  body.dark .desktop-service-card,
+  [data-theme="dark"] .desktop-service-card{
+    background:#111f2d!important;
+    border-color:#2a3d50!important;
+    color:#eef6ff!important;
+  }
+
+  body.theme-dark .desktop-tool-btn,
+  body.dark .desktop-tool-btn,
+  [data-theme="dark"] .desktop-tool-btn,
+  body.theme-dark .desktop-settings__button,
+  body.dark .desktop-settings__button,
+  [data-theme="dark"] .desktop-settings__button{
+    background:#172638!important;
+    border-color:#30465d!important;
+    color:#edf6ff!important;
+  }
+
+  body.theme-dark .desktop-tool-btn:hover,
+  body.dark .desktop-tool-btn:hover,
+  [data-theme="dark"] .desktop-tool-btn:hover,
+  body.theme-dark .desktop-service-card:hover,
+  body.dark .desktop-service-card:hover,
+  [data-theme="dark"] .desktop-service-card:hover{
+    background:#1b2e42!important;
+    border-color:#3974b7!important;
+  }
+
+  body.theme-dark .desktop-settings__button--primary,
+  body.dark .desktop-settings__button--primary,
+  [data-theme="dark"] .desktop-settings__button--primary{
+    background:#1769e8!important;
+    border-color:#1769e8!important;
+    color:#fff!important;
+  }
+
+  body.theme-dark .desktop-settings__button--paypal,
+  body.dark .desktop-settings__button--paypal,
+  [data-theme="dark"] .desktop-settings__button--paypal{
+    background:#172638!important;
+    border-color:#2f80ff!important;
+    color:#65a5ff!important;
+  }
+
+  body.theme-dark .desktop-settings__button--viber,
+  body.dark .desktop-settings__button--viber,
+  [data-theme="dark"] .desktop-settings__button--viber{
+    background:#7360f2!important;
+    border-color:#7360f2!important;
+    color:#fff!important;
+  }
+
+  body.theme-dark .desktop-guide-card__copy strong,
+  body.dark .desktop-guide-card__copy strong,
+  [data-theme="dark"] .desktop-guide-card__copy strong,
+  body.theme-dark .desktop-support-card__copy strong,
+  body.dark .desktop-support-card__copy strong,
+  [data-theme="dark"] .desktop-support-card__copy strong,
+  body.theme-dark .desktop-about__hero strong,
+  body.dark .desktop-about__hero strong,
+  [data-theme="dark"] .desktop-about__hero strong{
+    color:#f3f8ff!important;
+  }
+
+  body.theme-dark .desktop-guide-card__copy span,
+  body.dark .desktop-guide-card__copy span,
+  [data-theme="dark"] .desktop-guide-card__copy span,
+  body.theme-dark .desktop-qr-popover span,
+  body.dark .desktop-qr-popover span,
+  [data-theme="dark"] .desktop-qr-popover span,
+  body.theme-dark .desktop-viber-popover p,
+  body.dark .desktop-viber-popover p,
+  [data-theme="dark"] .desktop-viber-popover p{
+    color:#8fa5bc!important;
+  }
+
+  /* Dashboard deck cards were still inheriting a hard-coded light surface. */
+  body.theme-dark .dash-deck-card,
+  body.dark .dash-deck-card,
+  [data-theme="dark"] .dash-deck-card,
+  body.theme-dark .dashboard .deck-card,
+  body.dark .dashboard .deck-card,
+  [data-theme="dark"] .dashboard .deck-card{
+    background:#172638!important;
+    border-color:#2b4055!important;
+    color:#edf6ff!important;
+  }
+
+  body.theme-dark .dash-deck-card *,
+  body.dark .dash-deck-card *,
+  [data-theme="dark"] .dash-deck-card *,
+  body.theme-dark .dashboard .deck-card *,
+  body.dark .dashboard .deck-card *,
+  [data-theme="dark"] .dashboard .deck-card *{
+    color:inherit;
+  }
+
+  body.theme-dark .dash-deck-card:hover,
+  body.dark .dash-deck-card:hover,
+  [data-theme="dark"] .dash-deck-card:hover,
+  body.theme-dark .dashboard .deck-card:hover,
+  body.dark .dashboard .deck-card:hover,
+  [data-theme="dark"] .dashboard .deck-card:hover{
+    background:#1b2e42!important;
+    border-color:#3974b7!important;
+  }
+}
+
+
+/* MOYAMOVA 1.10.17 — compact legal footer */
+@media (min-width:900px){
+  .desktop-settings__legal{
+    margin-top:14px;
+    padding:16px 4px 2px;
+    border-top:1px solid #e3e9f3;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:7px 18px;
+    align-items:center;
+    color:#7b8798;
+  }
+  .desktop-settings__legal-copy{display:flex;flex-direction:column;gap:3px}
+  .desktop-settings__legal-copy strong{font-size:11px;color:#536176}
+  .desktop-settings__legal-copy span,.desktop-settings__legal small{font-size:10px}
+  .desktop-settings__legal nav{display:flex;align-items:center;gap:7px}
+  .desktop-settings__legal nav button{
+    border:0;background:transparent;padding:3px 0;color:#6676dd;font-size:10px;
+    font-weight:750;cursor:pointer
+  }
+  .desktop-settings__legal nav button:hover{text-decoration:underline}
+  .desktop-settings__legal>small{grid-column:1/-1}
+  html[data-theme="dark"] .desktop-settings__legal{border-top-color:#3d5069;color:#93a3b8}
+  html[data-theme="dark"] .desktop-settings__legal-copy strong{color:#c2ccda}
+  html[data-theme="dark"] .desktop-settings__legal nav button{color:#aab7ff}
+}

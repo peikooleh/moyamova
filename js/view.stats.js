@@ -71,7 +71,6 @@
         ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд']
         : ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
       placeholderTitle: uk ? 'Активність і якість' : 'Активность и качество',
-      placeholderTitle: uk ? 'Активність і якість' : 'Активность и качество',
       placeholderText: uk
         ? 'Тут пізніше з’явиться статистика за часом у застосунку, регулярністю та якістю запам’ятовування.'
         : 'Здесь позже появится статистика по времени в приложении, регулярности и качеству запоминания.',
@@ -958,7 +957,233 @@ function countLearnedWordsByLang(langCode) {
 
   /* ---------------------- карточки по языкам ---------------------- */
 
-  function renderLangCards(langStats, texts, activeLangCode) {
+  
+function renderDesktopStatsDashboard(langStat, allLangStats, texts) {
+  var uk = getUiLang() === 'uk';
+  var total = Number(langStat.totalWords || 0);
+  var learned = Number(langStat.learnedWords || 0);
+  var pct = total ? Math.round((learned / total) * 100) : 0;
+  var langCode = langStat.lang || 'de';
+
+  var activity = getDailyActivitySeries((allLangStats && allLangStats.length > 1) ? '__all__' : langCode) || [];
+  var activeDays = activity.filter(function(d){
+    return Number(d.learned||0) + Number(d.reviewed||0) + Number(d.seconds||0) > 0;
+  }).length;
+
+  var splitTime = sumSplitSecondsByLang(langCode);
+  var totalSeconds = Number(splitTime.total || splitTime.words || 0);
+  var totalMinutes = Math.round(totalSeconds / 60);
+  var totalTime = totalMinutes >= 60
+    ? (Math.floor(totalMinutes/60) + ' ' + (uk ? 'год' : 'ч') + ' ' + (totalMinutes%60) + ' ' + (uk ? 'хв' : 'мин'))
+    : (totalMinutes + ' ' + (uk ? 'хв' : 'мин'));
+
+  function fmt(n){ return Number(n||0).toLocaleString('ru-RU'); }
+  function escText(v){
+    return String(v == null ? '' : v).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  var posBuckets = Object.keys(langStat.byPos || {}).map(function(key){
+    return langStat.byPos[key];
+  }).sort(function(a,b){
+    var ao = CORE_POS.concat(OTHER_POS_ORDER).indexOf(a.pos);
+    var bo = CORE_POS.concat(OTHER_POS_ORDER).indexOf(b.pos);
+    if(ao < 0) ao = 99;
+    if(bo < 0) bo = 99;
+    return ao-bo;
+  });
+
+  var posCards = posBuckets.map(function(bucket){
+    var p = percent(bucket.learned, bucket.total);
+    var color = POS_COLORS[bucket.pos] || POS_COLORS.other;
+    var label = resolvePosLabel(bucket, texts);
+    return '<article class="stats-v3-pos-card" style="--stats-pos-color:'+color+'">'+
+      '<div class="stats-v3-pos-head"><span class="stats-v3-pos-dot"></span><strong>'+escText(label)+'</strong></div>'+
+      '<div class="stats-v3-pos-line"><span>'+fmt(bucket.total)+' '+(uk?'слів':'слов')+'</span><b>'+p+'%</b></div>'+
+      '<div class="stats-v3-pos-bar"><i style="width:'+p+'%"></i></div>'+
+      '<small>'+fmt(bucket.learned)+' / '+fmt(bucket.total)+'</small>'+
+    '</article>';
+  }).join('');
+
+  // Last 7 active/calendar entries, normalized to a simple bar chart.
+  var daily = activity.slice().sort(function(a,b){
+    return String(a.date||'').localeCompare(String(b.date||''));
+  }).slice(-7);
+  var dailyScores = daily.map(function(d){
+    return Number(d.learned||0)*4 + Number(d.reviewed||0) + Number(d.seconds||0)/60;
+  });
+  var maxDaily = Math.max.apply(Math,[1].concat(dailyScores));
+  var dayNames = uk ? ['Нд','Пн','Вт','Ср','Чт','Пт','Сб'] : ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  var barsHtml = '';
+  if(daily.length){
+    barsHtml = daily.map(function(d,idx){
+      var score=dailyScores[idx];
+      var h=Math.max(5,Math.round(score/maxDaily*100));
+      var dt = d.date ? new Date(String(d.date).slice(0,10)+'T12:00:00') : null;
+      var label = dt && !isNaN(dt) ? dayNames[dt.getDay()] : '•';
+      return '<div class="stats-v3-bar-col"><div class="stats-v3-bar-wrap"><i style="height:'+h+'%"></i></div><span>'+label+'</span></div>';
+    }).join('');
+  } else {
+    barsHtml = '<div class="stats-v3-empty">'+(uk?'Ще немає даних про активність.':'Пока нет данных об активности.')+'</div>';
+  }
+
+  // Language distribution across all available training languages.
+  var palette=['#2b8cff','#7c5ce6','#25c17e','#ff962f','#14b8a6','#ec4899'];
+  var langTotal=(allLangStats||[]).reduce(function(sum,x){ return sum+Number(x.learnedWords||0); },0);
+  var langRows=[];
+  var acc=0;
+  var gradient=[];
+  (allLangStats||[]).forEach(function(ls,idx){
+    var val=Number(ls.learnedWords||0);
+    var share=langTotal?Math.round(val*100/langTotal):0;
+    var end=acc+share;
+    var color=palette[idx%palette.length];
+    gradient.push(color+' '+acc+'% '+end+'%');
+    acc=end;
+    var names={de:'Deutsch',en:'English',sr:'Srpski',fr:'Français',es:'Español'};
+    langRows.push('<div class="stats-v3-lang-row"><span class="stats-v3-lang-dot" style="background:'+color+'"></span><strong>'+escText(names[ls.lang]||String(ls.lang||'').toUpperCase())+'</strong><span>'+fmt(val)+' ('+share+'%)</span></div>');
+  });
+  if(acc<100) gradient.push((document.documentElement.dataset.theme==='dark'?'#2b4054':'#e8eef8')+' '+acc+'% 100%');
+
+  var learnedArticles = langCode==='de' ? countLearnedArticlesByLang(langCode) : 0;
+  var learnedTranslations = countLearnedWordsByLang(langCode);
+  var learnedPreps = countLearnedPrepositionsByLang(langCode);
+
+  function metricRow(label,value){
+    return '<div class="stats-v3-detail-row"><span>'+escText(label)+'</span><strong>'+escText(value)+'</strong></div>';
+  }
+
+  var detailRows =
+    metricRow(uk?'Вивчено слів з перекладами':'Выучено слов с переводами',fmt(learnedTranslations))+
+    (langCode==='de' ? metricRow(uk?'Вивчено слів з артиклями':'Выучено слов с артиклями',fmt(learnedArticles)) : '')+
+    metricRow(uk?'Вивчено патернів':'Выучено паттернов',fmt(learnedPreps))+
+    '<div class="stats-v3-detail-sep"></div>'+
+    metricRow((uk?'Час — переклади':'Время — переводы'),formatMinutes(splitTime.words))+
+    (langCode==='de' ? metricRow((uk?'Час — артиклі':'Время — артикли'),formatMinutes(splitTime.articles)) : '')+
+    metricRow((uk?'Час — прийменники':'Время — предлоги'),formatMinutes(splitTime.prepositions));
+
+  return '<div class="stats-v3-dashboard">'+
+    '<section class="stats-v3-kpis">'+
+      '<article class="stats-v3-kpi stats-v3-kpi--progress"><small>'+(uk?'ЗАГАЛЬНИЙ ПРОГРЕС':'ОБЩИЙ ПРОГРЕСС')+'</small><div class="stats-v3-progress-ring" style="--p:'+pct+'%"><b>'+pct+'%</b></div><strong>'+fmt(learned)+' / '+fmt(total)+'</strong><span>'+(uk?'слів вивчено':'слов выучено')+'</span></article>'+
+      '<article class="stats-v3-kpi"><small>'+(uk?'ВИВЧЕНО':'ВЫУЧЕНО')+'</small><i class="stats-v3-kpi-icon stats-v3-kpi-icon--green">✓</i><strong>'+fmt(learned)+'</strong><span>'+(uk?'слів':'слов')+'</span></article>'+
+      '<article class="stats-v3-kpi"><small>'+(uk?'ЧАС У ТРЕНАЖЕРІ':'ВРЕМЯ В ТРЕНАЖЕРЕ')+'</small><i class="stats-v3-kpi-icon stats-v3-kpi-icon--violet">◷</i><strong>'+totalTime+'</strong><span>'+(uk?'загальний час':'общее время')+'</span></article>'+
+      '<article class="stats-v3-kpi"><small>'+(uk?'АКТИВНІ ДНІ':'АКТИВНЫЕ ДНИ')+'</small><i class="stats-v3-kpi-icon stats-v3-kpi-icon--orange">🔥</i><strong>'+activeDays+'</strong><span>'+(uk?'днів з активністю':'дней с активностью')+'</span></article>'+
+    '</section>'+
+
+    '<section class="stats-v3-row stats-v3-row--middle">'+
+      '<article class="stats-v3-panel stats-v3-activity"><h3>'+(uk?'Активність за днями':'Активность по дням')+'</h3><div class="stats-v3-bars">'+barsHtml+'</div></article>'+
+      '<article class="stats-v3-panel stats-v3-languages"><h3>'+(uk?'Розподіл за мовами':'Распределение по языкам')+'</h3><div class="stats-v3-lang-content"><div class="stats-v3-donut" style="background:conic-gradient('+gradient.join(',')+')"><span></span></div><div class="stats-v3-lang-list">'+langRows.join('')+'</div></div></article>'+
+    '</section>'+
+
+    '<section class="stats-v3-row stats-v3-row--bottom">'+
+      '<article class="stats-v3-panel stats-v3-pos"><h3>'+(uk?'Прогрес за частинами мови':'Прогресс по частям речи')+'</h3><div class="stats-v3-pos-grid">'+posCards+'</div></article>'+
+      '<article class="stats-v3-panel stats-v3-detail"><h3>'+(uk?'Детальна статистика':'Детальная статистика')+'</h3><div class="stats-v3-detail-list">'+detailRows+'</div></article>'+
+    '</section>'+
+
+    '<div class="stats-v3-tip">💡 '+(uk?'Порада: регулярні заняття — ключ до результату. Вчіться потроху щодня!':'Совет: регулярные занятия — ключ к результату. Учитесь понемногу каждый день!')+'</div>'+
+  '</div>';
+}
+
+
+function renderMobileStatsDashboard(langStat, allLangStats, texts) {
+  var uk = getUiLang() === 'uk';
+  var langCode = langStat.lang || 'de';
+  var total = Number(langStat.totalWords || 0);
+  var learned = Number(langStat.learnedWords || 0);
+  var pct = total ? Math.round(learned * 100 / total) : 0;
+
+  var started = 0;
+  var completed = 0;
+  (langStat.decks || []).forEach(function(d){
+    if (Number(d.learnedWords || 0) > 0) started++;
+    if (Number(d.totalWords || 0) > 0 && Number(d.learnedWords || 0) >= Number(d.totalWords || 0)) completed++;
+  });
+
+  var splitTime = sumSplitSecondsByLang(langCode);
+  var totalSeconds = Number(splitTime.total || splitTime.words || 0);
+  var totalMinutes = Math.round(totalSeconds / 60);
+  var totalTime = totalMinutes >= 60
+    ? (Math.floor(totalMinutes / 60) + ' ' + (uk ? 'год' : 'ч') + ' ' + (totalMinutes % 60) + ' ' + (uk ? 'хв' : 'мин'))
+    : (totalMinutes + ' ' + (uk ? 'хв' : 'мин'));
+
+  var activityKey = (allLangStats && allLangStats.length > 1) ? '__all__' : langCode;
+  var activity = getDailyActivitySeries(activityKey) || [];
+  var activeDays = activity.filter(function(d){
+    return Number(d.learned || 0) + Number(d.reviewed || 0) + Number(d.seconds || 0) > 0;
+  }).length;
+
+  function fmt(n){ return Number(n || 0).toLocaleString('ru-RU'); }
+  function esc(v){
+    return String(v == null ? '' : v).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  var posBuckets = Object.keys(langStat.byPos || {}).map(function(k){ return langStat.byPos[k]; });
+  posBuckets.sort(function(a,b){
+    var order = CORE_POS.concat(OTHER_POS_ORDER);
+    var ai = order.indexOf(a.pos), bi = order.indexOf(b.pos);
+    if (ai < 0) ai = 99;
+    if (bi < 0) bi = 99;
+    return ai - bi;
+  });
+
+  var posRows = posBuckets.map(function(bucket){
+    var p = percent(bucket.learned, bucket.total);
+    var color = POS_COLORS[bucket.pos] || POS_COLORS.other;
+    return '<div class="stats-mobile-pos-row" style="--stats-pos-color:'+color+'">'+
+      '<div class="stats-mobile-pos-top"><span class="stats-mobile-pos-dot"></span><strong>'+esc(resolvePosLabel(bucket,texts))+'</strong><b>'+p+'%</b></div>'+
+      '<div class="stats-mobile-pos-bar"><i style="width:'+p+'%"></i></div>'+
+      '<small>'+fmt(bucket.learned)+' / '+fmt(bucket.total)+'</small>'+
+    '</div>';
+  }).join('');
+
+  var learnedWords = countLearnedWordsByLang(langCode);
+  var learnedArticles = langCode === 'de' ? countLearnedArticlesByLang(langCode) : 0;
+  var learnedPreps = countLearnedPrepositionsByLang(langCode);
+
+  function modeRow(kind, label, learnedValue, learnedUnit, seconds){
+    return '<div class="stats-mobile-mode-row stats-mobile-mode-row--'+kind+'">'+
+      '<span class="stats-mobile-mode-icon">'+(kind==='words'?'Aa':kind==='articles'?'der':'→')+'</span>'+
+      '<strong>'+esc(label)+'</strong>'+
+      '<span class="stats-mobile-mode-learned">'+fmt(learnedValue)+' <small>'+esc(learnedUnit)+'</small></span>'+
+      '<span class="stats-mobile-mode-time">'+esc(formatMinutes(seconds))+'</span>'+
+    '</div>';
+  }
+
+  var modes =
+    modeRow('words', texts.splitCardWords, learnedWords, uk?'слів':'слов', splitTime.words) +
+    (langCode === 'de' ? modeRow('articles', texts.splitCardArticles, learnedArticles, uk?'артиклів':'артиклей', splitTime.articles) : '') +
+    modeRow('prepositions', texts.splitCardPreps, learnedPreps, uk?'патернів':'паттернов', splitTime.prepositions);
+
+  var activityHtml = '<article class="stats-mobile-panel stats-mobile-activity">'+renderActivitySection(activityKey, texts)+'</article>';
+
+  return '<div class="stats-mobile-dashboard">'+
+    '<article class="stats-mobile-progress">'+
+      '<div class="stats-mobile-progress-main">'+
+        '<div class="stats-mobile-progress-ring" style="--p:'+pct+'%"><b>'+pct+'%</b></div>'+
+        '<div class="stats-mobile-progress-copy"><small>'+(uk?'Загальний прогрес':'Общий прогресс')+'</small><strong>'+fmt(learned)+' / '+fmt(total)+'</strong><span>'+(uk?'слів вивчено':'слов выучено')+'</span></div>'+
+      '</div>'+
+      '<div class="stats-mobile-kpis">'+
+        '<div><i>◷</i><small>'+(uk?'Час у тренажері':'Время в тренажёре')+'</small><strong>'+esc(totalTime)+'</strong></div>'+
+        '<div><i>▣</i><small>'+(uk?'Активні дні':'Активные дни')+'</small><strong>'+activeDays+'</strong></div>'+
+        '<div><i>✓</i><small>'+(uk?'Завершено словників':'Завершено словарей')+'</small><strong>'+completed+' / '+(langStat.decks||[]).length+'</strong></div>'+
+      '</div>'+
+    '</article>'+
+    '<details class="stats-mobile-panel stats-mobile-pos-details">'+
+      '<summary><span>'+(uk?'Прогрес за частинами мови':'Прогресс по частям речи')+'</span><i aria-hidden="true">⌄</i></summary>'+
+      '<div class="stats-mobile-pos-list">'+posRows+'</div>'+
+    '</details>'+
+    '<article class="stats-mobile-panel stats-mobile-modes">'+
+      '<div class="stats-mobile-modes-head"><h3>'+(uk?'Режими навчання':'Режимы обучения')+'</h3><span>'+(uk?'Вивчено':'Выучено')+' · '+(uk?'Час':'Время')+'</span></div>'+
+      '<div class="stats-mobile-mode-list">'+modes+'</div>'+
+    '</article>'+
+    activityHtml+
+  '</div>';
+}
+
+function renderLangCards(langStats, texts, activeLangCode) {
     if (!langStats.length) {
       return '<p class="stats-placeholder">—</p>';
     }
@@ -979,6 +1204,41 @@ function countLearnedWordsByLang(langCode) {
           if (d.totalWords > 0 && d.learnedWords >= d.totalWords) completed += 1;
         });
 
+        const learnedPct = total > 0 ? Math.round((learned / total) * 100) : 0;
+        const inProgress = Math.max(0, started - completed);
+        const ukUi = getUiLang() === 'uk';
+        const overviewHtml =
+          '<div class="stats-overview">' +
+            '<article class="stats-overview__hero">' +
+              '<div class="stats-overview__ring" style="--stats-pct:' + learnedPct + '%">' +
+                '<span>' + learnedPct + '%</span>' +
+              '</div>' +
+              '<div class="stats-overview__hero-copy">' +
+                '<small>' + (ukUi ? 'Загальний прогрес' : 'Общий прогресс') + '</small>' +
+                '<strong>' + learned + ' / ' + total + '</strong>' +
+                '<span>' + (ukUi ? 'слів вивчено' : 'слов выучено') + '</span>' +
+              '</div>' +
+            '</article>' +
+            '<article class="stats-overview__metric">' +
+              '<span class="stats-overview__icon">✓</span>' +
+              '<small>' + (ukUi ? 'Завершено словників' : 'Завершено словарей') + '</small>' +
+              '<strong>' + completed + '</strong>' +
+              '<span>' + (ukUi ? 'з ' : 'из ') + langStat.decks.length + '</span>' +
+            '</article>' +
+            '<article class="stats-overview__metric">' +
+              '<span class="stats-overview__icon">▣</span>' +
+              '<small>' + (ukUi ? 'У процесі' : 'В процессе') + '</small>' +
+              '<strong>' + inProgress + '</strong>' +
+              '<span>' + (ukUi ? 'словників' : 'словарей') + '</span>' +
+            '</article>' +
+            '<article class="stats-overview__metric">' +
+              '<span class="stats-overview__icon">Σ</span>' +
+              '<small>' + (ukUi ? 'Всього словників' : 'Всего словарей') + '</small>' +
+              '<strong>' + langStat.decks.length + '</strong>' +
+              '<span>' + (ukUi ? 'доступно' : 'доступно') + '</span>' +
+            '</article>' +
+          '</div>';
+
         const split = splitPosBuckets(langStat);
         const coreSetHtml = renderRingSet(split.core, texts, 'core');
         const otherSetHtml = renderRingSet(split.other, texts, 'other');
@@ -990,7 +1250,7 @@ function countLearnedWordsByLang(langCode) {
         const activityHtml = renderActivitySection(activityKey, texts);
 
         // Страница "Время: слова vs артикли" показывается только для немецкого языка (de).
-        // Пейджер и PRO-гейт должны работать независимо от количества страниц.
+        // Пейджер должен работать независимо от количества страниц.
         const activityPage = hasSplitPage ? 3 : 2;
 
         const pagesHtml =
@@ -1019,10 +1279,10 @@ function countLearnedWordsByLang(langCode) {
 
         const dotsHtml =
           '<div class="stats-pages-dots">' +
-            '<button class="stats-page-dot is-active" type="button" data-page="0"></button>' +
-            '<button class="stats-page-dot" type="button" data-page="1"></button>' +
-            (hasSplitPage ? '<button class="stats-page-dot" type="button" data-page="2"></button>' : '') +
-            '<button class="stats-page-dot" type="button" data-page="' + activityPage + '"></button>' +
+            '<button class="stats-page-dot is-active" type="button" data-page="0" data-label="' + (getUiLang()==='uk' ? 'Основні' : 'Основные') + '"></button>' +
+            '<button class="stats-page-dot" type="button" data-page="1" data-label="' + (getUiLang()==='uk' ? 'Інші' : 'Другие') + '"></button>' +
+            (hasSplitPage ? '<button class="stats-page-dot" type="button" data-page="2" data-label="' + (getUiLang()==='uk' ? 'Режими' : 'Режимы') + '"></button>' : '') +
+            '<button class="stats-page-dot" type="button" data-page="' + activityPage + '" data-label="' + (getUiLang()==='uk' ? 'Активність' : 'Активность') + '"></button>' +
           '</div>';
 
         return (
@@ -1031,6 +1291,9 @@ function countLearnedWordsByLang(langCode) {
           '" data-lang="' +
           langCode +
           '">' +
+          '<div class="stats-v3-desktop-only">' + renderDesktopStatsDashboard(langStat, langStats, texts) + '</div>' +
+          '<div class="stats-mobile-only">' + renderMobileStatsDashboard(langStat, langStats, texts) + '</div>' +
+          overviewHtml +
           '<div class="stats-lang-card__body">' +
             pagesHtml +
           '</div>' +
@@ -1099,6 +1362,10 @@ function countLearnedWordsByLang(langCode) {
       });
 
       try {
+        requestAnimationFrame(function(){ syncDesktopStatsPageHeight(root); });
+      } catch (_) {}
+
+      try {
         A.settings = A.settings || {};
         A.settings.statsLang = lang;
       } catch (_) {}
@@ -1111,7 +1378,11 @@ function countLearnedWordsByLang(langCode) {
       btn.className = 'dict-flag' + (lang === activeLang ? ' active' : '');
       btn.dataset.lang = lang;
       btn.title = lang.toUpperCase();
-      btn.textContent = FLAG[lang] || lang.toUpperCase();
+      if (['de','en','sr','ru','uk','es','fr'].indexOf(lang) !== -1) {
+        btn.innerHTML = '<img class="asset-flag" src="./img/flags/' + (lang === 'ua' ? 'uk' : lang) + '.svg" alt="">';
+      } else {
+        btn.textContent = FLAG[lang] || lang.toUpperCase();
+      }
       btn.addEventListener('click', function () {
         if (lang === activeLang) return;
         applyActive(lang);
@@ -1171,6 +1442,42 @@ function countLearnedWordsByLang(langCode) {
 
   /* ---------------------- Пейджер по трём экранам ---------------------- */
 
+
+  /* ---------------------- desktop equal-height pages ---------------------- */
+
+  function syncDesktopStatsPageHeight(root) {
+    try {
+      if (!root || !window.matchMedia || !window.matchMedia('(min-width:900px)').matches) return;
+
+      const cards = root.querySelectorAll('.stats-lang-card');
+      if (!cards.length) return;
+
+      cards.forEach(function(card){
+        const pages = Array.prototype.slice.call(card.querySelectorAll('.stats-page'));
+        if (!pages.length) return;
+
+        let maxH = 0;
+
+        pages.forEach(function(page){
+          const wasActive = page.classList.contains('is-active');
+
+          page.classList.add('stats-page--measure');
+          if (!wasActive) page.classList.add('stats-page--measure-hidden');
+
+          const h = Math.ceil(Math.max(page.scrollHeight || 0, page.getBoundingClientRect().height || 0));
+          if (h > maxH) maxH = h;
+
+          page.classList.remove('stats-page--measure');
+          page.classList.remove('stats-page--measure-hidden');
+        });
+
+        if (maxH > 0) {
+          card.style.setProperty('--stats-page-fixed-h', maxH + 'px');
+        }
+      });
+    } catch (_) {}
+  }
+
   function setupStatsPager(root) {
     if (!root) return;
 
@@ -1202,29 +1509,6 @@ function countLearnedWordsByLang(langCode) {
         if (pageNum > maxPage) pageNum = maxPage;
         current = pageNum;
 
-        // PRO-gate: аналитика доступна только в PRO (независимо от индекса)
-        var targetPage = null;
-        pagesList.forEach(function (pageEl) {
-          var pIdx = parseInt(pageEl.getAttribute('data-page') || '0', 10) || 0;
-          if (pIdx === current) targetPage = pageEl;
-        });
-
-        if (targetPage && targetPage.classList.contains('stats-page--analytics') && (!A.isPro || !A.isPro())) {
-          try {
-            var lang = getUiLang();
-            var bodyText = (lang === 'uk')
-              ? 'Статистика доступна у версії MOYAMOVA PRO. Натисніть кнопку 💎 у меню, щоб розблокувати.'
-              : 'Статистика доступна в версии MOYAMOVA PRO. Нажмите кнопку 💎 в меню, чтобы разблокировать.';
-
-            var stubHtml =
-              '<div class="stats-pro-gate" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">' +
-                '<p style="margin-bottom:10px;">' + bodyText + '</p>' +
-              '</div>';
-
-            targetPage.innerHTML = stubHtml;
-          } catch (_) {}
-        }
-
         // Активные классы
         pagesList.forEach(function (pageEl) {
           var pIdx = parseInt(pageEl.getAttribute('data-page') || '0', 10) || 0;
@@ -1234,6 +1518,10 @@ function countLearnedWordsByLang(langCode) {
           var dIdx = parseInt(dotEl.getAttribute('data-page') || '0', 10) || 0;
           dotEl.classList.toggle('is-active', dIdx === current);
         });
+
+        try {
+          requestAnimationFrame(function(){ syncDesktopStatsPageHeight(root); });
+        } catch (_) {}
       }
 
       dots.forEach(function (dot) {
@@ -1277,8 +1565,44 @@ function countLearnedWordsByLang(langCode) {
       '</div>';
 
     app.innerHTML = html;
+
+    // 1.12.45 — Statistics uses the same compact mobile chrome as the trainers.
+    // Set the shell synchronously and mount its Home/title/menu row immediately,
+    // so the legacy logo header never remains visible on the mobile stats page.
+    try {
+      if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) {
+        document.documentElement.dataset.mobileShell = 'stats';
+        if (window.MOYAMOVA_MobileStats && typeof window.MOYAMOVA_MobileStats.mount === 'function') {
+          window.MOYAMOVA_MobileStats.mount();
+        }
+      }
+    } catch (_) {}
+
     setupLangFlags(app, stats.byLang, activeLang);
     setupStatsPager(app);
+
+    try {
+      requestAnimationFrame(function(){
+        syncDesktopStatsPageHeight(app);
+        setTimeout(function(){ syncDesktopStatsPageHeight(app); }, 80);
+      });
+    } catch (_) {}
+
+    try {
+      if (!A.__statsDesktopResizeBound) {
+        A.__statsDesktopResizeBound = true;
+        let rt = 0;
+        window.addEventListener('resize', function(){
+          clearTimeout(rt);
+          rt = setTimeout(function(){
+            try {
+              const currentApp = document.getElementById('app');
+              if (currentApp) syncDesktopStatsPageHeight(currentApp);
+            } catch (_) {}
+          }, 120);
+        });
+      }
+    } catch (_) {}
   }
 
   A.ViewStats = {

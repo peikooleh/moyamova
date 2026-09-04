@@ -38,21 +38,12 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
       const el = document.getElementById('trainerModeIndicator');
       if (!el) return;
       const lvl = difficulty(); // 'hard' или 'normal'
-      let base = lvl === 'hard' ? '🦅' : '🐣';
-
-      // Дополнительные бейджи режимов для тренеров (слова/артикли):
-      // - Favorites: ⭐
-      // - Mistakes: ⚠️
-      // Показ основан на deckKey (prefix favorites:/mistakes:).
-      try {
-        if (App.Trainer && typeof App.Trainer.getDeckKey === 'function') {
-          const dk = String(App.Trainer.getDeckKey() || '');
-          if (/^favorites:/i.test(dk)) base = base + ' ⭐';
-          else if (/^mistakes:/i.test(dk)) base = base + ' ⚠️';
-        }
-      } catch (_e) {}
-
+      const base = lvl === 'hard' ? '🦅' : '🐣';
+      // The top-left control represents difficulty only. Favorites and mistakes
+      // already have dedicated navigation/badges and must not be mixed into it.
       el.textContent = base;
+      el.setAttribute('aria-pressed', String(lvl === 'hard'));
+      el.dataset.level = lvl;
     } catch (_) {}
   }
 

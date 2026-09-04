@@ -1,0 +1,82 @@
+/* MOYAMOVA Dictionaries V2 — 1.7.3 */
+:root{
+  --dv2-card:var(--surface-1,#fff);
+  --dv2-soft:var(--surface-2,#f7f9fc);
+  --dv2-border:var(--border,#e3eaf2);
+  --dv2-text:var(--text,#111827);
+  --dv2-muted:var(--text-muted,#6b7280);
+  --dv2-blue:var(--brand,#1fb6ff);
+}
+
+.home--fixed-card{width:100%;max-width:980px;margin:0 auto;box-sizing:border-box}
+.dicts-card.dicts-card--fixed{
+  border:1px solid var(--dv2-border);border-radius:18px;background:var(--dv2-card);
+  padding:16px;box-shadow:0 8px 28px rgba(15,23,42,.05);box-sizing:border-box
+}
+.dicts-header{min-height:42px;margin:0 0 14px;padding:0 2px 12px;border-bottom:1px solid var(--dv2-border)}
+.dicts-header h3{margin:0;font-family:Montserrat,system-ui,sans-serif;font-size:20px;line-height:1.2;font-weight:800;color:var(--dv2-text)}
+.dicts-flags{gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.dict-flag{width:38px;height:30px;border-radius:9px;border:1px solid var(--dv2-border);background:var(--dv2-soft);font-size:20px;box-shadow:none}
+.dict-flag.active{border-color:var(--dv2-blue);background:color-mix(in srgb,var(--dv2-blue) 9%,var(--dv2-card));box-shadow:0 0 0 2px color-mix(in srgb,var(--dv2-blue) 13%,transparent)}
+
+.dicts-scroll{min-width:0;padding:2px}
+.dicts-table{display:block;width:100%;border:0;border-collapse:separate;border-spacing:0}
+.dicts-table tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+.dicts-table tbody tr.dict-row{
+  display:grid;grid-template-columns:34px minmax(0,1fr) auto 38px;align-items:center;
+  min-width:0;min-height:66px;padding:8px 9px;border:1px solid var(--dv2-border);
+  border-radius:13px;background:var(--dv2-soft);box-sizing:border-box;
+  transition:border-color .15s ease,box-shadow .15s ease,background-color .15s ease,transform .08s ease
+}
+@media (hover:hover) and (pointer:fine){
+  .dicts-table tbody tr.dict-row:hover{border-color:color-mix(in srgb,var(--dv2-blue) 48%,var(--dv2-border));background:var(--dv2-card);box-shadow:0 5px 16px rgba(30,96,170,.07)}
+}
+.dicts-table tbody tr.dict-row:active{transform:scale(.995)}
+.dicts-table tbody tr.dict-row>td{
+  display:block;min-width:0;padding:0 6px;border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;color:var(--dv2-text);font-size:13px;box-sizing:border-box
+}
+.dicts-table tbody tr.dict-row>td:first-child{padding-left:0;font-size:21px;text-align:left}
+.dicts-table tbody tr.dict-row>td:nth-child(2){
+  font-family:Montserrat,system-ui,sans-serif;font-weight:700;line-height:1.25;overflow-wrap:anywhere
+}
+.dicts-table tbody tr.dict-row>td:nth-child(3){
+  min-width:40px;padding:5px 8px;border-radius:999px!important;background:var(--dv2-card)!important;
+  color:var(--dv2-muted);font-size:11px;font-weight:700;text-align:center
+}
+.dicts-table tbody tr.dict-row>td:last-child{padding:0;text-align:right}
+.dicts-preview{
+  width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;
+  border-radius:9px;background:transparent;font-size:17px;opacity:.68
+}
+.dicts-table tbody tr.dict-row.is-selected{
+  border-color:var(--dv2-blue);background:color-mix(in srgb,var(--dv2-blue) 7%,var(--dv2-card));
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--dv2-blue) 11%,transparent)
+}
+.dicts-table tbody tr.dict-row.is-selected>td:nth-child(3){color:var(--dv2-blue)}
+.dicts-table tbody tr.dict-row.is-selected .dicts-preview{opacity:1}
+
+.dicts-scroll .stats-pages{min-width:0}
+.dicts-scroll .stats-page>div>h3{font-family:Montserrat,system-ui,sans-serif;color:var(--dv2-text)}
+.dicts-footer{margin-top:12px;padding-top:11px;border-top:1px solid var(--dv2-border)}
+.dicts-actions{margin-top:0;gap:10px;flex-wrap:wrap}
+.dicts-actions .btn-primary{min-height:43px;padding:0 18px;border-radius:11px;font-size:13px;box-shadow:none}
+.stats-pages-dots{margin-bottom:9px}
+
+html[data-theme="dark"] .dicts-card.dicts-card--fixed{background:var(--surface-2,#121c28);border-color:var(--divider,#263447);box-shadow:none}
+html[data-theme="dark"] .dicts-table tbody tr.dict-row{background:var(--surface-3,#162231);border-color:var(--divider,#263447)}
+html[data-theme="dark"] .dicts-table tbody tr.dict-row>td{background:transparent!important}
+html[data-theme="dark"] .dicts-table tbody tr.dict-row>td:nth-child(3){background:var(--surface-2,#121c28)!important}
+html[data-theme="dark"] .dicts-table tbody tr.dict-row.is-selected{background:color-mix(in srgb,var(--brand,#35b6ff) 9%,var(--surface-3,#162231))}
+
+@media (max-width:680px){
+  .home--fixed-card{max-width:100%;padding-left:0;padding-right:0}
+  .dicts-card.dicts-card--fixed{width:100%;max-width:100%;min-width:0;padding:13px 11px 12px;border-radius:16px}
+  .dicts-header h3{font-size:18px}
+  .dicts-table tbody{grid-template-columns:minmax(0,1fr);gap:8px}
+  .dicts-table tbody tr.dict-row{
+    width:100%;max-width:100%;grid-template-columns:32px minmax(0,1fr) auto 36px;min-height:61px;padding:7px 8px
+  }
+  .dicts-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .dicts-actions .btn-primary{width:100%}
+}

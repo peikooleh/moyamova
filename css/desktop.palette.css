@@ -1,0 +1,169 @@
+/* ==========================================================
+ * MOYAMOVA 1.10.13 — Desktop Soft Palette + Difficulty Control
+ * Color-only desktop refresh. Geometry is intentionally unchanged.
+ * ========================================================== */
+@media (min-width:900px){
+  /* ---------- Light desktop shell ---------- */
+  html:not([data-theme="dark"]) .dashboard,
+  html:not([data-theme="dark"]) .trainer-desktop-shell,
+  html:not([data-theme="dark"]) .desktop-pages-shell,
+  html:not([data-theme="dark"]) .guide-v3-shell{
+    background:#f7f8ff!important;
+    color:#17223a!important;
+  }
+
+  html:not([data-theme="dark"]) .dash-side,
+  html:not([data-theme="dark"]) .trainer-desktop-shell .trainer-side,
+  html:not([data-theme="dark"]) .desktop-pages-side,
+  html:not([data-theme="dark"]) .guide-side{
+    background:linear-gradient(180deg,#f1f3ff 0%,#edf2ff 100%)!important;
+    color:#263553!important;
+  }
+
+  html:not([data-theme="dark"]) .dash-brand,
+  html:not([data-theme="dark"]) .trainer-desktop-shell .dash-brand,
+  html:not([data-theme="dark"]) .desktop-pages-side .dash-brand,
+  html:not([data-theme="dark"]) .guide-side .dash-brand{
+    border-color:#dce3f3!important;
+  }
+  html:not([data-theme="dark"]) .dash-brand strong{color:#17223a!important}
+  html:not([data-theme="dark"]) .dash-brand span{color:#4f67de!important}
+
+  html:not([data-theme="dark"]) .dash-side nav button,
+  html:not([data-theme="dark"]) .trainer-desktop-shell .trainer-side nav button,
+  html:not([data-theme="dark"]) .desktop-pages-side nav button,
+  html:not([data-theme="dark"]) .guide-side nav button{
+    color:#33425f!important;
+    background:transparent!important;
+  }
+  html:not([data-theme="dark"]) .dash-side nav button:hover,
+  html:not([data-theme="dark"]) .trainer-desktop-shell .trainer-side nav button:hover,
+  html:not([data-theme="dark"]) .desktop-pages-side nav button:hover,
+  html:not([data-theme="dark"]) .guide-side nav button:hover{
+    background:#e3e8ff!important;
+    color:#3f51c6!important;
+  }
+  html:not([data-theme="dark"]) .dash-side nav button.is-active,
+  html:not([data-theme="dark"]) .trainer-desktop-shell .trainer-side nav button.is-active,
+  html:not([data-theme="dark"]) .desktop-pages-side nav button.is-active,
+  html:not([data-theme="dark"]) .guide-side nav button.is-active{
+    background:#dbe3ff!important;
+    color:#304bc8!important;
+  }
+  html:not([data-theme="dark"]) .dash-side-foot,
+  html:not([data-theme="dark"]) .trainer-desktop-shell .dash-side-foot,
+  html:not([data-theme="dark"]) .desktop-pages-side .dash-side-foot,
+  html:not([data-theme="dark"]) .guide-side .dash-side-foot{
+    color:#7d8aa3!important;
+    border-color:#dce3f3!important;
+  }
+  html:not([data-theme="dark"]) .guide-side-sep{background:#dce3f3!important}
+  html:not([data-theme="dark"]) .desktop-nav-count{background:#f27b91!important;color:#fff!important}
+
+  /* Remove the remaining dark island in Articles light theme. */
+  html:not([data-theme="dark"]) .trainer-desktop-shell:has(.home-trainer.is-articles){
+    background:#f7f8ff!important;
+  }
+  html:not([data-theme="dark"]) .articles-desktop-titlebar p,
+  html:not([data-theme="dark"]) .articles-desktop-progress,
+  html:not([data-theme="dark"]) .articles-desktop-kpis article>span{color:#7d8ba3!important}
+  html:not([data-theme="dark"]) .articles-desktop-progress>div{background:#e4e9f5!important}
+  html:not([data-theme="dark"]) .articles-desktop-progress>b{color:#25324a!important}
+
+  /* Common accent derived from the lighter sidebar. */
+  html:not([data-theme="dark"]) .dash-primary,
+  html:not([data-theme="dark"]) .desktop-settings__button--primary,
+  html:not([data-theme="dark"]) .filters-apply{
+    background:#5b67e8!important;
+    border-color:#5b67e8!important;
+  }
+
+  /* ---------- Difficulty control: top-left, symmetric to heart ---------- */
+  .home-trainer .trainer-top,
+  .trainer-desktop-main .home-trainer.is-articles .trainer-top,
+  .home--preps-trainer .trainer-top{
+    display:grid!important;
+    grid-template-columns:44px minmax(0,1fr) 44px!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+  .home-trainer .trainer-mode-indicator,
+  .trainer-desktop-main .home-trainer.is-articles .trainer-mode-indicator,
+  .home--preps-trainer .trainer-mode-indicator{
+    display:grid!important;
+    position:static!important;
+    grid-column:1!important;
+    justify-self:start!important;
+    place-items:center!important;
+    width:38px!important;
+    height:38px!important;
+    margin:0!important;
+    padding:0!important;
+    border:1px solid #dbe3f0!important;
+    border-radius:11px!important;
+    background:#f4f7ff!important;
+    color:#273855!important;
+    font-size:20px!important;
+    line-height:1!important;
+    opacity:1!important;
+    cursor:pointer!important;
+    box-shadow:none!important;
+    transition:background .15s,border-color .15s,transform .15s!important;
+  }
+  .home-trainer .trainer-mode-indicator:hover,
+  .trainer-desktop-main .home-trainer.is-articles .trainer-mode-indicator:hover,
+  .home--preps-trainer .trainer-mode-indicator:hover{
+    background:#e9eeff!important;
+    border-color:#b9c5ee!important;
+    transform:translateY(-1px)!important;
+  }
+  .home-trainer .trainer-mode-indicator[data-level="hard"]{
+    background:#fff5e8!important;
+    border-color:#f1d6ad!important;
+  }
+  .home-trainer .trainer-stars,
+  .trainer-desktop-main .home-trainer.is-articles .trainer-stars,
+  .home--preps-trainer .trainer-stars{
+    grid-column:2!important;
+    justify-self:center!important;
+  }
+  .home-trainer .heart,
+  .trainer-desktop-main .home-trainer.is-articles .heart,
+  .home--preps-trainer .heart{
+    grid-column:3!important;
+    justify-self:end!important;
+  }
+
+  /* ---------- Dark theme: keep it dark, but remove near-black contrast ---------- */
+  html[data-theme="dark"] .dashboard,
+  html[data-theme="dark"] .trainer-desktop-shell,
+  html[data-theme="dark"] .desktop-pages-shell,
+  html[data-theme="dark"] .guide-v3-shell{
+    background:#142131!important;
+  }
+  html[data-theme="dark"] .dash-side,
+  html[data-theme="dark"] .trainer-desktop-shell .trainer-side,
+  html[data-theme="dark"] .desktop-pages-side,
+  html[data-theme="dark"] .guide-side{
+    background:linear-gradient(180deg,#1b2b3d 0%,#172536 100%)!important;
+    color:#e7eef8!important;
+  }
+  html[data-theme="dark"] .dash-side nav button,
+  html[data-theme="dark"] .trainer-desktop-shell .trainer-side nav button,
+  html[data-theme="dark"] .desktop-pages-side nav button,
+  html[data-theme="dark"] .guide-side nav button{color:#ced9e7!important}
+  html[data-theme="dark"] .dash-side nav button:hover,
+  html[data-theme="dark"] .trainer-desktop-shell .trainer-side nav button:hover,
+  html[data-theme="dark"] .desktop-pages-side nav button:hover,
+  html[data-theme="dark"] .guide-side nav button:hover{background:#263b54!important;color:#fff!important}
+  html[data-theme="dark"] .dash-side nav button.is-active,
+  html[data-theme="dark"] .trainer-desktop-shell .trainer-side nav button.is-active,
+  html[data-theme="dark"] .desktop-pages-side nav button.is-active,
+  html[data-theme="dark"] .guide-side nav button.is-active{background:#315a92!important;color:#fff!important}
+  html[data-theme="dark"] .home-trainer .trainer-mode-indicator{
+    background:#22354a!important;border-color:#38516b!important;color:#f3f7fb!important
+  }
+  html[data-theme="dark"] .home-trainer .trainer-mode-indicator[data-level="hard"]{
+    background:#4a3927!important;border-color:#725c3e!important
+  }
+}

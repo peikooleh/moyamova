@@ -1,4 +1,4 @@
-# MOYAMOVA 1.5
+# MOYAMOVA 1.12.13
 
 **MOYAMOVA** — офлайн-тренажёр для изучения иностранных языков на карточках.  
 Работает прямо в браузере, без регистрации и без обязательного бэкенда.
@@ -36,6 +36,8 @@
   - прогресс по каждой деке (сколько выучено);
   - переключение между языками через флаги;
   - запуск тренировки по выбранной деке.
+
+Встроенные словари хранятся как JSON (`dicts/data/...`) и регистрируются через `DeckLoader`. В ветке 1.5.x загрузчик предварительно поднимает все встроенные деки при старте для полной совместимости с существующим синхронным UI; API `DeckLoader.load(key)` уже подготовлен для последующего перехода на загрузку по требованию.
 
 Каждое слово можно:
 - выучить через тренажёр;
@@ -198,3 +200,17 @@
 
 MOYAMOVA — это не просто словарь, а модульный офлайн-движок тренировки,
 ориентированный на устойчивый прогресс без регистрации, рекламы и лишней сложности.
+
+## 1.11.0 — Mobile Foundation
+- Desktop 1.10.18 remains the frozen visual baseline.
+- Added an isolated `<900px` mobile foundation layer.
+- Added VisualViewport CSS variables for Safari/Chrome dynamic browser UI and keyboard handling.
+- Added mobile safe-area, overflow and touch-normalization scaffolding.
+- No trainer engine, routing, progress or desktop layout logic changed.
+
+
+## 1.12.13 — Mobile Home
+- Новый mobile-only presentation layer главной страницы в `css/mobile.home.css`.
+- Dashboard стал mobile visual source of truth: компактная 2×2 статистика, главный CTA продолжения, вертикальный выбор Слова/Артикли/Предлоги, компактные словари, Ошибки/Избранное и контекстный совет.
+- Общий компонент советов разрешён на мобильной Главной; другие мобильные страницы пока не затрагиваются.
+- Desktop layout и desktop media blocks не изменялись.

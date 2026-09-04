@@ -1,0 +1,162 @@
+/* ==========================================================
+ * MOYAMOVA 1.12.11 — Desktop trainer visual unification
+ * Prepositions is the visual source of truth.
+ * Mobile is intentionally untouched.
+ * ========================================================== */
+@media (min-width:900px){
+  /* Words: replace only the visible Sets ribbon with KPI chrome.
+     The original Sets DOM stays alive for trainer/set logic. */
+  .trainer-desktop-main:has(.home--word-trainer) .home--word-trainer>.home-sets{
+    display:none!important;
+  }
+  .words-desktop-head{display:flex;flex-direction:column;gap:14px}
+  .words-desktop-titlebar,
+  .articles-desktop-titlebar,
+  .preps-desktop-titlebar{
+    display:flex;align-items:center;justify-content:space-between;gap:24px;padding:2px 4px 0
+  }
+  .words-desktop-titlebar h1,
+  .articles-desktop-titlebar h1,
+  .preps-desktop-titlebar h1{
+    margin:0;color:#182235;font:800 23px/1.2 system-ui,sans-serif
+  }
+  .words-desktop-titlebar h1>b,
+  .articles-desktop-titlebar h1>b,
+  .preps-desktop-titlebar h1>b{color:#2b8cff}
+  .words-desktop-titlebar p,
+  .articles-desktop-titlebar p,
+  .preps-desktop-titlebar p{
+    margin:5px 0 0 36px;color:#8291a4;font-size:12px
+  }
+
+  .words-desktop-progress,
+  .articles-desktop-progress,
+  .preps-desktop-progress{
+    width:280px;display:grid;grid-template-columns:1fr 42px;gap:6px 12px;align-items:center;color:#8291a4;font-size:11px
+  }
+  .words-desktop-progress>span,
+  .articles-desktop-progress>span,
+  .preps-desktop-progress>span{grid-column:1/-1}
+  .words-desktop-progress>div,
+  .articles-desktop-progress>div,
+  .preps-desktop-progress>div{height:7px;border-radius:99px;background:#dce6f0;overflow:hidden}
+  .words-desktop-progress>div>i,
+  .articles-desktop-progress>div>i,
+  .preps-desktop-progress>div>i{display:block;height:100%;border-radius:99px;background:#2b8cff}
+  .words-desktop-progress>b,
+  .articles-desktop-progress>b,
+  .preps-desktop-progress>b{color:#182235;font-size:13px}
+
+  .words-desktop-kpis,
+  .articles-desktop-kpis,
+  .preps-desktop-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+  .words-desktop-kpis article,
+  .articles-desktop-kpis article,
+  .preps-desktop-kpis article{
+    min-height:76px;border:1px solid #dce6f0!important;border-radius:13px;background:#fff!important;
+    display:grid;grid-template-columns:48px 1fr;grid-template-rows:1fr 1fr;column-gap:10px;align-items:center;padding:10px 14px;box-sizing:border-box
+  }
+  .words-desktop-kpis article>i,
+  .articles-desktop-kpis article>i,
+  .preps-desktop-kpis article>i{
+    grid-row:1/3;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+    font-style:normal;font-size:24px;background:#eaf4ff!important;color:#2b8cff!important
+  }
+  .words-desktop-kpis article>i.ok,.articles-desktop-kpis article>i.ok,.preps-desktop-kpis article>i.ok{background:#e5f8ef!important;color:#16a467!important}
+  .words-desktop-kpis article>i.bad,.articles-desktop-kpis article>i.bad,.preps-desktop-kpis article>i.bad{background:#fff0f1!important;color:#e43d4f!important}
+  .words-desktop-kpis article>i.streak,.articles-desktop-kpis article>i.streak,.preps-desktop-kpis article>i.streak{background:#fff4df!important;color:#e98512!important}
+  .words-desktop-kpis article>i.time,.articles-desktop-kpis article>i.time,.preps-desktop-kpis article>i.time{background:#f0eaff!important;color:#7c4de8!important}
+  .words-desktop-kpis article>span,.articles-desktop-kpis article>span,.preps-desktop-kpis article>span{align-self:end;color:#8291a4!important;font-size:11px}
+  .words-desktop-kpis article>strong,.articles-desktop-kpis article>strong,.preps-desktop-kpis article>strong{align-self:start;color:#182235!important;font-size:19px;line-height:1.1}
+
+  /* Articles: same central geometry and neutral light palette as Prepositions. */
+  .trainer-desktop-main .home-trainer.is-articles{
+    min-height:440px!important;
+    padding:34px 42px 38px!important;
+    gap:18px!important;
+    border-color:#dce6f0!important;
+    background:#fff!important;
+  }
+  .trainer-desktop-main .home-trainer.is-articles .trainer-word{color:#182235!important}
+  .trainer-desktop-main .home-trainer.is-articles .trainer-translation{color:#8291a4!important}
+  .trainer-desktop-main .home-trainer.is-articles .trainer-subtitle{color:#8291a4!important}
+  .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn{
+    background:#f9fbfe!important;color:#182235!important;border-color:#d7e2ee!important
+  }
+
+  /* Allow the complete trainer stack (including tips) to be reached by page scroll.
+     The old shell used overflow:hidden, clipping Articles/Prepositions at short heights. */
+  .content:has(.trainer-desktop-shell){
+    overflow:visible!important;height:auto!important;min-height:100vh!important
+  }
+  .trainer-desktop-shell{
+    overflow:visible!important;
+    height:auto!important;
+    min-height:calc(100vh - 32px)!important;
+  }
+  .trainer-desktop-main{
+    overflow:visible!important;
+    height:auto!important;
+    min-height:0!important;
+  }
+  .trainer-desktop-main>.home{
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }
+
+  html[data-theme="dark"] .words-desktop-titlebar h1,
+  html[data-theme="dark"] .articles-desktop-titlebar h1,
+  html[data-theme="dark"] .preps-desktop-titlebar h1,
+  html[data-theme="dark"] .words-desktop-progress>b,
+  html[data-theme="dark"] .articles-desktop-progress>b,
+  html[data-theme="dark"] .preps-desktop-progress>b,
+  html[data-theme="dark"] .words-desktop-kpis article>strong,
+  html[data-theme="dark"] .articles-desktop-kpis article>strong,
+  html[data-theme="dark"] .preps-desktop-kpis article>strong{color:#edf5ff!important}
+
+  html[data-theme="dark"] .words-desktop-titlebar p,
+  html[data-theme="dark"] .articles-desktop-titlebar p,
+  html[data-theme="dark"] .preps-desktop-titlebar p,
+  html[data-theme="dark"] .words-desktop-progress,
+  html[data-theme="dark"] .articles-desktop-progress,
+  html[data-theme="dark"] .preps-desktop-progress,
+  html[data-theme="dark"] .words-desktop-kpis article>span,
+  html[data-theme="dark"] .articles-desktop-kpis article>span,
+  html[data-theme="dark"] .preps-desktop-kpis article>span{color:#91a4b9!important}
+
+  html[data-theme="dark"] .words-desktop-progress>div,
+  html[data-theme="dark"] .articles-desktop-progress>div,
+  html[data-theme="dark"] .preps-desktop-progress>div{background:#182a3d!important}
+
+  html[data-theme="dark"] .words-desktop-kpis article,
+  html[data-theme="dark"] .articles-desktop-kpis article,
+  html[data-theme="dark"] .preps-desktop-kpis article{background:#101e2c!important;border-color:#24394d!important}
+
+  html[data-theme="dark"] .words-desktop-kpis article>i,
+  html[data-theme="dark"] .articles-desktop-kpis article>i,
+  html[data-theme="dark"] .preps-desktop-kpis article>i{background:#12324a!important;color:#2b8cff!important}
+  html[data-theme="dark"] .words-desktop-kpis article>i.ok,
+  html[data-theme="dark"] .articles-desktop-kpis article>i.ok,
+  html[data-theme="dark"] .preps-desktop-kpis article>i.ok{background:#0c3c31!important;color:#2bdc8a!important}
+  html[data-theme="dark"] .words-desktop-kpis article>i.bad,
+  html[data-theme="dark"] .articles-desktop-kpis article>i.bad,
+  html[data-theme="dark"] .preps-desktop-kpis article>i.bad{background:#47242a!important;color:#ff5059!important}
+  html[data-theme="dark"] .words-desktop-kpis article>i.streak,
+  html[data-theme="dark"] .articles-desktop-kpis article>i.streak,
+  html[data-theme="dark"] .preps-desktop-kpis article>i.streak{background:#49351d!important;color:#ff991f!important}
+  html[data-theme="dark"] .words-desktop-kpis article>i.time,
+  html[data-theme="dark"] .articles-desktop-kpis article>i.time,
+  html[data-theme="dark"] .preps-desktop-kpis article>i.time{background:#33235c!important;color:#a678ff!important}
+
+  html[data-theme="dark"] .trainer-desktop-main .home-trainer.is-articles{
+    background:#0e1c2a!important;border-color:#294158!important
+  }
+  html[data-theme="dark"] .trainer-desktop-main .home-trainer.is-articles .trainer-word{color:#f5f8fc!important}
+  html[data-theme="dark"] .trainer-desktop-main .home-trainer.is-articles .trainer-translation,
+  html[data-theme="dark"] .trainer-desktop-main .home-trainer.is-articles .trainer-subtitle{color:#91a4b9!important}
+  html[data-theme="dark"] .trainer-desktop-main .home-trainer.is-articles .answers-grid .answer-btn{
+    background:#10202f!important;color:#f4f8fd!important;border-color:#2b4257!important
+  }
+}
+@media(max-width:899px){.words-desktop-head{display:none!important}}

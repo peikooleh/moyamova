@@ -2,15 +2,15 @@
  * Проект: MOYAMOVA
  * Файл: sw.js
  * Назначение: Service Worker (PWA, офлайн, обновления)
- * Версия SW: 1.4.1
+ * Версия SW: 1.12.38
  * Обновлено: 2026-01-08
  * ========================================================== */
 
 'use strict';
 
 // Текущая версия SW / кэша
-const SW_VERSION = '1.4.1';
-const CACHE_NAME = 'moyamova-cache-v1.4.1';
+const SW_VERSION = '1.12.38';
+const CACHE_NAME = 'moyamova-cache-v1.12.38';
 
 // Преобразуем относительные пути в абсолютные URL на основе scope SW
 const toUrl = (path) => new URL(path, self.registration.scope).toString();
@@ -36,15 +36,61 @@ const APP_SHELL = [
   'css/theme.light.css',
   'css/theme.dark.css',
   'css/overrides.css',
+  'css/trainer.v2.css',
+  'css/articles.desktop.css',
+  'css/prepositions.desktop.css',
+  'css/desktop.trainers.unified.css',
+  'css/guide.desktop.css',
+  'css/desktop.palette.css',
+  'css/home.dashboard.css',
+  'css/dicts.v2.css',
+  'css/desktop.pages.css',
+  'css/desktop.settings.css',
+  'css/page.tips.css',
+  'css/ui.toast.css',
+  'css/ui.modal.css',
+  'img/flags/de.svg',
+  'img/flags/en.svg',
+  'img/flags/sr.svg',
+  'img/flags/ru.svg',
+  'img/flags/uk.svg',
+  'img/flags/es.svg',
+  'img/flags/fr.svg',
+  'img/moyamova-share-qr.png',
   'css/view.stats.css',
+  'css/stats.v2.css',
+  'css/stats.v3.css',
   'css/ui.setup.modal.css',
+  'css/mobile.foundation.css',
+  'css/mobile.home.css',
+  'css/mobile.navigation.css',
+  'css/mobile.trainer.css',
+  'css/mobile.articles.css',
+  'css/mobile.prepositions.css',
+  'css/mobile.trainer.info.css',
+  'css/mobile.dicts.css',
+  'css/mobile.collections.css',
+  'css/mobile.menu.unified.css',
+  'img/setup-logo-ru.png',
+  'img/setup-logo-uk.png',
   'css/ui.filters.css',
 
   // Базовое ядро приложения
   'js/app.core.js',
   'js/app.shell.view.js',
   'js/app.shell.logic.js',
+  'js/mobile.viewport.js',
+  'js/mobile.navigation.js',
+  'js/mobile.trainer.js',
+  'js/mobile.articles.js',
+  'js/mobile.prepositions.js',
+  'js/mobile.trainer.info.js',
+  'js/mobile.dicts.js',
+  'js/mobile.collections.js',
   'js/home.js',
+  'js/desktop.pages.js',
+  'js/desktop.settings.js',
+  'js/ui.page.tips.js',
   'js/dicts.js',
   'js/app.decks.js',
   'js/app.trainer.js',
@@ -63,7 +109,10 @@ const APP_SHELL = [
   'js/ui.setup.modal.js',
   'js/ui.legal.modal.js',
   'js/ui.audio.tts.js',
+  'audio/answer-correct.wav',
+  'audio/answer-wrong.wav',
   'js/ui.examples.hints.js',
+  'js/ui.scroll.guard.js',
 
   // Экраны
   'js/view.stats.js',
@@ -71,6 +120,7 @@ const APP_SHELL = [
   'js/view.favorites.js',
   'js/view.mistakes.js',
   'js/view.guide.js',
+  'js/view.home.dashboard.js',
   'js/donate.js',
 
   // Инфраструктура
@@ -80,11 +130,54 @@ const APP_SHELL = [
   'js/ga.consent.js',
   'js/analytics.js',
   'js/legal.js',
-  // Словари (деки) – обязательно для первого офлайн-запуска
-  'dicts/deck.de.js',
-  'dicts/deck.de.lernpunkt.js',
-  'dicts/deck.en.js',
-  'dicts/deck.sr.js',
+  'legal/terms.ru.html',
+  'legal/terms.uk.html',
+  'legal/privacy.ru.html',
+  'legal/privacy.uk.html',
+  'legal/impressum.ru.html',
+  'legal/impressum.uk.html',
+  // JSON data layer + словари – обязательно для первого офлайн-запуска
+  'js/deck.loader.js',
+  'dicts/decks.manifest.json',
+  'dicts/data/de/nouns.json',
+  'dicts/data/de/verbs.json',
+  'dicts/data/de/adjectives.json',
+  'dicts/data/de/adverbs.json',
+  'dicts/data/de/prepositions.json',
+  'dicts/data/de/conjunctions.json',
+  'dicts/data/de/particles.json',
+  'dicts/data/de/pronouns.json',
+  'dicts/data/de/numbers.json',
+  'dicts/data/en/nouns.json',
+  'dicts/data/en/adjectives.json',
+  'dicts/data/en/verbs.json',
+  'dicts/data/en/adverbs.json',
+  'dicts/data/en/pronouns.json',
+  'dicts/data/en/prepositions.json',
+  'dicts/data/en/conjunctions.json',
+  'dicts/data/en/particles.json',
+  'dicts/data/en/numbers.json',
+  'dicts/data/de/nouns.lernpunkt.json',
+  'dicts/data/de/verbs.lernpunkt.json',
+  'dicts/data/de/adjectives.lernpunkt.json',
+  'dicts/data/de/adverbs.lernpunkt.json',
+  'dicts/data/de/pronouns.lernpunkt.json',
+  'dicts/data/de/prepositions.lernpunkt.json',
+  'dicts/data/de/numbers.lernpunkt.json',
+  'dicts/data/de/conjunctions.lernpunkt.json',
+  'dicts/data/de/particles.lernpunkt.json',
+  'dicts/data/sr/verbs.json',
+  'dicts/data/sr/nouns.json',
+  'dicts/data/sr/adverbs.json',
+  'dicts/data/sr/adjectives.json',
+  'dicts/data/sr/prepositions.json',
+  'dicts/data/sr/pronouns.json',
+  'dicts/data/sr/numbers.json',
+  'dicts/data/sr/conjunctions.json',
+  'dicts/data/sr/particles.json',
+  'dicts/trainer.prepositions.en.js',
+  'dicts/trainer.prepositions.de.js',
+  'js/prepositions.trainer.logic.js',
 
   // Тренер артиклей (логика/прогресс/избранное/ошибки/статистика)
   'js/articles.card.shell.js',

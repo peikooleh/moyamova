@@ -46,6 +46,9 @@
       menuTheme: "Тема",
       menuUiLang: "Язык интерфейса",
       menuUpdates: "Обновления",
+      menuAnswerSounds: "Звуки ответов",
+      menuAnswerSoundsHint: "Звуковая обратная связь",
+      ariaAnswerSounds: "Включить или выключить звуки правильных и неправильных ответов",
       // === training prefs (PWA/TWA) ===
       menuFocus: "Концентрация",
       focusSets: "Сеты",
@@ -111,6 +114,9 @@
       menuTheme: "Тема",
       menuUiLang: "Мова інтерфейсу",
       menuUpdates: "Оновлення",
+      menuAnswerSounds: "Звуки відповідей",
+      menuAnswerSoundsHint: "Звуковий зворотний зв’язок",
+      ariaAnswerSounds: "Увімкнути або вимкнути звуки правильних і неправильних відповідей",
 
       // === training prefs (PWA/TWA) ===
       menuFocus: "Концентрація",

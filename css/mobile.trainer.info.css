@@ -1,0 +1,99 @@
+/* ==========================================================
+ * MOYAMOVA 1.12.13 — Shared Mobile Trainer Info
+ * max-width only: desktop 1.12.11 remains frozen.
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-mobile-shell="trainer"] .home--word-trainer>.home-sets,
+  html[data-mobile-shell="articles"] .trainer-desktop-main>.home>.home-sets{
+    display:none!important;
+  }
+
+  html[data-mobile-shell="trainer"] .mobile-trainer-info,
+  html[data-mobile-shell="articles"] .mobile-trainer-info,
+  html[data-mobile-shell="prepositions"] .mobile-trainer-info{
+    order:1;
+    width:100%;box-sizing:border-box;margin:0!important;padding:9px 10px 10px;
+    border:1px solid rgba(69,88,165,.12);border-radius:16px;
+    background:rgba(255,255,255,.82);box-shadow:0 6px 22px rgba(34,48,94,.055);
+  }
+  .mobile-trainer-info[hidden]{display:none!important}
+  .mobile-trainer-info .mti-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+  .mobile-trainer-info .mti-head>div{display:flex;align-items:center;gap:6px;min-width:0}
+  .mobile-trainer-info .mti-head span{font-size:15px;color:#2b8cff;font-weight:900}
+  .mobile-trainer-info .mti-head b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:850;color:#182235}
+  .mobile-trainer-info .mti-head strong{font-size:11px;color:#617188}
+  .mobile-trainer-info .mti-progress{height:5px;border-radius:99px;background:#dce6f0;overflow:hidden;margin-bottom:8px}
+  .mobile-trainer-info .mti-progress>i{display:block;height:100%;border-radius:99px;background:#2b8cff}
+  .mobile-trainer-info .mti-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+  .mobile-trainer-info .mti-kpi{min-width:0;display:grid;grid-template-rows:24px auto auto;justify-items:center;align-items:center;gap:1px;text-align:center}
+  .mobile-trainer-info .mti-kpi>i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;background:#eaf4ff;color:#2b8cff}
+  .mobile-trainer-info .mti-kpi.ok>i{background:#e5f8ef;color:#16a467}
+  .mobile-trainer-info .mti-kpi.bad>i{background:#fff0f1;color:#e43d4f}
+  .mobile-trainer-info .mti-kpi.streak>i{background:#fff4df;color:#e98512}
+  .mobile-trainer-info .mti-kpi.time>i{background:#f0eaff;color:#7c4de8}
+  .mobile-trainer-info .mti-kpi>span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:8px;line-height:1.15;color:#8291a4}
+  .mobile-trainer-info .mti-kpi>b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;line-height:1.15;color:#182235}
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-hints{order:2}
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-trainer--words{order:3}
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-quickbar{order:4}
+
+  html[data-mobile-shell="articles"] .home-trainer.is-articles{order:3}
+  html[data-mobile-shell="prepositions"] .home--preps-trainer .home-trainer{order:3}
+
+  html[data-theme="dark"] .mobile-trainer-info,
+  html.dark .mobile-trainer-info{background:rgba(16,30,44,.94);border-color:#24394d;box-shadow:none}
+  html[data-theme="dark"] .mobile-trainer-info .mti-head b,
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi>b,
+  html.dark .mobile-trainer-info .mti-head b,
+  html.dark .mobile-trainer-info .mti-kpi>b{color:#edf5ff}
+  html[data-theme="dark"] .mobile-trainer-info .mti-head strong,
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi>span,
+  html.dark .mobile-trainer-info .mti-head strong,
+  html.dark .mobile-trainer-info .mti-kpi>span{color:#91a4b9}
+  html[data-theme="dark"] .mobile-trainer-info .mti-progress,
+  html.dark .mobile-trainer-info .mti-progress{background:#182a3d}
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi>i,
+  html.dark .mobile-trainer-info .mti-kpi>i{background:#12324a;color:#2b8cff}
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi.ok>i,
+  html.dark .mobile-trainer-info .mti-kpi.ok>i{background:#0c3c31;color:#2bdc8a}
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi.bad>i,
+  html.dark .mobile-trainer-info .mti-kpi.bad>i{background:#47242a;color:#ff5059}
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi.streak>i,
+  html.dark .mobile-trainer-info .mti-kpi.streak>i{background:#49351d;color:#ff991f}
+  html[data-theme="dark"] .mobile-trainer-info .mti-kpi.time>i,
+  html.dark .mobile-trainer-info .mti-kpi.time>i{background:#33235c;color:#a678ff}
+}
+
+
+/* 1.12.13 — Prepositions no longer reserves the old empty top slot.
+   The shared info panel is now the first real content block. */
+@media (max-width:899px){
+  html[data-mobile-shell="prepositions"] .home--preps-trainer>.mobile-trainer-info{
+    order:1!important;
+  }
+  html[data-mobile-shell="prepositions"] .home--preps-trainer .home-trainer.home-trainer--preps{
+    order:2!important;
+  }
+  html[data-mobile-shell="prepositions"] .home--preps-trainer{
+    gap:8px!important;
+  }
+
+  /* Keep the pre-rendered panel at full size while its live values are filled,
+     preventing a visible layout jump on Words/Articles/Prepositions. */
+  .mobile-trainer-info--boot{
+    visibility:visible!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.37 — Desktop guard for mobile trainer info
+ * The shared mobile KPI panel must never render on desktop.
+ * Mobile rules above remain untouched.
+ * ========================================================== */
+@media (min-width:900px){
+  .mobile-trainer-info{
+    display:none!important;
+  }
+}

@@ -1,0 +1,237 @@
+/* ==========================================================
+ * MOYAMOVA 1.12.30 — Unified mobile menu / settings
+ * Home is the visual reference for the settings sheet.
+ * The menu trigger follows the Statistics hamburger (three lines).
+ * Loaded after all legacy mobile shell styles.
+ * ========================================================== */
+@media (max-width:899px){
+
+  /* ---------- one menu button everywhere ---------- */
+  html[data-mobile-shell] #btnMenu.burger,
+  html[data-mobile-shell] .mobile-trainer-menu,
+  html[data-mobile-shell] .mobile-articles-menu,
+  html[data-mobile-shell] .mobile-preps-menu,
+  html[data-mobile-shell] .mobile-dicts-menu,
+  html[data-mobile-shell] .mobile-collection-menu,
+  html[data-mobile-shell] .mobile-stats-menu{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    min-height:44px!important;
+    padding:0!important;
+    display:grid!important;
+    place-items:center!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:var(--burger,#39b8f4)!important;
+    font:800 0/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+    letter-spacing:0!important;
+    transform:none!important;
+    -webkit-appearance:none!important;
+    appearance:none!important;
+  }
+
+  html[data-mobile-shell] #btnMenu.burger::before,
+  html[data-mobile-shell] .mobile-trainer-menu::before,
+  html[data-mobile-shell] .mobile-articles-menu::before,
+  html[data-mobile-shell] .mobile-preps-menu::before,
+  html[data-mobile-shell] .mobile-dicts-menu::before,
+  html[data-mobile-shell] .mobile-collection-menu::before,
+  html[data-mobile-shell] .mobile-stats-menu::before{
+    content:"☰"!important;
+    display:block!important;
+    font-size:29px!important;
+    font-weight:700!important;
+    line-height:1!important;
+    letter-spacing:0!important;
+    transform:none!important;
+  }
+
+  html[data-mobile-shell] #btnMenu.burger:active,
+  html[data-mobile-shell] .mobile-trainer-menu:active,
+  html[data-mobile-shell] .mobile-articles-menu:active,
+  html[data-mobile-shell] .mobile-preps-menu:active,
+  html[data-mobile-shell] .mobile-dicts-menu:active,
+  html[data-mobile-shell] .mobile-collection-menu:active,
+  html[data-mobile-shell] .mobile-stats-menu:active{
+    transform:scale(.96)!important;
+  }
+
+  /* ---------- Home is the reference Settings sheet ---------- */
+  html[data-mobile-shell] .oc-root{
+    position:fixed!important;
+    inset:0!important;
+    width:auto!important;
+    height:auto!important;
+    max-height:var(--mobile-viewport-height,100dvh)!important;
+    z-index:9500!important;
+    pointer-events:none;
+  }
+  html[data-mobile-shell] body.menu-open .oc-root{
+    pointer-events:auto;
+  }
+
+  html[data-mobile-shell] .oc-overlay{
+    position:absolute!important;
+    inset:0!important;
+    background:rgba(12,20,38,.30)!important;
+    backdrop-filter:blur(2px)!important;
+    -webkit-backdrop-filter:blur(2px)!important;
+  }
+
+  html[data-mobile-shell] .oc-panel{
+    position:absolute!important;
+    left:8px!important;
+    right:8px!important;
+    top:auto!important;
+    bottom:max(8px,var(--mobile-safe-bottom,0px))!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:560px!important;
+    max-height:min(82dvh,calc(var(--mobile-viewport-height,100dvh) - 24px))!important;
+    margin:0 auto!important;
+    border:1px solid rgba(74,91,150,.13)!important;
+    border-radius:22px!important;
+    background:#fff!important;
+    box-shadow:0 20px 55px rgba(18,28,58,.22)!important;
+    overflow:hidden!important;
+    transform:translateY(calc(100% + 28px))!important;
+    transition:transform .22s ease!important;
+  }
+
+  body.menu-open html[data-mobile-shell] .oc-panel,
+  html[data-mobile-shell] body.menu-open .oc-panel{
+    transform:translateY(0)!important;
+  }
+
+  html[data-mobile-shell] .oc-header{
+    min-height:52px!important;
+    padding:7px 12px!important;
+    background:rgba(255,255,255,.97)!important;
+  }
+  html[data-mobile-shell] .oc-back{display:none!important}
+  html[data-mobile-shell] .oc-title{
+    text-align:left!important;
+    padding-left:4px!important;
+    font-size:16px!important;
+  }
+  html[data-mobile-shell] .oc-close{
+    width:40px!important;
+    height:40px!important;
+    display:grid!important;
+    place-items:center!important;
+    border-radius:12px!important;
+  }
+  html[data-mobile-shell] .oc-body{
+    display:block!important;
+    min-height:0!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    padding:10px 12px calc(82px + var(--mobile-safe-bottom,0px))!important;
+  }
+
+  /* ---------- one navigation block inside Settings ---------- */
+  html[data-mobile-shell] .mobile-nav-sheet{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    padding:2px 0 12px!important;
+    margin:0 0 8px!important;
+    border:0!important;
+    border-bottom:1px solid rgba(78,96,144,.12)!important;
+    background:transparent!important;
+  }
+  html[data-mobile-shell] .mobile-nav-sheet__item{
+    width:100%!important;
+    min-width:0!important;
+    min-height:52px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:10px!important;
+    padding:10px 11px!important;
+    border:1px solid rgba(73,94,169,.12)!important;
+    border-radius:14px!important;
+    background:rgba(247,249,255,.92)!important;
+    color:inherit!important;
+    text-align:left!important;
+    font:inherit!important;
+    box-shadow:none!important;
+  }
+  html[data-mobile-shell] .mobile-nav-sheet__item:active{
+    transform:scale(.985)!important;
+  }
+  html[data-mobile-shell] .mobile-nav-sheet__icon{
+    width:30px!important;
+    height:30px!important;
+    flex:0 0 30px!important;
+    display:grid!important;
+    place-items:center!important;
+    border-radius:9px!important;
+    background:rgba(97,118,235,.10)!important;
+    font-size:16px!important;
+    line-height:1!important;
+  }
+  html[data-mobile-shell] .mobile-nav-sheet__copy{
+    min-width:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:1px!important;
+  }
+  html[data-mobile-shell] .mobile-nav-sheet__copy strong{
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:12px!important;
+    line-height:1.15!important;
+  }
+  html[data-mobile-shell] .mobile-nav-sheet__copy small{
+    color:#788498!important;
+    font-size:9.5px!important;
+    line-height:1.15!important;
+  }
+
+  html[data-mobile-shell] .menu-item.app-version{
+    position:relative!important;
+    z-index:1!important;
+    margin-bottom:8px!important;
+    padding-bottom:12px!important;
+  }
+
+  /* ---------- same dark Settings sheet everywhere ---------- */
+  html[data-theme="dark"][data-mobile-shell] .oc-panel,
+  html.dark[data-mobile-shell] .oc-panel{
+    background:#121c28!important;
+    border-color:rgba(135,157,204,.14)!important;
+    box-shadow:0 20px 55px rgba(0,0,0,.28)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell] .oc-header,
+  html.dark[data-mobile-shell] .oc-header{
+    background:#121c28!important;
+  }
+  html[data-theme="dark"][data-mobile-shell] .mobile-nav-sheet,
+  html.dark[data-mobile-shell] .mobile-nav-sheet{
+    border-bottom-color:rgba(135,157,204,.13)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell] .mobile-nav-sheet__item{
+    background:#162231!important;
+    border-color:rgba(135,157,204,.14)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell] .mobile-nav-sheet__icon{
+    background:rgba(121,147,255,.12)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell] .mobile-nav-sheet__copy small{
+    color:#9aa9bb!important;
+  }
+}
+
+@media (max-width:390px){
+  html[data-mobile-shell] .mobile-nav-sheet{
+    grid-template-columns:1fr!important;
+  }
+}

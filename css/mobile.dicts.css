@@ -1,0 +1,582 @@
+/* ==========================================================
+ * MOYAMOVA 1.12.5 — Mobile Dictionaries
+ * Mobile presentation only. Existing dictionaries logic is untouched.
+ * ========================================================== */
+
+@media (max-width:899px){
+  html[data-mobile-shell="dicts"]{
+    --footer-h-actual:0px;
+  }
+
+  html[data-mobile-shell="dicts"] .header,
+  html[data-mobile-shell="dicts"] .app-footer{
+    display:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] #app.content{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:var(--mobile-viewport-height)!important;
+    padding:
+      max(8px,var(--mobile-safe-top,0px))
+      max(10px,var(--mobile-safe-right,0px))
+      calc(18px + var(--mobile-safe-bottom,0px))
+      max(10px,var(--mobile-safe-left,0px))!important;
+    overflow:visible!important;
+    box-sizing:border-box;
+  }
+
+    .mobile-dicts-bar{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto 44px;
+    align-items:center;
+    gap:8px;
+    min-height:52px;
+    margin:0 0 10px;
+  }
+
+  .mobile-dicts-back{
+    min-width:0;
+    height:44px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    justify-self:start;
+    padding:0 12px 0 10px;
+    border:1px solid rgba(69,88,165,.12);
+    border-radius:14px;
+    background:rgba(255,255,255,.78);
+    color:inherit;
+    box-shadow:0 5px 18px rgba(44,55,112,.06);
+    font:inherit;
+    font-size:12px;
+    font-weight:750;
+  }
+
+  .mobile-dicts-back__arrow{
+    font-size:20px;
+    line-height:1;
+    transform:translateY(-1px);
+  }
+
+  .mobile-dicts-title{
+    min-width:0;
+    max-width:160px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+  }
+
+  .mobile-dicts-menu{
+    width:44px;
+    height:44px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(69,88,165,.12);
+    border-radius:14px;
+    background:rgba(255,255,255,.78);
+    color:inherit;
+    box-shadow:0 5px 18px rgba(44,55,112,.06);
+    font:inherit;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:1px;
+  }
+
+  /* Hide the legacy page title only after the new mobile bar is present. */
+  html[data-mobile-shell="dicts"] .dicts-header h3{
+    display:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .home.home--fixed-card{
+    width:100%!important;
+    max-width:560px!important;
+    min-width:0!important;
+    margin:0 auto!important;
+    padding:0!important;
+  }
+
+  /* CSS detects the real dictionaries DOM immediately, before JS shell sync.
+     This prevents one-frame flashes of the legacy header/footer during routing. */
+  html:has(#app .home--dicts) .header,
+  html:has(#app .home--dicts) .app-footer{
+    display:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-header{
+    margin:0 0 10px!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+  }
+
+  /* Language switch stays in the page, aligned to the right. */
+  html[data-mobile-shell="dicts"] .dicts-lang,
+  html[data-mobile-shell="dicts"] .dicts-lang-switch,
+  html[data-mobile-shell="dicts"] .dicts-langs{
+    margin-left:auto!important;
+    justify-content:flex-end!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-lang button,
+  html[data-mobile-shell="dicts"] .dicts-lang-switch button,
+  html[data-mobile-shell="dicts"] .dicts-langs button{
+    min-width:42px!important;
+    height:38px!important;
+    padding:0 8px!important;
+    border-radius:12px!important;
+  }
+
+  /* One natural page scroll: remove the old inner scroller where present. */
+  html[data-mobile-shell="dicts"] .dicts-list,
+  html[data-mobile-shell="dicts"] .decks-list,
+  html[data-mobile-shell="dicts"] .dicts-scroll{
+    max-height:none!important;
+    height:auto!important;
+    overflow:visible!important;
+    padding-right:0!important;
+  }
+
+  /* Dictionary rows: same information, tighter mobile geometry. */
+  html[data-mobile-shell="dicts"] .dict-row,
+  html[data-mobile-shell="dicts"] .deck-row,
+  html[data-mobile-shell="dicts"] .dicts-item{
+    min-height:58px!important;
+    margin:0 0 7px!important;
+    padding:8px 11px!important;
+    border-radius:15px!important;
+    box-sizing:border-box!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dict-row img,
+  html[data-mobile-shell="dicts"] .deck-row img,
+  html[data-mobile-shell="dicts"] .dicts-item img{
+    max-width:28px!important;
+    max-height:20px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dict-row .count,
+  html[data-mobile-shell="dicts"] .deck-row .count,
+  html[data-mobile-shell="dicts"] .dicts-item .count,
+  html[data-mobile-shell="dicts"] .dict-count{
+    min-width:42px!important;
+    height:28px!important;
+    padding:0 9px!important;
+    border-radius:999px!important;
+    font-size:10px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dict-row.is-active,
+  html[data-mobile-shell="dicts"] .deck-row.is-active,
+  html[data-mobile-shell="dicts"] .dicts-item.is-active,
+  html[data-mobile-shell="dicts"] .is-selected{
+    border-color:#2bb4f3!important;
+    background:#eefaff!important;
+  }
+
+  /* Launch actions are part of the page, not a fixed bottom navigation. */
+  html[data-mobile-shell="dicts"] .dicts-actions,
+  html[data-mobile-shell="dicts"] .dict-actions,
+  html[data-mobile-shell="dicts"] .dicts-footer-actions{
+    position:static!important;
+    inset:auto!important;
+    width:100%!important;
+    margin:10px 0 0!important;
+    padding:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-actions button,
+  html[data-mobile-shell="dicts"] .dict-actions button,
+  html[data-mobile-shell="dicts"] .dicts-footer-actions button{
+    width:100%!important;
+    min-height:48px!important;
+    margin:0 0 8px!important;
+    border-radius:14px!important;
+    font-size:12px!important;
+    font-weight:800!important;
+  }
+
+  /* Shared migrated bottom-sheet menu. */
+  html[data-mobile-shell="dicts"] .oc-root{
+    inset:0;
+    max-height:var(--mobile-viewport-height);
+  }
+
+  html[data-mobile-shell="dicts"] .oc-overlay{
+    inset:0!important;
+    background:rgba(12,20,38,.30);
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .oc-panel{
+    left:8px!important;
+    right:8px!important;
+    top:auto!important;
+    bottom:max(8px,var(--mobile-safe-bottom,0px))!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:560px!important;
+    max-height:min(82dvh,calc(var(--mobile-viewport-height) - 24px));
+    margin:0 auto;
+    border-radius:22px;
+    overflow:hidden;
+    transform:translateY(calc(100% + 28px))!important;
+    transition:transform .22s ease!important;
+  }
+
+  html[data-mobile-shell="dicts"] body.menu-open .oc-panel{
+    transform:translateY(0)!important;
+  }
+
+  html[data-mobile-shell="dicts"] .oc-back{
+    display:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .oc-body{
+    display:block!important;
+    min-height:0;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch;
+    padding:10px 12px calc(82px + var(--mobile-safe-bottom,0px))!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .mobile-dicts-back,
+  html[data-theme="dark"][data-mobile-shell="dicts"] .mobile-dicts-menu,
+  html.dark[data-mobile-shell="dicts"] .mobile-dicts-back,
+  html.dark[data-mobile-shell="dicts"] .mobile-dicts-menu{
+    background:rgba(24,36,52,.92);
+    border-color:rgba(142,166,215,.16);
+    box-shadow:none;
+  }
+}
+
+@media(max-width:390px){
+  html[data-mobile-shell="dicts"] .mobile-dicts-title{
+    display:none;
+  }
+  html[data-mobile-shell="dicts"] .mobile-dicts-bar{
+    grid-template-columns:minmax(0,1fr) 44px;
+  }
+}
+
+
+@media (max-width:899px){
+  html[data-mobile-shell="dicts"] .dicts-card.dicts-card--fixed{
+    width:100%!important;
+    margin:0!important;
+    padding:10px!important;
+    border-radius:17px!important;
+    box-shadow:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-header{
+    min-height:40px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    margin:0 0 8px!important;
+    padding:0 0 8px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-scroll{
+    padding:0!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:7px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row{
+    display:grid!important;
+    grid-template-columns:30px minmax(0,1fr) auto 30px!important;
+    align-items:center!important;
+    min-height:58px!important;
+    margin:0!important;
+    padding:8px 10px!important;
+    border-radius:14px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td{
+    min-width:0!important;
+    padding:0!important;
+    font-size:12px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(2){
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-weight:700!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(3){
+    min-width:42px!important;
+    margin-right:3px!important;
+    padding:6px 9px!important;
+    border-radius:999px!important;
+    background:rgba(255,255,255,.75)!important;
+    font-size:10px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected{
+    border-color:#21b7f4!important;
+    background:#eefaff!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-preview{
+    font-size:14px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-footer{
+    position:static!important;
+    margin:10px 0 0!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-actions .btn-primary{
+    width:100%!important;
+    min-height:48px!important;
+    margin:0!important;
+    border-radius:14px!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.7 — Mobile Dictionaries row spacing fix
+ * Prevent flag/name/count/preview collisions on narrow screens.
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row{
+    grid-template-columns:36px minmax(0,1fr) auto 28px!important;
+    column-gap:8px!important;
+    padding-left:12px!important;
+    padding-right:10px!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:first-child{
+    width:36px!important;
+    min-width:36px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    overflow:visible!important;
+    font-size:20px!important;
+    line-height:1!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(2){
+    padding-left:0!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(3){
+    margin-right:0!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(4){
+    width:28px!important;
+    min-width:28px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.22 — dark mobile Dictionaries selection
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dict-row.is-active,
+  html[data-theme="dark"][data-mobile-shell="dicts"] .deck-row.is-active,
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-item.is-active,
+  html[data-theme="dark"][data-mobile-shell="dicts"] .is-selected,
+  html.dark[data-mobile-shell="dicts"] .dict-row.is-active,
+  html.dark[data-mobile-shell="dicts"] .deck-row.is-active,
+  html.dark[data-mobile-shell="dicts"] .dicts-item.is-active,
+  html.dark[data-mobile-shell="dicts"] .is-selected{
+    border-color:#2bb4f3!important;
+    background:#102334!important;
+    color:#edf5ff!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3),
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3){
+    background:#16293a!important;
+    color:#59b8ff!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.26 — Dictionaries dark selected-row hardening
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected,
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected{
+    background:#102334!important;
+    border-color:#2bb4f3!important;
+    color:#edf5ff!important;
+    box-shadow:0 0 0 2px rgba(43,180,243,.12)!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td,
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td{
+    background:transparent!important;
+    color:#edf5ff!important;
+    box-shadow:none!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3),
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3){
+    background:#16293a!important;
+    color:#59b8ff!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.31 — Mobile Dictionaries layout hardening
+ * 1.12.30 enabled shared page tips, exposing the legacy fixed-card
+ * geometry that still lived under Dictionaries. Mobile Dictionaries
+ * is now one natural document flow: header -> rows -> action -> tip.
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-mobile-shell="dicts"] #app.content{
+    height:auto!important;
+    max-height:none!important;
+    min-height:100dvh!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  html[data-mobile-shell="dicts"] .home.home--fixed-card{
+    display:block!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-card.dicts-card--fixed{
+    display:block!important;
+    flex:none!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-card.dicts-card--fixed .dicts-scroll{
+    display:block!important;
+    flex:none!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-footer{
+    position:relative!important;
+    inset:auto!important;
+    z-index:auto!important;
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:10px 0 0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-actions{
+    position:relative!important;
+    inset:auto!important;
+    z-index:auto!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    width:100%!important;
+    height:auto!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-actions .btn-primary{
+    position:static!important;
+    inset:auto!important;
+    z-index:auto!important;
+    width:100%!important;
+    min-height:48px!important;
+    margin:0!important;
+    transform:none!important;
+  }
+
+  /* The shared contextual tip is a normal block after the dictionary card. */
+  html[data-mobile-shell="dicts"] .home--dicts>.mm-page-tip{
+    position:static!important;
+    inset:auto!important;
+    width:100%!important;
+    margin:10px 0 0!important;
+    transform:none!important;
+  }
+
+  /* Remove the bright white "holes" from count pills in the light UI. */
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(3){
+    background:#f3f6fa!important;
+    color:#596577!important;
+    border:1px solid #e4e9f0!important;
+  }
+
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3){
+    background:#e6f6fd!important;
+    color:#159edc!important;
+    border-color:#bfe8fa!important;
+  }
+
+  /* Selected row stays a soft tint rather than a near-white slab. */
+  html[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected{
+    background:#eef9fd!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(3),
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row>td:nth-child(3){
+    background:#16293a!important;
+    color:#aab8c8!important;
+    border-color:#263d52!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected,
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected{
+    background:#102334!important;
+    border-color:#2bb4f3!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3),
+  html.dark[data-mobile-shell="dicts"] .dicts-table tbody tr.dict-row.is-selected>td:nth-child(3){
+    background:#162f43!important;
+    color:#59b8ff!important;
+    border-color:#28516d!important;
+  }
+}

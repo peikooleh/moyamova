@@ -1,0 +1,222 @@
+/* ==========================================================
+ * MOYAMOVA 1.10.6 — Desktop Prepositions Trainer
+ * Uses existing trainer logic; desktop visual layer only.
+ * ========================================================== */
+@media (min-width:900px){
+  .trainer-desktop-main:has(.home--preps-trainer){
+    padding:22px 26px 28px;
+  }
+  .trainer-desktop-main:has(.home--preps-trainer)>.home{
+    width:100%;max-width:none;display:flex;flex-direction:column;gap:14px;
+  }
+  .home--preps-trainer .home-sets,
+  .home--preps-trainer .mm-context-gap,
+  .home--preps-trainer .home-filters{
+    display:none!important;
+  }
+
+  .preps-desktop-head{display:flex;flex-direction:column;gap:14px}
+  .preps-desktop-titlebar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:2px 4px 0}
+  .preps-desktop-titlebar h1{margin:0;color:var(--text,#182235);font:800 23px/1.2 system-ui,sans-serif}
+  .preps-desktop-titlebar h1>b{color:#2b8cff}
+  .preps-desktop-titlebar p{margin:5px 0 0 36px;color:var(--muted,#8291a4);font-size:12px}
+  .preps-desktop-progress{width:280px;display:grid;grid-template-columns:1fr 42px;gap:6px 12px;align-items:center;color:var(--muted,#8291a4);font-size:11px}
+  .preps-desktop-progress>span{grid-column:1/-1}
+  .preps-desktop-progress>div{height:7px;border-radius:99px;background:#dce6f0;overflow:hidden}
+  .preps-desktop-progress>div>i{display:block;height:100%;border-radius:99px;background:#2b8cff}
+  .preps-desktop-progress>b{color:var(--text,#182235);font-size:13px}
+
+  .preps-desktop-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+  .preps-desktop-kpis article{
+    min-height:76px;border:1px solid #dce6f0;border-radius:13px;background:#fff;
+    display:grid;grid-template-columns:48px 1fr;grid-template-rows:1fr 1fr;column-gap:10px;align-items:center;padding:10px 14px;box-sizing:border-box
+  }
+  .preps-desktop-kpis article>i{grid-row:1/3;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:24px;background:#eaf4ff;color:#2b8cff}
+  .preps-desktop-kpis article>i.ok{background:#e5f8ef;color:#16a467}
+  .preps-desktop-kpis article>i.bad{background:#fff0f1;color:#e43d4f}
+  .preps-desktop-kpis article>i.streak{background:#fff4df;color:#e98512}
+  .preps-desktop-kpis article>i.time{background:#f0eaff;color:#7c4de8}
+  .preps-desktop-kpis article>span{align-self:end;color:#8291a4;font-size:11px}
+  .preps-desktop-kpis article>strong{align-self:start;color:#182235;font-size:19px;line-height:1.1}
+
+  .home--preps-trainer .home-trainer{
+    flex:1;min-height:440px;margin:0!important;padding:34px 42px 38px!important;
+    border:1px solid #dce6f0!important;border-radius:15px!important;background:#fff!important;
+    box-shadow:none!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:18px!important;position:relative
+  }
+  .home--preps-trainer .trainer-top{position:absolute;inset:18px 20px auto 20px;min-height:28px}
+  .home--preps-trainer .trainer-word{
+    max-width:1000px;text-align:center;margin:12px 0 0!important;color:#182235!important;
+    font-size:31px!important;font-weight:800!important;line-height:1.35!important
+  }
+  .home--preps-trainer .mm-prep-filled{color:#2b8cff;border-bottom:2px solid #2b8cff;padding:0 4px}
+  .home--preps-trainer .trainer-subtitle{
+    margin:2px 0 4px!important;color:#8291a4!important;font-size:13px!important
+  }
+  .home--preps-trainer .answers-grid{
+    width:min(100%,1040px)!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:18px!important;margin:12px auto 0!important
+  }
+  .home--preps-trainer .answers-grid .answer-btn{
+    height:112px!important;min-height:112px!important;border:1px solid #d7e2ee!important;border-radius:14px!important;
+    background:#f9fbfe!important;color:#182235!important;font-size:24px!important;font-weight:800!important;box-shadow:none!important
+  }
+  .home--preps-trainer .answers-grid .answer-btn:hover:not(:disabled):not(.is-correct):not(.is-wrong){
+    background:#eef5fc!important;border-color:#9fc2e4!important;color:#182235!important
+  }
+  .home--preps-trainer .answers-grid .answer-btn.is-correct,
+  .home--preps-trainer .answers-grid .answer-btn.is-correct:hover{
+    background:#e7f8ef!important;border-color:#24b86b!important;color:#127341!important
+  }
+  .home--preps-trainer .answers-grid .answer-btn.is-wrong,
+  .home--preps-trainer .answers-grid .answer-btn.is-wrong:hover{
+    background:#fff0f1!important;border-color:#ef4f62!important;color:#b82d3d!important
+  }
+  .home--preps-trainer .answers-grid .answer-btn.is-dim{opacity:.45!important}
+  .home--preps-trainer .idk-btn,
+  .home--preps-trainer .dict-stats,
+  .home--preps-trainer .trainer-mode-indicator{display:none!important}
+
+  .home--preps-trainer .trainer-quickbar{margin-top:0!important}
+  .home--preps-trainer .trainer-qbtn.is-disabled,
+  .home--preps-trainer .trainer-qbtn:disabled{
+    opacity:.38!important;cursor:not-allowed!important;background:transparent!important
+  }
+
+  .desktop-nav-count{
+    margin-left:auto;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ef4f62;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;line-height:1
+  }
+  .desktop-nav-count[hidden]{display:none!important}
+
+  html[data-theme="dark"] .preps-desktop-titlebar h1,
+  html[data-theme="dark"] .preps-desktop-kpis article>strong{color:#edf5ff}
+  html[data-theme="dark"] .preps-desktop-titlebar p,
+  html[data-theme="dark"] .preps-desktop-progress,
+  html[data-theme="dark"] .preps-desktop-kpis article>span{color:#91a4b9}
+  html[data-theme="dark"] .preps-desktop-progress>div{background:#182a3d}
+  html[data-theme="dark"] .preps-desktop-progress>b{color:#edf5ff}
+  html[data-theme="dark"] .preps-desktop-kpis article{background:#101e2c;border-color:#24394d}
+  html[data-theme="dark"] .home--preps-trainer .home-trainer{background:#0e1c2a!important;border-color:#294158!important}
+  html[data-theme="dark"] .home--preps-trainer .trainer-word{color:#f5f8fc!important}
+  html[data-theme="dark"] .home--preps-trainer .trainer-subtitle{color:#91a4b9!important}
+  html[data-theme="dark"] .home--preps-trainer .answers-grid .answer-btn{
+    background:#10202f!important;color:#f4f8fd!important;border-color:#2b4257!important
+  }
+  html[data-theme="dark"] .home--preps-trainer .answers-grid .answer-btn:hover:not(:disabled):not(.is-correct):not(.is-wrong){
+    background:#12283b!important;border-color:#3979b7!important;color:#f4f8fd!important
+  }
+  html[data-theme="dark"] .home--preps-trainer .answers-grid .answer-btn.is-correct,
+  html[data-theme="dark"] .home--preps-trainer .answers-grid .answer-btn.is-correct:hover{
+    background:#123c31!important;border-color:#25c17e!important;color:#56e6a6!important
+  }
+  html[data-theme="dark"] .home--preps-trainer .answers-grid .answer-btn.is-wrong,
+  html[data-theme="dark"] .home--preps-trainer .answers-grid .answer-btn.is-wrong:hover{
+    background:#48252b!important;border-color:#ff5059!important;color:#ff7b82!important
+  }
+}
+@media(max-width:899px){.preps-desktop-head{display:none!important}}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.10.7 — Prepositions navigation/TTS cleanup
+ * Desktop TTS is controlled only through the shared lower panel.
+ * ========================================================== */
+@media (min-width:900px){
+  .home--preps-trainer .trainer-audio-btn,
+  .home--preps-trainer .home-trainer .trainer-audio-btn,
+  .trainer-desktop-main .home--preps-trainer .trainer-audio-btn{
+    display:none!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.38 — Desktop Prepositions lower actions
+ * Same useful actions as mobile: TTS / Skip / Reveal.
+ * Desktop only; mobile implementation is untouched.
+ * ========================================================== */
+@media (min-width:900px){
+  .preps-desktop-mobilelike-tools{
+    min-height:74px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    align-items:stretch;
+    border:1px solid #dce6f0;
+    border-radius:14px;
+    background:#fff;
+    overflow:hidden;
+  }
+
+  .preps-desktop-tool{
+    position:relative;
+    min-width:0;
+    border:0;
+    border-right:1px solid #dce6f0;
+    background:transparent;
+    color:#182235;
+    display:grid;
+    grid-template-columns:42px minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+    padding:12px 20px;
+    text-align:left;
+    cursor:pointer;
+    font:inherit;
+  }
+  .preps-desktop-tool:last-child{border-right:0}
+  .preps-desktop-tool:hover{background:#f6f9fd}
+
+  .preps-desktop-tool__icon{
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    border-radius:11px;
+    background:#eef4fb;
+    color:#7186a0;
+    font-size:18px;
+    line-height:1;
+  }
+
+  .preps-desktop-tool>span:last-child{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+  .preps-desktop-tool b{
+    color:#182235;
+    font-size:12px;
+  }
+  .preps-desktop-tool small{
+    color:#8291a4;
+    font-size:9px;
+    line-height:1.2;
+  }
+
+  .preps-desktop-tool[data-preps-desktop-tool="tts"].is-active .preps-desktop-tool__icon{
+    background:#e8f8f3;
+    color:#38a17e;
+  }
+
+  html[data-theme="dark"] .preps-desktop-mobilelike-tools{
+    background:#0e1c2a;
+    border-color:#294158;
+  }
+  html[data-theme="dark"] .preps-desktop-tool{
+    border-right-color:#294158;
+    color:#edf5ff;
+  }
+  html[data-theme="dark"] .preps-desktop-tool:hover{background:#12283b}
+  html[data-theme="dark"] .preps-desktop-tool__icon{
+    background:#16293a;
+    color:#91a4b9;
+  }
+  html[data-theme="dark"] .preps-desktop-tool b{color:#edf5ff}
+  html[data-theme="dark"] .preps-desktop-tool small{color:#91a4b9}
+  html[data-theme="dark"] .preps-desktop-tool[data-preps-desktop-tool="tts"].is-active .preps-desktop-tool__icon{
+    background:#14382f;
+    color:#56d6aa;
+  }
+}

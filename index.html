@@ -2,7 +2,7 @@
      Проект: MOYAMOVA
      Файл: index.html
      Назначение: Основной HTML-шаблон приложения
-     Версия: 1.0
+     Версия: 1.12.38
      Обновлено: 2025-11-17
      ========================================================== -->
 <!doctype html>
@@ -23,9 +23,35 @@
   <link rel="stylesheet" href="./css/theme.dark.css">
   <link rel="stylesheet" href="./css/ui.filters.css">
   <link rel="stylesheet" href="./css/overrides.css">
+  <link rel="stylesheet" href="./css/trainer.v2.css">
+  <link rel="stylesheet" href="./css/articles.desktop.css">
+  <link rel="stylesheet" href="./css/prepositions.desktop.css">
+  <link rel="stylesheet" href="./css/guide.desktop.css">
+  <link rel="stylesheet" href="./css/desktop.palette.css">
+  <link rel="stylesheet" href="./css/page.tips.css">
+  <link rel="stylesheet" href="./css/ui.toast.css">
+  <link rel="stylesheet" href="./css/ui.modal.css">
+  <link rel="stylesheet" href="./css/home.dashboard.css">
+  <link rel="stylesheet" href="./css/dicts.v2.css">
+  <link rel="stylesheet" href="./css/desktop.pages.css">
+  <link rel="stylesheet" href="./css/desktop.settings.css">
   
   <link rel="stylesheet" href="./css/view.stats.css">
+  <link rel="stylesheet" href="./css/stats.v2.css">
+  <link rel="stylesheet" href="./css/stats.v3.css">
   <link rel="stylesheet" href="./css/ui.setup.modal.css">
+  <link rel="stylesheet" href="./css/mobile.foundation.css">
+  <link rel="stylesheet" href="./css/mobile.home.css">
+  <link rel="stylesheet" href="./css/mobile.navigation.css">
+  <link rel="stylesheet" href="./css/mobile.trainer.css">
+  <link rel="stylesheet" href="./css/desktop.trainers.unified.css">
+  <link rel="stylesheet" href="./css/mobile.articles.css">
+  <link rel="stylesheet" href="./css/mobile.prepositions.css">
+  <link rel="stylesheet" href="./css/mobile.trainer.info.css">
+  <link rel="stylesheet" href="./css/mobile.prepositions.compact-gap.css">
+  <link rel="stylesheet" href="./css/mobile.dicts.css">
+  <link rel="stylesheet" href="./css/mobile.collections.css">
+  <link rel="stylesheet" href="./css/mobile.menu.unified.css">
   
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -116,6 +142,14 @@
   <!-- === SHELL (верстка + логика) === -->
   <script src="./js/app.shell.view.js" defer></script>
   <script src="./js/app.shell.logic.js" defer></script>
+  <script src="./js/mobile.viewport.js" defer></script>
+  <script src="./js/mobile.navigation.js" defer></script>
+  <script src="./js/mobile.trainer.js" defer></script>
+  <script src="./js/mobile.articles.js" defer></script>
+  <script src="./js/mobile.prepositions.js" defer></script>
+  <script src="./js/mobile.trainer.info.js" defer></script>
+  <script src="./js/mobile.dicts.js" defer></script>
+  <script src="./js/mobile.collections.js" defer></script>
 
   <!-- === CORE + I18N === -->
   <script src="./js/app.core.js" defer></script>
@@ -125,11 +159,8 @@
   <!-- === РЕЕСТР СЛОВАРЕЙ (ДОЛЖЕН БЫТЬ ДО deck.*.js) === -->
   <script src="./js/dicts.js" defer></script>
 
-  <!-- === ДАННЫЕ СЛОВАРЕЙ === -->
-  <script src="./dicts/deck.de.js" defer></script>
-  <script src="./dicts/deck.en.js" defer></script>
-  <script src="./dicts/deck.de.lernpunkt.js" defer></script>
-  <script src="./dicts/deck.sr.js" defer></script>
+  <!-- === ДАННЫЕ СЛОВАРЕЙ (JSON data layer; sync bootstrap for 1.5.x compatibility) === -->
+  <script src="./js/deck.loader.js"></script>
   <!-- Prepositions trainer datasets (load only languages that have datasets) -->
   <script src="./dicts/trainer.prepositions.en.js" defer></script>
   <script src="./dicts/trainer.prepositions.de.js" defer></script>
@@ -162,6 +193,7 @@
   <script src="./js/view.favorites.js" defer></script>
   <script src="./js/view.stats.js" defer></script>
   <script src="./js/view.guide.js" defer></script>
+  <script src="./js/view.home.dashboard.js" defer></script>
 
 <script src="./js/articles.progress.js"></script>
 <script src="./js/articles.stats.js"></script>
@@ -180,12 +212,16 @@
   <script src="./js/ui.swipe.js" defer></script>
     
   <!-- === МОДУЛИ === -->
+  <script src="./js/donate.js" defer></script>
   <script type="module" src="./js/legal.js"></script>
   <script src="./js/ui.scroll.guard.js" defer></script>
   <script src="./js/theme.js" defer></script>
   <script src="./js/updates.js" defer></script>
   <script src="./js/ga.consent.js" defer></script>
   <script src="./js/analytics.js"></script>
+  <script src="./js/ui.page.tips.js" defer></script>
+  <script src="./js/desktop.pages.js" defer></script>
+  <script src="./js/desktop.settings.js" defer></script>
 </body>
 </html>
 <!-- ========================= Конец файла: index.html ========================= -->

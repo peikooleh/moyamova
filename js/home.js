@@ -18,6 +18,320 @@
   // set counts, stats, and "done" marking for *_lernpunkt decks.
   const SET_SIZE_DEFAULT = (A.Config && A.Config.setSizeDefault) || 40;
 
+
+  /* ----------------------- Answer feedback sounds -----------------------
+   * 1.12.24 — shared by Words / Articles / Prepositions and virtual
+   * Favorites / Mistakes decks on both mobile and desktop.
+   * Files are local, so feedback works offline as well.
+   * -------------------------------------------------------------------- */
+  A.AnswerSfx = A.AnswerSfx || (function(){
+    const sources = {
+      correct: './audio/answer-correct.wav',
+      wrong: './audio/answer-wrong.wav'
+    };
+    const pool = {};
+
+    function get(kind){
+      if (!pool[kind]) {
+        const el = new Audio(sources[kind]);
+        el.preload = 'auto';
+        el.volume = 1;
+        pool[kind] = el;
+      }
+      return pool[kind];
+    }
+
+    function play(kind){
+      return new Promise(resolve => {
+        try {
+          const el = get(kind);
+          try { el.pause(); } catch(_){}
+          try { el.currentTime = 0; } catch(_){}
+
+          let done = false;
+          const finish = () => {
+            if (done) return;
+            done = true;
+            try { el.removeEventListener('ended', finish); } catch(_){}
+            try { el.removeEventListener('error', finish); } catch(_){}
+            resolve();
+          };
+
+          try { el.addEventListener('ended', finish, { once:true }); } catch(_){}
+          try { el.addEventListener('error', finish, { once:true }); } catch(_){}
+
+          const p = el.play();
+          if (p && typeof p.catch === 'function') p.catch(finish);
+
+          // Never let audio block trainer progression on a problematic browser.
+          setTimeout(finish, kind === 'correct' ? 500 : 420);
+        } catch(_) {
+          resolve();
+        }
+      });
+    }
+
+    // Warm the files after the first real user gesture without autoplaying them.
+    function warm(){
+      try { get('correct').load(); } catch(_){}
+      try { get('wrong').load(); } catch(_){}
+    }
+    try {
+      document.addEventListener('pointerdown', warm, { once:true, passive:true });
+      document.addEventListener('touchstart', warm, { once:true, passive:true });
+    } catch(_){}
+
+    return {
+      correct: () => play('correct'),
+      wrong: () => play('wrong')
+    };
+  })();
+
+  // Desktop-only visual session metrics for the prepositions trainer.
+  // Progress/stars remain owned by the existing trainer; this object only feeds KPI cards.
+  const __prepUiSession = { deckKey:'', correct:0, wrong:0, streak:0, bestStreak:0, startedAt:0 };
+
+  // Desktop-only visual session metrics for the regular Words trainer.
+  const __wordsUiSession = { deckKey:'', correct:0, wrong:0, streak:0, bestStreak:0, startedAt:0 };
+  function __ensureWordsUiSession(key){
+    key=String(key||'');
+    if(__wordsUiSession.deckKey!==key){
+      __wordsUiSession.deckKey=key; __wordsUiSession.correct=0; __wordsUiSession.wrong=0;
+      __wordsUiSession.streak=0; __wordsUiSession.bestStreak=0; __wordsUiSession.startedAt=Date.now();
+    }
+    if(!__wordsUiSession.startedAt)__wordsUiSession.startedAt=Date.now();
+    return __wordsUiSession;
+  }
+
+  function __renderWordsDesktopChrome(key){
+    try{
+      if(window.innerWidth<900 || isPrepositionsModeForKey(key) || isArticlesModeForKey(key)) return;
+      const root=document.querySelector('.words-desktop-head'); if(!root)return;
+      const uk=getUiLang()==='uk';
+      const deckAll=getTrainableDeckForKey(key)||[];
+      let learned=0; deckAll.forEach(w=>{try{if(isLearned(w,key))learned++;}catch(_){}});
+      const pct=deckAll.length?Math.round(learned*100/deckAll.length):0;
+      const sess=__ensureWordsUiSession(key);
+      const elapsed=Math.max(0,Date.now()-sess.startedAt), mins=Math.floor(elapsed/60000);
+      const timeText=String(Math.floor(mins/60)).padStart(2,'0')+':'+String(mins%60).padStart(2,'0');
+      const idx=getActiveBatchIndex(), sz=getSetSizeForKey(key), totalSets=Math.max(1,Math.ceil(deckAll.length/sz));
+      root.innerHTML=
+        '<div class="words-desktop-titlebar"><div><h1>◎ <span>'+(uk?'Режим: ':'Режим: ')+'</span><b>'+(uk?'Слова':'Слова')+'</b></h1>'+
+        '<p>'+(uk?'Оберіть правильний переклад для слова':'Выберите правильный перевод для слова')+'</p></div>'+
+        '<div class="words-desktop-progress"><span>'+(uk?'Прогрес у режимі':'Прогресс в режиме')+'</span><div><i style="width:'+pct+'%"></i></div><b>'+pct+'%</b></div></div>'+
+        '<div class="words-desktop-kpis">'+
+        '<article><i class="ok">✓</i><span>'+(uk?'Правильно':'Правильно')+'</span><strong>'+sess.correct+'</strong></article>'+
+        '<article><i class="bad">×</i><span>'+(uk?'Помилки':'Ошибки')+'</span><strong>'+sess.wrong+'</strong></article>'+
+        '<article><i class="streak">◎</i><span>'+(uk?'Серія':'Серия')+'</span><strong>'+sess.bestStreak+'</strong></article>'+
+        '<article><i class="time">◷</i><span>'+(uk?'Час':'Время')+'</span><strong>'+timeText+'</strong></article>'+
+        '<article><i class="total">☷</i><span>'+(uk?'Сет':'Сет')+'</span><strong>'+(Number(idx||0)+1)+' / '+totalSets+'</strong></article></div>';
+    }catch(_){}
+  }
+
+  function __ensurePrepUiSession(key){
+    key = String(key || '');
+    if (__prepUiSession.deckKey !== key){
+      __prepUiSession.deckKey = key;
+      __prepUiSession.correct = 0;
+      __prepUiSession.wrong = 0;
+      __prepUiSession.streak = 0;
+      __prepUiSession.bestStreak = 0;
+      __prepUiSession.startedAt = Date.now();
+    }
+    if (!__prepUiSession.startedAt) __prepUiSession.startedAt = Date.now();
+    return __prepUiSession;
+  }
+
+  function __learnLangOfKey(key){
+    try { return (A.Decks && A.Decks.langOfKey) ? (A.Decks.langOfKey(key) || String(key||'').split('_')[0]) : String(key||'').split('_')[0]; }
+    catch(_){ return String(key||'').split('_')[0] || 'de'; }
+  }
+
+  function __sidebarCountsForLang(lang){
+    let mistakes = 0, favorites = 0;
+    try {
+      const list = (A.Mistakes && typeof A.Mistakes.listSummary === 'function') ? (A.Mistakes.listSummary() || []) : [];
+      mistakes = list.filter(x => __learnLangOfKey(x.baseKey) === lang).reduce((n,x)=>n + Number(x.count||0), 0);
+    } catch(_){}
+    try {
+      const list = (A.Favorites && typeof A.Favorites.list === 'function') ? (A.Favorites.list() || []) : [];
+      favorites = list.filter(x => __learnLangOfKey(x.dictKey) === lang).length;
+    } catch(_){}
+    return { mistakes, favorites };
+  }
+
+  function __syncTrainerSidebarCounts(){
+    try {
+      const shell = document.querySelector('.trainer-desktop-shell');
+      if (!shell) return;
+      const key = activeDeckKey();
+      const lang = __learnLangOfKey(key);
+      const c = __sidebarCountsForLang(lang);
+      const m = shell.querySelector('[data-trainer-route="mistakes"] .desktop-nav-count');
+      const f = shell.querySelector('[data-trainer-route="fav"] .desktop-nav-count');
+      if (m) { m.textContent = c.mistakes ? String(c.mistakes) : ''; m.hidden = !c.mistakes; }
+      if (f) { f.textContent = c.favorites ? String(c.favorites) : ''; f.hidden = !c.favorites; }
+    } catch(_){}
+  }
+
+  function __syncPrepsDesktopTools(){
+    try{
+      const btn=document.querySelector('.preps-desktop-mobilelike-tools [data-preps-desktop-tool="tts"]');
+      if(!btn)return;
+      let on=false;
+      try{on=localStorage.getItem('mm.tts.words')==='1'}catch(_){}
+      btn.classList.toggle('is-active',on);
+      btn.setAttribute('aria-pressed',String(on));
+    }catch(_){}
+  }
+
+  function __bindPrepsDesktopTools(){
+    try{
+      if(window.innerWidth<900)return;
+      const tools=document.querySelector('.preps-desktop-mobilelike-tools');
+      if(!tools || tools.dataset.bound==='1')return;
+      tools.dataset.bound='1';
+
+      tools.addEventListener('click',function(e){
+        const btn=e.target&&e.target.closest?e.target.closest('[data-preps-desktop-tool]'):null;
+        if(!btn)return;
+        const action=btn.getAttribute('data-preps-desktop-tool');
+
+        if(action==='tts'){
+          e.preventDefault();
+          let next=true;
+          try{next=localStorage.getItem('mm.tts.words')!=='1'}catch(_){}
+          try{localStorage.setItem('mm.tts.words',next?'1':'0')}catch(_){}
+          try{
+            if(A.AudioTTS&&typeof A.AudioTTS.refreshIndicators==='function')A.AudioTTS.refreshIndicators();
+            else if(A.AudioTTS&&typeof A.AudioTTS.refresh==='function')A.AudioTTS.refresh();
+          }catch(_){}
+          __syncPrepsDesktopTools();
+          return;
+        }
+
+        if(action==='skip'){
+          e.preventDefault();
+          try{
+            if(A.MobileTrainerActions&&typeof A.MobileTrainerActions.skipCurrent==='function'){
+              A.MobileTrainerActions.skipCurrent();
+            }
+          }catch(_){}
+          return;
+        }
+
+        if(action==='reveal'){
+          e.preventDefault();
+          try{
+            if(A.MobileTrainerActions&&typeof A.MobileTrainerActions.revealCurrent==='function'){
+              A.MobileTrainerActions.revealCurrent();
+            }
+          }catch(_){}
+        }
+      });
+
+      __syncPrepsDesktopTools();
+    }catch(_){}
+  }
+
+  function __renderPrepsDesktopChrome(key){
+    try {
+      if (!isPrepositionsModeForKey(key) || window.innerWidth < 900) return;
+      const root = document.querySelector('.preps-desktop-head');
+      if (!root) return;
+
+      const uk = getUiLang() === 'uk';
+      const deckAll = getTrainableDeckForKey(key) || [];
+      const uniq = {};
+      deckAll.forEach(w=>{ if (w && w.id != null) uniq[String(w.id)] = true; });
+      const totalPatterns = Object.keys(uniq).length || 30;
+      let learned = 0;
+      Object.keys(uniq).forEach(pid=>{ try { if (isLearned({id:pid}, key)) learned++; } catch(_){} });
+      const pct = totalPatterns ? Math.round(learned * 100 / totalPatterns) : 0;
+
+      const sess = __ensurePrepUiSession(key);
+      const elapsed = Math.max(0, Date.now() - sess.startedAt);
+      const totalMin = Math.floor(elapsed / 60000);
+      const timeText = String(Math.floor(totalMin/60)).padStart(2,'0') + ':' + String(totalMin%60).padStart(2,'0');
+
+      const idx = getActiveBatchIndex();
+      const sz = getSetSizeForKey(key);
+      const totalSets = Math.max(1, Math.ceil(deckAll.length / sz));
+
+      root.innerHTML =
+        '<div class="preps-desktop-titlebar">' +
+          '<div><h1>◎ <span>'+(uk?'Режим: ':'Режим: ')+'</span><b>'+(uk?'Прийменники':'Предлоги')+'</b></h1>' +
+          '<p>'+(uk?'Оберіть правильний прийменник для речення':'Выберите правильный предлог для предложения')+'</p></div>' +
+          '<div class="preps-desktop-progress"><span>'+(uk?'Прогрес у режимі':'Прогресс в режиме')+'</span><div><i style="width:'+pct+'%"></i></div><b>'+pct+'%</b></div>' +
+        '</div>' +
+        '<div class="preps-desktop-kpis">' +
+          '<article><i class="ok">✓</i><span>'+(uk?'Правильно':'Правильно')+'</span><strong>'+sess.correct+'</strong></article>' +
+          '<article><i class="bad">×</i><span>'+(uk?'Помилки':'Ошибки')+'</span><strong>'+sess.wrong+'</strong></article>' +
+          '<article><i class="streak">◎</i><span>'+(uk?'Серія':'Серия')+'</span><strong>'+sess.bestStreak+'</strong></article>' +
+          '<article><i class="time">◷</i><span>'+(uk?'Час':'Время')+'</span><strong>'+timeText+'</strong></article>' +
+          '<article><i class="total">☷</i><span>'+(uk?'Сет':'Сет')+'</span><strong>'+(Number(idx||0)+1)+' / '+totalSets+'</strong></article>' +
+        '</div>';
+    } catch(_){}
+  }
+
+
+  // 1.12.12 — read-only bridge for the mobile trainer information panel.
+  // It exposes existing trainer/session data without moving any learning logic
+  // into the mobile presentation layer.
+  A.MobileTrainerInfoData = function(){
+    try {
+      const key = activeDeckKey();
+      const uk = getUiLang() === 'uk';
+      const kind = isPrepositionsModeForKey(key) ? 'prepositions'
+        : (isArticlesModeForKey(key) ? 'articles' : 'words');
+
+      if (kind === 'articles') {
+        let st = {correct:0,wrong:0,bestStreak:0,totalMs:0};
+        let ds = {withArticles:0,learned:0};
+        let ss = {setIndex:0,totalSets:1};
+        try { if (A.ArticlesStats && A.ArticlesStats.export) st = A.ArticlesStats.export() || st; } catch(_){}
+        try { if (A.ArticlesTrainer && A.ArticlesTrainer.getDeckStats) ds = A.ArticlesTrainer.getDeckStats(key) || ds; } catch(_){}
+        try { if (A.ArticlesTrainer && A.ArticlesTrainer.getSetStats) ss = A.ArticlesTrainer.getSetStats(key) || ss; } catch(_){}
+        return {
+          kind, title: uk ? 'Артиклі' : 'Артикли',
+          correct:Number(st.correct||0), wrong:Number(st.wrong||0), streak:Number(st.bestStreak||0),
+          elapsedMs:Number(st.totalMs||0), setIndex:Number(ss.setIndex||0), totalSets:Math.max(1,Number(ss.totalSets||1)),
+          pct: ds.withArticles ? Math.round(Number(ds.learned||0)*100/Number(ds.withArticles||1)) : 0
+        };
+      }
+
+      const deckAll = getTrainableDeckForKey(key) || [];
+      const idx = getActiveBatchIndex();
+      const sz = getSetSizeForKey(key);
+      const totalSets = Math.max(1, Math.ceil(deckAll.length / sz));
+
+      if (kind === 'prepositions') {
+        const uniq = {};
+        deckAll.forEach(w=>{ if (w && w.id != null) uniq[String(w.id)] = true; });
+        let learned = 0;
+        Object.keys(uniq).forEach(pid=>{ try { if (isLearned({id:pid}, key)) learned++; } catch(_){} });
+        const total = Object.keys(uniq).length || 30;
+        const sess = __ensurePrepUiSession(key);
+        return {
+          kind, title: uk ? 'Прийменники' : 'Предлоги',
+          correct:sess.correct, wrong:sess.wrong, streak:sess.bestStreak,
+          elapsedMs:Math.max(0,Date.now()-sess.startedAt), setIndex:Number(idx||0), totalSets,
+          pct:total ? Math.round(learned*100/total) : 0
+        };
+      }
+
+      let learned = 0;
+      deckAll.forEach(w=>{ try { if (isLearned(w,key)) learned++; } catch(_){} });
+      const sess = __ensureWordsUiSession(key);
+      return {
+        kind, title: uk ? 'Слова' : 'Слова',
+        correct:sess.correct, wrong:sess.wrong, streak:sess.bestStreak,
+        elapsedMs:Math.max(0,Date.now()-sess.startedAt), setIndex:Number(idx||0), totalSets,
+        pct:deckAll.length ? Math.round(learned*100/deckAll.length) : 0
+      };
+    } catch(_) { return null; }
+  };
+
   function getSetSizeForKey(key){
     const k = String(key || '').toLowerCase();
     try {
@@ -104,6 +418,7 @@ function setUiLang(code){
     const lang = (code === 'uk') ? 'uk' : 'ru';
     A.settings = A.settings || {};
     A.settings.lang = lang;
+    A.settings.uiLang = lang;
     if (typeof A.saveSettings === 'function') { try { A.saveSettings(A.settings); } catch(_){} }
     document.documentElement.dataset.lang = lang;
     document.documentElement.setAttribute('lang', lang);
@@ -1246,7 +1561,9 @@ function activeDeckKey() {
     try {
       if (isPrepositionsModeForKey(activeDeckKey())) return false;
       const el = document.getElementById('trainReverse');
-      return !!(el && el.checked);
+      if (el) return !!el.checked;
+      const v = window.localStorage.getItem('mm.train.reverse');
+      return v === '1' || v === 'true';
     } catch (_) {
       return false;
     }
@@ -1305,6 +1622,40 @@ function activeDeckKey() {
     return (lang === 'uk') ? 'Дієслова' : 'Глаголы';
   }
 
+  function syncDifficultyControl(){
+    try{
+      const btn=document.getElementById('trainerModeIndicator');
+      if(!btn) return;
+      const hard=getMode()==='hard';
+      const isUk=getUiLang()==='uk';
+      btn.textContent=hard?'🦅':'🐣';
+      btn.setAttribute('aria-pressed',String(hard));
+      const title=hard
+        ? (isUk?'Складний режим — натисніть, щоб увімкнути звичайний':'Сложный режим — нажмите, чтобы включить обычный')
+        : (isUk?'Звичайний режим — натисніть, щоб увімкнути складний':'Обычный режим — нажмите, чтобы включить сложный');
+      btn.title=title;
+      btn.setAttribute('aria-label',title);
+      btn.dataset.level=hard?'hard':'normal';
+    }catch(_){}
+  }
+
+  function bindDifficultyControl(){
+    const btn=document.getElementById('trainerModeIndicator');
+    if(!btn) return;
+    syncDifficultyControl();
+    btn.onclick=function(){
+      try{
+        const toggle=document.getElementById('levelToggle');
+        if(!toggle || toggle.disabled) return;
+        toggle.checked=!toggle.checked;
+        toggle.dispatchEvent(new Event('change',{bubbles:true}));
+        // The canonical levelToggle handler may show an async confirmation.
+        // Resync after both immediate and modal-confirmed paths.
+        [80,350,900].forEach(ms=>setTimeout(syncDifficultyControl,ms));
+      }catch(_){}
+    };
+  }
+
   function mountMarkup() {
     const app = document.getElementById('app');
     if (!app) return;
@@ -1329,14 +1680,62 @@ function activeDeckKey() {
     const T = tUI();
 
     const showFilters = isPwaOrTwaRunmode();
+    const __isPrepsHome = !!isPrepositionsModeForKey(key);
+    const __isArticlesHome = !!isArticlesModeForKey(key);
+    const __isWordHome = !__isPrepsHome && !__isArticlesHome;
+
+    const __trainerLearnLang = (() => {
+      try { return (A.Decks && A.Decks.langOfKey) ? (A.Decks.langOfKey(key) || 'de') : String(key||'de').split('_')[0]; }
+      catch(_) { return 'de'; }
+    })();
+    const __trainerLangName = ({de:'Deutsch',en:'English',sr:'Srpski'})[__trainerLearnLang] || String(__trainerLearnLang||'').toUpperCase();
+    const __navT = getUiLang()==='uk'
+      ? {home:'Головна',trainer:'Тренажер',dicts:'Словники',errors:'Помилки',fav:'Вибране',stats:'Статистика'}
+      : {home:'Главная',trainer:'Тренажёр',dicts:'Словари',errors:'Ошибки',fav:'Избранное',stats:'Статистика'};
 
     app.innerHTML = `
-      <div class="home">
+      ${(__isWordHome || __isArticlesHome || __isPrepsHome) ? `
+      <div class="trainer-desktop-shell" data-lang="${__trainerLearnLang}">
+        <aside class="dash-side trainer-side">
+          <div class="dash-brand"><img src="./img/logo_64.png" alt=""><div><strong>MOYAMOVA</strong><span>${__trainerLangName}</span></div></div>
+          <nav>
+            <button data-trainer-route="home">⌂ <span>${__navT.home}</span></button>
+            <button class="is-active" data-trainer-route="trainer">▶ <span>${__navT.trainer}</span></button>
+            <button data-trainer-route="dicts">▤ <span>${__navT.dicts}</span></button>
+            <button data-trainer-route="mistakes">△ <span>${__navT.errors}</span><b class="desktop-nav-count" hidden></b></button>
+            <button data-trainer-route="fav">♡ <span>${__navT.fav}</span><b class="desktop-nav-count" hidden></b></button>
+            <button data-trainer-route="stats">▥ <span>${__navT.stats}</span></button>
+          </nav>
+          <div class="trainer-side-bottom">
+            <div class="dash-side-foot">v${A.APP_VER||'1.7.7'} · Offline <i></i></div>
+          </div>
+        </aside>
+        <main class="trainer-desktop-main">
+      ` : ''}
+      <div class="home${__isWordHome ? ' home--word-trainer' : ''}${__isPrepsHome ? ' home--preps-trainer' : ''}">
+        ${__isPrepsHome ? '<section class="preps-desktop-head"></section>' : ''}
+        ${__isWordHome ? '<section class="words-desktop-head"></section>' : ''}
+        <section class="mobile-trainer-info mobile-trainer-info--boot" aria-live="polite" aria-hidden="true">
+          <div class="mti-head"><div><span>◎</span><b>${__isPrepsHome ? (getUiLang()==='uk'?'Прийменники':'Предлоги') : (__isArticlesHome ? (getUiLang()==='uk'?'Артиклі':'Артикли') : 'Слова')}</b></div><strong>0%</strong></div>
+          <div class="mti-progress"><i style="width:0%"></i></div>
+          <div class="mti-kpis">
+            <div class="mti-kpi ok"><i>✓</i><span>${getUiLang()==='uk'?'Правильно':'Правильно'}</span><b>0</b></div>
+            <div class="mti-kpi bad"><i>×</i><span>${getUiLang()==='uk'?'Помилки':'Ошибки'}</span><b>0</b></div>
+            <div class="mti-kpi streak"><i>◎</i><span>${getUiLang()==='uk'?'Серія':'Серия'}</span><b>0</b></div>
+            <div class="mti-kpi time"><i>◷</i><span>${getUiLang()==='uk'?'Час':'Время'}</span><b>00:00</b></div>
+            <div class="mti-kpi set"><i>☷</i><span>Сет</span><b>—</b></div>
+          </div>
+        </section>
         <!-- ЗОНА 1: Сеты -->
         <section class="card home-sets">
           <header class="sets-header">
   <h2 class="sets-title">${title}</h2>
-  <span class="flag" aria-hidden="true">${flag}</span>
+  <div class="sets-desktop-tools" aria-label="${getUiLang()==='uk' ? 'Навігація по наборах' : 'Навигация по сетам'}">
+    <span class="sets-desktop-stats" id="desktopSetStats"></span>
+    <button type="button" class="sets-arrow" id="setsPrev" aria-label="${getUiLang()==='uk' ? 'Попередні набори' : 'Предыдущие сеты'}">‹</button>
+    <button type="button" class="sets-arrow" id="setsNext" aria-label="${getUiLang()==='uk' ? 'Наступні набори' : 'Следующие сеты'}">›</button>
+  </div>
+  <span class="flag trainer-lang-flag" aria-hidden="true"><img src="./img/flags/${(__trainerLearnLang === 'ua' ? 'uk' : __trainerLearnLang)}.svg" alt=""></span>
 </header>
           <div class="sets-viewport" id="setsViewport">
             <div class="sets-grid" id="setsBar"></div>
@@ -1355,8 +1754,9 @@ function activeDeckKey() {
         `}
 
         <!-- ЗОНА 3: Тренер -->
-        <section class="card home-trainer">
+        <section class="card home-trainer${__isWordHome ? ' home-trainer--words' : ''}">
           <div class="trainer-top">
+            <button type="button" class="trainer-mode-indicator" id="trainerModeIndicator" aria-pressed="false"></button>
             <div class="trainer-stars" aria-hidden="true"></div>
             <button aria-label="${T.fav}" class="heart" data-title-key="tt_favorites" id="favBtn">♡</button>
           </div>
@@ -1364,9 +1764,49 @@ function activeDeckKey() {
           <p class="trainer-subtitle">${T.choose}</p>
           <div class="answers-grid"></div>
           <button class="btn-ghost idk-btn">${T.idk}</button>
-          <span class="trainer-mode-indicator" id="trainerModeIndicator" aria-hidden="true"></span>
           <p class="dict-stats" id="dictStats"></p>
         </section>
+
+        ${__isWordHome ? `
+        <section class="trainer-quickbar" id="trainerQuickbar" aria-label="${getUiLang()==='uk' ? 'Швидкі налаштування тренування' : 'Быстрые настройки тренировки'}">
+          <button type="button" class="trainer-qbtn" data-trainer-q="auto" aria-pressed="false" title="${getUiLang()==='uk' ? 'Автоперехід між сетами' : 'Автопереход между сетами'}">
+            <span class="trainer-qico qico-auto" aria-hidden="true">↻</span>
+            <span class="trainer-qlabel">Auto</span>
+          </button>
+          <button type="button" class="trainer-qbtn" data-trainer-q="reverse" aria-pressed="false" title="${getUiLang()==='uk' ? 'Зворотний переклад' : 'Обратный перевод'}">
+            <span class="trainer-qico qico-reverse" aria-hidden="true">⇄</span>
+            <span class="trainer-qlabel">Reverse</span>
+          </button>
+          <button type="button" class="trainer-qbtn" data-trainer-q="focus" aria-pressed="false" title="${getUiLang()==='uk' ? 'Режим концентрації' : 'Режим концентрации'}">
+            <span class="trainer-qico qico-focus" aria-hidden="true">◎</span>
+            <span class="trainer-qlabel">Focus</span>
+          </button>
+          <span class="trainer-qsep" aria-hidden="true"></span>
+          <button type="button" class="trainer-qbtn trainer-qbtn--audio" data-trainer-q="ttsExamples" aria-pressed="false" title="${getUiLang()==='uk' ? 'Озвучення прикладів' : 'Озвучка примеров'}">
+            <span class="trainer-qico qico-example" aria-hidden="true">🔊</span>
+          </button>
+          <button type="button" class="trainer-qbtn trainer-qbtn--audio" data-trainer-q="ttsWords" aria-pressed="false" title="${getUiLang()==='uk' ? 'Озвучення слів' : 'Озвучка слов'}">
+            <span class="trainer-qico qico-word" aria-hidden="true">🔊</span>
+          </button>
+        </section>
+        ` : ''}
+
+        ${(__isPrepsHome && window.innerWidth >= 900) ? `
+        <section class="preps-desktop-mobilelike-tools" aria-label="${getUiLang()==='uk' ? 'Дії тренажера прийменників' : 'Действия тренажёра предлогов'}">
+          <button type="button" class="preps-desktop-tool" data-preps-desktop-tool="tts" aria-pressed="false">
+            <span class="preps-desktop-tool__icon" aria-hidden="true">🔊</span>
+            <span><b>${getUiLang()==='uk' ? 'Озвучення' : 'Озвучка'}</b><small>${getUiLang()==='uk' ? 'увімкнути / вимкнути' : 'включить / выключить'}</small></span>
+          </button>
+          <button type="button" class="preps-desktop-tool" data-preps-desktop-tool="skip">
+            <span class="preps-desktop-tool__icon" aria-hidden="true">⇄</span>
+            <span><b>${getUiLang()==='uk' ? 'Пропустити' : 'Пропустить'}</b><small>${getUiLang()==='uk' ? 'перейти до наступного' : 'перейти к следующему'}</small></span>
+          </button>
+          <button type="button" class="preps-desktop-tool" data-preps-desktop-tool="reveal">
+            <span class="preps-desktop-tool__icon" aria-hidden="true">?</span>
+            <span><b>${getUiLang()==='uk' ? 'Показати відповідь' : 'Показать ответ'}</b><small>${getUiLang()==='uk' ? 'показати правильний прийменник' : 'показать правильный предлог'}</small></span>
+          </button>
+        </section>
+        ` : ''}
 
         ${showFilters ? `
         <!-- ЗОНА 4: Фильтры (только PWA/TWA) -->
@@ -1402,7 +1842,28 @@ function activeDeckKey() {
 
         </div>
         ` : ''}
-      </div>`;
+      </div>
+      ${(__isWordHome || __isArticlesHome || __isPrepsHome) ? `</main></div>` : ''}`;
+
+    if (__isWordHome || __isArticlesHome || __isPrepsHome) {
+      app.querySelectorAll('[data-trainer-route]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.getAttribute('data-trainer-route');
+          // Use this module's live Router directly. A.Router may still point to an
+          // older shell router created before Home was initialised.
+          if (action) Router.routeTo(action);
+        });
+      });
+
+      try { __syncTrainerSidebarCounts(); } catch(_){}
+      try {
+        if (__isPrepsHome) {
+          __renderPrepsDesktopChrome(key);
+          __bindPrepsDesktopTools();
+        }
+      } catch(_){}
+      try { bindDifficultyControl(); } catch(_){}
+    }
 
     // Инициализация summary после отрисовки (если фильтры показаны)
     try { if (showFilters) updateFiltersSummary(); } catch(_){ }
@@ -1445,7 +1906,8 @@ function activeDeckKey() {
 
       const btn = document.createElement('button');
       btn.className = 'set-pill' + (i === activeIdx ? ' is-active' : '') + (done ? ' is-done' : '');
-      btn.textContent = i + 1;
+      const desktopSets = !!(window.matchMedia && window.matchMedia('(min-width: 900px)').matches);
+      btn.textContent = desktopSets ? `${getUiLang()==='uk' ? 'Набір' : 'Сет'} ${i + 1}` : String(i + 1);
       btn.onclick = () => {
         try {
           if (isArticlesModeForKey(key) && A.ArticlesTrainer && typeof A.ArticlesTrainer.setSetIndex === 'function') {
@@ -1464,6 +1926,34 @@ function activeDeckKey() {
       };
       grid.appendChild(btn);
     }
+
+    // Desktop: one-line set strip. Arrows scroll the strip without changing
+    // the active set; the active set is brought into view after re-render.
+    try {
+      const viewport = document.getElementById('setsViewport');
+      const prevBtn = document.getElementById('setsPrev');
+      const nextBtn = document.getElementById('setsNext');
+      const isDesktopSets = !!(window.matchMedia && window.matchMedia('(min-width: 900px)').matches);
+      if (viewport && isDesktopSets) {
+        const updateArrows = () => {
+          const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+          if (prevBtn) prevBtn.disabled = viewport.scrollLeft <= 2;
+          if (nextBtn) nextBtn.disabled = viewport.scrollLeft >= max - 2;
+        };
+        const step = () => Math.max(260, Math.round(viewport.clientWidth * .72));
+        if (prevBtn) prevBtn.onclick = () => viewport.scrollBy({left:-step(), behavior:'smooth'});
+        if (nextBtn) nextBtn.onclick = () => viewport.scrollBy({left: step(), behavior:'smooth'});
+        viewport.onscroll = updateArrows;
+        requestAnimationFrame(() => {
+          const active = grid.querySelector('.set-pill.is-active');
+          if (active) {
+            const want = active.offsetLeft - Math.max(0, (viewport.clientWidth - active.offsetWidth) / 2);
+            viewport.scrollLeft = Math.max(0, want);
+          }
+          updateArrows();
+        });
+      }
+    } catch(_){}
 
     const i = (isArticlesModeForKey(key) && A.ArticlesTrainer && typeof A.ArticlesTrainer.getSetIndex === 'function')
       ? Number(A.ArticlesTrainer.getSetIndex(key) || 0)
@@ -1490,6 +1980,10 @@ function activeDeckKey() {
           ? `${isPrepositionsModeForKey(key) ? 'Патернів' : 'Слів'} у наборі: ${words.length} / Вивчено: ${learned}`
           : `${isPrepositionsModeForKey(key) ? 'Паттернов' : 'Слов'} в наборе: ${words.length} / Выучено: ${learned}`;
       }
+      try {
+        const desktopStats = document.getElementById('desktopSetStats');
+        if (desktopStats) desktopStats.textContent = statsEl.textContent || '';
+      } catch(_){}
     }
   }
 
@@ -1756,8 +2250,114 @@ function activeDeckKey() {
       el.disabled = !!disabled;
     } catch(_){ }
   }
+
+  /* ----------------------- Quick trainer controls ----------------------- */
+  function __qReadBool(key, fallback){
+    try{
+      const v = window.localStorage.getItem(key);
+      if (v === null || v === undefined || v === '') return !!fallback;
+      return v === '1' || v === 'true';
+    }catch(_){ return !!fallback; }
+  }
+  function __qWriteBool(key, val){
+    try{ window.localStorage.setItem(key, val ? '1' : '0'); }catch(_){}
+  }
+  function __qSyncMenuCheckbox(id, checked){
+    try{
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.checked = !!checked;
+    }catch(_){}
+  }
+  function __syncTrainerQuickbar(){
+    try{
+      const bar = document.getElementById('trainerQuickbar');
+      if (!bar) return;
+
+      const auto = __qReadBool('mm.train.autostep', true);
+      const reverse = __qReadBool('mm.train.reverse', false);
+      const hideSets = __qReadBool('mm.focus.hideSets', false);
+      const hideContext = __qReadBool('mm.focus.hideContext', false);
+      const focus = hideSets && hideContext;
+      const ttsWords = __qReadBool('mm.tts.words', false);
+      const ttsExamples = __qReadBool('mm.tts.examples', false);
+
+      const setState = (name, on) => {
+        const b = bar.querySelector('[data-trainer-q="'+name+'"]');
+        if (!b) return;
+        b.classList.toggle('is-active', !!on);
+        b.setAttribute('aria-pressed', String(!!on));
+      };
+      setState('auto', auto);
+      setState('reverse', reverse);
+      setState('focus', focus);
+      setState('ttsWords', ttsWords);
+      setState('ttsExamples', ttsExamples);
+
+      const reverseBtn = bar.querySelector('[data-trainer-q="reverse"]');
+      const preps = isPrepositionsModeForKey(activeDeckKey());
+      if (reverseBtn) {
+        reverseBtn.disabled = !!preps;
+        reverseBtn.classList.toggle('is-disabled', !!preps);
+        reverseBtn.setAttribute('aria-disabled', String(!!preps));
+      }
+    }catch(_){}
+  }
+  function __applyTrainerQuickControl(name){
+    try{
+      if (name === 'reverse' && isPrepositionsModeForKey(activeDeckKey())) {
+        __syncTrainerQuickbar();
+        return;
+      }
+      if (name === 'auto'){
+        const next = !__qReadBool('mm.train.autostep', true);
+        __qWriteBool('mm.train.autostep', next);
+        __qSyncMenuCheckbox('trainAutostep', next);
+      } else if (name === 'reverse'){
+        const next = !__qReadBool('mm.train.reverse', false);
+        __qWriteBool('mm.train.reverse', next);
+        __qSyncMenuCheckbox('trainReverse', next);
+        try{ renderTrainer(); }catch(_){}
+      } else if (name === 'focus'){
+        const active = __qReadBool('mm.focus.hideSets', false) && __qReadBool('mm.focus.hideContext', false);
+        const next = !active;
+        __qWriteBool('mm.focus.hideSets', next);
+        __qWriteBool('mm.focus.hideContext', next);
+        try{
+          document.body.classList.toggle('mm-focus-hide-sets', next);
+          document.body.classList.toggle('mm-focus-hide-context', next);
+        }catch(_){}
+        // Burger checkboxes mean “show”, hence the inverse state.
+        __qSyncMenuCheckbox('focusSets', !next);
+        __qSyncMenuCheckbox('focusContext', !next);
+      } else if (name === 'ttsWords' || name === 'ttsExamples'){
+        const key = name === 'ttsWords' ? 'mm.tts.words' : 'mm.tts.examples';
+        const next = !__qReadBool(key, false);
+        __qWriteBool(key, next);
+        try{
+          if (A.AudioTTS && typeof A.AudioTTS.refreshIndicators === 'function') A.AudioTTS.refreshIndicators();
+          else if (A.AudioTTS && typeof A.AudioTTS.refresh === 'function') A.AudioTTS.refresh();
+        }catch(_){}
+      }
+      __syncTrainerQuickbar();
+    }catch(_){}
+  }
+
+  if (!document.documentElement.__mmTrainerQuickbarBound){
+    document.documentElement.__mmTrainerQuickbarBound = true;
+    document.addEventListener('click', function(e){
+      try{
+        const b = e.target && e.target.closest ? e.target.closest('[data-trainer-q]') : null;
+        if (!b) return;
+        e.preventDefault();
+        __applyTrainerQuickControl(String(b.getAttribute('data-trainer-q') || ''));
+      }catch(_){}
+    }, false);
+  }
+
 function renderTrainer() {
     const key   = activeDeckKey();
+    try { if (isPrepositionsModeForKey(key)) __renderPrepsDesktopChrome(key); else if (!isArticlesModeForKey(key)) __renderWordsDesktopChrome(key); } catch(_){}
 
     // Trainer variant switching (words vs articles).
     // We must NOT fall back to the default trainer when the user interacts with
@@ -1911,6 +2511,8 @@ if (wantArticles) {
     const stats   = document.getElementById('dictStats');
     const modeEl  = document.getElementById('trainerModeIndicator');
 
+    try { __syncTrainerQuickbar(); } catch(_){}
+
     if (favBtn) {
       const favNow = isFav(key, word.id);
       favBtn.textContent = favNow ? '♥' : '♡';
@@ -1962,6 +2564,7 @@ if (wantArticles) {
         favBtn.setAttribute('aria-pressed', String(now));
         favBtn.style.transform = 'scale(1.2)';
         setTimeout(() => { favBtn.style.transform = 'scale(1)'; }, 140);
+        try { __syncTrainerSidebarCounts(); } catch(_){}
       };
     }
 
@@ -2051,7 +2654,11 @@ answers.innerHTML = '';
     opts.forEach(opt => {
       const b = document.createElement('button');
       b.className = 'answer-btn';
-      b.textContent = (opt && opt._optLabel) ? opt._optLabel : tWord(opt);
+      const __answerLabel = String((opt && opt._optLabel) ? opt._optLabel : tWord(opt) || '');
+      b.textContent = __answerLabel;
+      // 1.6: geometry stays fixed; only typography gets denser for genuinely long units.
+      if (__answerLabel.length > 38) b.classList.add('answer-btn--long');
+      if (__answerLabel.length > 64) b.classList.add('answer-btn--xlong');
       b.setAttribute('data-id', String(opt.id));
       b.onclick = () => {
         if (solved) return;
@@ -2071,12 +2678,22 @@ answers.innerHTML = '';
             }
           } catch(_){ }
 
-          // TTS: in reverse mode auto-speaks after correct answer (manual speaks always)
+          // 1.12.24: short answer feedback first, then the existing TTS.
+          // Sequencing avoids the confirmation sound colliding with pronunciation.
           let __ttsAfterCorrectPromise = null;
           try {
-            if (!(A.settings && A.settings.trainerKind==='articles') && A.AudioTTS && A.AudioTTS.onCorrect) {
-              __ttsAfterCorrectPromise = A.AudioTTS.onCorrect();
-            }
+            const __sfx = (A.AnswerSfx && A.AnswerSfx.correct)
+              ? A.AnswerSfx.correct()
+              : Promise.resolve();
+
+            __ttsAfterCorrectPromise = Promise.resolve(__sfx).then(function(){
+              try {
+                if (!(A.settings && A.settings.trainerKind==='articles') && A.AudioTTS && A.AudioTTS.onCorrect) {
+                  return A.AudioTTS.onCorrect();
+                }
+              } catch(_eTTSInner){}
+              return null;
+            });
           } catch(_eTTS) { __ttsAfterCorrectPromise = null; }
 
 
@@ -2088,6 +2705,23 @@ answers.innerHTML = '';
               A.Analytics.trainingPing({ reason: 'answer_correct' });
             }
           } catch (_) {}
+
+          if (isPrepositionsModeForKey(key)) {
+            try {
+              const ps = __ensurePrepUiSession(key);
+              ps.correct += 1;
+              ps.streak += 1;
+              ps.bestStreak = Math.max(ps.bestStreak, ps.streak);
+              __renderPrepsDesktopChrome(key);
+            } catch(_){}
+          }
+          else if (!(A.settings && A.settings.trainerKind==='articles')) {
+            try {
+              const ws=__ensureWordsUiSession(key);
+              ws.correct+=1; ws.streak+=1; ws.bestStreak=Math.max(ws.bestStreak,ws.streak);
+              __renderWordsDesktopChrome(key);
+            } catch(_){}
+          }
 
           b.classList.add('is-correct');
           answers.querySelectorAll('.answer-btn').forEach(btn => {
@@ -2153,6 +2787,7 @@ answers.innerHTML = '';
           return;
         }
 
+        try { if (A.AnswerSfx && A.AnswerSfx.wrong) A.AnswerSfx.wrong(); } catch(_){}
         b.classList.add('is-wrong');
         b.disabled = true;
 
@@ -2177,6 +2812,21 @@ answers.innerHTML = '';
             // во время тренировки "ошибок" и "избранного" — НЕ копим ошибки
             if (!isMistDeck && !isFavDeck && A.Mistakes && typeof A.Mistakes.push === 'function') {
               A.Mistakes.push(key, word.id);
+              try { __syncTrainerSidebarCounts(); } catch(_){}
+            }
+            if (isPrepositionsModeForKey(key)) {
+              try {
+                const ps = __ensurePrepUiSession(key);
+                ps.wrong += 1;
+                ps.streak = 0;
+                __renderPrepsDesktopChrome(key);
+              } catch(_){}
+            }
+            else if (!(A.settings && A.settings.trainerKind==='articles')) {
+              try {
+                const ws=__ensureWordsUiSession(key);
+                ws.wrong+=1; ws.streak=0; __renderWordsDesktopChrome(key);
+              } catch(_){}
             }
           } catch (_){}
           afterAnswer(false);
@@ -2210,9 +2860,7 @@ answers.innerHTML = '';
             try { if (!__lang && A.settings && A.settings.studyLang) __lang = A.settings.studyLang; } catch(_){}
             var __kind = 'words';
             try {
-              if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
-                __kind = 'prepositions';
-              } else if (String(key||'').indexOf('_prepositions_trainer') > -1) {
+              if (isPrepositionsModeForKey(key)) {
                 __kind = 'prepositions';
               }
             } catch(_){}
@@ -2241,6 +2889,27 @@ answers.innerHTML = '';
       A.Trainer.updateModeIndicator();
     }
   }
+
+
+  // Mobile action bridge: reuse the authoritative trainer renderer instead of
+  // duplicating prepositions logic in the mobile presentation layer.
+  A.MobileTrainerActions = A.MobileTrainerActions || {};
+  A.MobileTrainerActions.skipCurrent = function(){
+    try{
+      if(!isPrepositionsModeForKey(activeDeckKey())) return false;
+      renderTrainer();
+      return true;
+    }catch(_){ return false; }
+  };
+  A.MobileTrainerActions.revealCurrent = function(){
+    try{
+      if(!isPrepositionsModeForKey(activeDeckKey())) return false;
+      const btn=document.querySelector('.idk-btn');
+      if(!btn) return false;
+      btn.click();
+      return true;
+    }catch(_){ return false; }
+  };
 
   // Мягкая перерисовка звёзд при смене режима (без смены слова/ответов)
   function repaintStarsOnly(){
@@ -2293,7 +2962,7 @@ answers.innerHTML = '';
       // iOS PWA/TWA: prevent rubber-band overscroll on HOME (native-like behavior).
       // Keep other screens scrollable (dicts, favorites, etc.).
       try {
-        const wantLock = __isStandaloneRunmode() && String(action || 'home') === 'home';
+        const wantLock = __isStandaloneRunmode() && String(action || 'home') === 'trainer';
         setHomeRubberBandLock(wantLock);
       } catch(_){ }
 
@@ -2311,7 +2980,7 @@ answers.innerHTML = '';
       } catch(_){ }
 
       // аналитика: если уходим с главного экрана — завершаем тренировку
-      if (prev === 'home' && action !== 'home') {
+      if (prev === 'trainer' && action !== 'trainer') {
         try {
           if (A.Analytics && typeof A.Analytics.trainingEnd === 'function') {
             A.Analytics.trainingEnd({ reason: 'route_change:' + action });
@@ -2319,36 +2988,51 @@ answers.innerHTML = '';
         } catch(_) {}
       }
 
+      if (action === 'guide') {
+        if (A.ViewGuide && typeof A.ViewGuide.mount === 'function') {
+          A.ViewGuide.mount();
+        } else if (window.Guide && typeof window.Guide.open === 'function') {
+          window.Guide.open();
+        }
+        return;
+      }
+      if (action === 'settings') {
+        // Settings is a desktop overlay, not a legacy content view.
+        // Rebuild Home first so desktop.settings.js can inject its nav button,
+        // then open that button through the normal authoritative handler.
+        if (A.HomeDashboard && typeof A.HomeDashboard.mount === 'function') A.HomeDashboard.mount();
+        else { mountMarkup(); renderSets(); renderTrainer(); }
+        const openDesktopSettings = () => {
+          const btn = document.querySelector('[data-desktop-settings]');
+          if (btn) btn.click();
+          else setTimeout(() => {
+            const retry = document.querySelector('[data-desktop-settings]');
+            if (retry) retry.click();
+          }, 80);
+        };
+        requestAnimationFrame(openDesktopSettings);
+        return;
+      }
       if (action === 'home') {
+        if (A.HomeDashboard && typeof A.HomeDashboard.mount === 'function') A.HomeDashboard.mount();
+        else { mountMarkup(); renderSets(); renderTrainer(); }
+        return;
+      }
+      if (action === 'trainer') {
         mountMarkup();
         renderSets();
         renderTrainer();
         const hb = document.getElementById('hintsBody');
         if (hb) hb.textContent = ' ';
-
-        // аналитика: старт тренировки
         try {
           if (A.Analytics && typeof A.Analytics.trainingStart === 'function') {
             const learnLang = getCurrentLearnLang();
             const uiLang = getCurrentUiLang();
-
             let deckKey = null;
-            try {
-              if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
-                deckKey = A.Trainer.getDeckKey();
-              } else if (A.settings && A.settings.lastDeckKey) {
-                deckKey = A.settings.lastDeckKey;
-              }
-            } catch (_){}
-
-            A.Analytics.trainingStart({
-              learnLang: learnLang,
-              uiLang: uiLang,
-              deckKey: deckKey
-            });
+            try { deckKey = (A.Trainer && A.Trainer.getDeckKey && A.Trainer.getDeckKey()) || (A.settings && A.settings.lastDeckKey) || null; } catch (_){}
+            A.Analytics.trainingStart({ learnLang, uiLang, deckKey });
           }
         } catch(_){}
-
         return;
       }
       if (action === 'dicts') { A.ViewDicts && A.ViewDicts.mount && A.ViewDicts.mount(); return; }

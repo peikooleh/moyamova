@@ -1,0 +1,7 @@
+/* MOYAMOVA 1.12.15 — mobile Prepositions only.
+   Cancels the legacy 58px spacer left from 1.12.10. */
+@media (max-width:899px){
+  html[data-mobile-shell="prepositions"] .trainer-desktop-main>.home{
+    padding-top:0!important;
+  }
+}

@@ -7,10 +7,7 @@
  * ========================================================== */
 
 (function (root) {
-  const MONO_JAR_ID = '56HNLifwyr';                // Monobank Jar
-  const PAYPAL_BUTTON_ID = 'KFBR8BW5ZZTQ4';        // PayPal hosted button
-
-  const URL_MONO   = `https://send.monobank.ua/jar/${MONO_JAR_ID}`;
+  const PAYPAL_BUTTON_ID = 'KFBR8BW5ZZTQ4';
   const URL_PAYPAL = `https://www.paypal.com/donate/?hosted_button_id=${PAYPAL_BUTTON_ID}`;
 
   let sheet, scroller, styleTag;
@@ -113,7 +110,6 @@
         background:#fff; color:#111; text-decoration:none; border:2px solid;
         min-width:240px;
       }
-      .donate-cta--mono   { border-color:#f7c948; }  /* жёлтый контур */
       .donate-cta--paypal { border-color:#0b57d0; }  /* синий контур */
       .donate-cta:active{ transform:scale(.98); }
 
@@ -130,6 +126,125 @@
       .donate-message::before{
         content:"✨"; display:block; font-size:20px; margin-bottom:6px;
       }
+
+      @media (max-width:899px){
+        .donate-sheet{
+          inset:0!important;
+          width:100%!important;
+          height:var(--mobile-viewport-height,100dvh)!important;
+          background:#f6f8fc!important;
+          z-index:2500!important;
+          padding:max(8px,var(--mobile-safe-top,0px)) max(10px,var(--mobile-safe-right,0px)) calc(12px + var(--mobile-safe-bottom,0px)) max(10px,var(--mobile-safe-left,0px))!important;
+          box-sizing:border-box!important;
+          gap:8px!important;
+        }
+        .donate-top{
+          flex:0 0 auto!important;
+          display:grid!important;
+          grid-template-columns:44px minmax(0,1fr) 44px!important;
+          align-items:center!important;
+          width:100%!important;
+          min-height:52px!important;
+          margin:0!important;
+          padding:4px!important;
+          border:1px solid #dfe7f0!important;
+          border-radius:16px!important;
+          background:rgba(255,255,255,.92)!important;
+          box-shadow:0 6px 22px rgba(34,48,94,.055)!important;
+          box-sizing:border-box!important;
+        }
+        .donate-back{
+          grid-column:1!important;
+          width:40px!important;height:40px!important;
+          display:grid!important;place-items:center!important;
+          border:0!important;border-radius:12px!important;
+          background:transparent!important;color:#26364e!important;
+          font:800 26px/1 system-ui,sans-serif!important;
+        }
+        .donate-title{
+          grid-column:2!important;
+          text-align:center!important;
+          color:#17243a!important;
+          font-size:14px!important;
+          font-weight:850!important;
+        }
+        .donate-content{
+          flex:1 1 auto!important;
+          min-height:0!important;
+          width:100%!important;
+          margin:0!important;
+          padding:14px!important;
+          overflow:auto!important;
+          border:1px solid #dfe7f0!important;
+          border-radius:18px!important;
+          background:#fff!important;
+          box-shadow:0 8px 26px rgba(34,48,94,.055)!important;
+          box-sizing:border-box!important;
+        }
+        .donate-note{
+          max-width:none!important;
+          margin:0 0 12px!important;
+          padding:10px 8px 14px!important;
+          border-bottom:1px solid #e8edf4!important;
+          background:transparent!important;
+          color:#65758b!important;
+          font-size:12px!important;
+        }
+        .donate-section{
+          margin:0!important;
+          padding:22px 14px!important;
+          border:1px solid #dfe7f0!important;
+          border-radius:16px!important;
+          background:#f8faff!important;
+        }
+        .donate-section h3{
+          margin:0 0 14px!important;
+          color:#23334b!important;
+          font-size:15px!important;
+        }
+        .donate-cta{
+          width:100%!important;
+          min-width:0!important;
+          min-height:50px!important;
+          box-sizing:border-box!important;
+          border:0!important;
+          border-radius:14px!important;
+          background:#1677e8!important;
+          color:#fff!important;
+          font-size:14px!important;
+          font-weight:800!important;
+          box-shadow:0 8px 20px rgba(22,119,232,.18)!important;
+        }
+        .donate-message{
+          max-width:none!important;
+          margin:12px 0 0!important;
+          padding:14px!important;
+          border:1px solid #e1eaf5!important;
+          border-radius:14px!important;
+          background:#fbfdff!important;
+          color:#526278!important;
+          font-size:12px!important;
+        }
+        html[data-theme="dark"] .donate-sheet,
+        html.dark .donate-sheet{background:#101a27!important}
+        html[data-theme="dark"] .donate-top,
+        html[data-theme="dark"] .donate-content,
+        html.dark .donate-top,
+        html.dark .donate-content{background:#182536!important;border-color:#2a3d53!important;box-shadow:none!important}
+        html[data-theme="dark"] .donate-title,
+        html[data-theme="dark"] .donate-back,
+        html.dark .donate-title,
+        html.dark .donate-back{color:#f0f5fb!important}
+        html[data-theme="dark"] .donate-note,
+        html.dark .donate-note{color:#9fb0c4!important;border-color:#2c4056!important}
+        html[data-theme="dark"] .donate-section,
+        html.dark .donate-section{background:#1d2d40!important;border-color:#30465e!important}
+        html[data-theme="dark"] .donate-section h3,
+        html.dark .donate-section h3{color:#edf3fa!important}
+        html[data-theme="dark"] .donate-message,
+        html.dark .donate-message{background:#1b2a3c!important;border-color:#2d4259!important;color:#adbbcb!important}
+      }
+
     `;
     styleTag = document.createElement('style');
     styleTag.id = 'donate-sheet-styles';
@@ -151,6 +266,7 @@
     const top = document.createElement('div');
     top.className = 'donate-top';
     top.innerHTML = `
+      <button type="button" class="donate-back" data-donate-back aria-label="Назад">‹</button>
       <div class="donate-title" data-i18n="donateTitle">Поддержать проект</div>
     `;
     
@@ -160,18 +276,7 @@
       <div class="donate-note">
         <div class="emoji">⚖️</div>
         <div data-i18n="donateLegalNote">Ваше пожертвование является добровольным и не является оплатой товаров или услуг.</div>
-      </div>
-
-      <section class="donate-section">
-        <h3 data-i18n="donateMonoTitle">Поддержать через Monobank</h3>
-        <div class="donate-cta-wrap">
-          <a class="donate-cta donate-cta--mono" href="${URL_MONO}" target="_blank" rel="noopener" data-dc="mono" data-i18n="donateMonoOpen" data-i18n="donateMonoOpen">
-            Открыть Monobank
-          </a>
-        </div>
-      </section>
-
-      <section class="donate-section">
+      </div><section class="donate-section">
         <h3 data-i18n="donatePaypalTitle">Поддержать через PayPal</h3>
         <div class="donate-cta-wrap">
           <a class="donate-cta donate-cta--paypal" href="${URL_PAYPAL}" target="_blank" rel="noopener" data-dc="paypal" data-i18n="donatePaypalOpen" data-i18n="donatePaypalOpen">
@@ -189,6 +294,9 @@
     sheet.appendChild(top);
     sheet.appendChild(scroller);
     document.body.appendChild(sheet);
+
+    const backBtn = sheet.querySelector('[data-donate-back]');
+    if (backBtn) backBtn.addEventListener('click', closeAndBack);
 
     // swipe RIGHT (слева направо) → закрыть и вернуться на предыдущую страницу
     sheet.addEventListener('touchstart', function(e){

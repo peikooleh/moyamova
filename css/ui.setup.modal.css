@@ -1,397 +1,245 @@
 /* ==========================================================
-   Проект: MOYAMOVA
-   Файл: ui.setup.modal.css
-   Назначение: Стили мастера начальной настройки
-   Версия: 1.0
-   Обновлено: 2025-11-17
-   ========================================================== */
-
-:root {
-  --setup-accent: var(--accent-main, #22c7ff);
-  --setup-accent-soft: rgba(34, 199, 255, 0.12);
-  --setup-border-subtle: rgba(148, 163, 184, 0.45);
+ * MOYAMOVA 1.12.32 — Compact first-run onboarding
+ * One-screen mobile setup, no theme/difficulty decisions.
+ * Existing storage/bootstrap logic remains authoritative.
+ * ========================================================== */
+:root{
+  --setup-bg:#ffffff;
+  --setup-card:#ffffff;
+  --setup-soft:#f7f9fc;
+  --setup-line:#dfe6ef;
+  --setup-text:#182235;
+  --setup-muted:#78869a;
+  --setup-blue:#3977ef;
+  --setup-blue2:#245fdd;
+  --setup-cyan:#18b9d3;
+}
+.setup-overlay{
+  position:fixed;inset:0;z-index:20000;display:none;place-items:center;
+  padding:12px;box-sizing:border-box;
+  background:rgba(9,18,28,.48);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.setup-overlay.is-open{display:grid}
+.setup-backdrop{position:absolute;inset:0}
+.setup-modal{
+  position:relative;z-index:1;width:min(100%,560px);
+  max-height:calc(100dvh - 24px);
+}
+.setup-modal__inner{
+  width:100%;max-height:calc(100dvh - 24px);overflow:auto;
+  border:1px solid var(--setup-line);border-radius:24px;
+  background:var(--setup-bg);color:var(--setup-text);
+  box-shadow:0 24px 70px rgba(15,35,60,.22);
+  box-sizing:border-box;
+}
+.setup-header{
+  padding:22px 24px 16px;text-align:center;
+  border-bottom:1px solid var(--setup-line);
+  background:var(--setup-bg);
+}
+.setup-brand-compact{
+  display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;
+}
+.setup-brand-compact .setup-brand__logo{
+  width:42px;height:42px;object-fit:contain;border-radius:11px;box-shadow:none;
+}
+.setup-brand-compact strong{
+  font:850 24px/1 Montserrat,system-ui,sans-serif;
+  letter-spacing:.01em;color:var(--setup-text);
+}
+.setup-title{
+  margin:0 0 5px;font:850 25px/1.1 Montserrat,system-ui,sans-serif;color:var(--setup-text);
+}
+.setup-subtitle{
+  margin:0 0 5px;font:750 13px/1.35 Montserrat,system-ui,sans-serif;color:var(--setup-blue);
+}
+.setup-intro{
+  max-width:450px;margin:0 auto;color:var(--setup-muted);font-size:11px;line-height:1.4;
 }
 
-/* ---------------------------
- * Overlay
- * ------------------------ */
-
-.setup-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+.setup-choices{padding:13px 16px 8px}
+.setup-choice-section{
+  padding:10px 0;border-bottom:1px solid var(--setup-line);
+}
+.setup-choice-section:first-child{padding-top:0}
+.setup-choice-section:last-child{border-bottom:0;padding-bottom:0}
+.setup-section__label{
+  margin:0 0 7px;color:var(--setup-text);
+  font:800 11.5px/1.2 Montserrat,system-ui,sans-serif;
+}
+.setup-mode-toggle,.setup-flags-row{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
+}
+.setup-flag-btn,.setup-mode-btn{
+  position:relative;min-width:0;min-height:44px;padding:7px 9px;
+  display:flex;align-items:center;justify-content:flex-start;gap:8px;
+  border:1px solid var(--setup-line);border-radius:11px;
+  background:var(--setup-card);color:var(--setup-text);
+  text-align:left;font:inherit;cursor:pointer;box-sizing:border-box;
+}
+.setup-flag-btn.is-active,.setup-mode-btn.is-active{
+  border-color:#7fa9ff;background:#f3f7ff;color:#285ecb;
+  box-shadow:0 0 0 1px rgba(57,119,239,.05);
+}
+.setup-flag-btn.is-active::after,.setup-mode-btn.is-active::after{
+  content:"✓";position:absolute;right:7px;top:7px;
+  width:17px;height:17px;display:grid;place-items:center;
+  border-radius:50%;background:var(--setup-blue);color:#fff;
+  font-size:9px;font-weight:900;
+}
+.setup-inline-flag,.setup-flag-btn__flag{width:28px;height:19px;flex:0 0 28px}
+.setup-inline-flag img,.setup-flag-btn__flag img{
+  display:block;width:100%;height:100%;object-fit:cover;border-radius:3px;
+  box-shadow:0 0 0 1px rgba(15,23,42,.10);
+}
+.setup-choice-copy{min-width:0;display:flex;flex-direction:column;gap:1px;padding-right:16px}
+.setup-choice-copy strong{
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  color:inherit;font-size:10.5px;line-height:1.15;font-weight:800;
+}
+.setup-choice-copy small{
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  color:var(--setup-muted);font-size:8px;line-height:1.15;
 }
 
-.setup-overlay.is-open {
-  display: flex;
+.setup-consent-compact{
+  margin:4px 16px 0;padding:8px 9px;
+  border:1px solid var(--setup-line);border-radius:12px;background:var(--setup-soft);
+}
+.setup-checkbox{
+  min-height:28px;padding:3px 2px;display:flex;align-items:center;gap:8px;
+  border-radius:8px;cursor:pointer;box-sizing:border-box;
+}
+.setup-checkbox + .setup-checkbox{margin-top:2px}
+.setup-checkbox input{position:absolute;opacity:0;pointer-events:none}
+.setup-checkbox__box{
+  width:18px;height:18px;flex:0 0 18px;border:1px solid #cfd9e6;
+  border-radius:5px;background:#fff;box-sizing:border-box;position:relative;
+}
+.setup-checkbox--checked .setup-checkbox__box{border-color:var(--setup-cyan);background:var(--setup-cyan)}
+.setup-checkbox--checked .setup-checkbox__box::after{
+  content:"✓";position:absolute;inset:0;display:grid;place-items:center;
+  color:#fff;font-size:11px;font-weight:900;
+}
+.setup-checkbox__label{color:#5f6c7d;font-size:9px;line-height:1.3}
+
+.setup-footer{padding:10px 16px 14px}
+.setup-start-btn{
+  width:100%;min-height:48px;border:0;border-radius:13px;
+  background:linear-gradient(90deg,var(--setup-blue) 0%,var(--setup-blue2) 100%);
+  color:#fff;font:850 14px/1 Montserrat,system-ui,sans-serif;cursor:pointer;
+  box-shadow:0 6px 16px rgba(36,95,221,.17);
+}
+.setup-start-btn:disabled{background:#dce5ef;color:#fff;box-shadow:none;cursor:not-allowed}
+.setup-note{
+  margin:8px 0 0;text-align:center;color:var(--setup-muted);font-size:8.5px;line-height:1.25;
+}
+.setup-note::before{content:"⌂ ";color:#38a17e}
+
+/* More than two study languages: compact grid, still no page-length explosion. */
+.setup-flags-row:has(.setup-flag-btn:nth-child(3)){
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.setup-flags-row:has(.setup-flag-btn:nth-child(5)){
+  grid-template-columns:repeat(3,minmax(0,1fr));
 }
 
-.setup-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(8px);
+/* ---------- Dark theme follows the app's existing palette ---------- */
+html[data-theme="dark"] .setup-modal__inner,
+html.dark .setup-modal__inner{
+  --setup-bg:#0f1823;
+  --setup-card:#162231;
+  --setup-soft:#121e2b;
+  --setup-line:#263d52;
+  --setup-text:#edf5ff;
+  --setup-muted:#9aa9bb;
+  background:var(--setup-bg);border-color:var(--setup-line);
 }
-
-/* ---------------------------
- * Modal
- * ------------------------ */
-
-.setup-modal {
-  position: relative;
-  z-index: 1;
-  max-width: 500px; /* шире, как большие карточки в приложении */
-  width: 100%;
-}
-
-.setup-modal__inner {
-  background: var(--surface-1, #f8fafc);
-  border: 1px solid var(--divider, #e5edf4);
-  border-radius: var(--radius-xl, 16px);
-  box-shadow: var(--shadow-1, 0 10px 30px rgba(15, 23, 42, 0.10));
-  padding: 20px 20px 18px;
-  text-align: center;
-  color: var(--text, #0f172a);
-}
-
-/* ---------------------------
- * Header + intro
- * ------------------------ */
-
-.setup-header {
-  margin-bottom: 10px;
-}
-
-.setup-title {
-  margin: 0 0 6px;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.01em;
-}
-
-.setup-subtitle {
-  margin: 0;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-.setup-intro {
-  margin: 6px 0 0;
-  font-size: 14px;
-  line-height: 1.55;
-  opacity: 0.9;
-}
-
-/* ---------------------------
- * Sections
- * ------------------------ */
-
-.setup-section {
-  margin-top: 14px;
-}
-
-.setup-section__label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.8;
-  margin-bottom: 8px;
-}
-
-/* ---------------------------
- * Study language flags
- * ------------------------ */
-
-.setup-flags-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: center;
-}
-
-.setup-flag-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 26px;
-  font-size: 24px;
-  line-height: 1;
-  border: 1px solid transparent;
-  border-radius: var(--radius-xs, 4px);
-  background: #fff;
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    background 0.15s ease,
-    opacity 0.12s ease;
-}
-
+html[data-theme="dark"] .setup-header,
+html.dark .setup-header{background:var(--setup-bg);border-bottom-color:var(--setup-line)}
 html[data-theme="dark"] .setup-flag-btn,
-body[data-theme="dark"] .setup-flag-btn {
-  background: transparent !important;
+html[data-theme="dark"] .setup-mode-btn,
+html.dark .setup-flag-btn,
+html.dark .setup-mode-btn{
+  background:#162231;border-color:#2a3a4d;color:#dce7f5;
 }
-
-.setup-flag-btn__flag {
-  font-size: 26px;
-}
-
-.setup-flag-btn:hover {
-  transform: translateY(-1px);
-}
-
-.setup-flag-btn.is-active {
-  border-color: var(--burger, var(--brand, #35b6ff));
-  box-shadow: 0 0 0 3px
-    color-mix(in srgb, var(--burger, var(--brand, #35b6ff)) 20%, transparent);
-  background: #fff;
-}
-
-/* ---------------------------
- * Segmented controls
- * ------------------------ */
-
-.setup-mode-toggle {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px;
-  border-radius: 999px;
-  background: var(--surface-2, #f3f4f6);
-  border: 1px solid var(--divider, #e5edf4);
-  margin: 0 auto;
-}
-
-html[data-theme="dark"] .setup-mode-toggle,
-body[data-theme="dark"] .setup-mode-toggle {
-  background: #020617;
-  border-color: rgba(148, 163, 184, 0.7);
-}
-
-.setup-mode-btn {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font-size: 13px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  opacity: 0.78;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition:
-    background 0.14s ease,
-    opacity 0.14s ease,
-    box-shadow 0.14s ease,
-    transform 0.1s ease;
-}
-
-.setup-mode-btn span[aria-hidden="true"] {
-  font-size: 16px;
-}
-
-.setup-mode-btn.is-active {
-  background: var(--brand, #35b6ff);
-  color: #fff;
-  opacity: 1;
-  box-shadow: 0 4px 12px rgba(53, 182, 255, 0.28);
-}
-
+html[data-theme="dark"] .setup-flag-btn.is-active,
 html[data-theme="dark"] .setup-mode-btn.is-active,
-body[data-theme="dark"] .setup-mode-btn.is-active {
-  color: #020617;
+html.dark .setup-flag-btn.is-active,
+html.dark .setup-mode-btn.is-active{
+  background:#173252;border-color:#3978b9;color:#8fcaff;
 }
-
-.setup-mode-toggle--lang .setup-mode-btn {
-  padding-inline: 18px;
-}
-
-/* ---------------------------
- * Consents (checkboxes)
- * ------------------------ */
-
-.setup-consent {
-  margin-top: 16px;
-  margin-bottom: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: stretch;
-  text-align: left;
-}
-
-.setup-checkbox {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.setup-checkbox input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.setup-checkbox__box {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  border: 1px solid var(--divider, #e5edf4);
-  background: #ffffff;
-  margin-top: 1px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color: #ffffff;
-  transition:
-    background 0.12s ease,
-    border-color 0.12s ease,
-    box-shadow 0.12s ease;
-}
-
 html[data-theme="dark"] .setup-checkbox__box,
-body[data-theme="dark"] .setup-checkbox__box {
-  background: #020617;
-  border-color: rgba(148, 163, 184, 0.7);
+html.dark .setup-checkbox__box{background:#0f1823;border-color:#33465c}
+html[data-theme="dark"] .setup-checkbox__label,
+html.dark .setup-checkbox__label{color:#aebbc9}
+
+/* ---------- Mobile: intentionally one screen, no scrolling ---------- */
+@media(max-width:760px){
+  .setup-overlay{
+    padding:max(7px,env(safe-area-inset-top)) 8px max(7px,env(safe-area-inset-bottom));
+    place-items:center;
+  }
+  .setup-modal{
+    width:100%;
+    height:auto;
+    max-height:none;
+  }
+  .setup-modal__inner{
+    height:auto;
+    min-height:0;
+    max-height:none;
+    overflow:visible;
+    border-radius:20px;
+  }
+  .setup-header{padding:12px 13px 10px}
+  .setup-brand-compact{margin-bottom:7px;gap:7px}
+  .setup-brand-compact .setup-brand__logo{width:31px;height:31px;border-radius:8px}
+  .setup-brand-compact strong{font-size:18px}
+  .setup-title{font-size:20px;margin-bottom:3px}
+  .setup-subtitle{font-size:10.5px;margin-bottom:2px}
+  .setup-intro{font-size:9px;line-height:1.3;max-width:340px}
+
+  .setup-choices{padding:8px 11px 4px}
+  .setup-choice-section{padding:6px 0}
+  .setup-section__label{font-size:10px;margin-bottom:5px}
+  .setup-mode-toggle,.setup-flags-row{gap:5px}
+  .setup-flag-btn,.setup-mode-btn{min-height:38px;padding:5px 7px;border-radius:9px;gap:6px}
+  .setup-inline-flag,.setup-flag-btn__flag{width:24px;height:16px;flex-basis:24px}
+  .setup-choice-copy strong{font-size:9px}
+  .setup-choice-copy small{font-size:7px}
+  .setup-flag-btn.is-active::after,.setup-mode-btn.is-active::after{
+    width:14px;height:14px;right:5px;top:5px;font-size:8px;
+  }
+
+  .setup-consent-compact{margin:3px 11px 0;padding:5px 7px}
+  .setup-checkbox{min-height:23px;padding:2px 1px;gap:6px}
+  .setup-checkbox__box{width:16px;height:16px;flex-basis:16px}
+  .setup-checkbox__label{font-size:7.8px;line-height:1.2}
+
+  .setup-footer{padding:7px 11px 9px}
+  .setup-start-btn{min-height:43px;font-size:12px;border-radius:11px}
+  .setup-note{margin-top:5px;font-size:7.5px}
 }
 
-.setup-checkbox__label {
-  flex: 1;
-}
-
-.setup-checkbox__label small {
-  opacity: 0.8;
-}
-
-/* чекбокс отмечен */
-.setup-checkbox--checked .setup-checkbox__box {
-  background: var(--brand, #35b6ff);
-  border-color: var(--brand, #35b6ff);
-  box-shadow: 0 2px 6px rgba(53, 182, 255, 0.32);
-}
-
-.setup-checkbox--checked .setup-checkbox__box::before {
-  content: '✓';
-}
-
-/* ссылка внутри текста */
-.setup-link {
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  color: var(--brand, #35b6ff);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  cursor: pointer;
-}
-
-/* ---------------------------
- * Note & footer
- * ------------------------ */
-
-.setup-note {
-  margin: 10px 0 6px;
-  font-size: 12px;
-  line-height: 1.45;
-  opacity: 0.8;
-}
-
-.setup-footer {
-  margin-top: 6px;
-  display: flex;
-  justify-content: center;
-}
-
-/* ---------------------------
- * Primary button
- * ------------------------ */
-
-.setup-start-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 220px;
-  padding: 14px 26px;
-  border-radius: var(--radius-xl, 16px);
-  border: 0;
-  background: var(--brand, #35b6ff);
-  color: #fff;
-  font-weight: 800;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: 0.2px;
-  box-shadow: 0 6px 18px rgba(53, 182, 255, 0.28);
-  cursor: pointer;
-  transition:
-    transform 0.06s ease,
-    filter 0.15s ease,
-    box-shadow 0.15s ease,
-    opacity 0.15s ease;
-}
-
-@media (hover:hover) and (pointer:fine) {
-  .setup-start-btn:not(:disabled):hover {
-    filter: brightness(1.05);
+/* Small phones: preserve one-screen layout without hiding required controls. */
+@media(max-width:390px){
+  .setup-header{padding-top:9px}
+  .setup-brand-compact{margin-bottom:5px}
+  .setup-title{font-size:18px}
+  .setup-choices{padding-top:6px}
+  .setup-flags-row:has(.setup-flag-btn:nth-child(3)){
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
 
-.setup-start-btn:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: 0 3px 10px rgba(53, 182, 255, 0.32);
-}
-
-/* disabled */
-.setup-start-btn:disabled {
-  opacity: 0.45;
-  box-shadow: none;
-  cursor: default;
-  transform: none;
-}
-
-/* ---------------------------
- * Small screens
- * ------------------------ */
-
-@media (max-width: 360px) {
-  .setup-modal {
-    max-width: 100%;
-  }
-
-  .setup-modal__inner {
-    padding: 14px 10px 10px;
-    border-radius: var(--radius-lg, 12px);
-  }
-
-  .setup-title {
-    font-size: 18px;
-  }
-
-  .setup-section__label {
-    font-size: 11px;
-  }
-
-  .setup-start-btn {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .setup-consent {
-    font-size: 12px;
+/* Low-height landscape / compact browser viewport fallback:
+   only then allow internal scrolling rather than losing the Start button. */
+@media(max-height:570px){
+  .setup-modal{max-height:calc(100dvh - 14px)}
+  .setup-modal__inner{
+    max-height:calc(100dvh - 14px);
+    overflow:auto;
   }
 }
-/* ========================= Конец файла: ui.setup.modal.css ========================= */

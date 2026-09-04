@@ -1,0 +1,489 @@
+/* ==========================================================
+ * MOYAMOVA 1.11.5 — Mobile Words Trainer
+ * Presentation only. Existing trainer engine/state/handlers stay authoritative.
+ * Desktop baseline is isolated by max-width:899px.
+ * ========================================================== */
+
+@media (max-width: 899px) {
+  html[data-mobile-shell="trainer"] {
+    --footer-h-actual: 0px;
+  }
+
+  html[data-mobile-shell="trainer"] .header,
+  html[data-mobile-shell="trainer"] .app-footer {
+    display: none !important;
+  }
+
+  html[data-mobile-shell="trainer"] #app.content {
+    display:block !important;
+    width:100% !important;
+    max-width:none !important;
+    height:auto !important;
+    min-height:var(--mobile-viewport-height) !important;
+    padding:
+      max(8px, var(--mobile-safe-top,0px))
+      max(10px, var(--mobile-safe-right,0px))
+      calc(18px + var(--mobile-safe-bottom,0px))
+      max(10px, var(--mobile-safe-left,0px)) !important;
+    overflow:visible !important;
+    box-sizing:border-box;
+  }
+
+  html[data-mobile-shell="trainer"] .trainer-desktop-shell {
+    display:block !important;
+    width:100% !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:transparent !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+  }
+
+  html[data-mobile-shell="trainer"] .trainer-side {
+    display:none !important;
+  }
+
+  html[data-mobile-shell="trainer"] .trainer-desktop-main {
+    width:100% !important;
+    max-width:560px !important;
+    min-width:0 !important;
+    margin:0 auto !important;
+    padding:0 !important;
+  }
+
+  .mobile-trainer-bar {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto 44px;
+    align-items:center;
+    gap:8px;
+    min-height:52px;
+    margin:0 0 10px;
+  }
+
+  .mobile-trainer-back {
+    min-width:0;
+    height:44px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    justify-self:start;
+    padding:0 12px 0 10px;
+    border:1px solid rgba(69,88,165,.12);
+    border-radius:14px;
+    background:rgba(255,255,255,.78);
+    color:inherit;
+    box-shadow:0 5px 18px rgba(44,55,112,.06);
+    font:inherit;
+    font-size:12px;
+    font-weight:750;
+  }
+
+  .mobile-trainer-back__arrow {
+    font-size:20px;
+    line-height:1;
+    transform:translateY(-1px);
+  }
+
+  .mobile-trainer-title {
+    min-width:0;
+    max-width:145px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    text-align:center;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.01em;
+  }
+
+  .mobile-trainer-menu {
+    width:44px;
+    height:44px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(69,88,165,.12);
+    border-radius:14px;
+    background:rgba(255,255,255,.78);
+    color:inherit;
+    box-shadow:0 5px 18px rgba(44,55,112,.06);
+    font:inherit;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:1px;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="trainer"] .mobile-trainer-back,
+  html[data-theme="dark"][data-mobile-shell="trainer"] .mobile-trainer-menu,
+  html.dark[data-mobile-shell="trainer"] .mobile-trainer-back,
+  html.dark[data-mobile-shell="trainer"] .mobile-trainer-menu {
+    background:rgba(24,36,52,.92);
+    border-color:rgba(142,166,215,.16);
+    box-shadow:none;
+  }
+
+  html[data-mobile-shell="trainer"] .home.home--word-trainer {
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:flex !important;
+    flex-direction:column;
+    gap:7px !important;
+  }
+
+  /* Sets become a light compact strip, not a desktop card. */
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-sets.card {
+    order:1;
+    margin:0 !important;
+    padding:9px 11px 8px !important;
+    border-radius:16px !important;
+    box-shadow:0 6px 22px rgba(34,48,94,.055) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-header {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    gap:8px;
+    margin:0 0 6px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-title {
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin:0 !important;
+    font-size:11.5px !important;
+    font-weight:800 !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-desktop-tools,
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-lang-flag {
+    display:none !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-viewport {
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-viewport::-webkit-scrollbar { display:none; }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-grid {
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:7px !important;
+    width:max-content;
+    min-width:100%;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .set-pill {
+    flex:0 0 42px !important;
+    width:42px !important;
+    min-width:42px !important;
+    height:34px !important;
+    padding:0 !important;
+    border-radius:11px !important;
+    font-size:11px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .sets-stats {
+    margin:5px 0 0 !important;
+    min-height:0 !important;
+    font-size:10px !important;
+    line-height:1.2;
+    opacity:.65;
+  }
+
+  /* Context is more useful during learning, so it sits before the card. */
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-quickbar {
+    order:4;
+    width:100%;
+    margin:0 !important;
+    box-sizing:border-box;
+    grid-template-columns:repeat(3,minmax(0,1fr)) 1px 40px 40px !important;
+    gap:4px !important;
+    padding:6px !important;
+    border-radius:15px !important;
+    box-shadow:0 5px 18px rgba(34,48,94,.045) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-qbtn {
+    height:36px !important;
+    min-width:0 !important;
+    padding:0 4px !important;
+    gap:4px !important;
+    font-size:10px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-qico {
+    width:24px !important;
+    height:24px !important;
+    flex-basis:24px !important;
+    font-size:13px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-qbtn--audio {
+    width:38px !important;
+  }
+
+  /* Main learning card is the visual anchor. */
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-trainer--words {
+    order:3;
+    --trainer-answer-h:52px;
+    --trainer-answer-gap:8px;
+    margin:0 !important;
+    padding:11px 11px 10px !important;
+    border-radius:18px !important;
+    row-gap:6px !important;
+    box-shadow:0 10px 30px rgba(32,46,96,.075) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .trainer-top {
+    min-height:30px !important;
+    grid-template-columns:38px minmax(0,1fr) 38px !important;
+  }
+
+  /* Difficulty/mode indicator was hidden by the old quickbar rule; restore it on mobile. */
+  html[data-mobile-shell="trainer"] .home-trainer--words .trainer-mode-indicator {
+    display:grid !important;
+    position:static !important;
+    left:auto !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:auto !important;
+    grid-column:1;
+    justify-self:start;
+    width:38px;
+    height:38px;
+    min-width:38px;
+    min-height:38px;
+    padding:0;
+    place-items:center;
+    border:1px solid rgba(69,88,165,.14);
+    border-radius:12px;
+    background:rgba(247,249,255,.92);
+    font-size:18px;
+    line-height:1;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .trainer-stars {
+    font-size:17px !important;
+    gap:3px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .heart {
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    padding:0;
+    font-size:20px;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .trainer-word {
+    margin:0 auto !important;
+    min-height:1.3em !important;
+    font-size:clamp(24px,7.1vw,29px) !important;
+    line-height:1.14 !important;
+    letter-spacing:-.02em;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .trainer-subtitle {
+    margin:0 0 2px !important;
+    font-size:11px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .answers-grid {
+    margin:3px 0 4px !important;
+    gap:var(--trainer-answer-gap) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .answers-grid .answer-btn {
+    height:var(--trainer-answer-h) !important;
+    min-height:var(--trainer-answer-h) !important;
+    max-height:var(--trainer-answer-h) !important;
+    padding:6px 11px !important;
+    border-radius:14px !important;
+    font-size:14px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .answers-grid .answer-btn.answer-btn--long {
+    font-size:12.5px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .answers-grid .answer-btn.answer-btn--xlong {
+    font-size:11px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .btn-ghost.idk-btn {
+    min-width:118px !important;
+    height:38px !important;
+    min-height:38px !important;
+    margin:1px auto 0 !important;
+    padding:0 15px !important;
+    border-radius:11px !important;
+    font-size:12px !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home-trainer--words .dict-stats {
+    margin:0 !important;
+    font-size:10px !important;
+    line-height:1.2;
+  }
+
+  /* Example/context is shown before the question; utility controls go below it. */
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-hints {
+    order:2;
+    margin:0 !important;
+    padding:9px 11px !important;
+    border-radius:16px !important;
+    box-shadow:0 6px 22px rgba(34,48,94,.045) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-hints .hints-body {
+    display:block !important;
+    width:100%;
+    min-height:36px !important;
+    height:auto !important;
+    max-height:none !important;
+    overflow:visible !important;
+    padding:0 !important;
+    box-sizing:border-box;
+    font-size:12px !important;
+    line-height:1.38 !important;
+  }
+
+  html[data-mobile-shell="trainer"] .home--word-trainer .home-filters {
+    order:5;
+    margin:0 !important;
+  }
+
+  /* Shared bottom-sheet menu is also available from the trainer top bar. */
+  html[data-mobile-shell="trainer"] .oc-root {
+    inset:0;
+    max-height:var(--mobile-viewport-height);
+  }
+
+  html[data-mobile-shell="trainer"] .oc-overlay {
+    inset:0 !important;
+    background:rgba(12,20,38,.30);
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+
+  html[data-mobile-shell="trainer"] .oc-panel {
+    left:8px !important;
+    right:8px !important;
+    top:auto !important;
+    bottom:max(8px,var(--mobile-safe-bottom,0px)) !important;
+    width:auto !important;
+    min-width:0 !important;
+    max-width:560px !important;
+    max-height:min(82dvh,calc(var(--mobile-viewport-height) - 24px));
+    margin:0 auto;
+    border-radius:22px;
+    overflow:hidden;
+    transform:translateY(calc(100% + 28px)) !important;
+    transition:transform .22s ease !important;
+  }
+
+  html[data-mobile-shell="trainer"] body.menu-open .oc-panel {
+    transform:translateY(0) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .oc-back { display:none !important; }
+
+  html[data-mobile-shell="trainer"] .oc-body {
+    display:block !important;
+    min-height:0;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch;
+    /* Keep app version and last settings above legacy absolute action row. */
+    padding:10px 12px calc(82px + var(--mobile-safe-bottom,0px)) !important;
+  }
+
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    padding:2px 0 12px;
+    margin-bottom:8px;
+    border-bottom:1px solid rgba(78,96,144,.12);
+  }
+
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet__item {
+    min-width:0;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 11px;
+    border:1px solid rgba(73,94,169,.12);
+    border-radius:14px;
+    background:rgba(247,249,255,.92);
+    color:inherit;
+    text-align:left;
+    font:inherit;
+  }
+
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet__icon {
+    width:30px;height:30px;flex:0 0 30px;
+    display:grid;place-items:center;
+    border-radius:9px;
+    background:rgba(97,118,235,.10);
+    font-size:16px;
+  }
+
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet__copy {
+    min-width:0;display:flex;flex-direction:column;gap:1px;
+  }
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet__copy strong {
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    font-size:12px;line-height:1.15;
+  }
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet__copy small {
+    color:#788498;font-size:9.5px;line-height:1.15;
+  }
+
+  html[data-mobile-shell="trainer"] .menu-item.app-version {
+    position:relative;
+    z-index:1;
+    margin-bottom:8px !important;
+    padding-bottom:12px !important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="trainer"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="trainer"] .mobile-nav-sheet__item {
+    background:#162231;
+    border-color:rgba(135,157,204,.14);
+  }
+  html[data-theme="dark"][data-mobile-shell="trainer"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="trainer"] .mobile-nav-sheet__icon {
+    background:rgba(121,147,255,.12);
+  }
+  html[data-theme="dark"][data-mobile-shell="trainer"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="trainer"] .mobile-nav-sheet__copy small {
+    color:#9aa9bb;
+  }
+}
+
+@media (max-width:390px) {
+  html[data-mobile-shell="trainer"] .mobile-trainer-title { display:none; }
+  html[data-mobile-shell="trainer"] .mobile-trainer-bar {
+    grid-template-columns:minmax(0,1fr) 44px;
+  }
+  html[data-mobile-shell="trainer"] .home--word-trainer .trainer-qlabel {
+    display:none !important;
+  }
+  html[data-mobile-shell="trainer"] .mobile-nav-sheet {
+    grid-template-columns:1fr;
+  }
+}

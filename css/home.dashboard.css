@@ -1,0 +1,228 @@
+/* MOYAMOVA 1.7.2 — Home Dashboard */
+.dashboard{--db:#f5f8fd;--dc:#fff;--dt:#182235;--dm:#6d7788;--dbd:#e4eaf3;--blue:#1769e8;--nav:#101d2c;display:grid;grid-template-columns:190px minmax(0,1fr);max-width:1180px;margin:0 auto;min-height:calc(100vh - 120px);background:var(--db);border-radius:22px;overflow:hidden;box-shadow:0 16px 50px rgba(20,40,80,.08);color:var(--dt)}
+.dash-side{background:linear-gradient(180deg,#111f2e,#0d1825);color:#eef5ff;padding:22px 14px;display:flex;flex-direction:column;min-height:760px}.dash-brand{display:flex;align-items:center;gap:10px;padding:0 5px 20px;border-bottom:1px solid rgba(255,255,255,.1)}.dash-brand img{width:34px;height:34px}.dash-brand strong{display:block;font:700 15px Montserrat,sans-serif}.dash-brand span{display:block;color:#4da1ff;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.dash-side nav{display:grid;gap:6px;padding-top:18px}.dash-side nav button{border:0;background:transparent;color:#dce7f5;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:8px;text-align:left;border-radius:10px;padding:11px 10px;font:600 13px system-ui;cursor:pointer}.dash-side nav button:hover,.dash-side nav button.is-active{background:#205db5;color:#fff}.dash-side nav b{font-size:10px;background:#f35c60;border-radius:12px;padding:2px 6px}.dash-side-foot{margin-top:auto;padding:18px 8px 0;border-top:1px solid rgba(255,255,255,.1);color:#9aa9ba;font-size:11px}.dash-side-foot i{display:inline-block;width:7px;height:7px;background:#20bd69;border-radius:50%;margin-left:4px}
+.dash-main{padding:28px 30px 24px;min-width:0}.dash-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}.dash-head h2{font:700 27px/1.1 Montserrat,sans-serif;margin:3px 0 6px}.dash-head p{margin:0;color:var(--dm);font-size:13px}.dash-eyebrow{color:var(--blue);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em}.dash-settings{width:38px;height:38px;border:1px solid var(--dbd);border-radius:10px;background:var(--dc);font-size:18px;cursor:pointer}.dash-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.dash-metrics article{background:var(--dc);border:1px solid var(--dbd);border-radius:14px;padding:14px;min-height:142px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}.dash-metrics article>span{font-size:11px;font-weight:700;margin-bottom:8px}.dash-metrics b{font-size:20px;margin-top:6px}.dash-metrics small{color:var(--dm);font-size:10px}.dash-ring{--p:0;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--blue) calc(var(--p)*1%),#e7edf7 0);position:relative}.dash-ring:before{content:"";position:absolute;inset:6px;background:var(--dc);border-radius:50%}.dash-ring span{position:relative;font-weight:800;font-size:13px}.dash-big{font-size:33px;line-height:1}.dash-green{color:#17b768}.dash-blue{color:#4c8ff6}.dash-gold{color:#f6ae15}
+.dash-continue{background:linear-gradient(105deg,#f7fbff,#e9f3ff);border:1px solid #bcd7ff;border-radius:16px;padding:20px;display:grid;grid-template-columns:minmax(0,1fr) 150px auto;gap:20px;align-items:center;margin-bottom:14px}.dash-section-label{font-size:11px;font-weight:800;color:#7662df;text-transform:uppercase}.dash-continue h3{font:700 22px Montserrat,sans-serif;margin:5px 0 12px}.dash-progress{height:6px;background:#dbe5f3;border-radius:20px;overflow:hidden;max-width:320px}.dash-progress i{display:block;height:100%;background:var(--blue);border-radius:inherit}.dash-continue p{font-size:11px;color:var(--dm);margin:7px 0 0}.dash-flashcards{height:96px;border-radius:15px;background:#fff;box-shadow:0 10px 20px rgba(65,95,145,.16);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(2deg);border:1px solid #dde5f1;padding:8px;text-align:center}.dash-flashcards span{font:700 18px Montserrat,sans-serif;max-width:130px;overflow:hidden;text-overflow:ellipsis}.dash-flashcards small{color:#6e7c8f;margin-top:6px}.dash-primary{border:0;background:linear-gradient(180deg,#2778ec,#1263de);color:#fff;border-radius:10px;padding:13px 18px;font-weight:800;cursor:pointer;white-space:nowrap}
+.dash-block{background:var(--dc);border:1px solid var(--dbd);border-radius:15px;padding:15px;margin-bottom:14px}.dash-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.dash-title h3{font:700 15px Montserrat,sans-serif;margin:0}.dash-title button{border:0;background:transparent;color:var(--blue);font-weight:700;font-size:11px;cursor:pointer}.dash-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.dash-quick button{border:1px solid var(--dbd);border-radius:11px;background:#fff;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;color:var(--dt)}.dash-quick i{font-style:normal;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#eaf3ff;color:var(--blue)}.dash-quick button:nth-child(2) i{background:#e8f0ff;color:#356ee6}.dash-quick button:nth-child(3) i{background:#f1eaff;color:#8c56dc}.dash-quick b{font-size:12px}.dash-decks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.dash-deck{background:#fff;border:1px solid var(--dbd);border-radius:12px;padding:12px 9px;cursor:pointer;color:var(--dt);min-height:145px;display:flex;flex-direction:column;align-items:center;justify-content:center}.dash-deck:hover{border-color:#a8c9f9;box-shadow:0 6px 16px rgba(34,97,185,.08)}.dash-deck-top{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:9px;width:100%;justify-content:center}.dash-pos-icon{color:var(--blue);font-size:16px}.dash-deck .dash-ring{width:50px;height:50px}.dash-deck .dash-ring:before{inset:5px}.dash-deck-count{font-size:10px;color:var(--dm);margin-top:8px}.dash-bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.dash-bottom>button{border:1px solid var(--dbd);background:var(--dc);border-radius:13px;padding:13px 15px;display:grid;grid-template-columns:30px 1fr auto;align-items:center;text-align:left;cursor:pointer;color:var(--dt)}.dash-bottom>button>span{font-size:22px;color:#ef5b63}.dash-bottom>button:nth-child(2)>span{color:#f2ae18}.dash-bottom b{display:block}.dash-bottom small{display:block;color:var(--dm);margin-top:2px}.dash-bottom em{font-style:normal;color:var(--blue)}.dash-tip{border:1px solid var(--dbd);background:rgba(255,255,255,.72);border-radius:12px;padding:10px 14px;font-size:11px;color:var(--dm)}
+html[data-theme="dark"] .dashboard,.dark .dashboard{--db:#0d141d;--dc:#121c28;--dt:#edf5ff;--dm:#9cabbc;--dbd:#263447;--nav:#09121c}.dark .dash-ring:before,html[data-theme="dark"] .dash-ring:before{background:var(--dc)}.dark .dash-continue,html[data-theme="dark"] .dash-continue{background:linear-gradient(105deg,#132439,#102031);border-color:#254b79}.dark .dash-flashcards,html[data-theme="dark"] .dash-flashcards,.dark .dash-quick button,html[data-theme="dark"] .dash-quick button{background:#162231;color:var(--dt);border-color:var(--dbd)}
+@media (min-width:900px){body:has(.dashboard)>.header,body:has(.dashboard) .header{display:none}.dashboard~*{} body:has(.dashboard) .app-footer{display:none}.content:has(.dashboard){max-width:none;padding:18px}}
+@media (max-width:899px){.dashboard{display:block;border-radius:0;box-shadow:none;min-height:0;background:transparent}.dash-side{display:none}.dash-main{padding:10px 8px 82px}.dash-head{margin:5px 4px 14px}.dash-head h2{font-size:21px}.dash-head p{font-size:11px}.dash-metrics{grid-template-columns:repeat(2,1fr);gap:8px}.dash-metrics article{min-height:116px;padding:10px}.dash-continue{grid-template-columns:1fr auto;padding:15px;gap:12px}.dash-flashcards{display:none}.dash-primary{grid-column:1/-1;width:100%}.dash-continue h3{font-size:18px}.dash-quick{grid-template-columns:repeat(3,1fr)}.dash-quick button{flex-direction:column;gap:5px;padding:9px 4px}.dash-decks{grid-template-columns:repeat(2,1fr)}.dash-deck{min-height:135px}.dash-bottom{grid-template-columns:1fr}.dash-block{padding:12px}.dash-tip{margin-bottom:10px}}
+
+/* 1.7.2 — mobile Dashboard containment.
+   Keep the 2-column deck grid, but allow long localized labels to shrink/wrap
+   instead of forcing the CSS grid wider than the viewport. */
+@media (max-width:899px){
+  .dashboard,
+  .dash-main,
+  .dash-block,
+  .dash-decks{
+    min-width:0;
+    max-width:100%;
+    box-sizing:border-box;
+  }
+
+  .dash-main{
+    overflow-x:hidden;
+  }
+
+  .dash-decks{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    width:100%;
+  }
+
+  .dash-deck{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+
+  .dash-deck-top{
+    min-width:0;
+    max-width:100%;
+    text-align:center;
+  }
+
+  .dash-deck-top b{
+    min-width:0;
+    max-width:100%;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+}
+
+/* ==========================================================
+ * 1.7.6 — Desktop Dashboard polish
+ * Desktop-only. Mobile layout intentionally untouched.
+ * ========================================================== */
+@media (min-width:900px){
+  body:has(.dashboard){overflow-y:auto!important;overflow-x:hidden}
+  .content:has(.dashboard){
+    display:block;height:auto!important;min-height:100vh;overflow:visible!important;
+    padding:16px 20px 32px!important;box-sizing:border-box
+  }
+  .dashboard{
+    width:min(100%,1420px);min-height:calc(100vh - 32px);margin:0 auto;
+    grid-template-columns:224px minmax(0,1fr);border-radius:20px;overflow:hidden
+  }
+  .dash-side{width:224px;min-width:224px;padding:18px 14px 14px;box-sizing:border-box}
+  .dash-brand{margin-bottom:16px}
+  .dash-side nav{gap:4px}
+  .dash-side nav button{min-height:42px;padding:0 12px}
+  .dash-side-foot{margin-top:auto;padding-top:18px}
+
+  .dash-main{
+    width:100%;max-width:1180px;min-width:0;margin:0 auto;
+    padding:20px 24px 30px;box-sizing:border-box
+  }
+  .dash-head{margin:0 0 14px}
+  .dash-head h2{margin-top:2px;margin-bottom:3px;font-size:27px;line-height:1.1}
+  .dash-head p{margin:0}
+
+  .dash-metrics{gap:12px;margin-bottom:14px}
+  .dash-metrics article{min-height:122px;padding:11px 10px;border-radius:14px}
+  .dash-metrics article>span{font-size:11px;margin-bottom:5px}
+  .dash-metrics article>b{font-size:18px;margin-top:4px}
+  .dash-metrics article>small{margin-top:2px}
+  .dash-ring{width:54px;height:54px}
+  .dash-ring:before{inset:6px}
+  .dash-big{font-size:29px}
+
+  .dash-continue{
+    grid-template-columns:minmax(0,1.45fr) 145px auto;
+    gap:16px;padding:15px 18px;min-height:116px;margin-bottom:14px;align-items:center
+  }
+  .dash-continue h3{font-size:20px;margin:4px 0 8px}
+  .dash-continue p{margin:6px 0 0}
+  .dash-flashcards{width:145px;height:88px;justify-self:center}
+  .dash-primary{min-height:44px;padding:0 17px}
+
+  .dash-block{padding:12px 14px;margin-bottom:14px}
+  .dash-title{margin-bottom:9px}
+  .dash-quick{gap:9px}
+  .dash-quick button{min-height:52px;padding:8px 11px}
+  .dash-quick i{width:28px;height:28px}
+
+  .dash-decks{gap:9px}
+  .dash-deck{min-height:108px;padding:9px 8px}
+  .dash-deck-top{margin-bottom:6px;font-size:10.5px}
+  .dash-pos-icon{font-size:14px}
+  .dash-deck .dash-ring{width:42px;height:42px}
+  .dash-deck .dash-ring:before{inset:5px}
+  .dash-deck-count{margin-top:5px}
+  .dash-bottom{gap:10px;margin-bottom:10px}
+  .dash-bottom>button{padding:11px 14px}
+  .dash-tip{margin-bottom:0}
+}
+
+@media (min-width:1400px){
+  .dashboard{grid-template-columns:232px minmax(0,1fr)}
+  .dash-side{width:232px;min-width:232px}
+  .dash-main{max-width:1200px}
+}
+
+
+/* 1.9.7 — desktop dark deck surfaces */
+@media (min-width:900px){
+  body.theme-dark .dashboard .dashboard-deck,
+  body.dark .dashboard .dashboard-deck,
+  [data-theme="dark"] .dashboard .dashboard-deck,
+  body.theme-dark .dashboard .home-deck-card,
+  body.dark .dashboard .home-deck-card,
+  [data-theme="dark"] .dashboard .home-deck-card,
+  body.theme-dark .dashboard [data-deck-key],
+  body.dark .dashboard [data-deck-key],
+  [data-theme="dark"] .dashboard [data-deck-key]{
+    background:#172638!important;
+    border-color:#2b4055!important;
+  }
+}
+
+/* 1.9.8 — exact Dashboard dark selectors */
+@media (min-width:900px){
+  html[data-theme="dark"] .dash-deck,.dark .dash-deck{
+    background:var(--dc,#172638)!important;border-color:var(--dbd,#2b4055)!important;color:var(--dt,#edf5ff)!important
+  }
+  html[data-theme="dark"] .dash-deck:hover,.dark .dash-deck:hover{background:#1b2e42!important;border-color:#3974b7!important}
+  html[data-theme="dark"] .dash-deck-top strong,.dark .dash-deck-top strong{color:var(--dt,#edf5ff)!important}
+  html[data-theme="dark"] .dash-tip,.dark .dash-tip{
+    background:#121c28!important;border-color:var(--dbd,#263447)!important;color:var(--dm,#9cabbc)!important
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.10.15 — Dashboard training chooser
+ * ========================================================== */
+@media (min-width:900px){
+  .dash-learning{margin-bottom:14px}
+  .dash-learning-head{display:flex;align-items:end;justify-content:space-between;margin:0 2px 10px}
+  .dash-learning-head h3{margin:0;font:700 15px Montserrat,sans-serif;color:var(--dt)}
+  .dash-learning-head p{margin:3px 0 0;font-size:10px;color:var(--dm)}
+  .dash-training-grid{display:grid;gap:10px}
+  .dash-training-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dash-training-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dash-training-grid--1{grid-template-columns:minmax(0,1fr)}
+  .dash-training-card{
+    min-height:86px;padding:13px 14px;display:grid;grid-template-columns:42px minmax(0,1fr) auto;
+    gap:11px;align-items:center;text-align:left;cursor:pointer;color:var(--dt);
+    background:var(--dc);border:1px solid var(--dbd);border-radius:13px;
+    transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease;
+  }
+  .dash-training-card:hover{border-color:#aebcff;box-shadow:0 7px 18px rgba(82,96,155,.09);transform:translateY(-1px)}
+  .dash-training-card>i{
+    width:42px;height:42px;border-radius:11px;display:grid;place-items:center;
+    background:#eef2ff;color:#6676dd;font-style:normal;font-weight:900;font-size:14px;
+  }
+  .dash-training-card--articles>i{background:#fff0f2;color:#d75c70;font-size:12px}
+  .dash-training-card--prepositions>i{background:#edf8f5;color:#38a17e;font-size:20px}
+  .dash-training-card>span{display:flex;flex-direction:column;min-width:0}
+  .dash-training-card b{font-size:12px}
+  .dash-training-card small{margin-top:4px;color:var(--dm);font-size:9.5px;line-height:1.25}
+  .dash-training-card em{font-style:normal;color:#6878dd;font-size:10px;font-weight:800;white-space:nowrap}
+  html[data-theme="dark"] .dash-training-card>i{background:#263756;color:#aab7ff}
+  html[data-theme="dark"] .dash-training-card--articles>i{background:#3c2936;color:#f1a2b1}
+  html[data-theme="dark"] .dash-training-card--prepositions>i{background:#203b39;color:#75c9ad}
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.38 — Desktop Home training cards
+ * Match the approved mobile Words / Articles / Prepositions palette.
+ * Desktop only.
+ * ========================================================== */
+@media (min-width:900px){
+  .dashboard .dash-training-card--words{
+    background:linear-gradient(135deg,rgba(103,118,221,.085),rgba(103,118,221,.035));
+    border-color:rgba(103,118,221,.18);
+  }
+  .dashboard .dash-training-card--articles{
+    background:linear-gradient(135deg,rgba(215,92,112,.085),rgba(215,92,112,.035));
+    border-color:rgba(215,92,112,.18);
+  }
+  .dashboard .dash-training-card--prepositions{
+    background:linear-gradient(135deg,rgba(56,161,126,.085),rgba(56,161,126,.035));
+    border-color:rgba(56,161,126,.18);
+  }
+
+  .dashboard .dash-training-card--words em{color:#6878dd}
+  .dashboard .dash-training-card--articles em{color:#d75c70}
+  .dashboard .dash-training-card--prepositions em{color:#38a17e}
+
+  html[data-theme="dark"] .dashboard .dash-training-card--words,
+  html.dark .dashboard .dash-training-card--words{
+    background:linear-gradient(135deg,rgba(103,118,221,.20),rgba(103,118,221,.08));
+    border-color:rgba(118,133,235,.34);
+  }
+  html[data-theme="dark"] .dashboard .dash-training-card--articles,
+  html.dark .dashboard .dash-training-card--articles{
+    background:linear-gradient(135deg,rgba(215,92,112,.20),rgba(215,92,112,.08));
+    border-color:rgba(226,111,130,.34);
+  }
+  html[data-theme="dark"] .dashboard .dash-training-card--prepositions,
+  html.dark .dashboard .dash-training-card--prepositions{
+    background:linear-gradient(135deg,rgba(56,161,126,.20),rgba(56,161,126,.08));
+    border-color:rgba(74,181,144,.34);
+  }
+}

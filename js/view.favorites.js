@@ -91,32 +91,10 @@
     if (!app) return;
     const T = t();
 
-    // (v3) Ранее было ограничение PRO — сейчас весь функционал бесплатный
-    if (!A.isPro || !A.isPro()) {
-      const lang = getUiLang();
-      const title = T.title;
-      const body = (lang === 'uk')
-        ? 'Список обраних слів тимчасово недоступний.'
-        : 'Список избранных слов временно недоступен.';
-
-      app.innerHTML =
-        `<div class="home home--fixed-card">
-          <section class="card dicts-card favorites-card dicts-card--fixed">
-            <div class="dicts-header">
-              <h3>${title}</h3>
-            </div>
-            <div class="dicts-scroll" style="padding:16px 12px 18px;text-align:center;font-size:14px;opacity:.9;">
-              <p style="margin:0;">${body}</p>
-            </div>
-          </section>
-        </div>`;
-      return;
-    }
-
     const all = gatherFavoriteDecks();
     if (!all.length){
       app.innerHTML = `
-        <div class="home home--fixed-card">
+        <div class="home home--fixed-card home--favorites">
           <section class="card dicts-card dicts-card--fixed">
             <div class="dicts-header">
               <h3 style="margin:0;">${T.title}</h3>
@@ -169,7 +147,7 @@
     }
 
     const rows = (activeLang ? byLang[activeLang] : all).map(r=>`
-      <tr data-key="${r.key}" data-base="${r.baseKey}">
+      <tr class="dict-row favorites-row" data-key="${r.key}" data-base="${r.baseKey}">
         <td class="t-center">${r.flag}</td>
         <td>${r.name}</td>
         <td class="t-center">${r.count|0}</td>
@@ -180,7 +158,7 @@
       </tr>`).join('');
 
     app.innerHTML = `
-      <div class="home home--fixed-card">
+      <div class="home home--fixed-card home--favorites">
         <section class="card dicts-card dicts-card--fixed">
           <div class="dicts-header">
             <h3>${T.title}</h3>
@@ -380,7 +358,7 @@ if (del){
         A.Trainer.setDeckKey(key);
       }
       if (A.Router && typeof A.Router.routeTo === 'function'){
-        A.Router.routeTo('home');
+        A.Router.routeTo('trainer');
       } else if (A.UI && typeof A.UI.goHome === 'function'){
         A.UI.goHome();
       } else {

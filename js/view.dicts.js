@@ -58,7 +58,7 @@
 const allKeys = (A.Decks?.builtinKeys?.() || []);
     if (!allKeys.length){
       app.innerHTML = `
-        <div class="home home--fixed-card">
+        <div class="home home--fixed-card home--dicts">
           <section class="card dicts-card dicts-card--fixed">
             <div class="dicts-header">
               <h3>${T.title}</h3>
@@ -86,7 +86,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
     const langs = Object.keys(byLang);
     if (!langs.length){
       app.innerHTML = `
-        <div class="home home--fixed-card">
+        <div class="home home--fixed-card home--dicts">
           <section class="card dicts-card dicts-card--fixed">
             <div class="dicts-header">
               <h3>${T.title}</h3>
@@ -125,8 +125,8 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
       // выставим активную кнопку сразу
       setFooterActive('home');
       try {
-        if (window.Router && typeof Router.routeTo === 'function') { Router.routeTo('home'); return; }
-        if (A.Router && typeof A.Router.routeTo === 'function')      { A.Router.routeTo('home'); return; }
+        if (window.Router && typeof Router.routeTo === 'function') { Router.routeTo('trainer'); return; }
+        if (A.Router && typeof A.Router.routeTo === 'function')      { A.Router.routeTo('trainer'); return; }
       } catch(_){}
       const homeBtn = document.querySelector('footer .nav-btn[data-action="home"]');
       if (homeBtn) { homeBtn.click(); return; }
@@ -217,7 +217,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
 
         const rows = rowsFor(keysAll, selectedKey);
         app.innerHTML = `
-          <div class="home home--fixed-card">
+          <div class="home home--fixed-card home--dicts">
             <section class="card dicts-card dicts-card--fixed">
               <div class="dicts-header">
                 <h3>${T.title}</h3>
@@ -245,7 +245,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
         if (!lpEnabled){
           const rows0 = mainKeys.length ? rowsFor(mainKeys, selectedMain) : '';
           app.innerHTML = `
-            <div class="home home--fixed-card">
+            <div class="home home--fixed-card home--dicts">
               <section class="card dicts-card dicts-card--fixed">
                 <div class="dicts-header">
                   <h3>${T.title}</h3>
@@ -273,7 +273,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
         const rows1 = lpKeys.length   ? rowsFor(lpKeys,   selectedLP)   : '';
 
         app.innerHTML = `
-          <div class="home home--fixed-card">
+          <div class="home home--fixed-card home--dicts">
             <section class="card dicts-card dicts-card--fixed">
               <div class="dicts-header">
                 <h3>${T.title}</h3>
@@ -559,7 +559,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
             const __src = (typeof window !== 'undefined') ? (window.prepositionsTrainer && window.prepositionsTrainer[prepLang]) : null;
             const __has = !!(__src && (Array.isArray(__src.patterns) ? __src.patterns.length : (Array.isArray(__src) ? __src.length : (typeof __src === 'object' ? Object.keys(__src).length : 0))));
             if (!__has) {
-              try { if (typeof A.toast === 'function') A.toast((getUiLang()==='uk') ? 'Немає датасету тренера прийменників для цієї мови.' : 'Нет датасета тренера предлогов для этого языка.'); } catch(_){ }
+              try { if (typeof A.toast === 'function') A.toast((getUiLang()==='uk') ? 'Немає датасету тренера прийменників для цієї мови.' : 'Нет датасета тренера предлогов для этого языка.', 2800, 'warning'); } catch(_){ }
               return;
             }
 

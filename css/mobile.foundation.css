@@ -1,0 +1,296 @@
+/* ==========================================================
+ * MOYAMOVA 1.11.0 — Mobile Foundation
+ * Scope: mobile only (< 900px). Desktop baseline 1.10.18 is untouched.
+ * ========================================================== */
+
+@media (max-width: 899px) {
+  :root {
+    --mobile-safe-top: env(safe-area-inset-top, 0px);
+    --mobile-safe-right: env(safe-area-inset-right, 0px);
+    --mobile-safe-bottom: env(safe-area-inset-bottom, 0px);
+    --mobile-safe-left: env(safe-area-inset-left, 0px);
+    --mobile-viewport-height: calc(var(--vh, 1vh) * 100);
+    --mobile-viewport-width: 100vw;
+    --mobile-tap-size: 44px;
+  }
+
+  @supports (height: 100svh) {
+    :root { --mobile-viewport-height: 100svh; }
+  }
+
+  @supports (height: 100dvh) {
+    :root { --mobile-viewport-height: 100dvh; }
+  }
+
+  /* mobile.viewport.js writes the real VisualViewport size when available. */
+  html[data-mobile-viewport="1"] {
+    --mobile-viewport-height: var(--mobile-vv-height, 100dvh);
+    --mobile-viewport-width: var(--mobile-vv-width, 100vw);
+  }
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: var(--mobile-viewport-height);
+    overscroll-behavior-x: none;
+  }
+
+  #moya-shell-root,
+  #app,
+  #app.content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Prevent wide media/content from creating accidental horizontal scroll. */
+  #app img,
+  #app svg,
+  #app canvas,
+  #app video {
+    max-width: 100%;
+  }
+
+  /* Touch ergonomics without changing component geometry. */
+  button,
+  [role="button"],
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  [role="button"],
+  a {
+    touch-action: manipulation;
+  }
+
+  /* iOS prevents zoom-on-focus when form controls are at least 16px. */
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
+
+  /* Common fixed overlays may safely use the actual mobile visual viewport. */
+  .setup-overlay,
+  .legal-modal-overlay,
+  .mm-modal-backdrop,
+  .mmodal,
+  .oc-root {
+    max-height: var(--mobile-viewport-height);
+  }
+
+  /* Keyboard/focus navigation remains visible on mobile keyboards/accessibility. */
+  :focus-visible {
+    scroll-margin-top: calc(var(--header-h-actual, 64px) + 12px);
+    scroll-margin-bottom: calc(var(--footer-h-actual, 60px) + var(--mobile-safe-bottom) + 12px);
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.11.2 — iOS Safari Setup viewport fix
+ * The setup wizard must scroll as one visual-viewport sheet.
+ * Desktop remains governed by ui.setup.modal.css.
+ * ========================================================== */
+@media (max-width: 899px) {
+  /* 1.12.34 — compact first-run wizard:
+     the old iOS safeguard forced Setup to 100% viewport height.
+     Keep visual-viewport safety, but let the modal size to its content. */
+  .setup-overlay {
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--mobile-viewport-height);
+    max-height: var(--mobile-viewport-height);
+    padding:
+      max(8px, var(--mobile-safe-top))
+      max(8px, var(--mobile-safe-right))
+      max(8px, var(--mobile-safe-bottom))
+      max(8px, var(--mobile-safe-left));
+    overflow: hidden;
+  }
+
+  .setup-backdrop {
+    height: var(--mobile-viewport-height);
+  }
+
+  .setup-modal {
+    width: 100%;
+    height: auto;
+    max-height: calc(var(--mobile-viewport-height) - max(16px, var(--mobile-safe-top)) - max(16px, var(--mobile-safe-bottom)));
+    min-height: 0;
+    margin: 0;
+  }
+
+  .setup-modal__inner {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: inherit;
+    overflow-x: hidden;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  .setup-header,
+  .setup-footer {
+    position: static;
+  }
+
+  .setup-start-btn {
+    min-height: var(--mobile-tap-size);
+    touch-action: manipulation;
+  }
+}
+
+/* Very short visual viewports still need a safe internal scroll fallback. */
+@media (max-width:899px) and (max-height:570px) {
+  .setup-modal__inner {
+    overflow-y:auto;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.6 — migrated shell anti-flicker
+ * Hide legacy chrome synchronously from actual mounted DOM, avoiding
+ * one-frame flashes while JS updates data-mobile-shell after SPA routing.
+ * ========================================================== */
+@media (max-width:899px){
+  html:has(#app .dashboard) .app-footer,
+  html:has(#app .home.home--word-trainer) .app-footer,
+  html:has(#app .home-trainer.is-articles) .app-footer,
+  html:has(#app .home-trainer.home-trainer--preps) .app-footer,
+  html:has(#app .home--dicts) .app-footer{
+    display:none!important;
+  }
+
+  html:has(#app .home.home--word-trainer) .header,
+  html:has(#app .home-trainer.is-articles) .header,
+  html:has(#app .home-trainer.home-trainer--preps) .header,
+  html:has(#app .home--dicts) .header{
+    display:none!important;
+  }
+}
+
+@media(max-width:899px){
+  html:has(#app .home--favorites) .header,
+  html:has(#app .home--favorites) .app-footer,
+  html:has(#app .home--mistakes) .header,
+  html:has(#app .home--mistakes) .app-footer{
+    display:none!important;
+  }
+}
+
+
+/* MOYAMOVA 1.12.10 — one mobile difficulty badge surface across all trainers */
+@media (max-width:899px){
+  html[data-mobile-shell="trainer"] .home-trainer--words .trainer-mode-indicator,
+  html[data-mobile-shell="articles"] .home-trainer.is-articles .trainer-mode-indicator,
+  html[data-mobile-shell="prepositions"] .home-trainer--preps .trainer-mode-indicator{
+    background:rgba(247,249,255,.92)!important;
+    border:1px solid rgba(69,88,165,.14)!important;
+    box-shadow:none!important;
+    color:inherit!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="trainer"] .home-trainer--words .trainer-mode-indicator,
+  html.dark[data-mobile-shell="trainer"] .home-trainer--words .trainer-mode-indicator,
+  html[data-theme="dark"][data-mobile-shell="articles"] .home-trainer.is-articles .trainer-mode-indicator,
+  html.dark[data-mobile-shell="articles"] .home-trainer.is-articles .trainer-mode-indicator,
+  html[data-theme="dark"][data-mobile-shell="prepositions"] .home-trainer--preps .trainer-mode-indicator,
+  html.dark[data-mobile-shell="prepositions"] .home-trainer--preps .trainer-mode-indicator{
+    background:#162231!important;
+    border-color:rgba(135,157,204,.16)!important;
+    box-shadow:none!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.38 — iOS standalone long-page scrolling
+ * Dictionaries / Statistics / Guide must use the document as the
+ * vertical scroller in installed PWA mode. Nested #app scrolling can
+ * stop at the visual-viewport edge on iOS and clip long content.
+ * Browser mode and desktop geometry remain unchanged.
+ * ========================================================== */
+@media (max-width:899px) and (display-mode: standalone) {
+  html[data-mobile-shell="dicts"],
+  html[data-mobile-shell="stats"],
+  html:has(#app .guide-v3-mobile),
+  html[data-mobile-shell="dicts"] body,
+  html[data-mobile-shell="stats"] body,
+  body:has(#app .guide-v3-mobile) {
+    height:auto!important;
+    min-height:var(--mobile-viewport-height,100dvh)!important;
+    max-height:none!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-y:auto!important;
+  }
+
+  html[data-mobile-shell="dicts"] #moya-shell-root,
+  html[data-mobile-shell="stats"] #moya-shell-root,
+  #moya-shell-root:has(#app .guide-v3-mobile) {
+    height:auto!important;
+    min-height:var(--mobile-viewport-height,100dvh)!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  html[data-mobile-shell="dicts"] #app.content,
+  html[data-mobile-shell="stats"] #app.content,
+  #moya-shell-root:has(#app .guide-v3-mobile) > #app.content {
+    display:block!important;
+    height:auto!important;
+    min-height:var(--mobile-viewport-height,100dvh)!important;
+    max-height:none!important;
+    overflow:visible!important;
+    -webkit-overflow-scrolling:auto!important;
+  }
+
+  html[data-mobile-shell="dicts"] #app.content,
+  html[data-mobile-shell="stats"] #app.content {
+    padding-bottom:calc(28px + var(--mobile-safe-bottom,0px))!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-mobile) > #app.content,
+  #moya-shell-root:has(#app .guide-v3-mobile) .guide-v3-mobile {
+    padding-bottom:max(34px, calc(18px + var(--mobile-safe-bottom,0px)))!important;
+  }
+
+  /* Preserve existing interaction locks while these pages use document scrolling. */
+  html[data-mobile-shell="dicts"]:has(body.menu-open),
+  html[data-mobile-shell="stats"]:has(body.menu-open),
+  html[data-mobile-shell="dicts"]:has(body.modal-open),
+  html[data-mobile-shell="stats"]:has(body.modal-open),
+  html[data-mobile-shell="dicts"]:has(body.landscape),
+  html[data-mobile-shell="stats"]:has(body.landscape),
+  html:has(#app .guide-v3-mobile):has(body.landscape),
+  html[data-mobile-shell="dicts"] body.menu-open,
+  html[data-mobile-shell="stats"] body.menu-open,
+  html[data-mobile-shell="dicts"] body.modal-open,
+  html[data-mobile-shell="stats"] body.modal-open,
+  html[data-mobile-shell="dicts"] body.landscape,
+  html[data-mobile-shell="stats"] body.landscape,
+  body.landscape:has(#app .guide-v3-mobile) {
+    overflow:hidden!important;
+    touch-action:none!important;
+  }
+}

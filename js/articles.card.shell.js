@@ -132,12 +132,82 @@
     } catch (_e) {}
   }
 
+
+  function ensureDesktopArticlesChrome(vm) {
+    try {
+      if (!rootEl || window.innerWidth < 900) return;
+      var home = rootEl.closest('.home');
+      if (!home) return;
+
+      var chrome = home.querySelector('.articles-desktop-head');
+      if (!chrome) {
+        chrome = document.createElement('section');
+        chrome.className = 'articles-desktop-head';
+        home.insertBefore(chrome, home.firstChild);
+      }
+
+      var uk = false;
+      try { uk = String((A.settings && (A.settings.uiLang || A.settings.lang)) || 'ru').toLowerCase() === 'uk'; } catch(_){}
+
+      var st = {answers:0,correct:0,wrong:0,bestStreak:0,totalMs:0};
+      try { if (A.ArticlesStats && A.ArticlesStats.export) st = A.ArticlesStats.export() || st; } catch(_){}
+
+      var ds = {withArticles:0,learned:0};
+      try { if (A.ArticlesTrainer && A.ArticlesTrainer.getDeckStats) ds = A.ArticlesTrainer.getDeckStats(vm.deckKey) || ds; } catch(_){}
+
+      var ss = {withArticles:0,learned:0,setIndex:0,totalSets:1};
+      try { if (A.ArticlesTrainer && A.ArticlesTrainer.getSetStats) ss = A.ArticlesTrainer.getSetStats(vm.deckKey) || ss; } catch(_){}
+
+      var pct = ds.withArticles ? Math.round((Number(ds.learned||0)/Number(ds.withArticles||1))*100) : 0;
+      var mins = Math.floor(Number(st.totalMs||0)/60000);
+      var time = String(Math.floor(mins/60)).padStart(2,'0') + ':' + String(mins%60).padStart(2,'0');
+
+      chrome.innerHTML =
+        '<div class="articles-desktop-titlebar">' +
+          '<div><h1>◎ <span>'+(uk?'Режим: ':'Режим: ')+'</span><b>'+(uk?'Артиклі':'Артикли')+'</b></h1>' +
+          '<p>'+(uk?'Оберіть правильний артикль для іменника':'Выберите правильный артикль для существительного')+'</p></div>' +
+          '<div class="articles-desktop-progress"><span>'+(uk?'Прогрес у режимі':'Прогресс в режиме')+'</span><div><i style="width:'+pct+'%"></i></div><b>'+pct+'%</b></div>' +
+        '</div>' +
+        '<div class="articles-desktop-kpis">' +
+          '<article><i class="ok">✓</i><span>'+(uk?'Правильно':'Правильно')+'</span><strong>'+Number(st.correct||0)+'</strong></article>' +
+          '<article><i class="bad">×</i><span>'+(uk?'Помилки':'Ошибки')+'</span><strong>'+Number(st.wrong||0)+'</strong></article>' +
+          '<article><i class="streak">◎</i><span>'+(uk?'Серія':'Серия')+'</span><strong>'+Number(st.bestStreak||0)+'</strong></article>' +
+          '<article><i class="time">◷</i><span>'+(uk?'Час':'Время')+'</span><strong>'+time+'</strong></article>' +
+          '<article><i class="total">☷</i><span>'+(uk?'Набір':'Сет')+'</span><strong>'+(Number(ss.setIndex||0)+1)+' / '+Number(ss.totalSets||1)+'</strong></article>' +
+        '</div>';
+
+      var trainerCard = home.querySelector('.home-trainer.is-articles');
+      if (trainerCard) {
+        var tools = home.querySelector('.articles-desktop-tools');
+        if (!tools) {
+          tools = document.createElement('section');
+          tools.className = 'articles-desktop-tools';
+          if (trainerCard.nextSibling) trainerCard.parentNode.insertBefore(tools, trainerCard.nextSibling);
+          else trainerCard.parentNode.appendChild(tools);
+        }
+        var ttsOn = false;
+        try { ttsOn = window.localStorage.getItem('mm.tts.words') === '1'; } catch(_){}
+        tools.innerHTML =
+          '<button type="button" class="articles-tool articles-tool--tts'+(ttsOn?' is-active':'')+'" data-articles-tool="tts" aria-pressed="'+String(ttsOn)+'">' +
+            '<i>🔊</i><span><b>'+(uk?'Озвучення':'Озвучка')+'</b><small>'+(ttsOn?(uk?'увімкнено':'включена'):(uk?'вимкнено':'выключена'))+'</small></span><em></em>' +
+          '</button>' +
+          '<button type="button" class="articles-tool" data-articles-tool="skip">' +
+            '<i>⇄</i><span><b>'+(uk?'Пропустити слово':'Пропустить слово')+'</b><small>'+(uk?'перейти до наступного':'перейти к следующему')+'</small></span>' +
+          '</button>' +
+          '<button type="button" class="articles-tool" data-articles-tool="reveal">' +
+            '<i>?</i><span><b>'+(uk?'Показати відповідь':'Показать ответ')+'</b><small>'+(uk?'показати правильний артикль':'показать правильный артикль')+'</small></span>' +
+          '</button>';
+      }
+    } catch(_){}
+  }
+
   function render(vm) {
     if (!mounted || !rootEl || !vm) return;
 
     // запоминаем последнее состояние, чтобы корректно переотрисовать строку статистики
     // при переключении языка интерфейса.
     uiState.lastVm = vm;
+    ensureDesktopArticlesChrome(vm);
 
     // На каркасе мы используем ту же разметку .home-trainer из home.js.
     var starsBox = qs('.trainer-stars', rootEl);
@@ -277,8 +347,13 @@
       for (var j = 0; j < 3; j++) {
         var article = String(uiState.layout[j] || '');
         var b = document.createElement('button');
-        b.className = 'answer-btn';
-        b.textContent = article;
+        b.className = 'answer-btn article-answer--' + article;
+        b.innerHTML = '<span class="article-answer__choice">' + article + '</span>' +
+          '<small class="article-answer__gender">' +
+            (article === 'der' ? ((String((A.settings && (A.settings.uiLang || A.settings.lang)) || 'ru').toLowerCase()==='uk') ? 'чоловічий рід' : 'мужской род') :
+             article === 'die' ? ((String((A.settings && (A.settings.uiLang || A.settings.lang)) || 'ru').toLowerCase()==='uk') ? 'жіночий рід' : 'женский род') :
+             ((String((A.settings && (A.settings.uiLang || A.settings.lang)) || 'ru').toLowerCase()==='uk') ? 'середній рід' : 'средний род')) +
+          '</small>';
         b.setAttribute('data-article', article);
 
         // КЛИКИ обрабатываются единым делегированным слушателем (см. mount)
@@ -321,6 +396,7 @@
           var correct0 = vm0 ? String(vm0.correct || '').trim() : '';
 
           // "Не знаю" должно учитываться как неправильный ответ (прогресс/статистика).
+          try { if (A.AnswerSfx && A.AnswerSfx.wrong) A.AnswerSfx.wrong(); } catch(_){}
           try {
             if (A.ArticlesTrainer && typeof A.ArticlesTrainer.answerIdk === 'function') {
               A.ArticlesTrainer.answerIdk();
@@ -369,11 +445,30 @@
             b.disabled = true;
             if (b !== btn) b.classList.add('is-dim');
           });
+          var __articleFeedback = null;
           if (vm) {
             paintStars(vm.deckKey, vm.wordId);
             updateBottomDictStats(vm);
-            try { if (A.AudioTTS && A.AudioTTS.onCorrect) A.AudioTTS.onCorrect(); } catch (_eTTS) {}
           }
+
+          // 1.12.25: Articles use their own delegated answer handler, so they
+          // need the shared answer feedback explicitly here.
+          try {
+            var __articleSfx = (A.AnswerSfx && A.AnswerSfx.correct)
+              ? A.AnswerSfx.correct()
+              : Promise.resolve();
+            __articleFeedback = Promise.resolve(__articleSfx).then(function(){
+              try {
+                if (A.AudioTTS && A.AudioTTS.onCorrect) return A.AudioTTS.onCorrect();
+              } catch(_eTTS){}
+              return null;
+            });
+          } catch(_eFeedback) {
+            __articleFeedback = null;
+          }
+
+          // Preserve the existing article cadence. Audio feedback must never
+          // block moving to the next card.
           setTimeout(function () {
             try { if (A.ArticlesTrainer && A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (e) {}
           }, ADV_DELAY);
@@ -381,6 +476,7 @@
         }
 
         // wrong
+        try { if (A.AnswerSfx && A.AnswerSfx.wrong) A.AnswerSfx.wrong(); } catch(_){}
         btn.classList.add('is-wrong');
         btn.disabled = true;
         if (res.applied && vm) {
@@ -393,6 +489,67 @@
     unsubs.push(function () {
       try { if (rootEl) rootEl.removeEventListener('click', onRootClick); } catch (e) {}
     });
+
+    var homeEl = rootEl.closest('.home');
+    var onToolsClick = function(e) {
+      try {
+        var btn = e && e.target && e.target.closest ? e.target.closest('[data-articles-tool]') : null;
+        if (!btn) return;
+        var action = btn.getAttribute('data-articles-tool');
+
+        if (action === 'tts') {
+          var next = true;
+          try { next = window.localStorage.getItem('mm.tts.words') !== '1'; } catch(_){}
+          try { window.localStorage.setItem('mm.tts.words', next ? '1' : '0'); } catch(_){}
+          btn.classList.toggle('is-active', next);
+          btn.setAttribute('aria-pressed', String(next));
+          var small = btn.querySelector('small');
+          var uk = false; try { uk = String((A.settings && (A.settings.uiLang || A.settings.lang)) || 'ru').toLowerCase()==='uk'; } catch(_){}
+          if (small) small.textContent = next ? (uk?'увімкнено':'включена') : (uk?'вимкнено':'выключена');
+          try { if (A.AudioTTS && A.AudioTTS.refreshIndicators) A.AudioTTS.refreshIndicators(); } catch(_){}
+          if (next) {
+            try {
+              var vmT = A.ArticlesTrainer && A.ArticlesTrainer.getViewModel ? A.ArticlesTrainer.getViewModel() : null;
+              if (vmT && A.AudioTTS && typeof A.AudioTTS.speakText === 'function') A.AudioTTS.speakText(String(vmT.wordDisplay||''), false, {noVoice:true});
+            } catch(_){}
+          }
+          return;
+        }
+
+        if (action === 'skip') {
+          if (uiState.solved) return;
+          try { if (A.ArticlesTrainer && A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch(_){}
+          return;
+        }
+
+        if (action === 'reveal') {
+          if (uiState.solved) return;
+          var idk = rootEl.querySelector('.idk-btn');
+          if (idk) {
+            idk.click();
+          } else {
+            // Same semantics as the existing "Не знаю": count as wrong and reveal correct.
+            uiState.solved = true;
+            var vm0 = A.ArticlesTrainer && A.ArticlesTrainer.getViewModel ? A.ArticlesTrainer.getViewModel() : null;
+            var correct0 = vm0 ? String(vm0.correct||'').trim() : '';
+            try {
+              if (A.ArticlesTrainer && A.ArticlesTrainer.answerIdk) A.ArticlesTrainer.answerIdk();
+              else if (A.ArticlesTrainer && A.ArticlesTrainer.answer) A.ArticlesTrainer.answer('__idk__');
+            } catch(_){}
+            rootEl.querySelectorAll('.answers-grid .answer-btn').forEach(function(b){
+              b.disabled = true;
+              var a=String(b.getAttribute('data-article')||'').trim();
+              if (a===correct0) b.classList.add('is-correct'); else b.classList.add('is-dim');
+            });
+            setTimeout(function(){ try { A.ArticlesTrainer && A.ArticlesTrainer.next && A.ArticlesTrainer.next(); } catch(_){} }, ADV_DELAY);
+          }
+        }
+      } catch(_){}
+    };
+    if (homeEl) {
+      homeEl.addEventListener('click', onToolsClick);
+      unsubs.push(function(){ try { homeEl.removeEventListener('click', onToolsClick); } catch(_){} });
+    }
 
     // подписка на обновления от тренера
     var bus = ensureBusOn();

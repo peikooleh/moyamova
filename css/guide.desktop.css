@@ -1,0 +1,304 @@
+/* ==========================================================
+ * MOYAMOVA 1.10.8 — Guide / Instruction V3
+ * ========================================================== */
+@media (min-width:900px){
+  .guide-v3-shell{
+    width:min(100%,1180px);min-height:calc(100vh - 28px);margin:14px auto;
+    display:grid;grid-template-columns:224px minmax(0,1fr);overflow:hidden;
+    border-radius:18px;background:#f4f8fc;box-shadow:0 18px 60px rgba(21,43,68,.10)
+  }
+  .guide-side{min-height:100%;position:relative}
+  .guide-side nav{display:flex;flex-direction:column}
+  .guide-side nav button{position:relative}
+  .guide-side-sep{height:1px;background:rgba(255,255,255,.10);margin:10px 14px}
+  .guide-side .desktop-nav-count{margin-left:auto}
+  .guide-v3-main{padding:28px 30px 34px;min-width:0}
+  .guide-v3-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:18px}
+  .guide-v3-head>div>span{font-size:10px;font-weight:900;letter-spacing:.12em;color:#2b8cff}
+  .guide-v3-head h1{margin:4px 0 4px;color:#172235;font-size:28px;line-height:1.1}
+  .guide-v3-head p{margin:0;color:#8090a4;font-size:12px}
+  .guide-v3-back{
+    height:40px;padding:0 14px;border:1px solid #dce6f0;border-radius:10px;background:#fff;color:#314158;
+    font-size:11px;font-weight:800;cursor:pointer
+  }
+  .guide-v3-back:hover{background:#eef6ff;border-color:#a9c9e8}
+  .guide-v3-start{
+    padding:18px 20px;border:1px solid #cfe3f8;border-radius:15px;background:linear-gradient(135deg,#eef7ff,#f8fbff);
+    margin-bottom:16px
+  }
+  .guide-v3-start-title{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+  .guide-v3-start-title>i{width:34px;height:34px;border-radius:10px;background:#2b8cff;color:#fff;display:grid;place-items:center;font-style:normal;font-weight:900}
+  .guide-v3-start-title>div{display:flex;flex-direction:column}
+  .guide-v3-start-title b{font-size:15px;color:#172235}
+  .guide-v3-start-title span{font-size:9px;color:#7f90a4;letter-spacing:.12em}
+  .guide-v3-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .guide-v3-flow>div{position:relative;display:flex;align-items:center;gap:9px;min-height:46px;padding:0 14px;border-radius:11px;background:#fff;border:1px solid #dce8f3;color:#34445a;font-size:11px;font-weight:800}
+  .guide-v3-flow i{width:24px;height:24px;flex:0 0 24px;border-radius:50%;background:#edf5ff;color:#2579dc;display:grid;place-items:center;font-style:normal}
+  .guide-v3-flow em{position:absolute;right:-9px;z-index:2;color:#8cb7df;font-style:normal}
+  .guide-v3-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .guide-v3-card{border:1px solid #dce6f0;border-radius:14px;background:#fff;overflow:hidden}
+  .guide-v3-card summary{list-style:none;cursor:pointer;min-height:106px;padding:16px;display:grid;grid-template-columns:42px 1fr 18px;gap:12px;align-items:start}
+  .guide-v3-card summary::-webkit-details-marker{display:none}
+  .guide-v3-card summary>i{width:40px;height:40px;border-radius:11px;background:#edf5ff;color:#2379de;display:grid;place-items:center;font-style:normal;font-size:18px;font-weight:900}
+  .guide-v3-card summary>span{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .guide-v3-card summary b{font-size:14px;color:#172235}
+  .guide-v3-card summary small{font-size:11px;line-height:1.45;color:#7b8ba0;font-weight:500}
+  .guide-v3-card summary em{font-style:normal;color:#8293a7;font-size:15px;transition:transform .2s}
+  .guide-v3-card[open] summary em{transform:rotate(180deg)}
+  .guide-v3-card[open] summary{min-height:auto;border-bottom:1px solid #edf1f6}
+  .guide-v3-body{padding:0 16px 15px 70px}
+  .guide-v3-body p{margin:12px 0 0;color:#53647a;font-size:11.5px;line-height:1.6}
+  .guide-v3-note{margin-top:14px;padding:13px 16px;border:1px solid #dbe8f3;border-radius:12px;background:#f8fbff;color:#53647a;font-size:11px}
+
+  html[data-theme="dark"] .guide-v3-shell{background:#09131d;box-shadow:none}
+  html[data-theme="dark"] .guide-v3-main{background:#0a1520}
+  html[data-theme="dark"] .guide-v3-head h1,
+  html[data-theme="dark"] .guide-v3-start-title b,
+  html[data-theme="dark"] .guide-v3-card summary b{color:#edf5ff}
+  html[data-theme="dark"] .guide-v3-head p,
+  html[data-theme="dark"] .guide-v3-card summary small,
+  html[data-theme="dark"] .guide-v3-body p{color:#91a4b9}
+  html[data-theme="dark"] .guide-v3-back,
+  html[data-theme="dark"] .guide-v3-flow>div,
+  html[data-theme="dark"] .guide-v3-card{background:#101e2c;border-color:#263d52;color:#dbe8f5}
+  html[data-theme="dark"] .guide-v3-start{background:#0e2030;border-color:#29445d}
+  html[data-theme="dark"] .guide-v3-flow i,
+  html[data-theme="dark"] .guide-v3-card summary>i{background:#142a3d;color:#59a8ff}
+  html[data-theme="dark"] .guide-v3-card[open] summary{border-color:#24384b}
+  html[data-theme="dark"] .guide-v3-note{background:#0f1e2c;border-color:#263d52;color:#9fb0c3}
+}
+@media (min-width:1400px){
+  .guide-v3-shell{grid-template-columns:232px minmax(0,1fr)}
+}
+@media (max-width:899px){
+  .guide-v3-mobile{padding:18px 14px 30px;background:var(--app-bg,#f4f8fc);min-height:100vh}
+  .guide-v3-mobile .guide-v3-head{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
+  .guide-v3-mobile .guide-v3-head h1{margin:3px 0;color:var(--text,#172235);font-size:24px}
+  .guide-v3-mobile .guide-v3-head p{margin:0;color:#8090a4;font-size:12px}
+  .guide-v3-mobile .guide-v3-head>div>span{font-size:9px;font-weight:900;color:#2b8cff}
+  .guide-v3-mobile .guide-v3-back{height:38px;border:1px solid #dce6f0;border-radius:10px;background:var(--card,#fff);color:var(--text,#172235);font-weight:800}
+  .guide-v3-mobile .guide-v3-start{padding:14px;border:1px solid #cfe3f8;border-radius:14px;background:#eef7ff;margin-bottom:12px}
+  .guide-v3-mobile .guide-v3-start-title{display:flex;gap:9px;align-items:center;margin-bottom:12px}
+  .guide-v3-mobile .guide-v3-start-title>i{width:32px;height:32px;border-radius:9px;background:#2b8cff;color:#fff;display:grid;place-items:center;font-style:normal}
+  .guide-v3-mobile .guide-v3-start-title>div{display:flex;flex-direction:column}.guide-v3-mobile .guide-v3-start-title span{font-size:8px;color:#8291a4}.guide-v3-mobile .guide-v3-start-title b{font-size:14px}
+  .guide-v3-mobile .guide-v3-flow{display:grid;gap:7px}
+  .guide-v3-mobile .guide-v3-flow>div{min-height:40px;padding:0 11px;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #dce8f3;border-radius:10px;font-size:11px;font-weight:800}
+  .guide-v3-mobile .guide-v3-flow i{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#edf5ff;color:#2579dc;font-style:normal}.guide-v3-mobile .guide-v3-flow em{display:none}
+  .guide-v3-mobile .guide-v3-grid{display:grid;gap:9px}.guide-v3-mobile .guide-v3-card{background:var(--card,#fff);border:1px solid #dce6f0;border-radius:13px;overflow:hidden}
+  .guide-v3-mobile .guide-v3-card summary{list-style:none;padding:14px;display:grid;grid-template-columns:36px 1fr 16px;gap:10px}.guide-v3-mobile .guide-v3-card summary::-webkit-details-marker{display:none}
+  .guide-v3-mobile .guide-v3-card summary>i{width:34px;height:34px;border-radius:9px;background:#edf5ff;color:#2379de;display:grid;place-items:center;font-style:normal}.guide-v3-mobile .guide-v3-card summary>span{display:flex;flex-direction:column;gap:5px}.guide-v3-mobile .guide-v3-card summary small{color:#7b8ba0;line-height:1.4}.guide-v3-mobile .guide-v3-card summary em{font-style:normal}
+  .guide-v3-mobile .guide-v3-body{padding:0 14px 14px 60px}.guide-v3-mobile .guide-v3-body p{font-size:12px;line-height:1.55;color:#586a80}
+  .guide-v3-mobile .guide-v3-note{margin-top:11px;padding:12px;border-radius:11px;background:#f8fbff;border:1px solid #dbe8f3;font-size:11px;color:#53647a}
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.10.10 — Guide shell isolation
+ * ========================================================== */
+@media (min-width:900px){
+  #moya-shell-root:has(#app .guide-v3-shell) > .header,
+  #moya-shell-root:has(#app .guide-v3-shell) > .app-footer{
+    display:none!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-shell) > #app.content{
+    padding-top:0!important;
+    padding-bottom:0!important;
+    min-height:100vh!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-shell) .guide-v3-shell{
+    min-height:calc(100vh - 28px)!important;
+  }
+}
+
+
+/* MOYAMOVA 1.10.11 — structured Guide copy */
+.guide-v3-start-copy{
+  margin:0 0 14px;color:#53647a;font-size:11.5px;line-height:1.55;
+}
+.guide-v3-body ul{
+  list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px;
+}
+.guide-v3-body li{
+  position:relative;padding-left:20px;
+}
+.guide-v3-body li::before{
+  content:"✓";position:absolute;left:0;top:0;color:#25ad70;font-weight:900;
+}
+.guide-v3-body dl{
+  margin:12px 0 0;display:grid;grid-template-columns:max-content 1fr;gap:8px 10px;
+}
+.guide-v3-body dt{
+  color:#2b8cff;font-weight:900;
+}
+.guide-v3-body dd{
+  margin:0;color:inherit;
+}
+.guide-v3-body aside{
+  margin:13px 0 0;padding:10px 12px;border-radius:9px;background:#eef7ff;
+  border-left:3px solid #2b8cff;color:#43566d;font-weight:650;
+}
+html[data-theme="dark"] .guide-v3-start-copy{color:#91a4b9}
+html[data-theme="dark"] .guide-v3-body aside{
+  background:#10283a;color:#b8c8d8;border-left-color:#4ba5ff;
+}
+@media(max-width:899px){
+  .guide-v3-start-copy{font-size:12px}
+  .guide-v3-mobile .guide-v3-body dl{grid-template-columns:1fr;gap:3px}
+  .guide-v3-mobile .guide-v3-body dd{margin-bottom:6px}
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.10.12 — Guide desktop vertical scroll repair
+ * The guide may be taller than the viewport after expanding cards.
+ * ========================================================== */
+@media (min-width:900px){
+  #moya-shell-root:has(#app .guide-v3-shell){
+    height:auto!important;
+    min-height:100vh!important;
+    overflow:visible!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-shell) > #app.content{
+    height:auto!important;
+    min-height:100vh!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-shell) .guide-v3-shell{
+    height:auto!important;
+    min-height:calc(100vh - 28px)!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-shell) .guide-v3-main{
+    height:auto!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  html:has(#app .guide-v3-shell),
+  body:has(#app .guide-v3-shell){
+    height:auto!important;
+    min-height:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+}
+
+/* ==========================================================
+ * MOYAMOVA 1.12.21 — mobile Guide shell cleanup
+ * The Guide is a standalone mobile page: no legacy global
+ * header/footer around it. Desktop behavior remains unchanged.
+ * ========================================================== */
+@media (max-width:899px){
+  #moya-shell-root:has(#app .guide-v3-mobile) > .header,
+  #moya-shell-root:has(#app .guide-v3-mobile) > .app-footer{
+    display:none!important;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-mobile) > #app.content{
+    padding-top:0!important;
+    padding-bottom:0!important;
+    min-height:100dvh!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  #moya-shell-root:has(#app .guide-v3-mobile) .guide-v3-mobile{
+    min-height:100dvh!important;
+    box-sizing:border-box;
+    padding-top:max(18px, env(safe-area-inset-top))!important;
+    padding-bottom:max(30px, env(safe-area-inset-bottom))!important;
+  }
+
+  html:has(#app .guide-v3-mobile),
+  body:has(#app .guide-v3-mobile){
+    height:auto!important;
+    min-height:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.22 — complete dark theme for mobile Guide
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-theme="dark"] .guide-v3-mobile,
+  html.dark .guide-v3-mobile{
+    background:#020617!important;
+    color:#e5e7eb!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-head h1,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-start-title b,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-flow>div,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-card summary b,
+  html.dark .guide-v3-mobile .guide-v3-head h1,
+  html.dark .guide-v3-mobile .guide-v3-start-title b,
+  html.dark .guide-v3-mobile .guide-v3-flow>div,
+  html.dark .guide-v3-mobile .guide-v3-card summary b{
+    color:#edf5ff!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-head p,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-start-title span,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-card summary small,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-body p,
+  html.dark .guide-v3-mobile .guide-v3-head p,
+  html.dark .guide-v3-mobile .guide-v3-start-title span,
+  html.dark .guide-v3-mobile .guide-v3-card summary small,
+  html.dark .guide-v3-mobile .guide-v3-body p{
+    color:#9fb0c3!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-back,
+  html.dark .guide-v3-mobile .guide-v3-back{
+    background:#101e2c!important;
+    border-color:#263d52!important;
+    color:#edf5ff!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-start,
+  html.dark .guide-v3-mobile .guide-v3-start{
+    background:#0e2030!important;
+    border-color:#29445d!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-flow>div,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-card,
+  html.dark .guide-v3-mobile .guide-v3-flow>div,
+  html.dark .guide-v3-mobile .guide-v3-card{
+    background:#101e2c!important;
+    border-color:#263d52!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-flow i,
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-card summary>i,
+  html.dark .guide-v3-mobile .guide-v3-flow i,
+  html.dark .guide-v3-mobile .guide-v3-card summary>i{
+    background:#142a3d!important;
+    color:#59a8ff!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-card[open] summary,
+  html.dark .guide-v3-mobile .guide-v3-card[open] summary{
+    border-color:#24384b!important;
+  }
+
+  html[data-theme="dark"] .guide-v3-mobile .guide-v3-note,
+  html.dark .guide-v3-mobile .guide-v3-note{
+    background:#0f1e2c!important;
+    border-color:#263d52!important;
+    color:#9fb0c3!important;
+  }
+}

@@ -12,10 +12,6 @@
   // Локализованный словарь сообщений
   var DICT = {
     ru: {
-      // PRO
-      'pro.already': 'Функция уже активирована ✨',
-      'pro.purchased': 'Спасибо за поддержку! ✨',
-
       // Legal / factory reset
       'legal.reset_warning': 'Все данные (прогресс, настройки, избранное) будут удалены, приложение вернётся к начальной настройке.',
       'legal.reset_confirm': 'Сбросить данные и начать заново?',
@@ -31,9 +27,6 @@
       'common.cancel': 'Отмена'
     },
     uk: {
-      'pro.already': 'Функція вже активована ✨',
-      'pro.purchased': 'Дякуємо за підтримку! ✨',
-
       'legal.reset_warning': 'Усі дані (прогрес, налаштування, обране) будуть видалені, застосунок повернеться до початкового стану.',
       'legal.reset_confirm': 'Скинути дані й почати заново?',
 
@@ -46,9 +39,6 @@
       'common.cancel': 'Скасувати'
     },
     en: {
-      'pro.already': 'PRO version is already active ✨',
-      'pro.purchased': 'PRO version activated, thank you for your support! ✨',
-
       'legal.reset_warning': 'All data (progress, settings, favorites) will be erased and the app will be reset.',
       'legal.reset_confirm': 'Reset data and start over?',
 
@@ -93,8 +83,24 @@
   // Достаём текст по ключу
   App.Msg.text = msg;
 
+  function inferToastType(text, explicitType){
+    if (explicitType) return explicitType;
+    var s = String(text || '').toLowerCase();
+
+    if (/(ошиб|error|failed|не удалось|неможливо|не вдалося|нет датасета|немає датасету)/i.test(s)) {
+      return 'error';
+    }
+    if (/(предуп|warning|вниман|уваг|нельзя|неможна|недоступ|недоступн)/i.test(s)) {
+      return 'warning';
+    }
+    if (/(готов|успеш|успіш|сохран|збереж|активир|активовано|актуальн|latest|done|saved|updated)/i.test(s)) {
+      return 'success';
+    }
+    return 'info';
+  }
+
   // Тост: показывает краткое уведомление в едином стиле
-  App.Msg.toast = function(keyOrText, ms){
+  App.Msg.toast = function(keyOrText, ms, type){
     var text;
     if (typeof keyOrText === 'string' && (DICT.ru[keyOrText] || DICT.uk[keyOrText] || DICT.en[keyOrText])) {
       text = msg(keyOrText);
@@ -104,7 +110,7 @@
 
     try {
       if (window.MoyaUpdates && typeof MoyaUpdates.setToast === 'function') {
-        MoyaUpdates.setToast(text, ms || 2600);
+        MoyaUpdates.setToast(text, ms || 2600, inferToastType(text, type));
         return;
       }
     } catch(_){}
@@ -118,7 +124,10 @@
     opts = opts || {};
     var title = opts.title || '';
     var text = opts.text || '';
-    var icon = typeof opts.icon === 'string' ? opts.icon : '⚙️';
+    var type = opts.type || 'warning';
+    var icon = typeof opts.icon === 'string'
+      ? opts.icon
+      : (type === 'success' ? '✓' : type === 'error' ? '!' : type === 'info' ? 'i' : '!');
     var okText = opts.okText || msg('common.ok');
     var cancelText = opts.cancelText || msg('common.cancel');
 
@@ -130,7 +139,7 @@
       var root = document.createElement('div');
       root.className = 'mm-modal-backdrop';
       root.innerHTML = ''
-        + '<div class="mm-modal" role="dialog" aria-modal="true" aria-labelledby="mmModalTitle" aria-describedby="mmModalText" tabindex="-1">'
+        + '<div class="mm-modal" data-mm-type="' + type + '" role="dialog" aria-modal="true" aria-labelledby="mmModalTitle" aria-describedby="mmModalText" tabindex="-1">'
         +   '<div class="mm-modal__icon" aria-hidden="true">' + icon + '</div>'
         +   '<div class="mm-modal__title" id="mmModalTitle">' + title + '</div>'
         +   '<div class="mm-modal__text" id="mmModalText">' + text + '</div>'

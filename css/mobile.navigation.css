@@ -1,0 +1,526 @@
+/* ==========================================================
+ * MOYAMOVA 1.11.4 — Mobile Home Navigation Sheet
+ * Home is the first migrated mobile screen.
+ * Desktop and not-yet-migrated mobile screens keep the legacy shell.
+ * ========================================================== */
+
+@media (max-width: 899px) {
+  /* Home itself is the main mobile hub — no permanent bottom tab bar. */
+  html[data-mobile-shell="home"] .app-footer {
+    display: none !important;
+  }
+
+  html[data-mobile-shell="home"] {
+    --footer-h-actual: 0px;
+  }
+
+  html[data-mobile-shell="home"] #app.content {
+    padding-bottom: calc(18px + var(--mobile-safe-bottom, 0px)) !important;
+  }
+
+  /* Top-right becomes "More/Menu", not a direct Settings route. */
+  html[data-mobile-shell="home"] .header {
+    min-height: 56px;
+    padding-left: max(14px, var(--mobile-safe-left, 0px));
+    padding-right: max(12px, var(--mobile-safe-right, 0px));
+  }
+
+  html[data-mobile-shell="home"] .brand-link {
+    min-height: 44px;
+  }
+
+  html[data-mobile-shell="home"] #btnMenu.burger {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(65, 84, 180, .12);
+    border-radius: 14px;
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 5px 18px rgba(44, 55, 112, .08);
+    font-size: 0;
+    line-height: 1;
+  }
+
+  html[data-mobile-shell="home"] #btnMenu.burger::before {
+    content: "•••";
+    font-size: 19px;
+    line-height: 1;
+    letter-spacing: 1px;
+    transform: translateY(-2px);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] #btnMenu.burger,
+  html.dark[data-mobile-shell="home"] #btnMenu.burger {
+    background: rgba(24, 36, 52, .92);
+    border-color: rgba(142, 166, 215, .16);
+    box-shadow: none;
+  }
+
+  /* Reuse the proven legacy menu controls, but present them as a bottom sheet. */
+  html[data-mobile-shell="home"] .oc-root {
+    inset: 0;
+    max-height: var(--mobile-viewport-height);
+  }
+
+  html[data-mobile-shell="home"] .oc-overlay {
+    inset: 0 !important;
+    background: rgba(12, 20, 38, .30);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  html[data-mobile-shell="home"] .oc-panel {
+    left: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    bottom: max(8px, var(--mobile-safe-bottom, 0px)) !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 560px !important;
+    max-height: min(82dvh, calc(var(--mobile-viewport-height) - 24px));
+    margin: 0 auto;
+    border: 1px solid rgba(74, 91, 150, .13);
+    border-radius: 22px;
+    box-shadow: 0 20px 55px rgba(18, 28, 58, .22);
+    overflow: hidden;
+    transform: translateY(calc(100% + 28px)) !important;
+    transition: transform .22s ease !important;
+  }
+
+  body.menu-open html[data-mobile-shell="home"] .oc-panel,
+  html[data-mobile-shell="home"] body.menu-open .oc-panel {
+    transform: translateY(0) !important;
+  }
+
+  html[data-mobile-shell="home"] .oc-header {
+    min-height: 52px;
+    padding: 7px 12px;
+    background: rgba(255,255,255,.97);
+  }
+
+  html[data-mobile-shell="home"] .oc-back {
+    display: none !important;
+  }
+
+  html[data-mobile-shell="home"] .oc-title {
+    text-align: left;
+    padding-left: 4px;
+    font-size: 16px;
+  }
+
+  html[data-mobile-shell="home"] .oc-close {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+  }
+
+  html[data-mobile-shell="home"] .oc-body {
+    display: block !important;
+    min-height: 0;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 12px calc(82px + var(--mobile-safe-bottom, 0px)) !important;
+  }
+
+  /* Primary navigation inside the sheet. */
+  html[data-mobile-shell="home"] .mobile-nav-sheet {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+    padding: 2px 0 12px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(78, 96, 144, .12);
+  }
+
+  html[data-mobile-shell="home"] .mobile-nav-sheet__item {
+    min-width: 0;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 11px;
+    border: 1px solid rgba(73, 94, 169, .12);
+    border-radius: 14px;
+    background: rgba(247,249,255,.92);
+    color: inherit;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  html[data-mobile-shell="home"] .mobile-nav-sheet__item:active {
+    transform: scale(.985);
+  }
+
+  html[data-mobile-shell="home"] .mobile-nav-sheet__icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: rgba(97, 118, 235, .10);
+    font-size: 16px;
+  }
+
+  html[data-mobile-shell="home"] .mobile-nav-sheet__copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  html[data-mobile-shell="home"] .mobile-nav-sheet__copy strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  html[data-mobile-shell="home"] .mobile-nav-sheet__copy small {
+    color: #788498;
+    font-size: 9.5px;
+    line-height: 1.15;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] .oc-panel,
+  html.dark[data-mobile-shell="home"] .oc-panel {
+    border-color: rgba(135, 157, 204, .14);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] .oc-header,
+  html.dark[data-mobile-shell="home"] .oc-header {
+    background: #121c28;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] .mobile-nav-sheet {
+    border-bottom-color: rgba(135, 157, 204, .13);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="home"] .mobile-nav-sheet__item {
+    background: #162231;
+    border-color: rgba(135, 157, 204, .14);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="home"] .mobile-nav-sheet__icon {
+    background: rgba(121, 147, 255, .12);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="home"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="home"] .mobile-nav-sheet__copy small {
+    color: #9aa9bb;
+  }
+}
+
+@media (max-width: 390px) {
+  html[data-mobile-shell="home"] .mobile-nav-sheet {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 899px) {
+  html[data-mobile-shell="home"] .menu-item.app-version {
+    position:relative;
+    z-index:1;
+    margin-bottom:8px !important;
+    padding-bottom:12px !important;
+  }
+}
+
+/* ==========================================================
+ * MOYAMOVA 1.12.20 — mobile menu navigation cards
+ * Apply the same menu navigation styling on Prepositions,
+ * Favorites and Mistakes shells. No trainer/content logic changes.
+ * ========================================================== */
+@media (max-width:899px) {
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    padding:2px 0 12px;
+    margin-bottom:8px;
+    border-bottom:1px solid rgba(78,96,144,.12);
+  }
+
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet__item,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet__item,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet__item {
+    min-width:0;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 11px;
+    border:1px solid rgba(73,94,169,.12);
+    border-radius:14px;
+    background:rgba(247,249,255,.92);
+    color:inherit;
+    text-align:left;
+    font:inherit;
+    cursor:pointer;
+  }
+
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet__item:active,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet__item:active,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet__item:active { transform:scale(.985); }
+
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet__icon,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet__icon,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet__icon {
+    width:30px;height:30px;flex:0 0 30px;
+    display:grid;place-items:center;
+    border-radius:9px;background:rgba(97,118,235,.10);font-size:16px;
+  }
+
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet__copy,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet__copy,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet__copy {
+    min-width:0;display:flex;flex-direction:column;gap:1px;
+  }
+
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet__copy strong,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet__copy strong,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet__copy strong {
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.15;
+  }
+
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet__copy small,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet__copy small,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet__copy small {
+    color:#788498;font-size:9.5px;line-height:1.15;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="prepositions"] .mobile-nav-sheet,
+  html[data-theme="dark"][data-mobile-shell="favorites"] .mobile-nav-sheet,
+  html[data-theme="dark"][data-mobile-shell="mistakes"] .mobile-nav-sheet,
+  html.dark[data-mobile-shell="prepositions"] .mobile-nav-sheet,
+  html.dark[data-mobile-shell="favorites"] .mobile-nav-sheet,
+  html.dark[data-mobile-shell="mistakes"] .mobile-nav-sheet {
+    border-bottom-color:rgba(135,157,204,.13);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="prepositions"] .mobile-nav-sheet__item,
+  html[data-theme="dark"][data-mobile-shell="favorites"] .mobile-nav-sheet__item,
+  html[data-theme="dark"][data-mobile-shell="mistakes"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="prepositions"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="favorites"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="mistakes"] .mobile-nav-sheet__item {
+    background:#162231;border-color:rgba(135,157,204,.14);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="prepositions"] .mobile-nav-sheet__icon,
+  html[data-theme="dark"][data-mobile-shell="favorites"] .mobile-nav-sheet__icon,
+  html[data-theme="dark"][data-mobile-shell="mistakes"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="prepositions"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="favorites"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="mistakes"] .mobile-nav-sheet__icon {
+    background:rgba(121,147,255,.12);
+  }
+
+  html[data-theme="dark"][data-mobile-shell="prepositions"] .mobile-nav-sheet__copy small,
+  html[data-theme="dark"][data-mobile-shell="favorites"] .mobile-nav-sheet__copy small,
+  html[data-theme="dark"][data-mobile-shell="mistakes"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="prepositions"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="favorites"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="mistakes"] .mobile-nav-sheet__copy small { color:#9aa9bb; }
+}
+
+@media (max-width:390px) {
+  html[data-mobile-shell="prepositions"] .mobile-nav-sheet,
+  html[data-mobile-shell="favorites"] .mobile-nav-sheet,
+  html[data-mobile-shell="mistakes"] .mobile-nav-sheet { grid-template-columns:1fr; }
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.26 — Dictionaries quick-navigation cards
+ * + desktop guard for mobile-only navigation sheet.
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    margin:0 0 14px;
+    padding:0;
+  }
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet__item{
+    width:100%;min-width:0;min-height:52px;
+    display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px;align-items:center;
+    padding:7px 9px;border:1px solid #dfe5ee;border-radius:14px;
+    background:#fff;color:#182235;text-align:left;font:inherit;box-sizing:border-box;
+  }
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet__item:active{transform:scale(.985)}
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet__icon{
+    width:34px;height:34px;display:grid;place-items:center;border-radius:10px;
+    background:#eef2ff;color:#6576dd;font-size:16px;line-height:1;
+  }
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet__copy{
+    min-width:0;display:flex;flex-direction:column;gap:2px;
+  }
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet__copy strong{
+    font-size:11px;line-height:1.15;color:inherit;
+  }
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet__copy small{
+    font-size:9px;line-height:1.2;color:#788498;white-space:normal;
+  }
+  html[data-theme="dark"][data-mobile-shell="dicts"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="dicts"] .mobile-nav-sheet__item{
+    background:#101e2c;border-color:#263d52;color:#edf5ff;
+  }
+  html[data-theme="dark"][data-mobile-shell="dicts"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="dicts"] .mobile-nav-sheet__icon{
+    background:rgba(121,147,255,.12);
+  }
+  html[data-theme="dark"][data-mobile-shell="dicts"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="dicts"] .mobile-nav-sheet__copy small{color:#9aa9bb}
+}
+@media (max-width:390px){
+  html[data-mobile-shell="dicts"] .mobile-nav-sheet{grid-template-columns:1fr}
+}
+@media (min-width:900px){
+  .mobile-nav-sheet{display:none!important}
+}
+
+
+/* ==========================================================
+ * MOYAMOVA 1.12.28 — Statistics mobile menu
+ * Same off-canvas presentation and navigation-card language as Home.
+ * ========================================================== */
+@media (max-width:899px){
+  html[data-mobile-shell="stats"] .oc-root{
+    position:fixed!important;
+    inset:0!important;
+    z-index:9500!important;
+    pointer-events:none;
+  }
+  html[data-mobile-shell="stats"] body.menu-open .oc-root{pointer-events:auto}
+
+  html[data-mobile-shell="stats"] .oc-backdrop{
+    position:absolute!important;
+    inset:0!important;
+    background:rgba(5,12,24,.44)!important;
+    opacity:0!important;
+    transition:opacity .2s ease!important;
+  }
+  html[data-mobile-shell="stats"] body.menu-open .oc-backdrop{opacity:1!important}
+
+  html[data-mobile-shell="stats"] .oc-panel{
+    position:absolute!important;
+    left:10px!important;
+    right:10px!important;
+    bottom:calc(10px + var(--mobile-safe-bottom,0px))!important;
+    top:auto!important;
+    width:auto!important;
+    max-width:none!important;
+    max-height:min(78dvh,680px)!important;
+    border:1px solid rgba(73,94,169,.14)!important;
+    border-radius:22px!important;
+    background:#fff!important;
+    box-shadow:0 20px 55px rgba(18,28,58,.22)!important;
+    overflow:hidden!important;
+    transform:translateY(calc(100% + 28px))!important;
+    transition:transform .22s ease!important;
+  }
+  html[data-mobile-shell="stats"] body.menu-open .oc-panel{
+    transform:translateY(0)!important;
+  }
+
+  html[data-mobile-shell="stats"] .oc-header{
+    min-height:52px!important;
+    padding:7px 12px!important;
+    background:rgba(255,255,255,.97)!important;
+  }
+  html[data-mobile-shell="stats"] .oc-back{display:none!important}
+  html[data-mobile-shell="stats"] .oc-title{
+    text-align:left!important;
+    padding-left:4px!important;
+    font-size:16px!important;
+  }
+  html[data-mobile-shell="stats"] .oc-close{
+    width:40px!important;height:40px!important;
+    display:grid!important;place-items:center!important;
+    border-radius:12px!important;
+  }
+  html[data-mobile-shell="stats"] .oc-body{
+    display:block!important;
+    min-height:0!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    padding:10px 12px calc(82px + var(--mobile-safe-bottom,0px))!important;
+  }
+
+  html[data-mobile-shell="stats"] .mobile-nav-sheet{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    padding:2px 0 12px!important;
+    margin-bottom:8px!important;
+    border-bottom:1px solid rgba(78,96,144,.12)!important;
+  }
+  html[data-mobile-shell="stats"] .mobile-nav-sheet__item{
+    min-width:0!important;
+    min-height:52px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:10px!important;
+    padding:10px 11px!important;
+    border:1px solid rgba(73,94,169,.12)!important;
+    border-radius:14px!important;
+    background:rgba(247,249,255,.92)!important;
+    color:inherit!important;
+    text-align:left!important;
+    font:inherit!important;
+  }
+  html[data-mobile-shell="stats"] .mobile-nav-sheet__icon{
+    width:30px!important;height:30px!important;flex:0 0 30px!important;
+    display:grid!important;place-items:center!important;border-radius:9px!important;
+    background:rgba(97,118,235,.10)!important;font-size:16px!important;
+  }
+  html[data-mobile-shell="stats"] .mobile-nav-sheet__copy{
+    min-width:0!important;display:flex!important;flex-direction:column!important;gap:1px!important;
+  }
+  html[data-mobile-shell="stats"] .mobile-nav-sheet__copy strong{
+    overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+    font-size:12px!important;line-height:1.15!important;
+  }
+  html[data-mobile-shell="stats"] .mobile-nav-sheet__copy small{
+    color:#788498!important;font-size:9.5px!important;line-height:1.15!important;
+  }
+
+  html[data-theme="dark"][data-mobile-shell="stats"] .oc-panel,
+  html.dark[data-mobile-shell="stats"] .oc-panel{
+    background:#121c28!important;
+    border-color:rgba(135,157,204,.14)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell="stats"] .oc-header,
+  html.dark[data-mobile-shell="stats"] .oc-header{background:#121c28!important}
+  html[data-theme="dark"][data-mobile-shell="stats"] .mobile-nav-sheet{
+    border-bottom-color:rgba(135,157,204,.13)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell="stats"] .mobile-nav-sheet__item,
+  html.dark[data-mobile-shell="stats"] .mobile-nav-sheet__item{
+    background:#162231!important;border-color:rgba(135,157,204,.14)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell="stats"] .mobile-nav-sheet__icon,
+  html.dark[data-mobile-shell="stats"] .mobile-nav-sheet__icon{
+    background:rgba(121,147,255,.12)!important;
+  }
+  html[data-theme="dark"][data-mobile-shell="stats"] .mobile-nav-sheet__copy small,
+  html.dark[data-mobile-shell="stats"] .mobile-nav-sheet__copy small{color:#9aa9bb!important}
+}
+@media (max-width:390px){
+  html[data-mobile-shell="stats"] .mobile-nav-sheet{grid-template-columns:1fr!important}
+}

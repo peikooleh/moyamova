@@ -1,0 +1,62 @@
+/* ==========================================================
+ * MOYAMOVA 1.10.17 — Shared contextual page tip
+ * ========================================================== */
+@media (min-width:900px){
+  .mm-page-tip{
+    margin-top:14px;
+    border:1px solid var(--dbd,#dfe6f0);
+    background:rgba(255,255,255,.72);
+    border-radius:12px;
+    padding:10px 14px;
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    color:var(--dm,#6e7c8f);
+    font-size:11px;
+    line-height:1.45;
+  }
+  .mm-page-tip i{font-style:normal;flex:0 0 auto}
+  html[data-theme="dark"] .mm-page-tip{
+    background:rgba(40,55,78,.72);
+    border-color:#3d5069;
+    color:#aab7c8;
+  }
+}
+
+
+/* MOYAMOVA 1.12.30 — mobile tips mirror desktop page coverage. */
+@media (max-width:899px){
+  .mm-page-tip{
+    width:100%;
+    box-sizing:border-box;
+    margin:10px 0 0;
+    padding:10px 11px;
+    display:flex;
+    align-items:flex-start;
+    gap:7px;
+    border:1px solid #e3e8f1;
+    border-radius:14px;
+    background:rgba(255,255,255,.68);
+    color:#78869a;
+    font-size:10px;
+    line-height:1.45;
+  }
+  .mm-page-tip i{
+    flex:0 0 auto;
+    font-style:normal;
+  }
+  html[data-theme="dark"] .mm-page-tip,
+  html.dark .mm-page-tip{
+    background:#101e2c;
+    border-color:#263d52;
+    color:#9aa9bb;
+  }
+
+  /* Keep the tip inside the page width on list-based screens. */
+  .home--dicts>.mm-page-tip,
+  .home--favorites>.mm-page-tip,
+  .home--mistakes>.mm-page-tip{
+    margin-left:0;
+    margin-right:0;
+  }
+}

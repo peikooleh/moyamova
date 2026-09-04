@@ -50,8 +50,9 @@
  * ---------------------------------------------------------- */
 @media all and (display-mode:standalone){
   #app.content{
-    overflow:hidden !important;
-    -webkit-overflow-scrolling:auto !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
     overscroll-behavior-y:none;
   }
 }
@@ -286,29 +287,6 @@ body.no-scroll {
   background: var(--accent, var(--brand, #35b6ff));
   border-color: var(--accent, var(--brand, #35b6ff));
   opacity: 1;
-}
-
-/* ==========================================================
- * 6. Бейдж PRO в шапке
- * ========================================================== */
-
-.header-pro-badge {
-  display: none;
-  margin-left: 6px;
-  padding: 1px 6px 2px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: var(--accent, var(--brand, #35b6ff));
-  border: 1px solid rgba(53,182,255,.5);
-  background: rgba(53,182,255,0.08);
-  align-items: center;
-  justify-content: center;
-}
-
-.header-pro-badge.is-visible {
-  display: inline-flex;
 }
 
 /* Индикатор режима (обычный/сложный) — в левом нижнем углу карточки тренера */
@@ -993,3 +971,37 @@ html[data-theme="dark"] .oc-panel .menu-item.app-version{
   opacity: .7;
   font-size: 12px;
 }
+
+/* ==========================================================
+ * MOYAMOVA 1.12.19 — PWA mobile fixes
+ * 1) Filters stay in code but are hidden in installed PWA.
+ * 2) #app remains the single vertical scroll container in standalone.
+ * ========================================================== */
+@media (max-width:899px) {
+  html[data-runmode="pwa"] .home-filters,
+  html[data-runmode="pwa"] #filtersOverlay,
+  html[data-runmode="pwa"] #filtersSheet {
+    display:none !important;
+  }
+}
+
+
+/* 1.12.40 — compact global settings rows + answer feedback sound */
+.oc-body > .menu-item.theme-toggle,
+.oc-body > .menu-item.lang-toggle,
+.oc-body > .menu-item.level-toggle,
+.oc-body > .menu-item.answer-sound-toggle{
+  min-height:52px;
+  padding-top:8px;
+  padding-bottom:8px;
+}
+.oc-body > .menu-item.answer-sound-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.answer-sound-toggle .menu-label{display:flex;flex-direction:column;gap:2px;min-width:0}
+.answer-sound-toggle .menu-label small{font-size:11px;line-height:1.25;opacity:.62;font-weight:500}
+.answer-sound-toggle .switch{flex:0 0 auto}
+html[data-theme="dark"] .answer-sound-toggle .menu-label small{opacity:.7}

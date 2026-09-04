@@ -1,0 +1,337 @@
+/* ==========================================================
+ * MOYAMOVA 1.7.9 — Desktop Dicts / Mistakes / Favorites / Stats
+ * ========================================================== */
+.ui-flag-img,.asset-flag{
+  display:block;width:26px;height:18px;object-fit:cover;border-radius:3px;
+  box-shadow:0 0 0 1px rgba(15,23,42,.10)
+}
+.lang-label .ui-flag-img{width:28px;height:19px}
+.dict-flag .asset-flag{width:25px;height:17px;margin:auto}
+.asset-flag--row{width:26px;height:18px;margin:auto}
+
+@media (min-width:900px){
+  body:has(.desktop-pages-shell){overflow-y:auto!important;overflow-x:hidden}
+  body:has(.desktop-pages-shell) .header{display:none!important}
+  body:has(.desktop-pages-shell) .app-footer{display:none!important}
+
+  .content:has(.desktop-pages-shell){
+    display:block!important;height:auto!important;min-height:100vh;max-width:none!important;
+    overflow:visible!important;padding:12px 18px 28px!important;box-sizing:border-box
+  }
+
+  .desktop-pages-shell{
+    display:grid;grid-template-columns:224px minmax(0,1fr);
+    width:min(100%,1440px);min-height:calc(100vh - 24px);margin:0 auto;
+    background:#f5f8fd;border-radius:20px;overflow:hidden;
+    box-shadow:0 16px 50px rgba(20,40,80,.08)
+  }
+  .desktop-pages-side{
+    width:224px;min-width:224px;min-height:100%;
+    padding:18px 14px 14px;box-sizing:border-box
+  }
+  .desktop-pages-main{
+    min-width:0;width:100%;max-width:1200px;margin:0 auto;
+    padding:18px 24px 30px;box-sizing:border-box
+  }
+  .desktop-pages-main>.home.desktop-page-home{
+    width:100%;max-width:none!important;min-height:0!important;
+    margin:0!important;padding:0!important
+  }
+  .desktop-pages-main .dicts-card.dicts-card--fixed{
+    width:100%;max-width:none;min-height:0;height:auto!important;
+    padding:18px;border-radius:16px;background:#fff;
+    box-shadow:0 4px 18px rgba(20,40,80,.045)
+  }
+  .desktop-pages-main .dicts-header{
+    min-height:46px;margin:0 0 14px;padding:0 2px 13px;
+    display:flex;align-items:center;justify-content:space-between
+  }
+  .desktop-pages-main .dicts-header h3{font-size:22px}
+  .desktop-pages-main .dicts-scroll{
+    min-height:0!important;height:auto!important;max-height:none!important;
+    overflow:visible!important;padding:1px
+  }
+  .desktop-pages-main .dicts-table tbody{
+    grid-template-columns:repeat(2,minmax(0,1fr));gap:11px
+  }
+  .desktop-pages-main .dicts-table tbody tr.dict-row,
+  .desktop-pages-main .dicts-table tbody tr{
+    min-height:68px
+  }
+  .desktop-pages-main .dicts-footer{
+    min-height:0;padding-top:16px;margin-top:4px
+  }
+  .desktop-pages-main .dicts-actions{justify-content:flex-end}
+  .desktop-pages-main .dicts-actions .btn-primary{
+    min-width:170px;min-height:44px;border-radius:11px
+  }
+  .desktop-pages-main .dict-flag{
+    width:42px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center
+  }
+
+  /* Stats gets room to breathe instead of the old fixed/mobile viewport. */
+  .desktop-pages-main--stats .stats-lang-list,
+  .desktop-pages-main--stats .stats-lang-card.is-active{
+    height:auto!important;min-height:0!important
+  }
+  .desktop-pages-main--stats .stats-lang-card__body{
+    overflow:visible!important;height:auto!important
+  }
+  .desktop-pages-main--stats .stats-ring-sets{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;
+    align-items:start
+  }
+  .desktop-pages-main--stats .stats-ring-set__circle{max-width:240px}
+  .desktop-pages-main--stats .stats-lang-card__header{
+    padding:10px 8px 12px;margin-bottom:12px
+  }
+
+  /* Empty states should still look intentional inside the large desktop canvas. */
+  .desktop-pages-main .dicts-scroll>p:only-child{
+    min-height:180px;display:flex;align-items:center;justify-content:center;
+    text-align:center;border:1px dashed #dbe4ef;border-radius:14px;background:#f9fbfe
+  }
+}
+@media (min-width:1400px){
+  .desktop-pages-shell{grid-template-columns:232px minmax(0,1fr)}
+  .desktop-pages-side{width:232px;min-width:232px}
+}
+@media (max-width:899px){
+  .desktop-pages-shell,.desktop-pages-main{display:contents}
+  .desktop-pages-shell>.desktop-pages-side{display:none!important}
+}
+
+html[data-theme="dark"] .desktop-pages-shell,.dark .desktop-pages-shell{background:#0d141d}
+html[data-theme="dark"] .desktop-pages-main .dicts-card.dicts-card--fixed,
+.dark .desktop-pages-main .dicts-card.dicts-card--fixed{background:#121c28}
+html[data-theme="dark"] .desktop-pages-main .dicts-scroll>p:only-child,
+.dark .desktop-pages-main .dicts-scroll>p:only-child{background:#101923;border-color:#263447}
+
+
+/* ==========================================================
+ * 1.8.0 — Unified desktop geometry
+ * One shell width for Home / Trainer / Dicts / Mistakes /
+ * Favorites / Stats. Mobile branches remain untouched.
+ * ========================================================== */
+@media (min-width:900px){
+  :root{
+    --mm-desktop-shell-width:1420px;
+    --mm-desktop-main-width:1180px;
+  }
+
+  .content:has(.dashboard),
+  .content:has(.trainer-desktop-shell),
+  .content:has(.desktop-pages-shell){
+    padding:16px 20px 32px!important;
+  }
+
+  .dashboard,
+  .trainer-desktop-shell,
+  .desktop-pages-shell{
+    width:min(100%,var(--mm-desktop-shell-width))!important;
+    min-height:calc(100vh - 32px)!important;
+    grid-template-columns:224px minmax(0,1fr)!important;
+  }
+
+  .dash-side,
+  .trainer-desktop-shell .trainer-side,
+  .desktop-pages-side{
+    width:224px!important;
+    min-width:224px!important;
+  }
+
+  .dash-main,
+  .trainer-desktop-main,
+  .desktop-pages-main{
+    width:100%!important;
+    max-width:var(--mm-desktop-main-width)!important;
+    margin:0 auto!important;
+    padding:20px 24px 30px!important;
+    box-sizing:border-box!important;
+  }
+}
+
+@media (min-width:1400px){
+  :root{ --mm-desktop-main-width:1200px; }
+
+  .dashboard,
+  .trainer-desktop-shell,
+  .desktop-pages-shell{
+    grid-template-columns:232px minmax(0,1fr)!important;
+  }
+
+  .dash-side,
+  .trainer-desktop-shell .trainer-side,
+  .desktop-pages-side{
+    width:232px!important;
+    min-width:232px!important;
+  }
+}
+
+
+/* ==========================================================
+ * 1.8.1 — HOME is the desktop shell source of truth
+ * Trainer and all secondary pages inherit the Dashboard shell
+ * geometry and visual treatment 1:1.
+ * ========================================================== */
+@media (min-width:900px){
+  .trainer-desktop-shell,
+  .desktop-pages-shell{
+    --db:#f5f8fd;
+    --dc:#fff;
+    --dt:#182235;
+    --dm:#6d7788;
+    --dbd:#e4eaf3;
+    --blue:#1769e8;
+    --nav:#101d2c;
+
+    display:grid!important;
+    width:min(100%,1420px)!important;
+    min-height:calc(100vh - 32px)!important;
+    margin:0 auto!important;
+    grid-template-columns:224px minmax(0,1fr)!important;
+    background:var(--db)!important;
+    border-radius:22px!important;
+    overflow:hidden!important;
+    box-shadow:0 16px 50px rgba(20,40,80,.08)!important;
+    color:var(--dt)!important;
+  }
+
+  .trainer-desktop-shell .trainer-side,
+  .desktop-pages-side{
+    width:224px!important;
+    min-width:224px!important;
+    min-height:760px!important;
+    padding:18px 14px 14px!important;
+    background:linear-gradient(180deg,#111f2e,#0d1825)!important;
+    color:#eef5ff!important;
+    box-sizing:border-box!important;
+  }
+
+  .trainer-desktop-shell .dash-brand,
+  .desktop-pages-side .dash-brand{
+    margin-bottom:16px!important;
+    padding:0 5px 20px!important;
+    border-bottom:1px solid rgba(255,255,255,.1)!important;
+  }
+
+  .trainer-desktop-shell .trainer-side nav,
+  .desktop-pages-side nav{
+    display:grid!important;
+    gap:4px!important;
+    padding-top:18px!important;
+  }
+
+  .trainer-desktop-shell .trainer-side nav button,
+  .desktop-pages-side nav button{
+    min-height:42px!important;
+    border:0!important;
+    background:transparent!important;
+    color:#dce7f5!important;
+    display:grid!important;
+    grid-template-columns:22px 1fr auto!important;
+    align-items:center!important;
+    gap:8px!important;
+    text-align:left!important;
+    border-radius:10px!important;
+    padding:0 12px!important;
+    font:600 13px system-ui!important;
+    cursor:pointer!important;
+  }
+
+  .trainer-desktop-shell .trainer-side nav button:hover,
+  .trainer-desktop-shell .trainer-side nav button.is-active,
+  .desktop-pages-side nav button:hover,
+  .desktop-pages-side nav button.is-active{
+    background:#205db5!important;
+    color:#fff!important;
+  }
+
+  .trainer-desktop-shell .dash-side-foot,
+  .desktop-pages-side .dash-side-foot{
+    margin-top:auto!important;
+    padding:18px 8px 0!important;
+    border-top:1px solid rgba(255,255,255,.1)!important;
+    color:#9aa9ba!important;
+    font-size:11px!important;
+  }
+
+  .trainer-desktop-main,
+  .desktop-pages-main{
+    width:100%!important;
+    max-width:1180px!important;
+    min-width:0!important;
+    margin:0 auto!important;
+    padding:20px 24px 30px!important;
+    box-sizing:border-box!important;
+  }
+
+  .content:has(.trainer-desktop-shell),
+  .content:has(.desktop-pages-shell){
+    display:block!important;
+    height:auto!important;
+    min-height:100vh!important;
+    max-width:none!important;
+    overflow:visible!important;
+    padding:16px 20px 32px!important;
+    box-sizing:border-box!important;
+  }
+}
+
+@media (min-width:1400px){
+  .trainer-desktop-shell,
+  .desktop-pages-shell{
+    grid-template-columns:232px minmax(0,1fr)!important;
+  }
+
+  .trainer-desktop-shell .trainer-side,
+  .desktop-pages-side{
+    width:232px!important;
+    min-width:232px!important;
+  }
+
+  .trainer-desktop-main,
+  .desktop-pages-main{
+    max-width:1200px!important;
+  }
+}
+
+html[data-theme="dark"] .trainer-desktop-shell,
+.dark .trainer-desktop-shell,
+html[data-theme="dark"] .desktop-pages-shell,
+.dark .desktop-pages-shell{
+  --db:#0d141d;
+  --dc:#121c28;
+  --dt:#edf5ff;
+  --dm:#9cabbc;
+  --dbd:#263447;
+  --nav:#09121c;
+}
+
+
+/* ==========================================================
+ * 1.8.2 — Match the REAL Home outer width
+ * Home still carries max-width:1180px from its base rule.
+ * Mirror that exact constraint on Trainer and secondary pages.
+ * ========================================================== */
+@media (min-width:900px){
+  .trainer-desktop-shell,
+  .desktop-pages-shell{
+    width:100%!important;
+    max-width:1180px!important;
+  }
+
+  /* Match Home's actual inner grid behavior: the shell owns width,
+     the right pane simply fills the remainder next to the sidebar. */
+  .trainer-desktop-main,
+  .desktop-pages-main{
+    max-width:none!important;
+  }
+}
+
+@media (min-width:1400px){
+  .trainer-desktop-shell,
+  .desktop-pages-shell{
+    max-width:1180px!important;
+  }
+}

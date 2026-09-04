@@ -59,18 +59,10 @@
   var styleTag, toastRoot, toastEl, overlayEl, hideTimer;
 
   function ensureUI(){
+    // Visual styles live in css/ui.toast.css.
+    // Keep this compatibility placeholder so old runtimes can still call ensureUI safely.
     if (!styleTag){
-      styleTag = document.createElement('style');
-      styleTag.textContent =
-        '.toast-root{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center;pointer-events:none;z-index:2147483645;}' +
-        '.toast{pointer-events:auto;max-width:92vw;padding:10px 14px;border-radius:999px;background:rgba(26,32,44,.95);color:#fff;' +
-          'box-shadow:0 8px 24px rgba(0,0,0,.3);font:14px/1.4 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;' +
-          'opacity:0;transform:translateY(8px);transition:opacity .18s ease,transform .18s ease;}' +
-        '.toast.show{opacity:1;transform:translateY(0);}' +
-        '.update-scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .2s ease;' +
-          'z-index:2147483644;backdrop-filter:saturate(1.2) blur(2px);}' +
-        '.update-scrim.show{opacity:1;pointer-events:auto;}';
-      document.head.appendChild(styleTag);
+      styleTag = true;
     }
     if (!toastRoot){
       toastRoot = document.createElement('div');
@@ -82,10 +74,11 @@
     }
   }
 
-  function setToast(text, showMs){
+  function setToast(text, showMs, type){
     ensureUI();
     if (hideTimer){ clearTimeout(hideTimer); hideTimer = null; }
     toastEl.textContent = text;
+    toastEl.setAttribute('data-toast-type', type || 'info');
     // reveal
     requestAnimationFrame(function(){ toastEl.classList.add('show'); });
     if (showMs){
@@ -134,7 +127,7 @@
   }
 
   async function activateAndReload(reg){
-    setToast(t('found'));
+    setToast(t('found'), null, 'info');
     showOverlay(true);
     try {
       sessionStorage.setItem('moya_upgrading', '1');
@@ -146,7 +139,7 @@
     }
     // Ждём либо controllerchange, либо таймаут
     await waitForControllerChange(8000);
-    setToast(t('reloading'));
+    setToast(t('reloading'), null, 'info');
     setTimeout(function(){ location.reload(); }, 200);
   }
 
@@ -156,7 +149,7 @@
   async function checkForUpdates() {
     if (inFlight) return;
     inFlight = true;
-    setToast(t('checking')); // no auto-hide yet
+    setToast(t('checking'), null, 'info'); // no auto-hide yet
     try{
       if (!('serviceWorker' in navigator)) { location.reload(); return; }
       var reg = await navigator.serviceWorker.getRegistration();
@@ -189,7 +182,7 @@
       }
 
       // Обновлений нет
-      setToast(t('upToDate'), 1400);
+      setToast(t('upToDate'), 1400, 'success');
       setTimeout(hideToast, 1400);
     } finally {
       // Hide overlay if was shown (safety)

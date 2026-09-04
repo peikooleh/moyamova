@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "MOYAMOVA 1.5.1 JS decks",
+  "deckCount": 36,
+  "totalWords": 6629,
+  "decks": [
+    {
+      "key": "de_nouns",
+      "file": "dicts/data/de/nouns.json",
+      "count": 1108,
+      "language": "de",
+      "partOfSpeech": "nouns",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_verbs",
+      "file": "dicts/data/de/verbs.json",
+      "count": 767,
+      "language": "de",
+      "partOfSpeech": "verbs",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_adjectives",
+      "file": "dicts/data/de/adjectives.json",
+      "count": 190,
+      "language": "de",
+      "partOfSpeech": "adjectives",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_adverbs",
+      "file": "dicts/data/de/adverbs.json",
+      "count": 118,
+      "language": "de",
+      "partOfSpeech": "adverbs",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_prepositions",
+      "file": "dicts/data/de/prepositions.json",
+      "count": 103,
+      "language": "de",
+      "partOfSpeech": "prepositions",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_conjunctions",
+      "file": "dicts/data/de/conjunctions.json",
+      "count": 33,
+      "language": "de",
+      "partOfSpeech": "conjunctions",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_particles",
+      "file": "dicts/data/de/particles.json",
+      "count": 12,
+      "language": "de",
+      "partOfSpeech": "particles",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_pronouns",
+      "file": "dicts/data/de/pronouns.json",
+      "count": 37,
+      "language": "de",
+      "partOfSpeech": "pronouns",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "de_numbers",
+      "file": "dicts/data/de/numbers.json",
+      "count": 40,
+      "language": "de",
+      "partOfSpeech": "numbers",
+      "group": "base",
+      "sourceFile": "deck.de.js"
+    },
+    {
+      "key": "en_nouns",
+      "file": "dicts/data/en/nouns.json",
+      "count": 1104,
+      "language": "en",
+      "partOfSpeech": "nouns",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_adjectives",
+      "file": "dicts/data/en/adjectives.json",
+      "count": 184,
+      "language": "en",
+      "partOfSpeech": "adjectives",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_verbs",
+      "file": "dicts/data/en/verbs.json",
+      "count": 738,
+      "language": "en",
+      "partOfSpeech": "verbs",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_adverbs",
+      "file": "dicts/data/en/adverbs.json",
+      "count": 110,
+      "language": "en",
+      "partOfSpeech": "adverbs",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_pronouns",
+      "file": "dicts/data/en/pronouns.json",
+      "count": 39,
+      "language": "en",
+      "partOfSpeech": "pronouns",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_prepositions",
+      "file": "dicts/data/en/prepositions.json",
+      "count": 95,
+      "language": "en",
+      "partOfSpeech": "prepositions",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_conjunctions",
+      "file": "dicts/data/en/conjunctions.json",
+      "count": 33,
+      "language": "en",
+      "partOfSpeech": "conjunctions",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_particles",
+      "file": "dicts/data/en/particles.json",
+      "count": 12,
+      "language": "en",
+      "partOfSpeech": "particles",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "en_numbers",
+      "file": "dicts/data/en/numbers.json",
+      "count": 38,
+      "language": "en",
+      "partOfSpeech": "numbers",
+      "group": "base",
+      "sourceFile": "deck.en.js"
+    },
+    {
+      "key": "de_nouns_lernpunkt",
+      "file": "dicts/data/de/nouns.lernpunkt.json",
+      "count": 354,
+      "language": "de",
+      "partOfSpeech": "nouns",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_verbs_lernpunkt",
+      "file": "dicts/data/de/verbs.lernpunkt.json",
+      "count": 79,
+      "language": "de",
+      "partOfSpeech": "verbs",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_adjectives_lernpunkt",
+      "file": "dicts/data/de/adjectives.lernpunkt.json",
+      "count": 82,
+      "language": "de",
+      "partOfSpeech": "adjectives",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_adverbs_lernpunkt",
+      "file": "dicts/data/de/adverbs.lernpunkt.json",
+      "count": 26,
+      "language": "de",
+      "partOfSpeech": "adverbs",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_pronouns_lernpunkt",
+      "file": "dicts/data/de/pronouns.lernpunkt.json",
+      "count": 24,
+      "language": "de",
+      "partOfSpeech": "pronouns",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_prepositions_lernpunkt",
+      "file": "dicts/data/de/prepositions.lernpunkt.json",
+      "count": 20,
+      "language": "de",
+      "partOfSpeech": "prepositions",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_numbers_lernpunkt",
+      "file": "dicts/data/de/numbers.lernpunkt.json",
+      "count": 23,
+      "language": "de",
+      "partOfSpeech": "numbers",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_conjunctions_lernpunkt",
+      "file": "dicts/data/de/conjunctions.lernpunkt.json",
+      "count": 12,
+      "language": "de",
+      "partOfSpeech": "conjunctions",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "de_particles_lernpunkt",
+      "file": "dicts/data/de/particles.lernpunkt.json",
+      "count": 19,
+      "language": "de",
+      "partOfSpeech": "particles",
+      "group": "lernpunkt",
+      "sourceFile": "deck.de.lernpunkt.js"
+    },
+    {
+      "key": "sr_verbs",
+      "file": "dicts/data/sr/verbs.json",
+      "count": 248,
+      "language": "sr",
+      "partOfSpeech": "verbs",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_nouns",
+      "file": "dicts/data/sr/nouns.json",
+      "count": 703,
+      "language": "sr",
+      "partOfSpeech": "nouns",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_adverbs",
+      "file": "dicts/data/sr/adverbs.json",
+      "count": 60,
+      "language": "sr",
+      "partOfSpeech": "adverbs",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_adjectives",
+      "file": "dicts/data/sr/adjectives.json",
+      "count": 79,
+      "language": "sr",
+      "partOfSpeech": "adjectives",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_prepositions",
+      "file": "dicts/data/sr/prepositions.json",
+      "count": 40,
+      "language": "sr",
+      "partOfSpeech": "prepositions",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_pronouns",
+      "file": "dicts/data/sr/pronouns.json",
+      "count": 35,
+      "language": "sr",
+      "partOfSpeech": "pronouns",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_numbers",
+      "file": "dicts/data/sr/numbers.json",
+      "count": 35,
+      "language": "sr",
+      "partOfSpeech": "numbers",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_conjunctions",
+      "file": "dicts/data/sr/conjunctions.json",
+      "count": 20,
+      "language": "sr",
+      "partOfSpeech": "conjunctions",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "sr_particles",
+      "file": "dicts/data/sr/particles.json",
+      "count": 9,
+      "language": "sr",
+      "partOfSpeech": "particles",
+      "group": "base",
+      "sourceFile": "deck.sr.js"
+    }
+  ]
+}

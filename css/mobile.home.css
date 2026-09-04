@@ -1,0 +1,484 @@
+/* ==========================================================
+ * MOYAMOVA 1.11.1 — Mobile Home
+ * Mobile-only presentation layer. Desktop baseline stays intact.
+ * ========================================================== */
+
+@media (max-width:899px){
+  body:has(.dashboard){
+    background:#f6f8fc;
+  }
+
+  .content:has(.dashboard){
+    padding:0!important;
+    padding-bottom:calc(var(--footer-h-actual,64px) + var(--mobile-safe-bottom,0px) + 16px)!important;
+    max-width:none!important;
+    overflow:visible!important;
+  }
+
+  .dashboard{
+    --db:#f6f8fc;
+    --dc:#fff;
+    --dt:#182235;
+    --dm:#738096;
+    --dbd:#e5eaf2;
+    --blue:#4477ea;
+    width:100%;
+    max-width:100%;
+    min-height:0;
+    margin:0;
+    display:block;
+    border-radius:0;
+    box-shadow:none;
+    overflow:visible;
+    background:var(--db);
+  }
+
+  .dashboard .dash-side{display:none!important}
+
+  .dashboard .dash-main{
+    width:100%;
+    max-width:560px;
+    min-width:0;
+    margin:0 auto;
+    padding:12px 14px 16px;
+    box-sizing:border-box;
+    overflow:visible;
+  }
+
+  .dashboard .dash-head{
+    margin:0 2px 10px;
+  }
+  .dashboard .dash-head h2{
+    margin:2px 0 3px;
+    font:700 22px/1.12 Montserrat,system-ui,sans-serif;
+    letter-spacing:-.025em;
+  }
+  .dashboard .dash-head p{
+    margin:0;
+    font-size:12px;
+    line-height:1.45;
+    color:var(--dm);
+  }
+  .dashboard .dash-eyebrow{
+    font-size:10px;
+    letter-spacing:.11em;
+    color:#6879dc;
+  }
+
+  /* Compact 2×2 summary: readable at 360–430 px without feeling like desktop cards. */
+  .dashboard .dash-metrics{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    margin:0 0 9px;
+  }
+  .dashboard .dash-metrics article{
+    min-width:0;
+    min-height:82px;
+    padding:8px 9px;
+    border-radius:16px;
+    border:1px solid var(--dbd);
+    background:var(--dc);
+    box-shadow:0 3px 12px rgba(61,79,115,.035);
+  }
+  .dashboard .dash-metrics article>span{
+    margin-bottom:3px;
+    font-size:10px;
+    line-height:1.25;
+    color:#4c5870;
+  }
+  .dashboard .dash-metrics article>b{
+    margin-top:4px;
+    font-size:15px;
+    line-height:1.1;
+  }
+  .dashboard .dash-metrics article>small{
+    margin-top:2px;
+    font-size:9.5px;
+  }
+  .dashboard .dash-ring{
+    width:34px;
+    height:34px;
+  }
+  .dashboard .dash-ring:before{inset:5px}
+  .dashboard .dash-ring span{font-size:11px}
+  .dashboard .dash-big{font-size:23px}
+
+  /* Main action is intentionally the strongest card on Home. */
+  .dashboard .dash-continue{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:12px;
+    align-items:center;
+    margin:0 0 10px;
+    padding:12px;
+    border-radius:18px;
+    border:1px solid #cfd9ff;
+    background:linear-gradient(135deg,#f7f8ff 0%,#eef4ff 100%);
+    box-shadow:0 7px 22px rgba(74,91,160,.07);
+  }
+  .dashboard .dash-continue-copy{min-width:0}
+  .dashboard .dash-section-label{
+    font-size:9px;
+    letter-spacing:.07em;
+    color:#7168d8;
+  }
+  .dashboard .dash-continue h3{
+    margin:3px 0 6px;
+    max-width:100%;
+    font:700 15px/1.2 Montserrat,system-ui,sans-serif;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  .dashboard .dash-progress{
+    width:100%;
+    max-width:none;
+    height:5px;
+    background:#dce4f2;
+  }
+  .dashboard .dash-continue p{
+    margin:4px 0 0;
+    font-size:10px;
+  }
+  .dashboard .dash-flashcards{display:none!important}
+  .dashboard .dash-primary{
+    grid-column:auto;
+    width:auto;
+    min-width:44px;
+    min-height:44px;
+    padding:0 14px;
+    border-radius:12px;
+    font-size:11px;
+    box-shadow:0 5px 13px rgba(36,95,202,.16);
+  }
+
+  /* Training mode chooser — mobile Home's main navigation layer. */
+  .dashboard .dash-learning{
+    margin:0 0 10px;
+  }
+  .dashboard .dash-learning-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin:0 2px 6px;
+  }
+  .dashboard .dash-learning-head h3{
+    margin:0;
+    font:700 15px/1.2 Montserrat,system-ui,sans-serif;
+    color:var(--dt);
+  }
+  .dashboard .dash-learning-head p{
+    margin:3px 0 0;
+    font-size:10px;
+    color:var(--dm);
+  }
+  .dashboard .dash-training-grid,
+  .dashboard .dash-training-grid--1,
+  .dashboard .dash-training-grid--2,
+  .dashboard .dash-training-grid--3{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+  .dashboard .dash-training-card{
+    width:100%;
+    min-width:0;
+    min-height:58px;
+    padding:7px 9px;
+    display:grid;
+    grid-template-columns:34px minmax(0,1fr) auto;
+    gap:8px;
+    align-items:center;
+    text-align:left;
+    border:1px solid var(--dbd);
+    border-radius:15px;
+    background:var(--dc);
+    color:var(--dt);
+    box-sizing:border-box;
+  }
+  .dashboard .dash-training-card:active{transform:scale(.992)}
+  .dashboard .dash-training-card>i{
+    width:40px;
+    height:40px;
+    border-radius:11px;
+    display:grid;
+    place-items:center;
+    background:#eef2ff;
+    color:#6676dd;
+    font-style:normal;
+    font-weight:900;
+    font-size:13px;
+  }
+  .dashboard .dash-training-card--articles>i{
+    background:#fff0f2;
+    color:#d75c70;
+    font-size:11px;
+  }
+  .dashboard .dash-training-card--prepositions>i{
+    background:#edf8f5;
+    color:#38a17e;
+    font-size:19px;
+  }
+  .dashboard .dash-training-card>span{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+  .dashboard .dash-training-card b{
+    font-size:12px;
+    line-height:1.2;
+  }
+  .dashboard .dash-training-card small{
+    margin-top:3px;
+    font-size:9.5px;
+    line-height:1.3;
+    color:var(--dm);
+  }
+  .dashboard .dash-training-card em{
+    font-style:normal;
+    font-size:0;
+    color:#6878dd;
+  }
+  .dashboard .dash-training-card em::after{
+    content:'→';
+    font-size:16px;
+    font-weight:700;
+  }
+
+  /* Dictionaries remain visible but more compact than the main training choices. */
+  .dashboard .dash-block{
+    margin:0 0 12px;
+    padding:12px;
+    border-radius:17px;
+    background:var(--dc);
+    border:1px solid var(--dbd);
+    box-shadow:none;
+  }
+  .dashboard .dash-title{margin-bottom:10px}
+  .dashboard .dash-title h3{
+    font:700 14px/1.2 Montserrat,system-ui,sans-serif;
+  }
+  .dashboard .dash-title button{
+    min-height:36px;
+    padding:0 2px 0 10px;
+    font-size:10px;
+  }
+  .dashboard .dash-decks{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .dashboard .dash-deck{
+    width:100%;
+    min-width:0;
+    min-height:112px;
+    padding:10px 7px;
+    border-radius:13px;
+    border:1px solid #e7ebf2;
+    background:#fafbfe;
+    box-shadow:none;
+  }
+  .dashboard .dash-deck:active{transform:scale(.99)}
+  .dashboard .dash-deck-top{
+    min-width:0;
+    margin-bottom:6px;
+    gap:5px;
+    font-size:10px;
+    line-height:1.25;
+  }
+  .dashboard .dash-deck-top b{
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+  .dashboard .dash-pos-icon{font-size:13px}
+  .dashboard .dash-deck .dash-ring{
+    width:42px;
+    height:42px;
+  }
+  .dashboard .dash-deck .dash-ring:before{inset:4px}
+  .dashboard .dash-deck-count{
+    margin-top:5px;
+    font-size:9px;
+  }
+
+  .dashboard .dash-bottom{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin:0 0 12px;
+  }
+  .dashboard .dash-bottom>button{
+    min-width:0;
+    min-height:70px;
+    padding:10px;
+    grid-template-columns:26px minmax(0,1fr) 12px;
+    gap:5px;
+    border-radius:15px;
+  }
+  .dashboard .dash-bottom>button>span{font-size:19px}
+  .dashboard .dash-bottom b{
+    font-size:11px;
+    line-height:1.2;
+  }
+  .dashboard .dash-bottom small{
+    margin-top:3px;
+    font-size:9px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .dashboard .dash-bottom em{font-size:13px}
+
+  /* Contextual tip is now part of the mobile Home as well. */
+  .dashboard .mm-page-tip{
+    margin:3px 0 0;
+    padding:10px 11px;
+    display:flex;
+    align-items:flex-start;
+    gap:7px;
+    border:1px solid #e3e8f1;
+    border-radius:14px;
+    background:rgba(255,255,255,.68);
+    color:var(--dm);
+    font-size:10px;
+    line-height:1.45;
+  }
+  .dashboard .mm-page-tip i{
+    flex:0 0 auto;
+    font-style:normal;
+  }
+
+  html[data-theme="dark"] body:has(.dashboard),
+  body.dark:has(.dashboard){background:#0f1823}
+  html[data-theme="dark"] .dashboard,
+  .dark .dashboard{
+    --db:#0f1823;
+    --dc:#172434;
+    --dt:#eef4fb;
+    --dm:#9babbc;
+    --dbd:#293b4f;
+  }
+  html[data-theme="dark"] .dashboard .dash-metrics article,
+  .dark .dashboard .dash-metrics article{
+    background:#172434;
+    border-color:#293b4f;
+  }
+  html[data-theme="dark"] .dashboard .dash-metrics article>span,
+  .dark .dashboard .dash-metrics article>span{color:#b5c2d0}
+  html[data-theme="dark"] .dashboard .dash-continue,
+  .dark .dashboard .dash-continue{
+    background:linear-gradient(135deg,#182942,#152538);
+    border-color:#314d70;
+  }
+  html[data-theme="dark"] .dashboard .dash-training-card,
+  .dark .dashboard .dash-training-card,
+  html[data-theme="dark"] .dashboard .dash-block,
+  .dark .dashboard .dash-block,
+  html[data-theme="dark"] .dashboard .dash-bottom>button,
+  .dark .dashboard .dash-bottom>button{
+    background:#172434;
+    border-color:#293b4f;
+  }
+  html[data-theme="dark"] .dashboard .dash-deck,
+  .dark .dashboard .dash-deck{
+    background:#132030;
+    border-color:#293b4f;
+  }
+  html[data-theme="dark"] .dashboard .dash-training-card>i,
+  .dark .dashboard .dash-training-card>i{background:#263756;color:#aab7ff}
+  html[data-theme="dark"] .dashboard .dash-training-card--articles>i,
+  .dark .dashboard .dash-training-card--articles>i{background:#3c2936;color:#f1a2b1}
+  html[data-theme="dark"] .dashboard .dash-training-card--prepositions>i,
+  .dark .dashboard .dash-training-card--prepositions>i{background:#203b39;color:#75c9ad}
+  html[data-theme="dark"] .dashboard .mm-page-tip,
+  .dark .dashboard .mm-page-tip{
+    background:#142131;
+    border-color:#293b4f;
+    color:#9babbc;
+  }
+}
+
+@media (max-width:370px){
+  .dashboard .dash-main{padding-left:10px;padding-right:10px}
+  .dashboard .dash-head h2{font-size:22px}
+  .dashboard .dash-continue{grid-template-columns:1fr}
+  .dashboard .dash-primary{grid-column:1/-1;width:100%}
+  .dashboard .dash-bottom{grid-template-columns:1fr}
+}
+
+
+/* MOYAMOVA 1.12.10 — compact mobile dictionaries spoiler */
+@media (max-width:899px){
+  .dashboard .dash-block--decks .dash-title{
+    align-items:center;
+  }
+  .dashboard .dash-decks-toggle{
+    min-width:0;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:var(--dt);
+    font:700 14px/1.2 Montserrat,system-ui,sans-serif;
+    text-align:left;
+  }
+  .dashboard .dash-decks-toggle i{
+    font-style:normal;
+    font-size:16px;
+    line-height:1;
+    transition:transform .18s ease;
+  }
+  .dashboard .dash-block--decks:not(.is-open) .dash-decks{
+    display:none!important;
+  }
+  .dashboard .dash-block--decks.is-open .dash-decks-toggle i{
+    transform:rotate(180deg);
+  }
+}
+
+/* ==========================================================
+ * MOYAMOVA 1.12.23 — Home training cards
+ * Gentle color-coded fills for Words / Articles / Prepositions.
+ * Mobile only. Keeps the cards subtle in both light and dark themes.
+ * ========================================================== */
+@media (max-width:899px){
+  .dashboard .dash-training-card--words{
+    background:linear-gradient(135deg,rgba(103,118,221,.085),rgba(103,118,221,.035));
+    border-color:rgba(103,118,221,.18);
+  }
+
+  .dashboard .dash-training-card--articles{
+    background:linear-gradient(135deg,rgba(215,92,112,.085),rgba(215,92,112,.035));
+    border-color:rgba(215,92,112,.18);
+  }
+
+  .dashboard .dash-training-card--prepositions{
+    background:linear-gradient(135deg,rgba(56,161,126,.085),rgba(56,161,126,.035));
+    border-color:rgba(56,161,126,.18);
+  }
+
+  .dashboard .dash-training-card--words em{color:#6878dd}
+  .dashboard .dash-training-card--articles em{color:#d75c70}
+  .dashboard .dash-training-card--prepositions em{color:#38a17e}
+
+  html[data-theme="dark"] .dashboard .dash-training-card--words,
+  .dark .dashboard .dash-training-card--words{
+    background:linear-gradient(135deg,rgba(103,118,221,.20),rgba(103,118,221,.08));
+    border-color:rgba(118,133,235,.34);
+  }
+
+  html[data-theme="dark"] .dashboard .dash-training-card--articles,
+  .dark .dashboard .dash-training-card--articles{
+    background:linear-gradient(135deg,rgba(215,92,112,.20),rgba(215,92,112,.08));
+    border-color:rgba(226,111,130,.34);
+  }
+
+  html[data-theme="dark"] .dashboard .dash-training-card--prepositions,
+  .dark .dashboard .dash-training-card--prepositions{
+    background:linear-gradient(135deg,rgba(56,161,126,.20),rgba(56,161,126,.08));
+    border-color:rgba(74,181,144,.34);
+  }
+}

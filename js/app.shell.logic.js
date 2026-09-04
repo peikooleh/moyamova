@@ -134,30 +134,56 @@
     });
   });
 
-  // 100vh фикс + портретная заглушка
+  // 100vh fix + portrait-only guard for mobile phones.
+  // Applies both to normal mobile browsers and installed PWA/TWA.
+  // Desktop/tablet-sized layouts remain allowed in landscape.
   (function(){
     function setVhUnit(){
       document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
     }
+
     const mqLandscape = window.matchMedia('(orientation: landscape)');
-    function applyOrientation(){
-      const isLandscape = mqLandscape.matches;
-      document.body.classList.toggle('landscape', isLandscape);
-      const app = document.getElementById('app');
-      if (app) app.setAttribute('aria-hidden', isLandscape ? 'true' : 'false');
+
+    function isMobilePhoneLayout(){
       try {
-        if (window.App && App.applyI18nTitles) {
+        const coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+        const shortSide = Math.min(window.innerWidth || 9999, window.innerHeight || 9999);
+        const mobileUa = /Android|iPhone|iPod|Mobile/i.test(String(navigator.userAgent || ''));
+
+        // Keep desktop and large/tablet layouts untouched. A real phone may report
+        // pointer:coarse or a mobile UA; short-side threshold keeps the guard scoped
+        // to the same <900px mobile layout used by the application.
+        return shortSide < 900 && (coarse || mobileUa);
+      } catch(_) {
+        return false;
+      }
+    }
+
+    function applyOrientation(){
+      const shouldLock = isMobilePhoneLayout() && mqLandscape.matches;
+      document.body.classList.toggle('landscape', shouldLock);
+      const app = document.getElementById('app');
+      if (app) app.setAttribute('aria-hidden', shouldLock ? 'true' : 'false');
+      try {
+        if (shouldLock && window.App && App.applyI18nTitles) {
           App.applyI18nTitles(document.querySelector('.rotate-lock'));
         }
       } catch (_) {}
     }
+
     try { mqLandscape.addEventListener('change', applyOrientation); }
     catch(_) { mqLandscape.addListener && mqLandscape.addListener(applyOrientation); }
-    window.addEventListener('resize', setVhUnit);
+
+    window.addEventListener('resize', function(){
+      setVhUnit();
+      applyOrientation();
+    });
+
     window.addEventListener('orientationchange', function(){
       setVhUnit();
       applyOrientation();
     });
+
     setVhUnit();
     applyOrientation();
   })();
@@ -172,14 +198,15 @@
   const langToggle = document.getElementById('langToggle');
   if(langToggle){
     langToggle.addEventListener('change', e=>{
-      document.documentElement.dataset.lang = e.target.checked ? 'ru' : 'uk';
+      document.documentElement.dataset.lang = e.target.checked ? 'uk' : 'ru';
     });
   }
   const levelToggle = document.getElementById('levelToggle');
   if(levelToggle){
-    levelToggle.addEventListener('change', e=>{
-      document.documentElement.dataset.level = e.target.checked ? 'hard' : 'normal';
-    });
+    // Difficulty is committed by the canonical handler in home.js only after
+    // any required confirmation succeeds. Do not mirror the checkbox into
+    // <html data-level> here: on Cancel that would leave the visual mode
+    // indicator out of sync with the actually saved setting.
   }
 
   // ------------------------------------------------------------
@@ -192,12 +219,13 @@
     const elFocusContext = document.getElementById('focusContext');
     const elTrainReverse = document.getElementById('trainReverse');
     const elTrainAutostep= document.getElementById('trainAutostep');
+    const elAnswerSounds = document.getElementById('answerSoundsToggle');
     const elTtsOff      = document.getElementById('ttsOff');
     const elTtsWords    = document.getElementById('ttsWords');
     const elTtsExamples = document.getElementById('ttsExamples');
 
     // Ничего не делаем, если секция не отрисована.
-    if (!elFocusSets && !elFocusContext && !elTrainReverse && !elTrainAutostep) return;
+    if (!elFocusSets && !elFocusContext && !elTrainReverse && !elTrainAutostep && !elAnswerSounds) return;
 
     const LS = {
       focusSets: 'mm.focus.hideSets',
@@ -206,7 +234,8 @@
       trainAutostep: 'mm.train.autostep',
       ttsWords: 'mm.tts.words',
       ttsExamples: 'mm.tts.examples',
-      ttsLegacy: 'mm.audioEnabled.v2'
+      ttsLegacy: 'mm.audioEnabled.v2',
+      answerSounds: 'mm.answerSounds.enabled'
     };
 
     function readBool(key, fallback){
@@ -229,6 +258,7 @@
     const sHideContext = readBool(LS.focusContext, false);
     const sReverse     = readBool(LS.trainReverse, false);
     const sAutostep    = readBool(LS.trainAutostep, true);
+    const sAnswerSounds = readBool(LS.answerSounds, true);
 
     // TTS pills (default: OFF/OFF).
     // Legacy migration: if mm.audioEnabled.v2 == 1 → words=ON, examples=OFF
@@ -252,6 +282,7 @@
     if (elFocusContext) elFocusContext.checked = !sHideContext;
     if (elTrainReverse) elTrainReverse.checked = sReverse;
     if (elTrainAutostep)elTrainAutostep.checked= sAutostep;
+    if (elAnswerSounds) elAnswerSounds.checked = sAnswerSounds;
 
     function applyTtsUi(){
       const any = !!ttsWords || !!ttsExamples;
@@ -303,6 +334,11 @@
         writeBool(LS.trainAutostep, !!e.target.checked);
       });
     }
+    if (elAnswerSounds) {
+      elAnswerSounds.addEventListener('change', (e)=>{
+        writeBool(LS.answerSounds, !!e.target.checked);
+      });
+    }
 
     function setTts(words, examples){
       ttsWords = !!words;
@@ -318,43 +354,7 @@
   })();
 
   
-  // Кнопка PRO/донат внизу меню
-  function applyProButtonState(){
-    try {
-      var hasApp = !!window.App && typeof App.isPro === 'function';
-      var isPro = hasApp && App.isPro && App.isPro() ? true : false;
-
-      // нижняя кнопка ПРО/донат
-      var btn = document.querySelector(
-        '.actions-row-bottom .action-btn[data-action="pro"], ' +
-        '.actions-row-bottom .action-btn[data-action="donate"]'
-      );
-      if (btn && hasApp) {
-        if (isPro) {
-          // PRO уже куплена → показываем донат
-          btn.dataset.action = 'donate';
-          btn.textContent = '💰';
-          btn.setAttribute('aria-label', 'Поддержать проект');
-        } else {
-          // Free-версия → предлагаем купить PRO
-          btn.dataset.action = 'pro';
-          btn.textContent = '💎';
-          btn.setAttribute('aria-label', 'Купить PRO');
-        }
-      }
-
-      // бейдж PRO в шапке
-      var badge = document.querySelector('.header-pro-badge');
-      if (badge) {
-        if (isPro) {
-          badge.classList.add('is-visible');
-        } else {
-          badge.classList.remove('is-visible');
-        }
-      }
-    } catch(_) {}
-  }
-
+  // Поддержка проекта — обычное добровольное пожертвование; paywall отсутствует.
 
 // Версия приложения (app.core.js → App.APP_VER)
   (function(){
@@ -364,8 +364,6 @@
         var v = (window.App && App.APP_VER) || null;
         if (v) el.textContent = v;
       }
-      // после загрузки App обновляем состояние кнопки PRO/донат
-      applyProButtonState();
     }
     if (!(window.App && App.APP_VER)) {
       var s = document.createElement('script');
@@ -430,9 +428,6 @@
     document.addEventListener('click', onDocClick, false);
   })();
 
-// Попробуем применить состояние кнопки сразу (если App уже инициализирован)
-  applyProButtonState();
-
   const actionsMap = {
     guide() {
       // Экран "Инструкция" реализован в js/view.guide.js (объект Guide)
@@ -449,12 +444,6 @@
       }
       // закрываем меню так же, как для остальных действий
       try { closeMenu(); } catch (_) {}
-    },
-
-    
-    pro() {
-      // PRO временно отключён. Точка сохранена для будущего Google Play Billing.
-      return;
     },
 
     donate() {

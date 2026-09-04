@@ -539,9 +539,10 @@ input:checked + .slider:before{
 .orientation-guard .og-title{ font-weight:700; font-size:18px; margin:0 0 6px;}
 .orientation-guard .og-text{ margin:0; font-size:14px; color:#374151; line-height:1.5;}
 /* показываем заглушку и блокируем фон в альбомной ориентации */
-@media (orientation:landscape){
-  .orientation-guard{ display:flex;}
-  body.landscape-block{ overflow:hidden; touch-action:none;}}
+/* Legacy CSS-only landscape guard disabled in 1.7.5.
+   Orientation locking is now controlled only by app.shell.logic.js
+   for installed mobile PWA/TWA. */
+.orientation-guard{ display:none !important; }
 .page-screen {
   display: flex;
   flex-direction: column;

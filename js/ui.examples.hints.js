@@ -193,28 +193,6 @@ function getActiveDeckKeySafe() {
 }
 
 
- // Тексты заглушки для PRO (синонимы/антонимы)
- function getProLockText(kind) {
- const lang = getUiLang();
- if (lang === 'uk') {
-  if (kind === 'examples') return 'Приклади доступні у версії PRO.';
-  if (kind === 'extra') return 'Додаткові підказки (синоніми/антоніми) доступні у версії PRO.';
-  // legacy keys (backward compatibility)
-  if (kind === 'synonyms') return 'Синоніми доступні у версії PRO.';
-  if (kind === 'antonyms') return 'Антоніми доступні у версії PRO.';
-  return 'Функція доступна у версії PRO.';
- }
-
- // ru (default)
- if (kind === 'examples') return 'Примеры доступны в версии PRO.';
- if (kind === 'extra') return 'Дополнительные подсказки (синонимы/антонимы) доступны в версии PRO.';
- // legacy keys
- if (kind === 'synonyms') return 'Синонимы доступны в версии PRO.';
- if (kind === 'antonyms') return 'Антонимы доступны в версии PRO.';
- return 'Функция доступна в версии PRO.';
-}
-
-
  // Заглушка для упражнения "Артикли" (примеры/синонимы/антонимы)
  function isArticlesTrainerMode() {
   return (
@@ -395,15 +373,6 @@ function getAntonyms(word, deckKey) {
   return;
  }
 
- if (!A.isPro || !A.isPro()) {
- body.innerHTML =
- '<div class="hint-example">' +
- '<p class="hint-tr hint-tr-inline is-visible">' +
- escapeHtml(getProLockText('synonyms')) +
- '</p>' +
- '</div>';
- return;
- }
  let deckKey = null;
  try {
   if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
@@ -467,15 +436,6 @@ function getAntonyms(word, deckKey) {
   return;
  }
 
- if (!A.isPro || !A.isPro()) {
- body.innerHTML =
- '<div class="hint-example">' +
- '<p class="hint-tr hint-tr-inline is-visible">' +
- escapeHtml(getProLockText('antonyms')) +
- '</p>' +
- '</div>';
- return;
- }
  let deckKey = null;
  try {
   if (A.Trainer && typeof A.Trainer.getDeckKey === 'function') {
@@ -559,16 +519,6 @@ function getAntonyms(word, deckKey) {
   return;
  }
 
- // PRO-gate: синонимы/антонимы доступны только в Pro (если такая логика включена)
- if (A.isPro && !A.isPro()) {
-  body.innerHTML =
-   '<div class="hint-example">' +
-   '<p class="hint-tr hint-tr-inline is-visible">' +
-   escapeHtml(getProLockText('extra')) +
-   '</p>' +
-   '</div>';
-  return;
- }
 
  const deckKey = getActiveDeckKeySafe();
  const syn = getSynonyms(word, deckKey); // { l2, l1 }

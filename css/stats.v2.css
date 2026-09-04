@@ -1,0 +1,507 @@
+/* ==========================================================
+ * MOYAMOVA 1.8.4 — Desktop Statistics V2
+ * Desktop-only visual layer. Mobile statistics stays unchanged.
+ * ========================================================== */
+@media (min-width:900px){
+  .desktop-pages-main--stats .stats-card{
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    padding:0!important;
+  }
+
+  .desktop-pages-main--stats .dicts-header{
+    background:transparent!important;
+    border-bottom:0!important;
+    padding:0!important;
+    margin:0 0 14px!important;
+    min-height:42px!important;
+  }
+  .desktop-pages-main--stats .dicts-header h3{
+    font:700 27px/1.1 Montserrat,system-ui,sans-serif!important;
+    color:#182235!important;
+  }
+
+  .desktop-pages-main--stats .dicts-flags{
+    padding:4px;
+    border:1px solid #e4eaf3;
+    border-radius:12px;
+    background:#fff;
+    gap:5px;
+  }
+  .desktop-pages-main--stats .dict-flag{
+    width:42px!important;height:32px!important;border-radius:9px!important;
+    background:#f5f8fc!important;border-color:transparent!important;
+  }
+  .desktop-pages-main--stats .dict-flag.active{
+    background:#edf5ff!important;border-color:#84bfff!important;
+    box-shadow:none!important;
+  }
+
+  .desktop-pages-main--stats .stats-lang-card.is-active{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:12px!important;
+  }
+
+  .desktop-pages-main--stats .stats-overview{
+    display:grid;
+    grid-template-columns:1.45fr repeat(3,minmax(0,.8fr));
+    gap:10px;
+  }
+  .desktop-pages-main--stats .stats-overview>article{
+    min-height:112px;
+    border:1px solid #e4eaf3;
+    border-radius:14px;
+    background:#fff;
+    box-sizing:border-box;
+  }
+  .desktop-pages-main--stats .stats-overview__hero{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:14px 16px;
+  }
+  .desktop-pages-main--stats .stats-overview__ring{
+    --stats-pct:0%;
+    width:72px;height:72px;border-radius:50%;
+    display:grid;place-items:center;flex:0 0 auto;
+    background:conic-gradient(#1769e8 var(--stats-pct),#e9eff7 0);
+    position:relative;
+  }
+  .desktop-pages-main--stats .stats-overview__ring:before{
+    content:"";position:absolute;inset:7px;border-radius:50%;background:#fff;
+  }
+  .desktop-pages-main--stats .stats-overview__ring span{
+    position:relative;z-index:1;font:800 16px Montserrat,system-ui,sans-serif;color:#182235;
+  }
+  .desktop-pages-main--stats .stats-overview__hero-copy{
+    display:flex;flex-direction:column;gap:3px;
+  }
+  .desktop-pages-main--stats .stats-overview__hero-copy small,
+  .desktop-pages-main--stats .stats-overview__metric small{
+    color:#6d7788;font-size:11px;font-weight:700;
+  }
+  .desktop-pages-main--stats .stats-overview__hero-copy strong{
+    font:800 22px Montserrat,system-ui,sans-serif;color:#182235;
+  }
+  .desktop-pages-main--stats .stats-overview__hero-copy span,
+  .desktop-pages-main--stats .stats-overview__metric>span:last-child{
+    color:#8a95a5;font-size:11px;
+  }
+  .desktop-pages-main--stats .stats-overview__metric{
+    padding:12px 13px;
+    display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:3px;
+  }
+  .desktop-pages-main--stats .stats-overview__icon{
+    width:28px;height:28px;border-radius:9px;background:#edf5ff;color:#1769e8;
+    display:grid;place-items:center;font-weight:900;margin-bottom:4px;
+  }
+  .desktop-pages-main--stats .stats-overview__metric strong{
+    font:800 22px Montserrat,system-ui,sans-serif;color:#182235;
+  }
+
+  .desktop-pages-main--stats .stats-lang-card__body{
+    padding:0!important;
+    border:1px solid #e4eaf3;
+    border-radius:14px;
+    background:#fff;
+    overflow:hidden!important;
+  }
+
+  .desktop-pages-main--stats .stats-pages{
+    min-height:410px;
+  }
+  .desktop-pages-main--stats .stats-page{
+    padding:20px 22px!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set{
+    display:grid!important;
+    grid-template-columns:minmax(250px,.75fr) minmax(0,1.25fr)!important;
+    align-items:center!important;
+    gap:28px!important;
+  }
+  .desktop-pages-main--stats .stats-ring-set__circle{
+    max-width:230px!important;
+  }
+  .desktop-pages-main--stats .stats-ring-set__legend{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .desktop-pages-main--stats .stats-ring-set__legend-item{
+    border:1px solid #edf1f6;
+    background:#f8fafc;
+    border-radius:10px;
+    padding:9px 10px;
+  }
+
+  /* Pager becomes clear desktop tabs instead of tiny mobile dots. */
+  .desktop-pages-main--stats .stats-lang-card__footer{
+    padding:0!important;
+  }
+  .desktop-pages-main--stats .stats-pages-dots{
+    display:flex!important;
+    justify-content:flex-start!important;
+    gap:6px!important;
+    padding:7px!important;
+    margin:0!important;
+    border:1px solid #e4eaf3;
+    border-radius:12px;
+    background:#fff;
+  }
+  .desktop-pages-main--stats .stats-page-dot{
+    width:auto!important;height:34px!important;
+    min-width:92px!important;
+    border-radius:8px!important;
+    border:0!important;
+    background:transparent!important;
+    opacity:1!important;
+    padding:0 12px!important;
+  }
+  .desktop-pages-main--stats .stats-page-dot:after{
+    content:attr(data-label);
+    font-size:11px;font-weight:800;color:#6d7788;
+  }
+  .desktop-pages-main--stats .stats-page-dot.is-active{
+    background:#edf5ff!important;
+  }
+  .desktop-pages-main--stats .stats-page-dot.is-active:after{
+    color:#1769e8;
+  }
+
+  .desktop-pages-main--stats .stats-activity-weekdays{
+    margin-top:14px!important;
+  }
+  .desktop-pages-main--stats .stats-activity-grid{
+    max-width:700px;
+  }
+  .desktop-pages-main--stats .stats-activity-history__list{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  .desktop-pages-main--stats .stats-activity-history__item{
+    border:1px solid #edf1f6!important;
+    border-radius:10px!important;
+    background:#f8fafc!important;
+    padding:10px!important;
+  }
+
+  .desktop-pages-main--stats .dicts-footer{
+    display:none!important;
+  }
+}
+
+@media (min-width:900px) and (max-width:1120px){
+  .desktop-pages-main--stats .stats-overview{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .dicts-header h3,
+.dark .desktop-pages-main--stats .dicts-header h3,
+html[data-theme="dark"] .desktop-pages-main--stats .stats-overview__hero-copy strong,
+.dark .desktop-pages-main--stats .stats-overview__hero-copy strong,
+html[data-theme="dark"] .desktop-pages-main--stats .stats-overview__metric strong,
+.dark .desktop-pages-main--stats .stats-overview__metric strong,
+html[data-theme="dark"] .desktop-pages-main--stats .stats-overview__ring span,
+.dark .desktop-pages-main--stats .stats-overview__ring span{color:#edf5ff!important}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-overview>article,
+.dark .desktop-pages-main--stats .stats-overview>article,
+html[data-theme="dark"] .desktop-pages-main--stats .stats-lang-card__body,
+.dark .desktop-pages-main--stats .stats-lang-card__body,
+html[data-theme="dark"] .desktop-pages-main--stats .stats-pages-dots,
+.dark .desktop-pages-main--stats .stats-pages-dots,
+html[data-theme="dark"] .desktop-pages-main--stats .dicts-flags,
+.dark .desktop-pages-main--stats .dicts-flags{background:#121c28!important;border-color:#263447!important}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-overview__ring:before,
+.dark .desktop-pages-main--stats .stats-overview__ring:before{background:#121c28!important}
+
+
+/* ==========================================================
+ * 1.8.5 — Desktop Stats composition polish
+ * Center ring content and turn the old dot pager into true tabs.
+ * ========================================================== */
+@media (min-width:900px){
+  /* Center the active statistics composition inside the card. */
+  .desktop-pages-main--stats .stats-page{
+    min-height:410px;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box;
+  }
+
+  .desktop-pages-main--stats .stats-page > .stats-ring-sets,
+  .desktop-pages-main--stats .stats-page > .stats-section{
+    width:min(100%,760px)!important;
+    margin:0 auto!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-sets--single{
+    display:block!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set{
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+    display:grid!important;
+    grid-template-columns:270px minmax(0,1fr)!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:44px!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__circle{
+    width:230px!important;
+    max-width:230px!important;
+    margin:0 auto!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__legend{
+    width:100%;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__legend-item{
+    min-height:42px;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    padding:9px 12px!important;
+    border:1px solid #edf1f6!important;
+    border-radius:10px!important;
+    background:#f8fafc!important;
+    box-sizing:border-box!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__caption{
+    max-width:75%!important;
+    font-size:13px!important;
+    font-weight:800!important;
+    color:#334155!important;
+  }
+
+  /* Analytics page should use available width naturally instead of forced centering. */
+  .desktop-pages-main--stats .stats-page--analytics{
+    align-items:flex-start!important;
+  }
+  .desktop-pages-main--stats .stats-page--analytics > .stats-section{
+    width:100%!important;
+    max-width:none!important;
+  }
+
+  /* Real desktop tabs: hide any legacy dot visuals completely. */
+  .desktop-pages-main--stats .stats-pages-dots{
+    display:flex!important;
+    align-items:center!important;
+    gap:6px!important;
+    padding:6px!important;
+    border:1px solid #e4eaf3!important;
+    border-radius:12px!important;
+    background:#fff!important;
+  }
+
+  .desktop-pages-main--stats .stats-page-dot{
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    position:relative!important;
+    width:auto!important;
+    height:36px!important;
+    min-width:100px!important;
+    margin:0!important;
+    padding:0 14px!important;
+    border:1px solid transparent!important;
+    border-radius:9px!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    opacity:1!important;
+    font-size:0!important;
+    cursor:pointer!important;
+  }
+
+  .desktop-pages-main--stats .stats-page-dot::before{
+    content:none!important;
+    display:none!important;
+  }
+
+  .desktop-pages-main--stats .stats-page-dot::after{
+    content:attr(data-label)!important;
+    position:static!important;
+    display:block!important;
+    width:auto!important;
+    height:auto!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:#6d7788!important;
+    font:800 11px/34px system-ui,-apple-system,"Segoe UI",sans-serif!important;
+  }
+
+  .desktop-pages-main--stats .stats-page-dot:hover{
+    background:#f6f9fd!important;
+  }
+
+  .desktop-pages-main--stats .stats-page-dot.is-active{
+    border-color:#cfe3ff!important;
+    background:#edf5ff!important;
+    box-shadow:0 1px 4px rgba(23,105,232,.08)!important;
+  }
+
+  .desktop-pages-main--stats .stats-page-dot.is-active::after{
+    color:#1769e8!important;
+  }
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-ring-set__legend-item,
+.dark .desktop-pages-main--stats .stats-ring-set__legend-item{
+  background:#162231!important;
+  border-color:#263447!important;
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-ring-set__caption,
+.dark .desktop-pages-main--stats .stats-ring-set__caption{
+  color:#dce7f5!important;
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-pages-dots,
+.dark .desktop-pages-main--stats .stats-pages-dots{
+  background:#121c28!important;
+  border-color:#263447!important;
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-page-dot:hover,
+.dark .desktop-pages-main--stats .stats-page-dot:hover{
+  background:#162231!important;
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-page-dot.is-active,
+.dark .desktop-pages-main--stats .stats-page-dot.is-active{
+  background:#173252!important;
+  border-color:#245e9b!important;
+}
+
+
+/* ==========================================================
+ * 1.8.6 — Functional desktop statistics tabs
+ * One active page at a time. Visual language follows the
+ * approved desktop statistics concept.
+ * ========================================================== */
+@media (min-width:900px){
+  /* Undo 1.8.5's always-visible flex override. */
+  .desktop-pages-main--stats .stats-page{
+    display:none!important;
+    min-height:410px;
+    box-sizing:border-box;
+  }
+
+  .desktop-pages-main--stats .stats-page.is-active{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+
+  .desktop-pages-main--stats .stats-page--analytics.is-active{
+    align-items:flex-start!important;
+    justify-content:flex-start!important;
+  }
+
+  /* Active tab is a real selected control, with no pseudo-dot residue. */
+  .desktop-pages-main--stats .stats-page-dot{
+    outline:none!important;
+  }
+  .desktop-pages-main--stats .stats-page-dot::before{
+    content:none!important;
+    display:none!important;
+    width:0!important;
+    height:0!important;
+  }
+  .desktop-pages-main--stats .stats-page-dot.is-active{
+    background:#edf5ff!important;
+    border:1px solid #9cc8ff!important;
+    box-shadow:0 2px 7px rgba(23,105,232,.10)!important;
+  }
+
+  /* More deliberate desktop composition. */
+  .desktop-pages-main--stats .stats-ring-set{
+    min-height:350px;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__circle{
+    filter:drop-shadow(0 6px 14px rgba(23,105,232,.07));
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__legend{
+    max-width:360px;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__legend-item{
+    min-height:48px!important;
+  }
+
+  .desktop-pages-main--stats .stats-ring-set__legend-item strong,
+  .desktop-pages-main--stats .stats-ring-set__legend-item b{
+    color:#182235;
+  }
+}
+
+html[data-theme="dark"] .desktop-pages-main--stats .stats-page-dot.is-active,
+.dark .desktop-pages-main--stats .stats-page-dot.is-active{
+  background:#173252!important;
+  border-color:#3978b9!important;
+}
+
+
+/* ==========================================================
+ * 1.8.8 — Equal-height desktop statistics pages
+ * Each language card adopts the height of its tallest tab.
+ * ========================================================== */
+@media (min-width:900px){
+  .desktop-pages-main--stats .stats-lang-card{
+    --stats-page-fixed-h:410px;
+  }
+
+  .desktop-pages-main--stats .stats-pages{
+    position:relative;
+    min-height:var(--stats-page-fixed-h)!important;
+  }
+
+  .desktop-pages-main--stats .stats-page{
+    min-height:var(--stats-page-fixed-h)!important;
+    height:var(--stats-page-fixed-h)!important;
+    box-sizing:border-box!important;
+  }
+
+  .desktop-pages-main--stats .stats-page.is-active{
+    min-height:var(--stats-page-fixed-h)!important;
+    height:var(--stats-page-fixed-h)!important;
+  }
+
+  /* Temporary measurement state: page is rendered off-flow,
+     invisible, and allowed to grow to its natural full height. */
+  .desktop-pages-main--stats .stats-page.stats-page--measure{
+    display:flex!important;
+    position:absolute!important;
+    inset:0 auto auto 0!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    overflow:visible!important;
+  }
+
+  .desktop-pages-main--stats .stats-page.stats-page--measure-hidden{
+    opacity:0!important;
+  }
+}

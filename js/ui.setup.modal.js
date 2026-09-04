@@ -92,17 +92,17 @@
 
     if (ru) {
       return {
-        title: 'MOYAMOVA — тренажёр слов',
-        subtitle: 'Карточки для изучения языков — работает офлайн.',
+        title: 'Добро пожаловать!',
+        subtitle: 'Настроим MOYAMOVA за несколько секунд.',
         intro:
-          'Учите и повторяйте иностранные слова по карточкам, отслеживайте прогресс. Без регистрации и интернета.',
+          'Выберите язык интерфейса и язык обучения. Остальное уже настроено для комфортного старта.',
         uiLabel: 'Язык интерфейса',
-        studyLabel: 'Язык, который вы хотите изучать',
-        levelLabel: 'Режим сложности',
+        studyLabel: 'Я хочу учить',
+        levelLabel: '',
         normalTitle: 'Обычный режим',
         hardTitle: 'Сложный режим',
-        note: 'Все эти настройки можно изменить позже в меню.',
-        start: 'Старт',
+        note: 'Прогресс хранится только на этом устройстве.',
+        start: 'Начать обучение',
         langRu: 'Русский',
         langUk: 'Украинский',
         tosLabel: 'Я принимаю условия использования приложения.',
@@ -112,17 +112,17 @@
     }
 
     return {
-      title: 'MOYAMOVA — тренажер слів',
-      subtitle: 'Картки для вивчення мов — працює офлайн.',
+      title: 'Ласкаво просимо!',
+      subtitle: 'Налаштуємо MOYAMOVA за кілька секунд.',
       intro:
-        'Вивчайте й повторюйте іноземні слова за картками та відстежуйте прогрес. Без реєстрації та інтернету.',
+        'Оберіть мову інтерфейсу та мову навчання. Решта вже налаштована для комфортного старту.',
       uiLabel: 'Мова інтерфейсу',
-      studyLabel: 'Мова, яку ви хочете вивчати',
-      levelLabel: 'Режим складності',
+      studyLabel: 'Я хочу вивчати',
+      levelLabel: '',
       normalTitle: 'Звичайний режим',
       hardTitle: 'Складний режим',
-      note: 'Усі ці налаштування можна змінити пізніше в меню.',
-      start: 'Старт',
+      note: 'Прогрес зберігається лише на цьому пристрої.',
+      start: 'Почати навчання',
       langRu: 'Російська',
       langUk: 'Українська',
       tosLabel: 'Я приймаю умови використання застосунку.',
@@ -196,26 +196,28 @@
       '<div class="setup-modal">',
       '  <div class="setup-modal__inner">',
       '    <div class="setup-header">',
+      '      <div class="setup-brand-compact">',
+      '        <img class="setup-brand__logo" src="./img/logo_64.png" alt="MOYAMOVA">',
+      '        <strong>MOYAMOVA</strong>',
+      '      </div>',
       '      <h2 class="setup-title" data-setup-title></h2>',
       '      <p class="setup-subtitle" data-setup-subtitle></p>',
       '      <p class="setup-intro" data-setup-intro></p>',
       '    </div>',
-      '    <div class="setup-section">',
-      '      <div class="setup-section__label" data-setup-ui-label></div>',
-      '      <div class="setup-mode-toggle setup-mode-toggle--lang" data-setup-ui-flags></div>',
+      '    <div class="setup-choices">',
+      '      <section class="setup-choice-section">',
+      '        <div class="setup-section__label" data-setup-ui-label></div>',
+      '        <div class="setup-mode-toggle setup-mode-toggle--lang" data-setup-ui-flags></div>',
+      '      </section>',
+      '      <section class="setup-choice-section">',
+      '        <div class="setup-section__label" data-setup-study-label></div>',
+      '        <div class="setup-flags-row" data-setup-study-flags></div>',
+      '      </section>',
       '    </div>',
-      '    <div class="setup-section">',
-      '      <div class="setup-section__label" data-setup-study-label></div>',
-      '      <div class="setup-flags-row" data-setup-study-flags></div>',
-      '    </div>',
-      '    <div class="setup-section">',
-      '      <div class="setup-section__label" data-setup-level-label></div>',
-      '      <div class="setup-mode-toggle" data-setup-level-toggle></div>',
-      '    </div>',
-      '    <div class="setup-consent" data-setup-consent></div>',
-      '    <p class="setup-note" data-setup-note></p>',
+      '    <div class="setup-consent-compact" data-setup-consent-body></div>',
       '    <div class="setup-footer">',
       '      <button type="button" class="setup-start-btn" data-setup-start></button>',
+      '      <p class="setup-note" data-setup-note></p>',
       '    </div>',
       '  </div>',
       '</div>'
@@ -252,12 +254,13 @@
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       btn.setAttribute('aria-label', lang.label);
 
+      var nativeName = lang.code === 'ru' ? 'Русский' : 'Українська';
       btn.innerHTML =
-        '<span aria-hidden="true">' +
-        lang.flag +
-        '</span><span>' +
+        '<span class="setup-inline-flag" aria-hidden="true"><img src="./img/flags/' +
+        (lang.code === 'uk' ? 'uk' : lang.code) +
+        '.svg" alt=""></span><span class="setup-choice-copy"><strong>' +
         lang.label +
-        '</span>';
+        '</strong><small>' + nativeName + '</small></span>';
 
       btn.addEventListener('click', function () {
         if (state.uiLang === lang.code) return;
@@ -288,10 +291,18 @@
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       btn.setAttribute('aria-label', item.label);
 
+      var localized = item.label;
+      if (state.uiLang === 'uk') {
+        localized = ({de:'Німецька',en:'Англійська',fr:'Французька',sr:'Сербська',es:'Іспанська'})[item.code] || item.label;
+      } else {
+        localized = ({de:'Немецкий',en:'Английский',fr:'Французский',sr:'Сербский',es:'Испанский'})[item.code] || item.label;
+      }
       btn.innerHTML =
-        '<span class="setup-flag-btn__flag" aria-hidden="true">' +
-        item.flag +
-        '</span>';
+        '<span class="setup-flag-btn__flag" aria-hidden="true"><img src="./img/flags/' +
+        (item.code === 'uk' ? 'uk' : item.code) +
+        '.svg" alt=""></span><span class="setup-choice-copy"><strong>' +
+        localized +
+        '</strong><small>' + item.label + '</small></span>';
 
       btn.addEventListener('click', function () {
         if (state.studyLang === item.code) return;
@@ -335,12 +346,15 @@
       btn.setAttribute('data-level', cfg.code);
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
 
+      var desc = cfg.code === 'normal'
+        ? (state.uiLang === 'uk' ? 'Для комфортного навчання' : 'Для комфортного обучения')
+        : (state.uiLang === 'uk' ? 'Для досвідчених учнів' : 'Для опытных учеников');
       btn.innerHTML =
-        '<span aria-hidden="true">' +
+        '<span class="setup-level-icon" aria-hidden="true">' +
         cfg.icon +
-        '</span><span>' +
+        '</span><span class="setup-choice-copy"><strong>' +
         cfg.label +
-        '</span>';
+        '</strong><small>' + desc + '</small></span>';
 
       btn.addEventListener('click', function () {
         if (state.level === cfg.code) return;
@@ -458,26 +472,32 @@
    * ------------------------------------ */
 
   function resolveDeckForStudyLang() {
-    var lang = state.studyLang;
+    var lang = String(state.studyLang || '').toLowerCase();
     if (!lang) return null;
+
+    /* StartupManager already treats <lang>_verbs as the canonical safe
+       first-run target. Persist the same stable target here instead of
+       depending on whichever deck happened to finish loading first. */
+    var preferred = lang + '_verbs';
 
     try {
       if (root.StartupManager && StartupManager._util) {
         var util = StartupManager._util;
-
-        if (typeof util.firstNonEmptyForLang === 'function') {
-          var key = util.firstNonEmptyForLang(lang);
-          if (key) return key;
+        if (typeof util.deckExists === 'function' && util.deckExists(preferred)) {
+          return preferred;
         }
         if (typeof util.firstForLang === 'function') {
-          return util.firstForLang(lang);
+          var fallback = util.firstForLang(lang);
+          if (fallback) return fallback;
         }
       }
     } catch (e) {
       // ignore
     }
 
-    return null;
+    /* It is safe to persist the stable target even before the large deck
+       finishes loading; StartupManager validates it after reload. */
+    return preferred;
   }
 
   /* ---------------------------------------
@@ -488,16 +508,19 @@
     var overlay = createOverlayIfNeeded();
     var msgs = t();
 
-    overlay.querySelector('[data-setup-title]').textContent    = msgs.title;
-    overlay.querySelector('[data-setup-subtitle]').textContent = msgs.subtitle;
-    overlay.querySelector('[data-setup-intro]').textContent    = msgs.intro;
-    overlay.querySelector('[data-setup-ui-label]').textContent     = msgs.uiLabel;
-    overlay.querySelector('[data-setup-study-label]').textContent  = msgs.studyLabel;
-    overlay.querySelector('[data-setup-level-label]').textContent  = msgs.levelLabel;
-    overlay.querySelector('[data-setup-note]').textContent         = msgs.note;
+    overlay.querySelector('[data-setup-title]').textContent     = msgs.title;
+    overlay.querySelector('[data-setup-subtitle]').textContent  = msgs.subtitle;
+    overlay.querySelector('[data-setup-intro]').textContent     = msgs.intro;
+    overlay.querySelector('[data-setup-ui-label]').textContent  = msgs.uiLabel;
+    overlay.querySelector('[data-setup-study-label]').textContent = msgs.studyLabel;
+    overlay.querySelector('[data-setup-note]').textContent      = msgs.note;
 
     var startBtn = overlay.querySelector('[data-setup-start]');
-    startBtn.textContent = msgs.start;
+    startBtn.innerHTML = msgs.start + ' <span aria-hidden="true">→</span>';
+
+    /* Difficulty is intentionally not a first-run decision anymore.
+       First launch always starts in normal mode; the user can change it later. */
+    state.level = 'normal';
 
     renderUiLangToggle(
       overlay.querySelector('[data-setup-ui-flags]')
@@ -505,10 +528,7 @@
     renderStudyLangFlags(
       overlay.querySelector('[data-setup-study-flags]')
     );
-    renderLevelToggle(
-      overlay.querySelector('[data-setup-level-toggle]')
-    );
-    renderConsents(overlay.querySelector('[data-setup-consent]'));
+    renderConsents(overlay.querySelector('[data-setup-consent-body]'));
     updateStartDisabled();
   }
 
@@ -562,7 +582,7 @@
 
     A.settings.uiLang    = state.uiLang;
     A.settings.studyLang = state.studyLang;
-    A.settings.level     = state.level === 'hard' ? 'hard' : 'normal';
+    A.settings.level     = 'normal';
 
      if (typeof A.saveSettings === 'function') {
     A.saveSettings();
@@ -604,7 +624,7 @@
     // Обновляем только то, чем управляет мастер
     base.uiLang    = state.uiLang;
     base.studyLang = state.studyLang;
-    base.level     = state.level === 'hard' ? 'hard' : 'normal';
+    base.level     = 'normal';
 
     localStorage.setItem(LS_SETTINGS, JSON.stringify(base));
   } catch(_) {}

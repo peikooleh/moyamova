@@ -70,18 +70,53 @@
    *  1) explicitly allowed containers (data-scroll-allow or known classes)
    *  2) nearest ancestor that is actually scrollable (overflow-y auto/scroll + scrollHeight>clientHeight)
    */
+  function getDocumentScroller(){
+    try {
+      return document.scrollingElement || document.documentElement || document.body || null;
+    } catch(_){
+      return null;
+    }
+  }
+
+  // 1.12.39: Dictionaries / Statistics / Guide are natural long pages on mobile.
+  // Their old inner scrollers were deliberately removed, so in iOS standalone the
+  // scroll guard must allow the document scroller instead of cancelling touchmove.
+  function allowsNaturalPageScroll(startEl){
+    try {
+      var root = document.documentElement;
+      var shell = String((root && root.getAttribute('data-mobile-shell')) || '').toLowerCase();
+      if (shell === 'dicts' || shell === 'stats') return true;
+      if (startEl && startEl.closest && startEl.closest('.guide-v3-mobile')) return true;
+      if (document.querySelector && document.querySelector('#app .guide-v3-mobile')) return true;
+    } catch(_){ }
+    return false;
+  }
+
+  function isNaturalFlowAllowHit(el){
+    try {
+      return !!(el && el.matches && el.matches('.dicts-scroll, .guide-scroll, .page-scroll'));
+    } catch(_){
+      return false;
+    }
+  }
+
   function getActiveScroller(startEl){
     if (!startEl) return null;
 
-    // 1) explicit allow list
+    // 1) Explicit allow list. Modal/sheet scrollers keep their old behavior.
+    // For the three natural-flow mobile pages, a legacy .dicts-scroll/.guide-scroll
+    // hook may still exist but no longer owns overflow; fall through to the document.
     try {
       if (startEl.closest) {
         var hit = startEl.closest(CFG.allowSelectors);
-        if (hit) return hit;
+        if (hit) {
+          if (isScrollable(hit)) return hit;
+          if (!(allowsNaturalPageScroll(startEl) && isNaturalFlowAllowHit(hit))) return hit;
+        }
       }
     } catch(_){ }
 
-    // 2) dynamic scrollable ancestor discovery
+    // 2) Dynamic scrollable ancestor discovery.
     var el = startEl;
     while (el && el !== document.documentElement && el !== document.body) {
       if (hasScrollableOverflow(el) && (el.scrollHeight - el.clientHeight) > 1) {
@@ -89,6 +124,15 @@
       }
       el = el.parentElement;
     }
+
+    // 3) iOS standalone natural-page fallback. This is intentionally limited to
+    // Dictionaries / Statistics / Guide so the anti-rubber-band behavior elsewhere
+    // stays unchanged.
+    if (allowsNaturalPageScroll(startEl)) {
+      var docScroller = getDocumentScroller();
+      if (isScrollable(docScroller)) return docScroller;
+    }
+
     return null;
   }
 

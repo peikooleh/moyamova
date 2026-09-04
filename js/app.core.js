@@ -2,13 +2,13 @@
  * Проект: MOYAMOVA
  * Файл: app.core.js
  * Назначение: Ядро приложения и общие настройки
- * Версия: 1.4.0
+ * Версия: 1.12.13
  * Обновлено: 2025-11-17
  * ========================================================== */
 
 (function(){
   const App = window.App = (window.App||{});
-  App.APP_VER = '1.4.0';
+  App.APP_VER = '1.12.13';
 
     // Детектируем запуск как PWA (standalone) и помечаем root
   (function detectRunmodePwa(){
@@ -45,23 +45,13 @@
   const LS_SETTINGS = 'k_settings_v1_3_1';
   const LS_STATE    = 'k_state_v1_3_1';
   const LS_DICTS    = 'k_dicts_v1_3_1';
-  const LS_PRO      = 'mm.proUnlocked';
-
-  App.isPro = function(){
-      return true;
-  };
-
-  App.unlockPro = function(){
-    try {
-      window.localStorage.setItem(LS_PRO, '1');
-    } catch (e) {}
-  };
-
-  App.lockPro = function(){
-    try {
-      window.localStorage.removeItem(LS_PRO);
-    } catch (e) {}
-  };
+  // Core learning features are free. Keep a tiny compatibility/entitlement facade
+  // so old integrations do not break and a future billing layer has one hook.
+  App.Entitlements = App.Entitlements || {};
+  App.Entitlements.has = App.Entitlements.has || function(){ return true; };
+  App.isPro = function(){ return true; }; // legacy compatibility alias
+  App.unlockPro = function(){ return true; };
+  App.lockPro = function(){ return true; };
 
 
   const I18N_FALLBACK = window.I18N;
@@ -135,7 +125,6 @@ App.starKey = function(wid, dk){
 
     // тема и прочее
     'ui-theme',
-    'mm.proUnlocked',
     'moya_upgrading'
   ];
 
