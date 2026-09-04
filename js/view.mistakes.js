@@ -14,9 +14,13 @@
     try { return !!(A.settings && A.settings.trainerKind === 'articles'); } catch(_){ return false; }
   }
 
-  function currentArticlesGroup(){
-    // Hard filter for articles favorites/mistakes: base vs LearnPunkt
-    // Group is inferred from the last selected deck key (works for both baseKey and virtual keys).
+  function isPrepositionsMode(){
+    try { return !!(A.settings && A.settings.trainerKind === 'prepositions'); } catch(_){ return false; }
+  }
+
+  function currentDeckGroup(){
+    // Base and LearnPunkt are independent collections. Infer the active group
+    // from the last selected real/virtual deck so they never leak into one list.
     try{
       let k = (A.settings && (A.settings.lastDeckKey || A.settings.lastDeck || A.settings.lastArticlesDeckKey)) || '';
       k = String(k || '');
@@ -27,6 +31,8 @@
       return 'base';
     }
   }
+
+  function currentArticlesGroup(){ return currentDeckGroup(); }
 
   function getUiLang(){
     const s = (A.settings && (A.settings.lang || A.settings.uiLang)) || 'ru';
@@ -84,8 +90,22 @@
       return out;
     }
 
-    // Стандартные ошибки слов
-    const rows = (A.Mistakes && A.Mistakes.listSummary ? A.Mistakes.listSummary() : []);
+    // Стандартные ошибки слов. Здесь важны три независимые границы:
+    // 1) язык перевода (RU/UK), 2) база/LearnPunkt, 3) words/prepositions.
+    // Раньше listSummary() выводился целиком, из-за чего одинаковые названия
+    // частей речи появлялись несколькими строками и визуально "протекали".
+    const group = currentDeckGroup();
+    const prepsMode = isPrepositionsMode();
+    const rows = (A.Mistakes && A.Mistakes.listSummary ? A.Mistakes.listSummary() : [])
+      .filter(r => String(r.trainLang || '').toLowerCase() === TL)
+      .filter(r => group === 'lernpunkt' ? /_lernpunkt$/i.test(String(r.baseKey || ''))
+                                        : !/_lernpunkt$/i.test(String(r.baseKey || '')))
+      .filter(r => {
+        const k = String(r.baseKey || '');
+        const isPrepTrainerBucket = /^([a-z]{2})_prepositions_trainer$/i.test(k);
+        return prepsMode ? isPrepTrainerBucket : !isPrepTrainerBucket;
+      });
+
     return rows.map(r=>{
       const mKey = r.mistakesKey;
       const name = (A.Decks && A.Decks.resolveNameByKey) ? A.Decks.resolveNameByKey(mKey) : mKey;
@@ -93,7 +113,7 @@
       const baseLang = (A.Decks && (A.Decks.langOfMistakesKey||A.Decks.langOfKey)) ? (A.Decks.langOfMistakesKey ? A.Decks.langOfMistakesKey(mKey) : A.Decks.langOfKey(mKey)) : '';
       const flag = (A.Decks && A.Decks.flagForKey) ? (A.Decks.flagForKey(mKey) || '🧩') : '🧩';
       return { key: mKey, baseKey: r.baseKey, trainLang: r.trainLang, name, count: deck.length, baseLang, flag };
-    });
+    }).filter(r => (r.count|0) > 0);
   }
 
   function render(){

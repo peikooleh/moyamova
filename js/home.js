@@ -41,9 +41,17 @@
       return pool[kind];
     }
 
+    function enabled(){
+      try {
+        const v = window.localStorage.getItem('mm.answerSounds.enabled');
+        return v === null || v === '' ? true : (v === '1' || v === 'true');
+      } catch(_) { return true; }
+    }
+
     function play(kind){
       return new Promise(resolve => {
         try {
+          if (!enabled()) { resolve(); return; }
           const el = get(kind);
           try { el.pause(); } catch(_){}
           try { el.currentTime = 0; } catch(_){}
@@ -172,66 +180,6 @@
       if (m) { m.textContent = c.mistakes ? String(c.mistakes) : ''; m.hidden = !c.mistakes; }
       if (f) { f.textContent = c.favorites ? String(c.favorites) : ''; f.hidden = !c.favorites; }
     } catch(_){}
-  }
-
-  function __syncPrepsDesktopTools(){
-    try{
-      const btn=document.querySelector('.preps-desktop-mobilelike-tools [data-preps-desktop-tool="tts"]');
-      if(!btn)return;
-      let on=false;
-      try{on=localStorage.getItem('mm.tts.words')==='1'}catch(_){}
-      btn.classList.toggle('is-active',on);
-      btn.setAttribute('aria-pressed',String(on));
-    }catch(_){}
-  }
-
-  function __bindPrepsDesktopTools(){
-    try{
-      if(window.innerWidth<900)return;
-      const tools=document.querySelector('.preps-desktop-mobilelike-tools');
-      if(!tools || tools.dataset.bound==='1')return;
-      tools.dataset.bound='1';
-
-      tools.addEventListener('click',function(e){
-        const btn=e.target&&e.target.closest?e.target.closest('[data-preps-desktop-tool]'):null;
-        if(!btn)return;
-        const action=btn.getAttribute('data-preps-desktop-tool');
-
-        if(action==='tts'){
-          e.preventDefault();
-          let next=true;
-          try{next=localStorage.getItem('mm.tts.words')!=='1'}catch(_){}
-          try{localStorage.setItem('mm.tts.words',next?'1':'0')}catch(_){}
-          try{
-            if(A.AudioTTS&&typeof A.AudioTTS.refreshIndicators==='function')A.AudioTTS.refreshIndicators();
-            else if(A.AudioTTS&&typeof A.AudioTTS.refresh==='function')A.AudioTTS.refresh();
-          }catch(_){}
-          __syncPrepsDesktopTools();
-          return;
-        }
-
-        if(action==='skip'){
-          e.preventDefault();
-          try{
-            if(A.MobileTrainerActions&&typeof A.MobileTrainerActions.skipCurrent==='function'){
-              A.MobileTrainerActions.skipCurrent();
-            }
-          }catch(_){}
-          return;
-        }
-
-        if(action==='reveal'){
-          e.preventDefault();
-          try{
-            if(A.MobileTrainerActions&&typeof A.MobileTrainerActions.revealCurrent==='function'){
-              A.MobileTrainerActions.revealCurrent();
-            }
-          }catch(_){}
-        }
-      });
-
-      __syncPrepsDesktopTools();
-    }catch(_){}
   }
 
   function __renderPrepsDesktopChrome(key){
@@ -1767,7 +1715,7 @@ function activeDeckKey() {
           <p class="dict-stats" id="dictStats"></p>
         </section>
 
-        ${__isWordHome ? `
+        ${(__isWordHome || __isPrepsHome) ? `
         <section class="trainer-quickbar" id="trainerQuickbar" aria-label="${getUiLang()==='uk' ? 'Швидкі налаштування тренування' : 'Быстрые настройки тренировки'}">
           <button type="button" class="trainer-qbtn" data-trainer-q="auto" aria-pressed="false" title="${getUiLang()==='uk' ? 'Автоперехід між сетами' : 'Автопереход между сетами'}">
             <span class="trainer-qico qico-auto" aria-hidden="true">↻</span>
@@ -1787,23 +1735,6 @@ function activeDeckKey() {
           </button>
           <button type="button" class="trainer-qbtn trainer-qbtn--audio" data-trainer-q="ttsWords" aria-pressed="false" title="${getUiLang()==='uk' ? 'Озвучення слів' : 'Озвучка слов'}">
             <span class="trainer-qico qico-word" aria-hidden="true">🔊</span>
-          </button>
-        </section>
-        ` : ''}
-
-        ${(__isPrepsHome && window.innerWidth >= 900) ? `
-        <section class="preps-desktop-mobilelike-tools" aria-label="${getUiLang()==='uk' ? 'Дії тренажера прийменників' : 'Действия тренажёра предлогов'}">
-          <button type="button" class="preps-desktop-tool" data-preps-desktop-tool="tts" aria-pressed="false">
-            <span class="preps-desktop-tool__icon" aria-hidden="true">🔊</span>
-            <span><b>${getUiLang()==='uk' ? 'Озвучення' : 'Озвучка'}</b><small>${getUiLang()==='uk' ? 'увімкнути / вимкнути' : 'включить / выключить'}</small></span>
-          </button>
-          <button type="button" class="preps-desktop-tool" data-preps-desktop-tool="skip">
-            <span class="preps-desktop-tool__icon" aria-hidden="true">⇄</span>
-            <span><b>${getUiLang()==='uk' ? 'Пропустити' : 'Пропустить'}</b><small>${getUiLang()==='uk' ? 'перейти до наступного' : 'перейти к следующему'}</small></span>
-          </button>
-          <button type="button" class="preps-desktop-tool" data-preps-desktop-tool="reveal">
-            <span class="preps-desktop-tool__icon" aria-hidden="true">?</span>
-            <span><b>${getUiLang()==='uk' ? 'Показати відповідь' : 'Показать ответ'}</b><small>${getUiLang()==='uk' ? 'показати правильний прийменник' : 'показать правильный предлог'}</small></span>
           </button>
         </section>
         ` : ''}
@@ -1856,12 +1787,7 @@ function activeDeckKey() {
       });
 
       try { __syncTrainerSidebarCounts(); } catch(_){}
-      try {
-        if (__isPrepsHome) {
-          __renderPrepsDesktopChrome(key);
-          __bindPrepsDesktopTools();
-        }
-      } catch(_){}
+      try { if (__isPrepsHome) __renderPrepsDesktopChrome(key); } catch(_){}
       try { bindDifficultyControl(); } catch(_){}
     }
 
@@ -2811,7 +2737,18 @@ answers.innerHTML = '';
                                || (String(key).indexOf('favorites:')===0) || (key==='fav') || (key==='favorites');
             // во время тренировки "ошибок" и "избранного" — НЕ копим ошибки
             if (!isMistDeck && !isFavDeck && A.Mistakes && typeof A.Mistakes.push === 'function') {
-              A.Mistakes.push(key, word.id);
+              // Keep prepositions-trainer mistakes isolated from ordinary word
+              // mistakes of the xx_prepositions dictionary. Both trainers use
+              // the same source key, so persist the trainer contour under its
+              // dedicated virtual base key.
+              let mistakesBaseKey = key;
+              try {
+                if (isPrepositionsModeForKey(key)) {
+                  const pm = String(key || '').match(/^([a-z]{2})_prepositions$/i);
+                  if (pm) mistakesBaseKey = String(pm[1]).toLowerCase() + '_prepositions_trainer';
+                }
+              } catch(_){}
+              A.Mistakes.push(mistakesBaseKey, word.id);
               try { __syncTrainerSidebarCounts(); } catch(_){}
             }
             if (isPrepositionsModeForKey(key)) {
@@ -3197,7 +3134,19 @@ answers.innerHTML = '';
       } catch(_) {}
 if (hasProgress) {
         const ok = await confirmModeChangeSet();
-        if (!ok) { t.checked = (before === 'hard'); return; }
+        if (!ok) {
+          // Restore every visual source of truth on Cancel. The saved
+          // difficulty has not changed, so the trainer icon must not change.
+          t.checked = (before === 'hard');
+          document.documentElement.dataset.level = before;
+          try { syncDifficultyControl(); } catch(_) {}
+          try {
+            if (A.Trainer && typeof A.Trainer.updateModeIndicator === 'function') {
+              A.Trainer.updateModeIndicator();
+            }
+          } catch(_) {}
+          return;
+        }
 
         // Очистка ТЕКУЩЕГО СЕТА — по нормализованному ключу deckKeyStorage
         try {

@@ -41,7 +41,9 @@
     return { trainLang, baseDeckKey };
   }
 
-  // Получить/создать бакет для trainLang + baseDeckKey
+  // Получить/создать бакет для trainLang + baseDeckKey.
+  // ВАЖНО: чтение не должно само создавать пустые buckets, иначе экран
+  // "Ошибки" начинает показывать строки с 0 элементов.
   function _bucket(trainLang, baseDeckKey){
     ensure();
     const lang = trainLang || getTrainLang();
@@ -49,6 +51,15 @@
     const byLang = A.mistakes.buckets[lang];
     byLang[baseDeckKey] = byLang[baseDeckKey] || { ids: new Set(), meta: new Map() };
     return byLang[baseDeckKey];
+  }
+
+  function _findBucket(trainLang, baseDeckKey){
+    try{
+      ensure();
+      const lang = trainLang || getTrainLang();
+      const byLang = A.mistakes.buckets[lang];
+      return (byLang && byLang[baseDeckKey]) ? byLang[baseDeckKey] : null;
+    }catch(_){ return null; }
   }
 
   // Синхронизация с App.state.mistakes (как у избранного)
@@ -174,11 +185,13 @@
       const byLang = A.mistakes.buckets[lang] || {};
       for (const baseKey of Object.keys(byLang)){
         const b = byLang[baseKey];
+        const count = (b && b.ids ? b.ids.size : 0);
+        if (!count) continue;
         out.push({
           trainLang: lang,
           baseKey,
           mistakesKey: makeKey(lang, baseKey),
-          count: (b.ids ? b.ids.size : 0)
+          count
         });
       }
     }
@@ -187,8 +200,8 @@
 
   // Список id слов по языку и базовому ключу
   function getIds(trainLang, baseDeckKey){
-    const b = _bucket(trainLang, baseDeckKey);
-    return Array.from(b.ids || []);
+    const b = _findBucket(trainLang, baseDeckKey);
+    return b ? Array.from(b.ids || []) : [];
   }
 
   // Собрать «словарь ошибок» по ключу mistakes:...
