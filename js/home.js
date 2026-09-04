@@ -1538,14 +1538,26 @@ function activeDeckKey() {
   function uniqueById(arr) { const s = new Set(); return arr.filter(x => { const id = String(x.id); if (s.has(id)) return false; s.add(id); return true; }); }
 
   /* --------------------------- Избранное (сердце) --------------------------- */
+  function favoriteStorageKey(key) {
+    try {
+      const s = String(key || '');
+      if (isPrepositionsModeForKey(key)) {
+        const m = s.match(/^([a-z]{2})_prepositions$/i);
+        if (m) return String(m[1]).toLowerCase() + '_prepositions_trainer';
+      }
+    } catch(_) {}
+    return key;
+  }
   function isFav(key, id) {
-    try { if (typeof App.isFavorite === 'function') return !!App.isFavorite(key, id); } catch(_) {}
-    try { if (A.Favorites && typeof A.Favorites.has === 'function') return !!A.Favorites.has(key, id); } catch(_) {}
+    const storageKey = favoriteStorageKey(key);
+    try { if (typeof App.isFavorite === 'function') return !!App.isFavorite(storageKey, id); } catch(_) {}
+    try { if (A.Favorites && typeof A.Favorites.has === 'function') return !!A.Favorites.has(storageKey, id); } catch(_) {}
     return false;
   }
   function toggleFav(key, id) {
-    try { if (typeof App.toggleFavorite === 'function') return App.toggleFavorite(key, id); } catch(_) {}
-    try { if (A.Favorites && typeof A.Favorites.toggle === 'function') return A.Favorites.toggle(key, id); } catch(_) {}
+    const storageKey = favoriteStorageKey(key);
+    try { if (typeof App.toggleFavorite === 'function') return App.toggleFavorite(storageKey, id); } catch(_) {}
+    try { if (A.Favorites && typeof A.Favorites.toggle === 'function') return A.Favorites.toggle(storageKey, id); } catch(_) {}
   }
 
   /* ------------------------- DOM-шаблон главной ------------------------- */

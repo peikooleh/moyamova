@@ -389,22 +389,53 @@ App.migrateFavoritesToV2 = function(){
     /* log removed */}catch(e){(void 0); }
 };
 
-App.isFavorite = function(dictKey, wordId){
+function __favoritesTrainLang(){
   try{
-    const st = App.state || {};
-    const v2 = st.favorites_v2 || {};
-    return !!(v2[dictKey] && v2[dictKey][wordId]);
+    const s = (App.settings && (App.settings.lang || App.settings.uiLang)) || 'ru';
+    return String(s).toLowerCase()==='uk' ? 'uk' : 'ru';
+  }catch(_){ return 'ru'; }
+}
+
+App.ensureFavoritesV3 = function(){
+  try{
+    const st = App.state || (App.state = {});
+    if (st.favorites_v3 && typeof st.favorites_v3 === 'object') return st.favorites_v3;
+
+    // v2 did not store RU/UK separately. Preserve every old favorite and
+    // assign the legacy snapshot to the language active at first migration.
+    // Keep favorites_v2 untouched as a rollback/backup snapshot.
+    const tl = __favoritesTrainLang();
+    const old = (st.favorites_v2 && typeof st.favorites_v2 === 'object') ? st.favorites_v2 : {};
+    st.favorites_v3 = { ru:{}, uk:{} };
+    try { st.favorites_v3[tl] = JSON.parse(JSON.stringify(old || {})); } catch(_){ st.favorites_v3[tl] = old || {}; }
+    try { App.saveState && App.saveState(); } catch(_){ }
+    return st.favorites_v3;
+  }catch(_){ return {ru:{},uk:{}}; }
+};
+
+App.isFavoriteForLang = function(trainLang, dictKey, wordId){
+  try{
+    const tl = String(trainLang||'').toLowerCase()==='uk' ? 'uk' : 'ru';
+    const v3 = App.ensureFavoritesV3 ? App.ensureFavoritesV3() : ((App.state && App.state.favorites_v3) || {});
+    const scoped = v3[tl] || {};
+    return !!(scoped[dictKey] && scoped[dictKey][wordId]);
   }catch(e){ return false; }
+};
+
+App.isFavorite = function(dictKey, wordId){
+  return App.isFavoriteForLang(__favoritesTrainLang(), dictKey, wordId);
 };
 
 App.toggleFavorite = function(dictKey, wordId){
   try{
     const st = App.state || (App.state = {});
-    st.favorites_v2 = st.favorites_v2 || {};
-    st.favorites_v2[dictKey] = st.favorites_v2[dictKey] || {};
-    const before = !!st.favorites_v2[dictKey][wordId];
-    st.favorites_v2[dictKey][wordId] = !before;
-    const after = !!st.favorites_v2[dictKey][wordId];
+    const tl = __favoritesTrainLang();
+    const v3 = App.ensureFavoritesV3 ? App.ensureFavoritesV3() : (st.favorites_v3 || (st.favorites_v3={ru:{},uk:{}}));
+    v3[tl] = v3[tl] || {};
+    v3[tl][dictKey] = v3[tl][dictKey] || {};
+    const before = !!v3[tl][dictKey][wordId];
+    v3[tl][dictKey][wordId] = !before;
+    const after = !!v3[tl][dictKey][wordId];
     // аналитика: добавление/удаление избранного
     try {
       if (App.Analytics && typeof App.Analytics.track === 'function') {
@@ -429,7 +460,7 @@ App.toggleFavorite = function(dictKey, wordId){
 App.clearFavoritesAll = function(){
   try{
     const st = App.state || {};
-    st.favorites_v2 = {};
+    st.favorites_v3 = { ru:{}, uk:{} };
     App.saveState && App.saveState();
   }catch(e){}
 };

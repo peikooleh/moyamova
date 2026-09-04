@@ -15,9 +15,13 @@
     try { return !!(A.settings && A.settings.trainerKind === 'articles'); } catch(_){ return false; }
   }
 
-  function currentArticlesGroup(){
-    // Hard filter for articles favorites/mistakes: base vs LearnPunkt
-    // Group is inferred from the last selected deck key (works for both baseKey and virtual keys).
+  function isPrepositionsMode(){
+    try { return !!(A.settings && A.settings.trainerKind === 'prepositions'); } catch(_){ return false; }
+  }
+
+  function currentDeckGroup(){
+    // Base and LearnPunkt are independent collections. Infer the current group
+    // from the last selected real/virtual deck, same rule as the Mistakes screen.
     try{
       let k = (A.settings && (A.settings.lastDeckKey || A.settings.lastDeck || A.settings.lastArticlesDeckKey)) || '';
       k = String(k || '');
@@ -28,6 +32,8 @@
       return 'base';
     }
   }
+
+  function currentArticlesGroup(){ return currentDeckGroup(); }
 
   function getUiLang(){
     const s = (A.settings && (A.settings.lang || A.settings.uiLang)) || 'ru';
@@ -55,34 +61,59 @@
     }catch(_){ return 'ru'; }
   }
 
-  // Собираем «виртуальные» деки избранного по всем базовым словарям
+  // Собираем виртуальные деки избранного в текущем контуре:
+  // RU/UK + Base/LearnPunkt + Words/Prepositions.
   function gatherFavoriteDecks(){
     const TL = currentTrainLang();
     const out = [];
-    try{
-      const decks = (window.decks && typeof window.decks==='object') ? window.decks : {};
-      let baseKeys = Object.keys(decks)
-        .filter(k => Array.isArray(decks[k]) && !/^favorites:|^mistakes:/i.test(k));
 
-      // Articles mode: do NOT mix base and LearnPunkt decks in lists (prevents "leak" illusion)
-      if (isArticlesMode()){
+    // Articles keep their dedicated favorites storage and existing behavior.
+    if (isArticlesMode()) {
+      try{
+        const decks = (window.decks && typeof window.decks==='object') ? window.decks : {};
         const grp = currentArticlesGroup();
-        baseKeys = baseKeys.filter(k => grp==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
-      }
+        const baseKeys = Object.keys(decks)
+          .filter(k => Array.isArray(decks[k]) && !/^favorites:|^mistakes:/i.test(k))
+          .filter(k => grp==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
 
-      for (const baseKey of baseKeys){
-        const favKey = `favorites:${TL}:${baseKey}`;
-        const name = (A.Decks && A.Decks.resolveNameByKey) ? A.Decks.resolveNameByKey(favKey) : favKey;
-        const deck = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(favKey) || []) : [];
-        if (!deck.length) continue;
+        for (const baseKey of baseKeys){
+          const favKey = `favorites:${TL}:${baseKey}`;
+          const deck = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(favKey) || []) : [];
+          if (!deck.length) continue;
+          const name = (A.Decks && A.Decks.resolveNameByKey) ? A.Decks.resolveNameByKey(favKey) : favKey;
+          const baseLang = (A.Decks && (A.Decks.langOfFavoritesKey||A.Decks.langOfKey))
+            ? (A.Decks.langOfFavoritesKey ? A.Decks.langOfFavoritesKey(favKey) : A.Decks.langOfKey(favKey))
+            : '';
+          const flag = (A.Decks && A.Decks.flagForKey) ? (A.Decks.flagForKey(favKey) || '🧩') : '🧩';
+          out.push({ key:favKey, baseKey, trainLang:TL, name, count:deck.length, baseLang, flag });
+        }
+      }catch(_){}
+      return out;
+    }
 
-        const baseLang = (A.Decks && (A.Decks.langOfFavoritesKey||A.Decks.langOfKey))
-          ? (A.Decks.langOfFavoritesKey ? A.Decks.langOfFavoritesKey(favKey) : A.Decks.langOfKey(favKey))
-          : '';
-        const flag = (A.Decks && A.Decks.flagForKey) ? (A.Decks.flagForKey(favKey) || '🧩') : '🧩';
-        out.push({ key:favKey, baseKey, trainLang:TL, name, count:deck.length, baseLang, flag });
-      }
-    }catch(_){}
+    const group = currentDeckGroup();
+    const prepsMode = isPrepositionsMode();
+    const rows = (A.Favorites && A.Favorites.listSummary ? A.Favorites.listSummary() : [])
+      .filter(r => String(r.trainLang || '').toLowerCase() === TL)
+      .filter(r => group === 'lernpunkt' ? /_lernpunkt$/i.test(String(r.baseDeckKey || ''))
+                                        : !/_lernpunkt$/i.test(String(r.baseDeckKey || '')))
+      .filter(r => {
+        const k = String(r.baseDeckKey || '');
+        const isPrepTrainerBucket = /^([a-z]{2})_prepositions_trainer$/i.test(k);
+        return prepsMode ? isPrepTrainerBucket : !isPrepTrainerBucket;
+      });
+
+    for (const r of rows){
+      const favKey = r.favoritesKey || `favorites:${TL}:${r.baseDeckKey}`;
+      const deck = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(favKey) || []) : [];
+      if (!deck.length) continue;
+      const name = (A.Decks && A.Decks.resolveNameByKey) ? A.Decks.resolveNameByKey(favKey) : favKey;
+      const baseLang = (A.Decks && (A.Decks.langOfFavoritesKey||A.Decks.langOfKey))
+        ? (A.Decks.langOfFavoritesKey ? A.Decks.langOfFavoritesKey(favKey) : A.Decks.langOfKey(favKey))
+        : '';
+      const flag = (A.Decks && A.Decks.flagForKey) ? (A.Decks.flagForKey(favKey) || '🧩') : '🧩';
+      out.push({ key:favKey, baseKey:r.baseDeckKey, trainLang:TL, name, count:deck.length, baseLang, flag });
+    }
     return out;
   }
 
@@ -228,9 +259,13 @@ if (del){
           A.ArticlesFavorites.toggle(baseKey, id);
         }
       }
-    } else if (!isArticles && A.Favorites && typeof A.Favorites.toggle === 'function'){
-      for (const id of ids){
-        A.Favorites.toggle(baseKey, id);
+    } else if (!isArticles && A.Favorites){
+      if (typeof A.Favorites.clearForDeck === 'function'){
+        A.Favorites.clearForDeck(baseKey, TL);
+      } else if (typeof A.Favorites.toggle === 'function'){
+        for (const id of ids){
+          A.Favorites.toggle(baseKey, id);
+        }
       }
     }
   } catch(_){}
@@ -328,9 +363,10 @@ if (del){
       // Switch to the default word trainer
 
       try { A.settings = A.settings || {}; /* keep current mode; default to words */ if (!A.settings.trainerKind) A.settings.trainerKind = 'words'; } catch(_){ }
-      // Auto-grouping: base vs LearnPunkt для words favorites
+      // Auto-group base/LearnPunkt only for the ordinary Words trainer.
+      // Prepositions favorites must stay on their dedicated *_prepositions_trainer bucket.
       try{
-        if (!isArticlesMode()){
+        if (!isArticlesMode() && !isPrepositionsMode()){
           const s = String(key||'');
           const m = s.match(/^(favorites):(ru|uk):(.+)$/i);
           if (m){

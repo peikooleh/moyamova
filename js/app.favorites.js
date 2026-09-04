@@ -60,17 +60,19 @@
     list: function(){
       try{
         App.migrateFavoritesToV2 && App.migrateFavoritesToV2();
-        var st = App.state || {}; var v2 = st.favorites_v2 || {};
+        var tl = (String(uiLang()).toLowerCase()==='uk') ? 'uk' : 'ru';
+        var v3 = App.ensureFavoritesV3 ? App.ensureFavoritesV3() : ((App.state && App.state.favorites_v3) || {});
+        var scoped = v3[tl] || {};
         var flg = dictFilterLang();
         var out = [];
-        Object.keys(v2).forEach(function(dictKey){
+        Object.keys(scoped).forEach(function(dictKey){
           if (flg && keyLang(dictKey) !== flg) return;
-          var map = v2[dictKey] || {};
+          var map = scoped[dictKey] || {};
           Object.keys(map).forEach(function(id){
             if (!map[id]) return;
             var w = aliveWord(dictKey, id);
             if (!w) return;
-            out.push({ id: String(id), dictKey: dictKey, ts: 0 });
+            out.push({ id: String(id), dictKey: dictKey, trainLang: tl, ts: 0 });
           });
         });
         return out;
@@ -159,17 +161,19 @@
   App.clearFavoritesForLang = function(dictLang){
     try{
       const lang = dictLang || _activeDictLang();
-      const st = (App.state && App.state.favorites_v2) ? App.state.favorites_v2 : null;
-      if (!st) return;
-      Object.keys(st).forEach(function(sourceKey){
-        if (_langOfKey(sourceKey) === lang) delete st[sourceKey];
+      const v3 = App.ensureFavoritesV3 ? App.ensureFavoritesV3() : ((App.state && App.state.favorites_v3) || null);
+      if (!v3) return;
+      const tl = String((App.settings && (App.settings.lang || App.settings.uiLang)) || 'ru').toLowerCase()==='uk' ? 'uk' : 'ru';
+      const scoped = v3[tl] || (v3[tl] = {});
+      Object.keys(scoped).forEach(function(sourceKey){
+        if (_langOfKey(sourceKey) === lang) delete scoped[sourceKey];
       });
       App.saveState && App.saveState();
     }catch(e){}
   };
 
   App.clearFavoritesAll = App.clearFavoritesAll || function(){
-    try { if (App.state) App.state.favorites_v2 = {}; App.saveState && App.saveState(); } catch(e){}
+    try { if (App.state) App.state.favorites_v3 = { ru:{}, uk:{} }; App.saveState && App.saveState(); } catch(e){}
   };
 })();
 
@@ -194,17 +198,19 @@
   App.clearFavoritesForLang = function(dictLang){
     try{
       const lang = dictLang || _activeDictLang();
-      const st = (App.state && App.state.favorites_v2) ? App.state.favorites_v2 : null;
-      if (!st) return;
-      Object.keys(st).forEach(function(sourceKey){
-        if (_langOfKey(sourceKey) === lang) delete st[sourceKey];
+      const v3 = App.ensureFavoritesV3 ? App.ensureFavoritesV3() : ((App.state && App.state.favorites_v3) || null);
+      if (!v3) return;
+      const tl = String((App.settings && (App.settings.lang || App.settings.uiLang)) || 'ru').toLowerCase()==='uk' ? 'uk' : 'ru';
+      const scoped = v3[tl] || (v3[tl] = {});
+      Object.keys(scoped).forEach(function(sourceKey){
+        if (_langOfKey(sourceKey) === lang) delete scoped[sourceKey];
       });
       App.saveState && App.saveState();
     }catch(e){}
   };
 
   App.clearFavoritesAll = App.clearFavoritesAll || function(){
-    try { if (App.state) App.state.favorites_v2 = {}; App.saveState && App.saveState(); } catch(e){}
+    try { if (App.state) App.state.favorites_v3 = { ru:{}, uk:{} }; App.saveState && App.saveState(); } catch(e){}
   };
 })();
 
@@ -227,6 +233,13 @@
     };
   }
 
+  // Explicit RU/UK scope for virtual favorites decks.
+  if (typeof A.Favorites.hasForTrainLang !== 'function') {
+    A.Favorites.hasForTrainLang = function(trainLang, dictKey, wordId){
+      try { return !!(A.isFavoriteForLang && A.isFavoriteForLang(trainLang, dictKey, wordId)); } catch(_){ return false; }
+    };
+  }
+
   // Для моста и удаления пачкой (fallback): получить список избранных id по базовому словарю
   if (typeof A.Favorites.getIds !== 'function') {
     A.Favorites.getIds = function(trainLang, baseDeckKey){
@@ -235,7 +248,7 @@
         var out = [];
         for (var i=0;i<full.length;i++){
           var w = full[i];
-          if (A.Favorites.has(baseDeckKey, w.id)) out.push(String(w.id));
+          if (A.Favorites.hasForTrainLang ? A.Favorites.hasForTrainLang(trainLang, baseDeckKey, w.id) : A.Favorites.has(baseDeckKey, w.id)) out.push(String(w.id));
         }
         return out;
       } catch(_){ return []; }
@@ -258,41 +271,48 @@
     }catch(_){ return 'ru'; }
   }
 
-  // Build summary by base decks: [{ baseDeckKey, count }]
-  if (typeof A.Favorites.listSummary !== 'function'){
-    A.Favorites.listSummary = function(){
-      try{
-        var out = [];
-        var keys = (A.Decks && A.Decks.builtinKeys) ? (A.Decks.builtinKeys() || []) : [];
-        for (var i=0;i<keys.length;i++){
-          var k = keys[i];
-          var deck = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(k) || []) : [];
+  // Build summary across independent RU/UK scopes.
+  A.Favorites.listSummary = function(){
+    try{
+      var out = [];
+      var v3 = A.ensureFavoritesV3 ? A.ensureFavoritesV3() : ((A.state && A.state.favorites_v3) || {});
+      ['ru','uk'].forEach(function(tl){
+        var scoped = v3[tl] || {};
+        Object.keys(scoped).forEach(function(k){
+          var map = scoped[k] || {};
           var cnt = 0;
-          for (var j=0;j<deck.length;j++){
-            var w = deck[j];
-            if (A.Favorites.has && A.Favorites.has(k, w.id)) cnt++;
-          }
-          if (cnt>0) out.push({ baseDeckKey:k, count:cnt });
-        }
-        return out;
-      }catch(_){ return []; }
-    };
-  }
+          Object.keys(map).forEach(function(id){
+            if (!map[id]) return;
+            var full = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(k) || []) : [];
+            for (var i=0;i<full.length;i++){
+              if (String(full[i] && full[i].id) === String(id)){ cnt++; break; }
+            }
+          });
+          if (cnt>0) out.push({
+            trainLang: tl,
+            baseDeckKey: k,
+            favoritesKey: 'favorites:' + tl + ':' + k,
+            count: cnt
+          });
+        });
+      });
+      return out;
+    }catch(_){ return []; }
+  };
 
-  // Clear favorites for one base deck
-  if (typeof A.Favorites.clearForDeck !== 'function'){
-    A.Favorites.clearForDeck = function(baseDeckKey){
-      try{
-        var st = A.state || (A.state = {});
-        st.favorites_v2 = st.favorites_v2 || {};
-        if (st.favorites_v2[baseDeckKey]) {
-          delete st.favorites_v2[baseDeckKey];
-          if (A.saveState) try{ A.saveState(); }catch(_){}
-          try{ document.dispatchEvent(new CustomEvent('favorites:changed')); }catch(_){}
-        }
-      }catch(_){}
-    };
-  }
+  // Clear favorites for one base deck in the active RU/UK scope only.
+  A.Favorites.clearForDeck = function(baseDeckKey, trainLang){
+    try{
+      var tl = String(trainLang || _getTrainLang()).toLowerCase()==='uk' ? 'uk' : 'ru';
+      var v3 = A.ensureFavoritesV3 ? A.ensureFavoritesV3() : ((A.state && A.state.favorites_v3) || {});
+      var scoped = v3[tl] || (v3[tl] = {});
+      if (scoped[baseDeckKey]) {
+        delete scoped[baseDeckKey];
+        if (A.saveState) try{ A.saveState(); }catch(_){}
+        try{ document.dispatchEvent(new CustomEvent('favorites:changed')); }catch(_){}
+      }
+    }catch(_){}
+  };
 
   // Parse favorites virtual key: favorites:<trainLang>:<baseDeckKey>
   function _parseFavoritesKey(key){
@@ -310,7 +330,7 @@
         var out = [];
         for (var i=0;i<full.length;i++){
           var w = full[i];
-          if (A.Favorites.has && A.Favorites.has(p.baseDeckKey, w.id)) out.push(w);
+          if (A.Favorites.hasForTrainLang ? A.Favorites.hasForTrainLang(p.trainLang, p.baseDeckKey, w.id) : (A.Favorites.has && A.Favorites.has(p.baseDeckKey, w.id))) out.push(w);
         }
         // Prepositions trainer uses an expanded deck where the same pattern id is repeated
         // across multiple variants. Favorites are stored by pattern id, so we must dedupe.
