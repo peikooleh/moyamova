@@ -135,6 +135,22 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
       try { window.dispatchEvent(new Event('lexitron:route-changed')); } catch(_){}
     }
 
+    // Replace only the Dictionaries view when switching learning language.
+    // The mobile top bar is a sibling of .home--dicts inside #app; replacing
+    // #app.innerHTML used to destroy that bar for a few frames, which caused
+    // the page to jump/collapse toward the top-left until mobile.dicts.js
+    // mounted the bar again. Keep shell chrome intact and swap only the view.
+    function setDictView(html){
+      const current = app.querySelector(':scope > .home--dicts');
+      if (current) {
+        const tpl = document.createElement('template');
+        tpl.innerHTML = String(html || '').trim();
+        const next = tpl.content.firstElementChild;
+        if (next) { current.replaceWith(next); return; }
+      }
+      app.innerHTML = html;
+    }
+
     function renderTableForLang(lang){
       const keysAll = byLang[lang] || [];
 
@@ -216,7 +232,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
         if (!keysAll.includes(selectedKey)) selectedKey = keysAll[0] || '';
 
         const rows = rowsFor(keysAll, selectedKey);
-        app.innerHTML = `
+        setDictView(`
           <div class="home home--fixed-card home--dicts">
             <section class="card dicts-card dicts-card--fixed">
               <div class="dicts-header">
@@ -238,13 +254,13 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
                 </div>
               </div>
             </section>
-          </div>`;
+          </div>`);
 
       } else {
         // DE: две страницы (обычные деки + LearnPunkt)
         if (!lpEnabled){
           const rows0 = mainKeys.length ? rowsFor(mainKeys, selectedMain) : '';
-          app.innerHTML = `
+          setDictView(`
             <div class="home home--fixed-card home--dicts">
               <section class="card dicts-card dicts-card--fixed">
                 <div class="dicts-header">
@@ -267,12 +283,12 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
                   </div>
                 </div>
               </section>
-            </div>`;
+            </div>`);
         } else {
         const rows0 = mainKeys.length ? rowsFor(mainKeys, selectedMain) : '';
         const rows1 = lpKeys.length   ? rowsFor(lpKeys,   selectedLP)   : '';
 
-        app.innerHTML = `
+        setDictView(`
           <div class="home home--fixed-card home--dicts">
             <section class="card dicts-card dicts-card--fixed">
               <div class="dicts-header">
@@ -315,7 +331,7 @@ const allKeys = (A.Decks?.builtinKeys?.() || []);
                 </div>
               </div>
             </section>
-          </div>`;
+          </div>`);
       }
       }
 
