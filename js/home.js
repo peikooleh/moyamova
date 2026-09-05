@@ -1401,6 +1401,20 @@ function firstAvailableBaseDeckKey(){
   // starKey (единственное определение)
   const starKey = (typeof A.starKey === 'function') ? A.starKey : (id, key) => `${key}:${id}`;
 
+  // 1.12.52 — canonical learned-state helper for Home/mobile trainer chrome.
+  // This helper was lost during the production merge; callers were swallowing
+  // the resulting ReferenceError and therefore always rendered 0% for Words/Prepositions.
+  function isLearned(w, deckKey) {
+    try {
+      if (!w || w.id == null || !deckKey) return false;
+      const max = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
+      const stars = (A.state && A.state.stars) ? Number(A.state.stars[starKey(w.id, deckKey)] || 0) : 0;
+      return stars >= max;
+    } catch (_) {
+      return false;
+    }
+  }
+
   // MOYAMOVA: virtual decks (favorites / mistakes)
   function isVirtualDeckKey(key){
     return /^(favorites|mistakes):(ru|uk):/i.test(String(key||''));
