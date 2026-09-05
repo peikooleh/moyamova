@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "generatedFrom": "MOYAMOVA 1.5.1 JS decks",
   "deckCount": 36,
-  "totalWords": 6629,
+  "totalWords": 6742,
   "decks": [
     {
       "key": "de_nouns",
       "file": "dicts/data/de/nouns.json",
-      "count": 1108,
+      "count": 1163,
       "language": "de",
       "partOfSpeech": "nouns",
       "group": "base",
@@ -16,7 +16,7 @@
     {
       "key": "de_verbs",
       "file": "dicts/data/de/verbs.json",
-      "count": 767,
+      "count": 828,
       "language": "de",
       "partOfSpeech": "verbs",
       "group": "base",
@@ -34,7 +34,7 @@
     {
       "key": "de_adverbs",
       "file": "dicts/data/de/adverbs.json",
-      "count": 118,
+      "count": 116,
       "language": "de",
       "partOfSpeech": "adverbs",
       "group": "base",
@@ -43,7 +43,7 @@
     {
       "key": "de_prepositions",
       "file": "dicts/data/de/prepositions.json",
-      "count": 103,
+      "count": 102,
       "language": "de",
       "partOfSpeech": "prepositions",
       "group": "base",
