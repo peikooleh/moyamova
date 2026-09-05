@@ -1,4 +1,4 @@
-/* MOYAMOVA 1.12.45 — Mobile Statistics shell
+/* MOYAMOVA 1.12.53 — Mobile Statistics shell
  * Adds the same compact Home / title / menu bar used by other mobile pages.
  * Statistics rendering and routing logic remain untouched.
  */
@@ -51,7 +51,7 @@
       '<button type="button" class="mobile-stats-back" data-mobile-stats-home aria-label="'+(U?'На головну':'На главную')+'">'+
         '<span class="mobile-stats-back__arrow" aria-hidden="true">‹</span><span>'+(U?'Головна':'Главная')+'</span>'+
       '</button>'+
-      '<strong class="mobile-stats-title">'+(U?'Статистика':'Статистика')+'</strong>'+
+      '<span class="mobile-stats-bar__spacer" aria-hidden="true"></span>'+
       '<button type="button" class="mobile-stats-menu" data-mobile-stats-menu aria-label="'+(U?'Відкрити меню':'Открыть меню')+'">•••</button>';
 
     if(bar.innerHTML!==html)bar.innerHTML=html;
