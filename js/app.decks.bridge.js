@@ -56,9 +56,10 @@
       try{
         const group = String(p.group).toLowerCase();
         const TL = p.trainLang;
-        const decksObj = (window.decks && typeof window.decks==='object') ? window.decks : {};
-        const baseKeys = Object.keys(decksObj)
-          .filter(k => Array.isArray(decksObj[k]) && !/^favorites:|^mistakes:/i.test(k))
+        const baseKeys = ((window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+          ? window.DeckLoader.availableKeys()
+          : Object.keys((window.decks && typeof window.decks==='object') ? window.decks : {}))
+          .filter(k => !/^favorites:|^mistakes:/i.test(k))
           .filter(k => group==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
 
         // В articles-режиме используем изолированные контуры.

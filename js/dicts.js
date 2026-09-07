@@ -9,9 +9,10 @@
 (function(){
   'use strict';
 
+  // Built-in deck existence now comes from decks.manifest.json.
+  // Do not seed built-in keys with empty arrays: under lazy loading that can
+  // masquerade as an already-loaded empty deck and block the first JSON fetch.
   window.decks = window.decks || {};
-  if (!Array.isArray(window.decks.de_verbs)) window.decks.de_verbs = [];
-  if (!Array.isArray(window.decks.de_nouns)) window.decks.de_nouns = [];
 
   function i18n(){
     try { return (window.App && typeof App.i18n === 'function') ? (App.i18n()||{}) : {}; }

@@ -9,6 +9,7 @@
   const root = document.documentElement;
   const mq = window.matchMedia('(max-width: 899px)');
   let raf = 0;
+  const standalone = !!((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true);
 
   function clearMobileVars() {
     root.removeAttribute('data-mobile-viewport');
@@ -22,6 +23,15 @@
   function writeMobileVars() {
     raf = 0;
     if (!mq.matches) {
+      clearMobileVars();
+      return;
+    }
+
+    // Installed iOS PWAs animate VisualViewport geometry while their native
+    // window is being presented. Feeding those transient values into the root
+    // layout makes the whole app appear to shrink/slide. In standalone mode
+    // keep CSS on its stable dvh/svh foundation instead.
+    if (standalone) {
       clearMobileVars();
       return;
     }
@@ -49,7 +59,7 @@
 
   window.addEventListener('resize', schedule, { passive: true });
   window.addEventListener('orientationchange', schedule, { passive: true });
-  if (window.visualViewport) {
+  if (window.visualViewport && !standalone) {
     window.visualViewport.addEventListener('resize', schedule, { passive: true });
     // Do not write root CSS variables on every VisualViewport scroll frame.
     // iOS Safari toolbar/keyboard geometry changes are covered by resize.

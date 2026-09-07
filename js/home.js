@@ -305,10 +305,18 @@
       const t0 = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
       (function tick(){
         try{
-          if (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') {
-            const decks = (window.decks && typeof window.decks === 'object') ? window.decks : {};
-            const ok = Object.keys(decks).some(k => Array.isArray(decks[k]) && decks[k].length > 0);
-            if (ok) return resolve(true);
+          // Lazy-deck architecture: startup readiness means the manifest registry is
+          // available, not that at least one payload has already been downloaded.
+          // Waiting for window.decks to become non-empty adds an unnecessary ~2 s
+          // delay on a true cold start and partially defeats on-demand loading.
+          if (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function') {
+            const keys = window.DeckLoader.availableKeys();
+            if (Array.isArray(keys) && keys.length > 0) return resolve(true);
+          }
+          // Compatibility fallback for environments where DeckLoader is unavailable.
+          if (A.Decks && typeof A.Decks.builtinKeys === 'function') {
+            const keys = A.Decks.builtinKeys() || [];
+            if (keys.length > 0) return resolve(true);
           }
         }catch(_){}
         const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
@@ -1327,6 +1335,12 @@ function isValidDeckKey(key){
     if (__mm_isSrDeckKey(key) && !__mm_isSrEnabled()) return false;
     if (__mm_isLpDeckKey(key) && !__mm_isLpEnabled()) return false;
 
+    try {
+      if (window.DeckLoader && typeof window.DeckLoader.hasAvailable === 'function' && window.DeckLoader.hasAvailable(key)) {
+        const e = (typeof window.DeckLoader.getEntry === 'function') ? window.DeckLoader.getEntry(key) : null;
+        return !e || Number(e.count || 0) > 0;
+      }
+    } catch(_){ }
     if (!A.Decks || typeof A.Decks.resolveDeckByKey !== 'function') return false;
     const arr = A.Decks.resolveDeckByKey(key) || [];
     return Array.isArray(arr) && arr.length > 0;
@@ -1335,12 +1349,14 @@ function isValidDeckKey(key){
 
 function firstAvailableBaseDeckKey(){
     try {
-      const decks = (window.decks && typeof window.decks === 'object') ? window.decks : {};
-      const keys = Object.keys(decks).filter(k =>
-        Array.isArray(decks[k]) &&
-        decks[k].length > 0 &&
-        !/^favorites:|^mistakes:/i.test(k)
-      );
+      const keys = (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+        ? window.DeckLoader.availableKeys().filter(k => {
+            const e = (typeof window.DeckLoader.getEntry === 'function') ? window.DeckLoader.getEntry(k) : null;
+            return !/^favorites:|^mistakes:/i.test(k) && (!e || Number(e.count || 0) > 0);
+          })
+        : Object.keys((window.decks && typeof window.decks === 'object') ? window.decks : {}).filter(k =>
+            Array.isArray(window.decks[k]) && window.decks[k].length > 0 && !/^favorites:|^mistakes:/i.test(k)
+          );
       return keys[0] || ACTIVE_KEY_FALLBACK;
     } catch(_){
       return ACTIVE_KEY_FALLBACK;
@@ -1350,12 +1366,15 @@ function firstAvailableBaseDeckKey(){
   function firstAvailableBaseDeckKeyByGroup(group){
     try{
       const g = String(group||'base').toLowerCase();
-      const decks = (window.decks && typeof window.decks === 'object') ? window.decks : {};
-      const keys = Object.keys(decks).filter(k =>
-        Array.isArray(decks[k]) &&
-        decks[k].length > 0 &&
-        !/^favorites:|^mistakes:/i.test(k)
-      ).filter(k => g==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
+      const all = (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+        ? window.DeckLoader.availableKeys()
+        : Object.keys((window.decks && typeof window.decks === 'object') ? window.decks : {});
+      const keys = all.filter(k => {
+        if (/^favorites:|^mistakes:/i.test(k)) return false;
+        const e = (window.DeckLoader && typeof window.DeckLoader.getEntry === 'function') ? window.DeckLoader.getEntry(k) : null;
+        if (e && Number(e.count || 0) <= 0) return false;
+        return g==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k);
+      });
       return keys[0] || firstAvailableBaseDeckKey();
     }catch(_){
       return firstAvailableBaseDeckKey();
@@ -1371,8 +1390,15 @@ function firstAvailableBaseDeckKey(){
       }
     } catch(_){}
     // резерв: первый реально непустой базовый словарь
-    const decks = (window.decks && typeof window.decks === 'object') ? window.decks : {};
-    const base = Object.keys(decks).find(k => Array.isArray(decks[k]) && decks[k].length >= 4 && !/^favorites:|^mistakes:/i.test(k));
+    const keys = (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+      ? window.DeckLoader.availableKeys()
+      : Object.keys((window.decks && typeof window.decks === 'object') ? window.decks : {});
+    const base = keys.find(k => {
+      if (/^favorites:|^mistakes:/i.test(k)) return false;
+      const e = (window.DeckLoader && typeof window.DeckLoader.getEntry === 'function') ? window.DeckLoader.getEntry(k) : null;
+      if (e) return Number(e.count || 0) >= 4;
+      return window.decks && Array.isArray(window.decks[k]) && window.decks[k].length >= 4;
+    });
     return base || firstAvailableBaseDeckKey();
   }
 
@@ -3108,7 +3134,9 @@ answers.innerHTML = '';
             if (group === 'lernpunkt' && isLernpunktKey(last)) return last;
             if (group === 'base' && !isLernpunktKey(last)) return last;
           }
-          const keys = Object.keys(window.decks || {});
+          const keys = (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+            ? window.DeckLoader.availableKeys()
+            : Object.keys(window.decks || {});
           if (group === 'lernpunkt') return keys.find(x => isLernpunktKey(x)) || last || pickDefaultKeyLikeRef();
           return keys.find(x => !!x && !isLernpunktKey(x)) || last || pickDefaultKeyLikeRef();
         }
@@ -3209,6 +3237,11 @@ if (hasProgress) {
   }
 
   async function mountApp() {
+    // First-run setup owns the screen. Do not mount/route Home underneath it:
+    // the setup flow finishes with a reload after persisting settings.
+    if (window.__MOYAMOVA_SETUP_PENDING__ === true || document.documentElement.classList.contains('setup-pending')) {
+      return;
+    }
     document.documentElement.dataset.level = getMode();
     setUiLang(getUiLang());
 

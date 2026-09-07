@@ -128,9 +128,11 @@
       try{
         var p = _parseMistakesKey(key);
         if (!p) return [];
-        var full = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(p.baseDeckKey) || []) : [];
+        // Check persisted IDs before resolving the base deck. Under lazy loading this
+        // prevents opening an empty Articles collection from downloading every noun deck.
         var ids = new Set((A.ArticlesMistakes.getIds(p.trainLang, p.baseDeckKey) || []).map(String));
         if (!ids.size) return [];
+        var full = (A.Decks && A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(p.baseDeckKey) || []) : [];
         return full.filter(function(w){ return ids.has(String(w.id)); });
       }catch(_){ return []; }
     },

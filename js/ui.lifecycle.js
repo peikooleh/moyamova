@@ -84,6 +84,7 @@
     function builtinKeys() {
       return safe(function () {
         if (window.App && App.Decks && typeof App.Decks.builtinKeys === 'function') return App.Decks.builtinKeys();
+        if (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function') return window.DeckLoader.availableKeys();
         return Object.keys(window.decks || {});
       }) || [];
     }
@@ -98,9 +99,10 @@
       if (!key) return false;
       if (key === 'fav' || key === 'favorites' || key === 'mistakes') return true;
       return !!safe(function () {
+        if (window.DeckLoader && typeof window.DeckLoader.hasAvailable === 'function' && window.DeckLoader.hasAvailable(key)) return true;
         if (window.App && App.Decks && typeof App.Decks.resolveDeckByKey === 'function') {
           var arr = App.Decks.resolveDeckByKey(key);
-          return Array.isArray(arr); // существование достаточно
+          return Array.isArray(arr); // compatibility fallback
         }
         return key && window.decks && Array.isArray(window.decks[key]);
       });
@@ -257,8 +259,13 @@
     function gate() {
       var initial = readSettings();
 
-      // Если настроек нет/нужно выбрать — показываем SetupModal
+      // Если настроек нет/нужно выбрать — показываем SetupModal.
+      // На первом запуске Home не должен монтироваться под модалкой: в PWA это
+      // вызывало серию layout/blur repaint и визуально выглядело как циклическое
+      // сворачивание/разворачивание экрана.
       if (shouldShowSetup(initial) && window.SetupModal && typeof SetupModal.build === 'function') {
+        window.__MOYAMOVA_SETUP_PENDING__ = true;
+        document.documentElement.classList.add('setup-pending');
         document.addEventListener('lexitron:setup:done', function () {
           var after = readSettings();
           var fixed = validateAndFix(after);
@@ -272,6 +279,8 @@
       }
 
       // Обычный путь
+      window.__MOYAMOVA_SETUP_PENDING__ = false;
+      document.documentElement.classList.remove('setup-pending');
       var fixed = validateAndFix(initial);
       persist(fixed);
       applyFilters(fixed);

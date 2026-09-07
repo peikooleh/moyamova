@@ -70,10 +70,11 @@
     // Articles keep their dedicated favorites storage and existing behavior.
     if (isArticlesMode()) {
       try{
-        const decks = (window.decks && typeof window.decks==='object') ? window.decks : {};
         const grp = currentArticlesGroup();
-        const baseKeys = Object.keys(decks)
-          .filter(k => Array.isArray(decks[k]) && !/^favorites:|^mistakes:/i.test(k))
+        const baseKeys = ((window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+          ? window.DeckLoader.availableKeys()
+          : Object.keys((window.decks && typeof window.decks==='object') ? window.decks : {}))
+          .filter(k => !/^favorites:|^mistakes:/i.test(k))
           .filter(k => grp==='lernpunkt' ? /_lernpunkt$/i.test(k) : !/_lernpunkt$/i.test(k));
 
         for (const baseKey of baseKeys){

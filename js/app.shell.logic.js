@@ -138,7 +138,15 @@
   // Applies both to normal mobile browsers and installed PWA/TWA.
   // Desktop/tablet-sized layouts remain allowed in landscape.
   (function(){
+    const standalonePwa = !!((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true);
     function setVhUnit(){
+      // In an installed iOS PWA, innerHeight can pass through transient values
+      // while the native window opens. Modern mobile CSS already uses dvh/svh,
+      // so avoid rewriting the legacy --vh bridge during that presentation.
+      if (standalonePwa) {
+        document.documentElement.style.removeProperty('--vh');
+        return;
+      }
       document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
     }
 
@@ -513,7 +521,18 @@
   // Service worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./sw.js').catch(console.warn);
+      navigator.serviceWorker.register('./sw.js')
+        .then(function() {
+          // Полный офлайн-кэш догреваем только ПОСЛЕ первого отображения страницы.
+          // Это убирает конкуренцию install-cache с CSS/JS на холодном старте.
+          setTimeout(function() {
+            navigator.serviceWorker.ready.then(function(reg) {
+              var worker = navigator.serviceWorker.controller || reg.active;
+              if (worker) worker.postMessage({ type: 'WARM_OFFLINE_CACHE' });
+            }).catch(function() {});
+          }, 3000);
+        })
+        .catch(console.warn);
     });
   }
 })();

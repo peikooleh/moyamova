@@ -33,7 +33,15 @@
 
   function builtinKeys(){
     var out = [];
-    if (window.decks && typeof window.decks === 'object'){
+    // Registry-first: built-in deck discovery must not depend on the deck payload
+    // already being present in window.decks. This is the compatibility foundation
+    // for on-demand loading; preloadAllSync still keeps current behaviour unchanged.
+    try {
+      if (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function') {
+        out = window.DeckLoader.availableKeys().slice();
+      }
+    } catch (_) {}
+    if (!out.length && window.decks && typeof window.decks === 'object') {
       for (var k in window.decks){
         if (!window.decks.hasOwnProperty(k)) continue;
         var arr = window.decks[k];
@@ -41,15 +49,14 @@
       }
     }
     var POS_ORDER = ['verbs','nouns','adjectives','adverbs','pronouns','prepositions','numbers','conjunctions','particles'];
-out.sort(function(a,b){
-  var pa = POS_ORDER.indexOf(posOfKey(a));
-  var pb = POS_ORDER.indexOf(posOfKey(b));
-  if (pa !== -1 && pb !== -1) return pa - pb;
-  if (pa !== -1) return -1;
-  if (pb !== -1) return 1;
-  return String(a).localeCompare(String(b));
-});
-
+    out.sort(function(a,b){
+      var pa = POS_ORDER.indexOf(posOfKey(a));
+      var pb = POS_ORDER.indexOf(posOfKey(b));
+      if (pa !== -1 && pb !== -1) return pa - pb;
+      if (pa !== -1) return -1;
+      if (pb !== -1) return 1;
+      return String(a).localeCompare(String(b));
+    });
     return out;
   }
 
@@ -85,10 +92,38 @@ out.sort(function(a,b){
       return Array.isArray(d) ? d : [];
     }
 
-    if (window.decks && Array.isArray(window.decks[key])) return window.decks[key];
+    function canReuseLoadedArray(deckKey){
+      if (!window.decks || !Array.isArray(window.decks[deckKey])) return false;
+      var arr = window.decks[deckKey];
+      if (arr.length > 0) return true;
+      try {
+        if (window.DeckLoader && typeof window.DeckLoader.getEntry === 'function') {
+          var entry = window.DeckLoader.getEntry(deckKey);
+          if (entry && Number(entry.count || 0) > 0) return false;
+        }
+      } catch (_) {}
+      return true;
+    }
+
+    if (canReuseLoadedArray(key)) return window.decks[key];
 
     var canon = normalizeKey(key);
-    if (canon && canon !== key && window.decks && Array.isArray(window.decks[canon])) return window.decks[canon];
+    if (canon && canon !== key && canReuseLoadedArray(canon)) return window.decks[canon];
+
+    // Lazy built-in deck load. Keep the public resolver synchronous so the existing
+    // trainer/UI code does not need an async rewrite in this migration stage.
+    try {
+      if (window.DeckLoader && typeof window.DeckLoader.loadSync === 'function') {
+        if (window.DeckLoader.hasAvailable && window.DeckLoader.hasAvailable(key)) {
+          return window.DeckLoader.loadSync(key) || [];
+        }
+        if (canon && canon !== key && window.DeckLoader.hasAvailable && window.DeckLoader.hasAvailable(canon)) {
+          return window.DeckLoader.loadSync(canon) || [];
+        }
+      }
+    } catch (e) {
+      console.error('[MOYAMOVA] Cannot lazy-load deck ' + key + ':', e);
+    }
 
     return [];
   }
@@ -148,8 +183,17 @@ out.sort(function(a,b){
     if (fav && fav.length >= 4) return 'fav';
     var built = builtinKeys();
     for (var i=0;i<built.length;i++){
-      var arr = resolveDeckByKey(built[i]);
-      if (arr && arr.length >= 4) return built[i];
+      // Prefer manifest metadata so choosing a default does not eagerly download decks.
+      try {
+        if (window.DeckLoader && typeof window.DeckLoader.getEntry === 'function') {
+          var entry = window.DeckLoader.getEntry(built[i]);
+          if (entry && Number(entry.count || 0) >= 4) return built[i];
+        }
+      } catch (_) {}
+      if (!window.DeckLoader || typeof window.DeckLoader.getEntry !== 'function') {
+        var arr = resolveDeckByKey(built[i]);
+        if (arr && arr.length >= 4) return built[i];
+      }
     }
     var users = Object.keys(App.dictRegistry.user || {});
     for (var j=0;j<users.length;j++){

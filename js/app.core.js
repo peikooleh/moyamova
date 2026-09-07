@@ -356,6 +356,17 @@ App.migrateFavoritesToV2 = function(){
     const old = st.favorites || {};
     const v2 = {};
 
+    // Cold-start guard: on fresh/current installs there is usually no legacy
+    // favorites payload to migrate. Do not resolve every built-in deck just to
+    // discover that the legacy map is empty.
+    const legacyIds = Object.keys(old || {}).filter(function(id){ return !!old[id]; });
+    if (!legacyIds.length) {
+      st.favorites_v2 = v2;
+      st.favorites_legacy = old;
+      try { App.saveState && App.saveState(); } catch(e){}
+      return;
+    }
+
     const dictKeys = []
       .concat(App.Decks.builtinKeys ? App.Decks.builtinKeys() : [])
       .concat(Object.keys((App.dictRegistry && App.dictRegistry.user) || {}));

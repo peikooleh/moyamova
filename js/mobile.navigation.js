@@ -111,6 +111,7 @@
   }
 
   function syncShell() {
+    if (window.__MOYAMOVA_SETUP_PENDING__ === true || document.documentElement.classList.contains('setup-pending')) return;
     const shell = currentMobileShell();
     if (shell) {
       docEl.dataset.mobileShell = shell;
@@ -154,7 +155,9 @@
 
   document.addEventListener('DOMContentLoaded', syncShell);
   window.addEventListener('pageshow', scheduleShellSync);
-  window.addEventListener('resize', scheduleShellSync);
+  // Do not resync the shell on every viewport resize. iOS standalone PWAs
+  // emit transient resize events while presenting the app window; routes and
+  // DOM mutations already provide the authoritative shell sync points.
   window.MOYAMOVA_MobileNav = { sync: syncShell, ensure: ensureNavSheet, close: closeMenu };
   setTimeout(syncShell, 0);
 })();

@@ -28,12 +28,64 @@
   }
   function languageName(lg){ const m={de:'Deutsch',en:'English',sr:'Srpski'}; return m[lg] || String(lg||'').toUpperCase(); }
   function starValue(key,w){ try { return Number((A.state&&A.state.stars&&A.state.stars[A.starKey(w.id,key)])||0); } catch(_){ return 0; } }
+
+  // Home must not force every deck payload to load just to draw counters.
+  // On a cold start the manifest already knows deck sizes, while learning
+  // progress is persisted locally. Use those lightweight sources until a
+  // deck has actually been opened; loaded decks still use the exact path.
+  function manifestCount(key){
+    try{
+      const e=(window.DeckLoader&&typeof window.DeckLoader.getEntry==='function')?window.DeckLoader.getEntry(key):null;
+      return e&&Number.isFinite(Number(e.count))?Math.max(0,Number(e.count)):0;
+    }catch(_){ return 0; }
+  }
+  function persistedStarsForKey(key){
+    const out=Object.create(null);
+    const prefix=String(key||'')+':';
+    const add=(rawId,rawVal)=>{
+      let id=String(rawId==null?'':rawId);
+      if(id.indexOf(prefix)===0) id=id.slice(prefix.length);
+      if(!id) return;
+      let v=Number(rawVal||0);
+      if(!Number.isFinite(v)) v=0;
+      if(out[id]==null||v>out[id]) out[id]=v;
+    };
+    try{
+      const raw=localStorage.getItem('progress.v2');
+      const st=raw?JSON.parse(raw):null;
+      const byDeck=st&&st.stars&&st.stars[key];
+      if(byDeck&&typeof byDeck==='object'){
+        Object.keys(byDeck).forEach(setKey=>{
+          const bucket=byDeck[setKey]||{};
+          Object.keys(bucket).forEach(id=>add(id,bucket[id]));
+        });
+      }
+    }catch(_){}
+    try{
+      const raw=localStorage.getItem('k_state_v1_3_1')||localStorage.getItem('k_state_v1_3_0');
+      const st=raw?JSON.parse(raw):null;
+      const map=st&&st.stars;
+      if(map&&typeof map==='object'){
+        Object.keys(map).forEach(id=>{ if(String(id).indexOf(prefix)===0) add(id,map[id]); });
+      }
+    }catch(_){}
+    return out;
+  }
   function statsForKey(key){
-    const deck=(A.Decks&&A.Decks.resolveDeckByKey) ? (A.Decks.resolveDeckByKey(key)||[]) : [];
     const mx=(A.Trainer&&A.Trainer.starsMax) ? A.Trainer.starsMax() : 5;
-    let learned=0, started=0, stars=0;
-    deck.forEach(w=>{ const s=Math.max(0,Math.min(mx,starValue(key,w))); stars+=s; if(s>=mx) learned++; if(s>0) started++; });
-    return {total:deck.length,learned,started,stars,maxStars:deck.length*mx,pct:deck.length?Math.round(learned*100/deck.length):0};
+    const loaded=!!(window.decks&&Array.isArray(window.decks[key])&&window.decks[key].length);
+    if(loaded){
+      const deck=window.decks[key];
+      let learned=0, started=0, stars=0;
+      deck.forEach(w=>{ const s=Math.max(0,Math.min(mx,starValue(key,w))); stars+=s; if(s>=mx) learned++; if(s>0) started++; });
+      return {total:deck.length,learned,started,stars,maxStars:deck.length*mx,pct:deck.length?Math.round(learned*100/deck.length):0};
+    }
+    const total=manifestCount(key);
+    const map=persistedStarsForKey(key);
+    let learned=0,started=0,stars=0;
+    Object.keys(map).forEach(id=>{ const s=Math.max(0,Math.min(mx,Number(map[id]||0))); stars+=s; if(s>=mx) learned++; if(s>0) started++; });
+    learned=Math.min(learned,total); started=Math.min(started,total); stars=Math.min(stars,total*mx);
+    return {total,learned,started,stars,maxStars:total*mx,pct:total?Math.round(learned*100/total):0};
   }
   function langStats(lg){
     const keys=baseKeys().filter(k=>langOf(k)===lg);
@@ -43,7 +95,19 @@
     try { return (A.Mistakes&&A.Mistakes.listSummary?A.Mistakes.listSummary():[]).filter(x=>langOf(x.baseKey)===lg).reduce((n,x)=>n+(x.count||0),0); } catch(_){ return 0; }
   }
   function favoriteCount(lg){
-    try { return (A.Favorites&&A.Favorites.list?A.Favorites.list():[]).filter(x=>langOf(x.dictKey)===lg).length; } catch(_){ return 0; }
+    // Home only needs a counter. Reading Favorites.list() validates every saved
+    // id against its source deck and therefore may lazy-load dictionaries during
+    // first paint. Count the persisted v3 buckets directly instead.
+    try {
+      const tl=(String((A.settings&&(A.settings.lang||A.settings.uiLang))||'ru').toLowerCase()==='uk')?'uk':'ru';
+      const v3=A.ensureFavoritesV3?A.ensureFavoritesV3():((A.state&&A.state.favorites_v3)||{});
+      const scoped=v3[tl]||{};
+      return Object.keys(scoped).reduce((n,key)=>{
+        if(langOf(key)!==lg) return n;
+        const map=scoped[key]||{};
+        return n+Object.keys(map).reduce((m,id)=>m+(map[id]?1:0),0);
+      },0);
+    } catch(_){ return 0; }
   }
   function lastKeyForLang(lg){
     let k=(A.settings&&A.settings.lastDeckKey)||'';

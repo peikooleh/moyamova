@@ -65,9 +65,10 @@
     if (isArticlesMode()){
       const out = [];
       try{
-        const decks = (window.decks && typeof window.decks==='object') ? window.decks : {};
-        let baseKeys = Object.keys(decks)
-          .filter(k => Array.isArray(decks[k]) && !/^favorites:|^mistakes:/i.test(k));
+        let baseKeys = ((window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function')
+          ? window.DeckLoader.availableKeys()
+          : Object.keys((window.decks && typeof window.decks==='object') ? window.decks : {}))
+          .filter(k => !/^favorites:|^mistakes:/i.test(k));
 
         // Articles mode: do NOT mix base and LearnPunkt decks in lists (prevents "leak" illusion)
         if (isArticlesMode()){

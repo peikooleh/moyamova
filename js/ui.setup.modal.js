@@ -149,13 +149,18 @@
 // Определяем, для каких языков реально есть словари (по window.decks)
   function detectAvailableStudyLangCodes() {
     try {
-      var decks = (root.decks || window.decks || {});
+      var keys = [];
+      if (window.DeckLoader && typeof window.DeckLoader.availableKeys === 'function') {
+        keys = window.DeckLoader.availableKeys();
+      } else {
+        var decks = (root.decks || window.decks || {});
+        keys = Object.keys(decks).filter(function(key){
+          return Array.isArray(decks[key]) && decks[key].length;
+        });
+      }
       var langs = [];
-      for (var key in decks) {
-        if (!decks.hasOwnProperty(key)) continue;
-        var arr = decks[key];
-        if (!Array.isArray(arr) || !arr.length) continue;
-
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
         // ключ вида "de_verbs" -> "de"
         var lang = String(key).split('_')[0].toLowerCase();
         if (lang && langs.indexOf(lang) === -1) {
