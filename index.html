@@ -2,7 +2,7 @@
      Проект: MOYAMOVA
      Файл: index.html
      Назначение: Основной HTML-шаблон приложения
-     Версия: 1.12.53
+     Версия: 1.12.64
      Обновлено: 2025-11-17
      ========================================================== -->
 <!doctype html>
@@ -117,29 +117,43 @@
   }
   </script>
 
-  <!-- Smooth reload helper: prevents white flash during SW upgrade -->
+  <!-- First-run / upgrade boot guard: keep the shell stable until startup decides what to show. -->
   <script>
   (function(){
     try {
+      var setupDone = localStorage.getItem('lexitron.setupDone') === 'true';
+      var tosAccepted = localStorage.getItem('mm.tosAccepted') === '1';
+      var setupPending = !(setupDone && tosAccepted);
+      window.__MOYAMOVA_SETUP_PENDING__ = setupPending;
+      if (setupPending) document.documentElement.classList.add('setup-pending');
+
       if (sessionStorage.getItem('moya_upgrading') === '1') {
         var dark = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
         var bg = dark ? '#0c1016' : '#ffffff';
         var st = document.createElement('style');
-        st.textContent = 'body{background:'+bg+'} body{opacity:0;transition:opacity .18s ease}';
+        st.textContent = 'body{background:'+bg+'}';
         document.head.appendChild(st);
-        window.addEventListener('load', function(){
-          sessionStorage.removeItem('moya_upgrading');
-          requestAnimationFrame(function(){ document.body.style.opacity='1'; });
-        });
+        document.addEventListener('DOMContentLoaded', function(){
+          try { sessionStorage.removeItem('moya_upgrading'); } catch(_) {}
+        }, { once:true });
       }
-    } catch(e){}
+    } catch(e){
+      window.__MOYAMOVA_SETUP_PENDING__ = false;
+    }
   })();
   </script>
+  <style>
+    html.setup-pending #moya-shell-root{visibility:hidden!important;pointer-events:none!important}
+    html.setup-pending body{overflow:hidden}
+  </style>
 </head>
 <body>
 
   <!-- Минимальный корневой контейнер. Весь shell рисуем из JS -->
   <div id="moya-shell-root"></div>
+
+  <!-- Temporary QA profiler: enabled only with ?perf=1 -->
+  <script src="./js/cold.start.profiler.js" defer></script>
 
   <!-- === SHELL (верстка + логика) === -->
   <script src="./js/app.shell.view.js" defer></script>
