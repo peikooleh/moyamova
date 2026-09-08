@@ -123,6 +123,22 @@
       const elapsed=Math.max(0,Date.now()-sess.startedAt), mins=Math.floor(elapsed/60000);
       const timeText=String(Math.floor(mins/60)).padStart(2,'0')+':'+String(mins%60).padStart(2,'0');
       const idx=getActiveBatchIndex(), sz=getSetSizeForKey(key), totalSets=Math.max(1,Math.ceil(deckAll.length/sz));
+      const isDaily=!!(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(key));
+      if(isDaily){
+        const dp=(A.DailySession.progress&&A.DailySession.progress())||{done:0,total:deckAll.length};
+        const done=Math.max(0,Number(dp.done||0)), total=Math.max(1,Number(dp.total||deckAll.length||1));
+        const dailyPct=Math.round(done*100/total);
+        root.innerHTML=
+          '<div class="words-desktop-titlebar words-desktop-titlebar--daily"><div><h1>◎ <span>'+(uk?'Режим: ':'Режим: ')+'</span><b>'+(uk?'Сьогодні · Денне тренування':'Сегодня · Дневная тренировка')+'</b></h1>'+ 
+          '<p>'+(uk?'Коротке персональне заняття на сьогодні':'Короткое персональное занятие на сегодня')+'</p></div>'+ 
+          '<div class="words-desktop-progress"><span>'+(uk?'Виконано':'Выполнено')+' '+done+' / '+total+'</span><div><i style="width:'+dailyPct+'%"></i></div><b>'+dailyPct+'%</b></div></div>'+ 
+          '<div class="words-desktop-kpis words-desktop-kpis--daily">'+
+          '<article><i class="ok">✓</i><span>'+(uk?'Правильно':'Правильно')+'</span><strong>'+sess.correct+'</strong></article>'+ 
+          '<article><i class="bad">×</i><span>'+(uk?'Помилки':'Ошибки')+'</span><strong>'+sess.wrong+'</strong></article>'+ 
+          '<article><i class="streak">◫</i><span>'+(uk?'Залишилось':'Осталось')+'</span><strong>'+Math.max(0,total-done)+'</strong></article>'+ 
+          '<article><i class="time">◷</i><span>'+(uk?'Час':'Время')+'</span><strong>'+timeText+'</strong></article></div>';
+        return;
+      }
       root.innerHTML=
         '<div class="words-desktop-titlebar"><div><h1>◎ <span>'+(uk?'Режим: ':'Режим: ')+'</span><b>'+(uk?'Слова':'Слова')+'</b></h1>'+
         '<p>'+(uk?'Оберіть правильний переклад для слова':'Выберите правильный перевод для слова')+'</p></div>'+
@@ -268,9 +284,22 @@
         };
       }
 
+      const sess = __ensureWordsUiSession(key);
+      const isDaily=!!(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(key));
+      if(isDaily){
+        const dp=(A.DailySession.progress&&A.DailySession.progress())||{done:0,total:deckAll.length};
+        const done=Math.max(0,Number(dp.done||0));
+        const total=Math.max(1,Number(dp.total||deckAll.length||1));
+        return {
+          kind:'words', daily:true,
+          title:uk?'Сьогодні · Денне тренування':'Сегодня · Дневная тренировка',
+          correct:sess.correct, wrong:sess.wrong,
+          elapsedMs:Math.max(0,Date.now()-sess.startedAt),
+          done,total,left:Math.max(0,total-done),pct:Math.round(done*100/total)
+        };
+      }
       let learned = 0;
       deckAll.forEach(w=>{ try { if (isLearned(w,key)) learned++; } catch(_){} });
-      const sess = __ensureWordsUiSession(key);
       return {
         kind, title: uk ? 'Слова' : 'Слова',
         correct:sess.correct, wrong:sess.wrong, streak:sess.bestStreak,
@@ -1443,13 +1472,17 @@ function firstAvailableBaseDeckKey(){
 
   // MOYAMOVA: virtual decks (favorites / mistakes)
   function isVirtualDeckKey(key){
-    return /^(favorites|mistakes):(ru|uk):/i.test(String(key||''));
+    return /^(favorites|mistakes):(ru|uk):/i.test(String(key||'')) || /^daily:[a-z]{2}$/i.test(String(key||''));
   }
 
 
   function setDictStatsText(statsEl, deckKey){
     try{
       if (!statsEl) return;
+      if (A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(deckKey)) {
+        const p=A.DailySession.progress&&A.DailySession.progress();
+        if(p){ const uk=getUiLang()==='uk'; statsEl.style.display=''; statsEl.textContent=(uk?'Сьогодні: ':'Сегодня: ')+p.done+' / '+p.total; return; }
+      }
       const full = (A.Decks && typeof A.Decks.resolveDeckByKey === 'function') ? (A.Decks.resolveDeckByKey(deckKey) || []) : [];
       const starsMax = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
 
@@ -1480,6 +1513,10 @@ function activeDeckKey() {
   var A = window.App || {};
 
   try {
+    try {
+      var tk=(A.Trainer&&typeof A.Trainer.getDeckKey==='function')?A.Trainer.getDeckKey():null;
+      if (A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(tk)) return tk;
+    } catch(_){}
     // 1) последний реально использованный словарь — главный источник истины
     var last = (A.settings && A.settings.lastDeckKey) || null;
     if (isValidDeckKey(last)) return last;
@@ -1588,6 +1625,13 @@ function activeDeckKey() {
     } catch(_) {}
     return key;
   }
+  function dailySourceKey(word,key){
+    try { return (A.DailySession&&A.DailySession.sourceKey)?A.DailySession.sourceKey(word,key):((word&&word._dailySourceKey)||key); } catch(_){ return key; }
+  }
+  function dailySourceId(word,id){
+    try { return (A.DailySession&&A.DailySession.sourceId)?A.DailySession.sourceId(word,id):((word&&word._dailyOriginalId!=null)?word._dailyOriginalId:id); } catch(_){ return id; }
+  }
+
   function isFav(key, id) {
     const storageKey = favoriteStorageKey(key);
     try { if (typeof App.isFavorite === 'function') return !!App.isFavorite(storageKey, id); } catch(_) {}
@@ -1626,16 +1670,21 @@ function activeDeckKey() {
     try{
       const btn=document.getElementById('trainerModeIndicator');
       if(!btn) return;
-      const hard=getMode()==='hard';
       const isUk=getUiLang()==='uk';
+      const daily=!!(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(activeDeckKey()));
+      const hard=!daily && getMode()==='hard';
       btn.textContent=hard?'🦅':'🐣';
       btn.setAttribute('aria-pressed',String(hard));
-      const title=hard
-        ? (isUk?'Складний режим — натисніть, щоб увімкнути звичайний':'Сложный режим — нажмите, чтобы включить обычный')
-        : (isUk?'Звичайний режим — натисніть, щоб увімкнути складний':'Обычный режим — нажмите, чтобы включить сложный');
+      const title=daily
+        ? (isUk?'Денне заняття завжди проходить у звичайному режимі':'Дневное занятие всегда проходит в обычном режиме')
+        : (hard
+          ? (isUk?'Складний режим — натисніть, щоб увімкнути звичайний':'Сложный режим — нажмите, чтобы включить обычный')
+          : (isUk?'Звичайний режим — натисніть, щоб увімкнути складний':'Обычный режим — нажмите, чтобы включить сложный'));
       btn.title=title;
       btn.setAttribute('aria-label',title);
       btn.dataset.level=hard?'hard':'normal';
+      btn.dataset.dailyLocked=daily?'1':'0';
+      btn.classList.toggle('is-daily-locked',daily);
     }catch(_){}
   }
 
@@ -1645,6 +1694,15 @@ function activeDeckKey() {
     syncDifficultyControl();
     btn.onclick=function(){
       try{
+        const daily=!!(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(activeDeckKey()));
+        if(daily){
+          const msg=getUiLang()==='uk'
+            ? 'Для заняття «Сьогодні» використовується звичайний режим'
+            : 'Для занятия «Сегодня» используется обычный режим';
+          try { if(A.Msg&&typeof A.Msg.toast==='function') A.Msg.toast(msg,3000); else if(A.toast&&A.toast.show) A.toast.show(msg); } catch(_){}
+          syncDifficultyControl();
+          return;
+        }
         const toggle=document.getElementById('levelToggle');
         if(!toggle || toggle.disabled) return;
         toggle.checked=!toggle.checked;
@@ -1966,9 +2024,11 @@ function activeDeckKey() {
   }
 
   /* ------------------------------ Звёзды ------------------------------- */
-  function getStars(wordId) {
-    const key = activeDeckKey();
-    const v = (A.state && A.state.stars && A.state.stars[starKey(wordId, key)]) || 0;
+  function getStars(wordId, wordObj) {
+    const active = activeDeckKey();
+    const key = dailySourceKey(wordObj || A.__currentWord, active);
+    const id = dailySourceId(wordObj || A.__currentWord, wordId);
+    const v = (A.state && A.state.stars && A.state.stars[starKey(id, key)]) || 0;
     return Number(v) || 0;
   }
 
@@ -1998,7 +2058,7 @@ function activeDeckKey() {
     const box = document.querySelector('.trainer-stars');
     if (!box || !word) return;
     const max  = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
-    const have = getStars(word.id);
+    const have = getStars(word.id, word);
     drawStarsTwoPhase(box, have, max);
   }
 
@@ -2420,6 +2480,31 @@ if (wantArticles) {
     try { if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === 'function' && A.ArticlesTrainer.isActive()) A.ArticlesTrainer.stop(); } catch (_){ }
     try { if (A.ArticlesCard && typeof A.ArticlesCard.unmount === 'function') A.ArticlesCard.unmount(); } catch (_){ }
 
+    try {
+      if (A.DailySession && A.DailySession.isDailyKey && A.DailySession.isDailyKey(key) && A.DailySession.isComplete && A.DailySession.isComplete()) {
+        const plan=A.DailySession.finish();
+        try {
+          const uk=getUiLang()==='uk';
+          const n=plan&&Number(plan.total||0);
+          const mins=plan&&Number(plan.elapsedMinutes||plan.minutes||0);
+          const msg=uk
+            ? ('Денну норму виконано'+(n||mins?'\n':'')+(n?(n+' слів'):'')+(n&&mins?' · ':'')+(mins?(mins+' хв'):'')+'\nГарний результат. Продовжуйте у своєму темпі.')
+            : ('Дневная норма выполнена'+(n||mins?'\n':'')+(n?(n+' слов'):'')+(n&&mins?' · ':'')+(mins?(mins+' мин'):'')+'\nХороший результат. Продолжайте в своём темпе.');
+          if(A.Msg&&typeof A.Msg.toast==='function'){
+            A.Msg.toast(msg,3600);
+            try{
+              const root=document.querySelector('.toast-root');
+              if(root){
+                root.classList.add('toast-root--daily-complete');
+                setTimeout(()=>root.classList.remove('toast-root--daily-complete'),5800);
+              }
+            }catch(_){}
+          } else if(A.toast&&A.toast.show) A.toast.show(msg);
+        } catch(_){}
+        try { if (A.Router&&A.Router.routeTo) A.Router.routeTo('home'); } catch(_){}
+        return;
+      }
+    } catch(_){}
     const slice = (A.Trainer && typeof A.Trainer.getDeckSlice === 'function') ? (A.Trainer.getDeckSlice(key) || []) : [];
     if (!slice.length) return;
 
@@ -2492,7 +2577,9 @@ if (wantArticles) {
     try { __syncTrainerQuickbar(); } catch(_){}
 
     if (favBtn) {
-      const favNow = isFav(key, word.id);
+      const __sourceKey = dailySourceKey(word,key);
+      const __sourceId = dailySourceId(word,word.id);
+      const favNow = isFav(__sourceKey, __sourceId);
       favBtn.textContent = favNow ? '♥' : '♡';
       favBtn.classList.toggle('is-fav', favNow);
       favBtn.setAttribute('aria-pressed', String(favNow));
@@ -2535,8 +2622,8 @@ if (wantArticles) {
           }
         } catch(__e) {}
 
-        try { toggleFav(key, word.id); } catch (_){}
-        const now = isFav(key, word.id);
+        try { toggleFav(__sourceKey, __sourceId); } catch (_){}
+        const now = isFav(__sourceKey, __sourceId);
         favBtn.textContent = now ? '♥' : '♡';
         favBtn.classList.toggle('is-fav', now);
         favBtn.setAttribute('aria-pressed', String(now));
@@ -2644,7 +2731,8 @@ answers.innerHTML = '';
 
         if (ok) {
           solved = true;
-          try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(key, word.id, true); } catch (_){}
+          try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(dailySourceKey(word,key), dailySourceId(word,word.id), true); } catch (_){}
+          try { if(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(key)&&A.DailySession.markCorrect) A.DailySession.markCorrect(word); } catch(_){}
           try { renderStarsFor(word); } catch(_){}
 
           // Prepositions trainer: reveal the correct answer inside the sentence placeholder.
@@ -2771,7 +2859,8 @@ answers.innerHTML = '';
 
         if (!penalized) {
           penalized = true;
-          try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(key, word.id, false); } catch (_){}
+          try { A.Trainer && A.Trainer.handleAnswer && A.Trainer.handleAnswer(dailySourceKey(word,key), dailySourceId(word,word.id), false); } catch (_){}
+          try { if(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(key)&&A.DailySession.markWrong) A.DailySession.markWrong(word); } catch(_){}
           try { renderStarsFor(word); } catch(_){}
 
           // аналитика: ответ в тренере (штраф/зачёт только 1 раз)
@@ -2793,14 +2882,14 @@ answers.innerHTML = '';
               // mistakes of the xx_prepositions dictionary. Both trainers use
               // the same source key, so persist the trainer contour under its
               // dedicated virtual base key.
-              let mistakesBaseKey = key;
+              let mistakesBaseKey = dailySourceKey(word,key);
               try {
                 if (isPrepositionsModeForKey(key)) {
                   const pm = String(key || '').match(/^([a-z]{2})_prepositions$/i);
                   if (pm) mistakesBaseKey = String(pm[1]).toLowerCase() + '_prepositions_trainer';
                 }
               } catch(_){}
-              A.Mistakes.push(mistakesBaseKey, word.id);
+              A.Mistakes.push(mistakesBaseKey, dailySourceId(word,word.id));
               try { __syncTrainerSidebarCounts(); } catch(_){}
             }
             if (isPrepositionsModeForKey(key)) {
@@ -2857,6 +2946,8 @@ answers.innerHTML = '';
           }
         } catch (_) {}
 
+        try { if(A.DailySession&&A.DailySession.isDailyKey&&A.DailySession.isDailyKey(key)&&A.DailySession.markDontKnow) A.DailySession.markDontKnow(word); } catch(_){}
+
         setTimeout(() => { renderSets();
         if (A.ArticlesTrainer && typeof A.ArticlesTrainer.isActive === "function" && A.ArticlesTrainer.isActive()) {
           try { if (A.ArticlesTrainer.next) A.ArticlesTrainer.next(); } catch (_){}
@@ -2908,7 +2999,7 @@ answers.innerHTML = '';
       const box = document.querySelector('.trainer-stars');
       if (!box) return;
       const max  = (A.Trainer && typeof A.Trainer.starsMax === 'function') ? A.Trainer.starsMax() : 5;
-      const have = getStars(word.id);
+      const have = getStars(word.id, word);
       drawStarsTwoPhase(box, have, max);
     } catch(_){}
   }

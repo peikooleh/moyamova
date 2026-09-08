@@ -157,6 +157,7 @@
 
   A.Decks.resolveDeckByKey = function(key){
     try{
+      if (A.DailySession && A.DailySession.isDailyKey && A.DailySession.isDailyKey(key)) return A.DailySession.resolve(key) || [];
       if (isVirtual(key)) return resolveVirtualDeck(key) || [];
     }catch(_){}
 
@@ -186,6 +187,7 @@
 
   A.Decks.resolveNameByKey = function(key){
     try{
+      if (A.DailySession && A.DailySession.isDailyKey && A.DailySession.isDailyKey(key)) return (String((A.settings&&(A.settings.uiLang||A.settings.lang))||'ru').toLowerCase()==='uk') ? 'Сьогодні' : 'Сегодня';
       // Prepositions trainer decks
       if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
         return 'Prepositions';
@@ -227,6 +229,7 @@
 
     A.Decks.langOfKey = function(key){
     try{
+      if (A.DailySession && A.DailySession.isDailyKey && A.DailySession.isDailyKey(key)) return String(key).split(':')[1] || null;
       if (A.Prepositions && typeof A.Prepositions.isPrepositionsDeckKey === 'function' && A.Prepositions.isPrepositionsDeckKey(key)) {
         if (typeof A.Prepositions.langOfPrepositionsKey === 'function') return A.Prepositions.langOfPrepositionsKey(key);
         var m = String(key||'').trim().match(/^([a-z]{2})_prepositions$/i);

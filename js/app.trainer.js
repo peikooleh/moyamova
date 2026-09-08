@@ -17,6 +17,13 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
 
   function difficulty() {
     try {
+      // Daily Session deliberately uses the normal scoring curve. This keeps
+      // the daily quota predictable and short, while the user's saved global
+      // difficulty remains untouched for ordinary training.
+      try {
+        const dk = currentDeckKey();
+        if (/^daily:[a-z]{2}$/i.test(String(dk || ''))) return 'normal';
+      } catch (_dailyMode) {}
       const domLvl =
         (document &&
           document.documentElement &&
@@ -477,12 +484,13 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
   App.Trainer = Object.assign({}, App.Trainer || {}, {
     starsMax,
     unlockThreshold,
-    sampleNextIndexWeighted: (deck) =>
-      sampleNextIndexWeighted(
-        deck,
-        (App.Trainer && App.Trainer.getDeckKey && App.Trainer.getDeckKey()) ||
-          currentDeckKey()
-      ),
+    sampleNextIndexWeighted: (deck) => {
+      const __k=(App.Trainer && App.Trainer.getDeckKey && App.Trainer.getDeckKey()) || currentDeckKey();
+      try {
+        if (App.DailySession && App.DailySession.isDailyKey && App.DailySession.isDailyKey(__k) && App.DailySession.sampleNextIndex) return App.DailySession.sampleNextIndex(deck);
+      } catch(_){}
+      return sampleNextIndexWeighted(deck,__k);
+    },
     getSetSize,
     getBatchIndex,
     setBatchIndex,
@@ -597,6 +605,14 @@ const TRAINER_DEFAULT_LEARNED_REPEAT = 'never';
 
   A.Trainer.setDeckKey =
     A.Trainer.setDeckKey || setDeckKey;
+  A.Trainer.setCustomDeck = A.Trainer.setCustomDeck || function(key, deck, opts){
+    opts=opts||{};
+    if(!key || !Array.isArray(deck) || !deck.length) return false;
+    _deckKey=key; _deck=deck;
+    A.Trainer.deckKey=_deckKey; A.Trainer.deck=_deck;
+    if(!opts.silent) _apply();
+    return true;
+  };
   A.Trainer.ensureDeckLoaded =
     A.Trainer.ensureDeckLoaded || ensureDeckLoaded;
   A.Trainer.getDeckKey =

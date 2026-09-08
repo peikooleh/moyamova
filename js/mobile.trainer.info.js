@@ -44,6 +44,20 @@
     let d=null; try{d=A.MobileTrainerInfoData&&A.MobileTrainerInfoData();}catch(_){}
     if(!d){el.hidden=true;return;} el.hidden=false; el.classList.remove('mobile-trainer-info--boot'); el.removeAttribute('aria-hidden');
     const L=labels(), pct=Math.max(0,Math.min(100,Number(d.pct||0)));
+    if(d.daily){
+      const uk=String((A.settings&&(A.settings.lang||A.settings.uiLang))||'ru').toLowerCase()==='uk';
+      const done=Math.max(0,Number(d.done||0)), total=Math.max(1,Number(d.total||1));
+      el.classList.add('mobile-trainer-info--daily');
+      el.innerHTML=
+        '<div class="mti-head mti-head--daily"><div><span>◎</span><b>'+escapeHtml(d.title||'')+'</b></div><strong>'+done+' / '+total+'</strong></div>'+ 
+        '<div class="mti-progress" aria-label="'+(uk?'Виконано ':'Выполнено ')+done+' / '+total+'"><i style="width:'+pct+'%"></i></div>'+ 
+        '<div class="mti-kpis mti-kpis--daily">'+
+          kpi('ok','✓',L.ok,d.correct)+kpi('bad','×',L.bad,d.wrong)+
+          kpi('left','◫',uk?'Залишилось':'Осталось',d.left)+kpi('time','◷',L.time,timeText(d.elapsedMs))+
+        '</div>';
+      return;
+    }
+    el.classList.remove('mobile-trainer-info--daily');
     el.innerHTML=
       '<div class="mti-head"><div><span>◎</span><b>'+escapeHtml(d.title||'')+'</b></div><strong>'+pct+'%</strong></div>'+ 
       '<div class="mti-progress" aria-label="'+L.progress+' '+pct+'%"><i style="width:'+pct+'%"></i></div>'+ 
