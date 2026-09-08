@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedFrom": "MOYAMOVA 1.5.1 JS decks",
+  "generatedFrom": "MOYAMOVA 1.5.1 JS decks + EN QA-FINAL APP-READY EXPANDED 2026-09-08",
   "deckCount": 36,
-  "totalWords": 6742,
+  "totalWords": 6657,
   "decks": [
     {
       "key": "de_nouns",
@@ -88,7 +88,7 @@
     {
       "key": "en_nouns",
       "file": "dicts/data/en/nouns.json",
-      "count": 1104,
+      "count": 1115,
       "language": "en",
       "partOfSpeech": "nouns",
       "group": "base",
@@ -97,7 +97,7 @@
     {
       "key": "en_adjectives",
       "file": "dicts/data/en/adjectives.json",
-      "count": 184,
+      "count": 182,
       "language": "en",
       "partOfSpeech": "adjectives",
       "group": "base",
@@ -106,7 +106,7 @@
     {
       "key": "en_verbs",
       "file": "dicts/data/en/verbs.json",
-      "count": 738,
+      "count": 676,
       "language": "en",
       "partOfSpeech": "verbs",
       "group": "base",
@@ -115,7 +115,7 @@
     {
       "key": "en_adverbs",
       "file": "dicts/data/en/adverbs.json",
-      "count": 110,
+      "count": 101,
       "language": "en",
       "partOfSpeech": "adverbs",
       "group": "base",
@@ -124,7 +124,7 @@
     {
       "key": "en_pronouns",
       "file": "dicts/data/en/pronouns.json",
-      "count": 39,
+      "count": 32,
       "language": "en",
       "partOfSpeech": "pronouns",
       "group": "base",
@@ -133,7 +133,7 @@
     {
       "key": "en_prepositions",
       "file": "dicts/data/en/prepositions.json",
-      "count": 95,
+      "count": 82,
       "language": "en",
       "partOfSpeech": "prepositions",
       "group": "base",
@@ -142,7 +142,7 @@
     {
       "key": "en_conjunctions",
       "file": "dicts/data/en/conjunctions.json",
-      "count": 33,
+      "count": 29,
       "language": "en",
       "partOfSpeech": "conjunctions",
       "group": "base",
@@ -160,7 +160,7 @@
     {
       "key": "en_numbers",
       "file": "dicts/data/en/numbers.json",
-      "count": 38,
+      "count": 39,
       "language": "en",
       "partOfSpeech": "numbers",
       "group": "base",
