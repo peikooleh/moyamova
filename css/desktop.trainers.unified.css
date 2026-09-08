@@ -160,3 +160,7 @@
   }
 }
 @media(max-width:899px){.words-desktop-head{display:none!important}}
+
+@media (min-width:900px){
+  .words-desktop-kpis.words-desktop-kpis--daily{grid-template-columns:repeat(4,minmax(0,1fr))}
+}

@@ -97,3 +97,29 @@
     display:none!important;
   }
 }
+
+/* Daily Session: compact, purpose-specific trainer chrome. */
+@media (max-width:899px){
+  .mobile-trainer-info.mobile-trainer-info--daily .mti-head b{
+    font-size:12px;
+    font-weight:900;
+  }
+  .mobile-trainer-info.mobile-trainer-info--daily .mti-head strong{
+    color:#2b8cff;
+    font-weight:900;
+    font-size:12px;
+  }
+  .mobile-trainer-info.mobile-trainer-info--daily .mti-kpis--daily{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
+  }
+  .mobile-trainer-info.mobile-trainer-info--daily .mti-kpi.left>i{
+    background:#edf1ff;
+    color:#6178df;
+  }
+  html[data-theme="dark"] .mobile-trainer-info.mobile-trainer-info--daily .mti-kpi.left>i,
+  html.dark .mobile-trainer-info.mobile-trainer-info--daily .mti-kpi.left>i{
+    background:#25304d;
+    color:#91a8ff;
+  }
+}

@@ -16,9 +16,58 @@
   box-sizing:border-box;
 }
 
+/* Daily Session completion is the only toast intentionally centered on screen. */
+.toast-root.toast-root--daily-complete{
+  top:39%;
+  bottom:auto;
+  transform:translateY(-50%);
+  padding:0 16px;
+}
+.toast-root.toast-root--daily-complete .toast{
+  --toast-accent:#2b8cff;
+  width:min(600px,calc(100vw - 32px));
+  max-width:600px;
+  min-height:104px;
+  padding:20px 24px 20px 70px;
+  border:1px solid rgba(43,140,255,.40);
+  border-radius:20px;
+  background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(244,249,255,.99));
+  color:#172235;
+  box-shadow:0 22px 58px rgba(27,68,116,.22),0 0 0 1px rgba(255,255,255,.8) inset;
+  font-size:15px;
+  font-weight:700;
+  line-height:1.55;
+  letter-spacing:.01em;
+  text-align:left;
+  white-space:pre-line;
+  justify-content:flex-start;
+}
+.toast-root.toast-root--daily-complete .toast::before{
+  content:"✓";
+  left:20px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:linear-gradient(145deg,#218cff,#6277f0);
+  color:#fff;
+  font-size:19px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 8px 20px rgba(43,140,255,.28);
+}
+html[data-theme="dark"] .toast-root.toast-root--daily-complete .toast,
+html.dark .toast-root.toast-root--daily-complete .toast{
+  background:linear-gradient(145deg,rgba(18,31,47,.99),rgba(25,39,59,.99));
+  border-color:rgba(80,161,255,.42);
+  color:#edf5ff;
+  box-shadow:0 24px 64px rgba(0,0,0,.44),0 0 0 1px rgba(111,181,255,.05) inset;
+}
+
 .toast{
   --toast-accent:#5b7cfa;
-  pointer-events:auto;
+  pointer-events:none;
   position:relative;
   width:auto;
   max-width:min(520px,92vw);
@@ -104,6 +153,26 @@ html.dark .toast{
     left:13px;
     width:9px;
     height:9px;
+  }
+}
+
+@media (max-width:899px){
+  .toast-root.toast-root--daily-complete{top:38%}
+  .toast-root.toast-root--daily-complete .toast{
+    width:calc(100vw - 30px);
+    max-width:560px;
+    min-height:108px;
+    padding:20px 18px 20px 64px;
+    border-radius:18px;
+    font-size:14px;
+    line-height:1.55;
+  }
+  .toast-root.toast-root--daily-complete .toast::before{
+    left:16px;
+    width:32px;
+    height:32px;
+    border-radius:10px;
+    font-size:18px;
   }
 }
 
