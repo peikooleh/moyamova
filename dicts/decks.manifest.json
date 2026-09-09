@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedFrom": "MOYAMOVA 1.5.1 JS decks + EN QA-FINAL APP-READY EXPANDED 2026-09-08",
-  "deckCount": 36,
-  "totalWords": 6657,
+  "generatedFrom": "MOYAMOVA 1.5.1 JS decks + EN QA-FINAL APP-READY EXPANDED 2026-09-08 + FR 2026-09-09",
+  "deckCount": 45,
+  "totalWords": 9325,
   "decks": [
     {
       "key": "de_nouns",
@@ -327,6 +327,87 @@
       "partOfSpeech": "particles",
       "group": "base",
       "sourceFile": "deck.sr.js"
+    },
+    {
+      "key": "fr_nouns",
+      "file": "dicts/data/fr/nouns.json",
+      "count": 1215,
+      "language": "fr",
+      "partOfSpeech": "nouns",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_verbs",
+      "file": "dicts/data/fr/verbs.json",
+      "count": 845,
+      "language": "fr",
+      "partOfSpeech": "verbs",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_adjectives",
+      "file": "dicts/data/fr/adjectives.json",
+      "count": 225,
+      "language": "fr",
+      "partOfSpeech": "adjectives",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_adverbs",
+      "file": "dicts/data/fr/adverbs.json",
+      "count": 131,
+      "language": "fr",
+      "partOfSpeech": "adverbs",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_prepositions",
+      "file": "dicts/data/fr/prepositions.json",
+      "count": 92,
+      "language": "fr",
+      "partOfSpeech": "prepositions",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_conjunctions",
+      "file": "dicts/data/fr/conjunctions.json",
+      "count": 40,
+      "language": "fr",
+      "partOfSpeech": "conjunctions",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_particles",
+      "file": "dicts/data/fr/particles.json",
+      "count": 15,
+      "language": "fr",
+      "partOfSpeech": "particles",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_pronouns",
+      "file": "dicts/data/fr/pronouns.json",
+      "count": 45,
+      "language": "fr",
+      "partOfSpeech": "pronouns",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
+    },
+    {
+      "key": "fr_numbers",
+      "file": "dicts/data/fr/numbers.json",
+      "count": 60,
+      "language": "fr",
+      "partOfSpeech": "numbers",
+      "group": "base",
+      "sourceFile": "deck.fr.js"
     }
   ]
 }
