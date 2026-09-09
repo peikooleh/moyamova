@@ -26,7 +26,7 @@
     if (saved && baseKeys().some(x=>langOf(x)===saved)) return saved;
     return baseKeys().some(x=>langOf(x)==='de') ? 'de' : (langOf(baseKeys()[0]) || 'de');
   }
-  function languageName(lg){ const m={de:'Deutsch',en:'English',sr:'Srpski'}; return m[lg] || String(lg||'').toUpperCase(); }
+  function languageName(lg){ const m={de:'Deutsch',en:'English',fr:'Français',sr:'Srpski'}; return m[lg] || String(lg||'').toUpperCase(); }
   function starValue(key,w){ try { return Number((A.state&&A.state.stars&&A.state.stars[A.starKey(w.id,key)])||0); } catch(_){ return 0; } }
 
   // Home must not force every deck payload to load just to draw counters.

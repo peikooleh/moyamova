@@ -1746,7 +1746,7 @@ function activeDeckKey() {
       try { return (A.Decks && A.Decks.langOfKey) ? (A.Decks.langOfKey(key) || 'de') : String(key||'de').split('_')[0]; }
       catch(_) { return 'de'; }
     })();
-    const __trainerLangName = ({de:'Deutsch',en:'English',sr:'Srpski'})[__trainerLearnLang] || String(__trainerLearnLang||'').toUpperCase();
+    const __trainerLangName = ({de:'Deutsch',en:'English',fr:'Français',sr:'Srpski'})[__trainerLearnLang] || String(__trainerLearnLang||'').toUpperCase();
     const __navT = getUiLang()==='uk'
       ? {home:'Головна',trainer:'Тренажер',dicts:'Словники',errors:'Помилки',fav:'Вибране',stats:'Статистика'}
       : {home:'Главная',trainer:'Тренажёр',dicts:'Словари',errors:'Ошибки',fav:'Избранное',stats:'Статистика'};
